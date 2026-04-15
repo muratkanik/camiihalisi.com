@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { ShieldAlert, LogIn, ArrowRight } from "lucide-react";
 import { loginAction } from "./actions";
 
@@ -8,13 +7,6 @@ export default async function LoginPage({
   searchParams: Promise<{ error?: string }>;
 }) {
   const { error } = await searchParams;
-
-  const handleLogin = async (formData: FormData) => {
-    "use server";
-    const res = await loginAction(formData);
-    if (res.error) redirect(`?error=${encodeURIComponent(res.error)}`);
-    if (res.success) redirect("/admin");
-  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-[#0D2418]">
@@ -50,7 +42,7 @@ export default async function LoginPage({
           </div>
         )}
 
-        <form action={handleLogin} className="space-y-5">
+        <form action={loginAction} className="space-y-5">
           <div>
             <label className="block text-sm font-medium text-white/70 mb-1.5">
               E-posta
