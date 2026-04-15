@@ -4,7 +4,7 @@ import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { Clock, ChevronRight, ArrowLeft, Tag } from "lucide-react";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import { getBlogPost, getRelatedPosts, BLOG_POSTS } from "@/lib/blog-data";

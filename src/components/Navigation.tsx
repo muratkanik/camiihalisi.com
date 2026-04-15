@@ -5,10 +5,12 @@ import Link from "next/link";
 import { Menu, X, ExternalLink, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
 
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=topnav&utm_campaign=site";
-const WA_URL = "https://wa.me/905325551234?text=Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.";
+const DEFAULT_WA_URL = "https://wa.me/905323467939?text=Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.";
 
 interface NavProps {
   locale: string;
+  waUrl?: string;
+  phone?: string;
 }
 
 const CARPET_MENU = [
@@ -82,7 +84,10 @@ const TOP_NAV = [
   { href: "/iletisim", label: "İletişim" },
 ];
 
-export default function Navigation({ locale }: NavProps) {
+export default function Navigation({ locale, waUrl, phone }: NavProps) {
+  const WA_URL = waUrl ?? DEFAULT_WA_URL;
+  const PHONE = phone ?? "+90 532 346 79 39";
+  const PHONE_HREF = PHONE.replace(/\s/g, "");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [carpetOpen, setCarpetOpen] = useState(false);
@@ -129,14 +134,14 @@ export default function Navigation({ locale }: NavProps) {
           <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:underline">
             <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
           </a>
-          <a href="https://www.instagram.com/asilhali" target="_blank" rel="noopener noreferrer" className="hover:underline">
+          <a href="https://www.instagram.com/asilcarpet" target="_blank" rel="noopener noreferrer" className="hover:underline">
             Instagram
           </a>
-          <a href="https://www.linkedin.com/company/asilhali" target="_blank" rel="noopener noreferrer" className="hover:underline">
+          <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="hover:underline">
             LinkedIn
           </a>
-          <a href="tel:+905325551234" className="flex items-center gap-1 hover:underline">
-            <Phone className="w-3.5 h-3.5" /> +90 532 555 12 34
+          <a href={`tel:${PHONE_HREF}`} className="flex items-center gap-1 hover:underline">
+            <Phone className="w-3.5 h-3.5" /> {PHONE}
           </a>
         </div>
       </div>
@@ -442,10 +447,10 @@ export default function Navigation({ locale }: NavProps) {
 
               {/* Sosyal linkler mobil */}
               <div className="flex gap-2 px-4 py-3 mt-1 border-t border-[#DDD8CE]">
-                <a href="https://www.instagram.com/asilhali" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#DDD8CE]">
+                <a href="https://www.instagram.com/asilcarpet/" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#DDD8CE]">
                   Instagram
                 </a>
-                <a href="https://www.linkedin.com/company/asilhali" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#DDD8CE]">
+                <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#DDD8CE]">
                   LinkedIn
                 </a>
               </div>

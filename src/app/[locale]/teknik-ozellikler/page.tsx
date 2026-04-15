@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ChevronRight, ExternalLink } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 

@@ -3,7 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { Clock, ArrowRight, ChevronRight } from "lucide-react";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blog-data";

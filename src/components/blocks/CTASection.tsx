@@ -77,7 +77,7 @@ export default function CTASection({
               <ExternalLink className="w-4 h-4" />
             </a>
             <a
-              href="tel:+902125551234"
+              href="tel:+905323467939"
               className={`btn text-base !px-8 !py-3.5 ${
                 isGreen ? "btn-outline" : "btn-outline-dark"
               }`}

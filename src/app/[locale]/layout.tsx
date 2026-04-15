@@ -169,11 +169,11 @@ export default async function LocaleLayout({
               address: {
                 "@type": "PostalAddress",
                 addressCountry: "TR",
-                addressLocality: "İstanbul",
+                addressLocality: "Kayseri",
               },
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+90-212-555-1234",
+                telephone: "+90-532-346-79-39",
                 contactType: "customer service",
                 availableLanguage: ["Turkish", "Arabic", "English"],
               },

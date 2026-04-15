@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Check, ExternalLink, ChevronRight } from "lucide-react";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import FAQSection from "@/components/blocks/FAQSection";
@@ -1128,7 +1128,7 @@ export default async function KategoriPage({
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                   <a
-                    href="tel:+902125551234"
+                    href="tel:+905323467939"
                     className="btn btn-outline w-full justify-center text-sm mt-3"
                   >
                     Hemen Arayın

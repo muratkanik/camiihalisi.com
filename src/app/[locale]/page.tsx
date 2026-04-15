@@ -3,9 +3,10 @@ import { setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/blocks/HeroSection";
+import { getSettings } from "@/lib/settings";
 import StatsSection from "@/components/blocks/StatsSection";
 import CategoryGrid from "@/components/blocks/CategoryGrid";
 import FeatureGrid from "@/components/blocks/FeatureGrid";
@@ -53,6 +54,8 @@ export default async function HomePage({
 
   setRequestLocale(locale);
 
+  const settings = await getSettings();
+
   // JSON-LD: BreadcrumbList için ana sayfa
   const breadcrumbLD = {
     "@context": "https://schema.org",
@@ -79,7 +82,7 @@ export default async function HomePage({
 
       <main id="main-content">
         {/* 1. Hero Bölümü */}
-        <HeroSection />
+        <HeroSection content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
 
         {/* 2. İstatistikler */}
         <StatsSection />

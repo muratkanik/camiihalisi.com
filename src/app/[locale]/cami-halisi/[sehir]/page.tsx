@@ -4,14 +4,14 @@ import { ChevronRight, ExternalLink, Phone, MessageCircle, Check } from "lucide-
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import { ALL_CITIES, getCityBySlug } from "@/lib/cities";
 
 const SITE_URL = "https://camiihalisi.com";
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=sehir";
-const WA_URL = "https://wa.me/905325551234?text=Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.";
+const WA_URL = "https://wa.me/905323467939?text=Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.";
 
 export async function generateMetadata({
   params,
@@ -171,7 +171,7 @@ export default async function SehirCamiHalisiPage({
                     WhatsApp ile Sor
                   </a>
                   <a
-                    href="tel:+905325551234"
+                    href="tel:+905323467939"
                     className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-5 rounded-xl transition-colors border border-white/20"
                   >
                     <Phone className="w-5 h-5" />

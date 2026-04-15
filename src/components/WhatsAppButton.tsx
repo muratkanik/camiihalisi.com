@@ -1,11 +1,12 @@
-"use client";
+import { getSettings, buildWaUrl } from "@/lib/settings";
 
-const WA_URL = "https://wa.me/905325551234?text=Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.";
+export default async function WhatsAppButton() {
+  const settings = await getSettings();
+  const waUrl = buildWaUrl(settings);
 
-export default function WhatsAppButton() {
   return (
     <a
-      href={WA_URL}
+      href={waUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp ile iletişim"

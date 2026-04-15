@@ -4,14 +4,14 @@ import { ChevronRight, ExternalLink, MessageCircle, Check } from "lucide-react";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import { INTL_CITIES, getIntlCitiesForLocale } from "@/lib/cities-international";
 
 const SITE_URL = "https://camiihalisi.com";
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=intl-city";
-const WA_URL = "https://wa.me/905325551234?text=Hello%2C%20I%20would%20like%20information%20about%20mosque%20carpets.";
+const WA_URL = "https://wa.me/905323467939?text=Hello%2C%20I%20would%20like%20information%20about%20mosque%20carpets.";
 
 function getCityBySlug(slug: string) {
   return INTL_CITIES.find((c) => c.slug === slug);
@@ -119,7 +119,7 @@ export default async function IntlMosqueCarpetPage({
   const advantages = isAr ? ADVANTAGES_AR : ADVANTAGES_EN;
 
   const waUrl = isAr
-    ? "https://wa.me/905325551234?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA%20%D8%B9%D9%86%20%D8%B3%D8%AC%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B3%D8%A7%D8%AC%D8%AF."
+    ? "https://wa.me/905323467939?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D9%85%D8%B9%D9%84%D9%88%D9%85%D8%A7%D8%AA%20%D8%B9%D9%86%20%D8%B3%D8%AC%D8%A7%D8%AF%20%D8%A7%D9%84%D9%85%D8%B3%D8%A7%D8%AC%D8%AF."
     : WA_URL;
 
   const h1 = isAr

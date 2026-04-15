@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, Phone, Mail, MapPin, ExternalLink, Send, Clock } from "lucide-react";
 
-import Navigation from "@/components/Navigation";
+import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=iletisim";
@@ -13,8 +13,8 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     title: "Telefon",
-    lines: ["+90 (212) 555 12 34", "+90 (532) 555 56 78"],
-    href: "tel:+902125551234",
+    lines: ["+90 532 346 79 39"],
+    href: "tel:+905323467939",
     cta: "Hemen Ara",
   },
   {
@@ -27,8 +27,8 @@ const CONTACT_INFO = [
   {
     icon: MapPin,
     title: "Adres",
-    lines: ["Asil Halı Fabrika ve Showroom", "İkitelli OSB, İstanbul"],
-    href: "https://maps.google.com",
+    lines: ["Asil Halı Fabrika ve Showroom", "Melikgazi, Kayseri"],
+    href: "https://maps.google.com/?q=Asil+Hali+Kayseri",
     cta: "Haritada Gör",
   },
   {
@@ -110,7 +110,7 @@ export default function IletisimPage() {
                       <p className="text-[#6B6355] leading-relaxed">
                         En kısa sürede sizinle iletişime geçeceğiz. Daha hızlı yanıt için{" "}
                         <a
-                          href="tel:+902125551234"
+                          href="tel:+905323467939"
                           className="text-[#1B4332] font-semibold underline"
                         >
                           bizi arayabilirsiniz
