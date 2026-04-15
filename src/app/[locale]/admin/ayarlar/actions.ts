@@ -1,8 +1,10 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { ALL_SETTING_KEYS } from "@/lib/settings";
 
-export async function saveSettingsAction(formData: FormData) {
+// Returns void — required by Next.js form action type
+export async function saveSettingsAction(formData: FormData): Promise<void> {
   try {
     const { PrismaClient } = await import("@prisma/client");
     const prisma = new PrismaClient();
@@ -19,9 +21,10 @@ export async function saveSettingsAction(formData: FormData) {
     await Promise.all(updates);
     await prisma.$disconnect();
 
-    return { success: true };
+    // Invalidate cached settings across the site
+    revalidatePath("/", "layout");
   } catch (err) {
     console.error("saveSettingsAction error:", err);
-    return { success: false, error: "Kayıt sırasında hata oluştu." };
+    // Can't return error from void action — log only
   }
 }
