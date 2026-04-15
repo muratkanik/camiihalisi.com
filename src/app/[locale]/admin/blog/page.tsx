@@ -9,7 +9,6 @@ export default async function BlogAdminPage() {
 
   return (
     <div>
-      {/* Header */}
       <div className="flex items-start justify-between mb-8">
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Blog Yazıları</h1>
@@ -20,6 +19,7 @@ export default async function BlogAdminPage() {
         <a
           href="/blog"
           target="_blank"
+          rel="noopener"
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
         >
           <ExternalLink className="w-4 h-4" />
@@ -27,7 +27,6 @@ export default async function BlogAdminPage() {
         </a>
       </div>
 
-      {/* Category filter groups */}
       {BLOG_CATEGORIES.filter((c) => c !== "Tümü").map((cat) => {
         const catPosts = posts.filter((p) => p.category === cat);
         if (catPosts.length === 0) return null;
@@ -36,7 +35,8 @@ export default async function BlogAdminPage() {
             <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest flex items-center gap-2">
                 <BookOpen className="w-4 h-4" />
-                {cat} <span className="text-xs font-normal text-slate-400 ml-1">({catPosts.length} yazı)</span>
+                {cat}
+                <span className="text-xs font-normal text-slate-400 ml-1">({catPosts.length} yazı)</span>
               </h2>
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -48,7 +48,6 @@ export default async function BlogAdminPage() {
         );
       })}
 
-      {/* Uncategorized */}
       {(() => {
         const others = posts.filter((p) => !BLOG_CATEGORIES.includes(p.category));
         if (others.length === 0) return null;
@@ -57,7 +56,8 @@ export default async function BlogAdminPage() {
             <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50">
               <h2 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest flex items-center gap-2">
                 <BookOpen className="w-4 h-4" />
-                Diğer <span className="text-xs font-normal text-slate-400 ml-1">({others.length} yazı)</span>
+                Diğer
+                <span className="text-xs font-normal text-slate-400 ml-1">({others.length} yazı)</span>
               </h2>
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -76,7 +76,6 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
   return (
     <details className="group">
       <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none">
-        {/* Thumbnail */}
         <div className="w-14 h-10 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 border border-slate-200 dark:border-slate-700">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
@@ -101,11 +100,12 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* External link — no onClick needed in Server Component */}
           <a
             href={`/blog/${post.slug}`}
             target="_blank"
+            rel="noopener"
             className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all"
-            onClick={(e) => e.stopPropagation()}
           >
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
@@ -113,9 +113,9 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
         </div>
       </summary>
 
-      {/* Edit form */}
-      <div className="px-6 pb-6 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
-        <form action={saveBlogPostAction} className="space-y-4 pt-4">
+      {/* Save form */}
+      <div className="px-6 pt-4 pb-2 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
+        <form action={saveBlogPostAction} className="space-y-4">
           <input type="hidden" name="slug" value={post.slug} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -131,14 +131,11 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
             <Field label="Okuma Süresi" name="readTime" defaultValue={post.readTime} placeholder="3 dk" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Field label="Yayın Tarihi" name="publishedAt" defaultValue={post.publishedAt} placeholder="2025-01-15" />
-          </div>
-
+          <Field label="Yayın Tarihi" name="publishedAt" defaultValue={post.publishedAt} placeholder="2025-01-15" />
           <Field label="SEO Başlık (metaTitle)" name="metaTitle" defaultValue={post.metaTitle} />
           <Field label="SEO Açıklama (metaDescription)" name="metaDescription" defaultValue={post.metaDescription} type="textarea" />
 
-          <div className="flex items-center gap-3 pt-2">
+          <div className="pb-2">
             <button
               type="submit"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all"
@@ -146,21 +143,25 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
               <Save className="w-4 h-4" />
               Kaydet
             </button>
-            {post.hasOverride && (
-              <form action={resetBlogPostAction} className="inline">
-                <input type="hidden" name="slug" value={post.slug} />
-                <button
-                  type="submit"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  Sıfırla
-                </button>
-              </form>
-            )}
           </div>
         </form>
       </div>
+
+      {/* Reset form — separate, outside save form */}
+      {post.hasOverride && (
+        <div className="px-6 pb-4 bg-slate-50/50 dark:bg-slate-800/20">
+          <form action={resetBlogPostAction}>
+            <input type="hidden" name="slug" value={post.slug} />
+            <button
+              type="submit"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              Varsayılana Sıfırla
+            </button>
+          </form>
+        </div>
+      )}
     </details>
   );
 }

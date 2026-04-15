@@ -5,13 +5,12 @@ export const dynamic = "force-dynamic";
 
 export default async function KategorilerAdminPage() {
   const categories = await getCategories();
-  const mainCategories = categories.filter((c) => !c.slug.includes("-") ||
-    ["akrilik-cami-halisi","yun-cami-halisi","polipropilen-cami-halisi","polyamid-cami-halisi","ozel-desen-axminster-cami-halisi"].includes(c.slug));
-  const subCategories = categories.filter((c) => !mainCategories.find(m => m.slug === c.slug));
+  const mainSlugs = ["akrilik-cami-halisi","yun-cami-halisi","polipropilen-cami-halisi","polyamid-cami-halisi","ozel-desen-axminster-cami-halisi"];
+  const mainCategories = categories.filter((c) => mainSlugs.includes(c.slug));
+  const subCategories = categories.filter((c) => !mainSlugs.includes(c.slug));
 
   return (
     <div>
-      {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Kategori Yönetimi</h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">
@@ -19,7 +18,6 @@ export default async function KategorilerAdminPage() {
         </p>
       </div>
 
-      {/* Main Categories */}
       <Section title="Ana Kategoriler" icon={<Package className="w-4 h-4" />}>
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {mainCategories.map((cat) => (
@@ -28,7 +26,6 @@ export default async function KategorilerAdminPage() {
         </div>
       </Section>
 
-      {/* Sub Categories */}
       <Section title="Alt Kategoriler" icon={<ChevronRight className="w-4 h-4" />}>
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {subCategories.map((cat) => (
@@ -58,7 +55,6 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
   return (
     <details className="group" id={`cat-${cat.slug}`}>
       <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none">
-        {/* Preview image */}
         <div className={`rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 border border-slate-200 dark:border-slate-700 ${isSubcategory ? "w-10 h-8" : "w-14 h-10"}`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={cat.image} alt={cat.title} className="w-full h-full object-cover" />
@@ -82,11 +78,12 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
+          {/* External link — opens in new tab, no onClick needed */}
           <a
             href={`/kategori/${cat.slug}`}
             target="_blank"
+            rel="noopener"
             className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all"
-            onClick={(e) => e.stopPropagation()}
           >
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
@@ -94,9 +91,9 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
         </div>
       </summary>
 
-      {/* Edit form */}
-      <div className="px-6 pb-6 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
-        <form action={saveCategoryAction} className="space-y-4 pt-4">
+      {/* Save form */}
+      <div className="px-6 pt-4 pb-2 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
+        <form action={saveCategoryAction} className="space-y-4">
           <input type="hidden" name="slug" value={cat.slug} />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -104,13 +101,7 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
             <Field label="Rozet" name="badge" defaultValue={cat.badge} placeholder="Örn: En Çok Satan" />
           </div>
 
-          <Field
-            label="Açıklama"
-            name="description"
-            defaultValue={cat.description}
-            placeholder="Kategori açıklaması"
-            type="textarea"
-          />
+          <Field label="Açıklama" name="description" defaultValue={cat.description} placeholder="Kategori açıklaması" type="textarea" />
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Field label="Görsel URL" name="image" defaultValue={cat.image} placeholder="/images/cami-1.png" />
@@ -124,7 +115,7 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
             placeholder="Solmaz Renk, Yumuşak Doku, Ekonomik"
           />
 
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex items-center gap-2 pb-2">
             <button
               type="submit"
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all"
@@ -132,24 +123,28 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
               <Save className="w-4 h-4" />
               Kaydet
             </button>
-            {cat.hasOverride && (
-              <form action={resetCategoryAction} className="inline">
-                <input type="hidden" name="slug" value={cat.slug} />
-                <button
-                  type="submit"
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  Sıfırla
-                </button>
-              </form>
-            )}
-            <span className="text-xs text-slate-400 ml-auto">
-              Slug: <code className="font-mono bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded">{cat.slug}</code>
+            <span className="text-xs text-slate-400 ml-auto font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+              {cat.slug}
             </span>
           </div>
         </form>
       </div>
+
+      {/* Reset form — separate, outside save form */}
+      {cat.hasOverride && (
+        <div className="px-6 pb-4 bg-slate-50/50 dark:bg-slate-800/20">
+          <form action={resetCategoryAction}>
+            <input type="hidden" name="slug" value={cat.slug} />
+            <button
+              type="submit"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              Varsayılana Sıfırla
+            </button>
+          </form>
+        </div>
+      )}
     </details>
   );
 }
