@@ -1,10 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-
-const prisma = new PrismaClient();
 
 export async function loginAction(formData: FormData) {
   const email = formData.get("email") as string;
@@ -12,21 +9,32 @@ export async function loginAction(formData: FormData) {
 
   if (!email || !password) return { error: "Email ve şifre gereklidir." };
 
-  const user = await prisma.user.findUnique({ where: { email } });
-  if (!user) return { error: "Kullanıcı bulunamadı." };
+  try {
+    // Lazy import to avoid module-level crash if DB is unreachable
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
 
-  const valid = await bcrypt.compare(password, user.passwordHash);
-  if (!valid) return { error: "Şifre yanlış." };
+    const user = await prisma.user.findUnique({ where: { email } });
+    await prisma.$disconnect();
 
-  const cookieStore = await cookies();
-  cookieStore.set("auth_token", user.id + "-secure-token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24 // 1 day
-  });
+    if (!user) return { error: "Kullanıcı bulunamadı." };
 
-  return { success: true };
+    const valid = await bcrypt.compare(password, user.passwordHash);
+    if (!valid) return { error: "Şifre yanlış." };
+
+    const cookieStore = await cookies();
+    cookieStore.set("auth_token", user.id + "-secure-token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge: 60 * 60 * 24,
+    });
+
+    return { success: true };
+  } catch (err) {
+    console.error("Login error:", err);
+    return { error: "Sunucu hatası. Lütfen tekrar deneyin." };
+  }
 }
 
 export async function logoutAction() {
