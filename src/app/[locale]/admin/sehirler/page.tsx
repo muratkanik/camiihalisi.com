@@ -172,8 +172,7 @@ export default async function SehirlerPage({
                         <input type="hidden" name="id" value={kw.id} />
                         <button type="submit"
                           title="Sil"
-                          className="p-1.5 rounded-lg hover:bg-red-50 text-[#6B6355] hover:text-red-600 transition-colors"
-                          onClick={(e) => { if (!confirm("Bu keyword'ü silmek istiyor musunuz?")) e.preventDefault(); }}>
+                          className="p-1.5 rounded-lg hover:bg-red-50 text-[#6B6355] hover:text-red-600 transition-colors">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </form>

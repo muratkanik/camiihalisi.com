@@ -92,11 +92,11 @@ export default async function HeroAdminPage() {
                 {/* Preview */}
                 <div className="w-20 h-14 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 border border-slate-200 dark:border-slate-700">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={slide.imageUrl}
                     alt={slide.alt}
                     className="w-full h-full object-cover"
-                    onError={() => {}}
                   />
                 </div>
 
