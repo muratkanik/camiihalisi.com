@@ -114,7 +114,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
 
     // ── SEO Score ──────────────────────────────────────────────────────────
     const origPost = BLOG_POSTS.find((p) => p.slug === slug);
-    const mergedOverride = overrides.find((o) => o.slug === slug) ?? {};
+    const mergedOverride = (overrides.find((o) => o.slug === slug) ?? {}) as Partial<BlogOverride>;
     const kw = seoKeyword || mergedOverride.seoKeyword || origPost?.tags?.[0] || "cami halısı";
     const seoScore = scorePage({
       keyword: kw,
