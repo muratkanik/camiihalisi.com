@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.4.0",
+    "@vercel/blob": "^0.27.0",
     "@prisma/client": "5",
     "@supabase/ssr": "^0.10.2",
     "@supabase/supabase-js": "^2.103.0",
