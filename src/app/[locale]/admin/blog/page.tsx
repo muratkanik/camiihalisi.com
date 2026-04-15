@@ -1,11 +1,13 @@
-import { getBlogPosts, saveBlogPostAction, resetBlogPostAction, BlogPostWithOverride } from "./actions";
+import { getBlogPosts, getBlogSeoScores, saveBlogPostAction, resetBlogPostAction, BlogPostWithOverride } from "./actions";
 import { BookOpen, ExternalLink, ChevronRight, RotateCcw, Save } from "lucide-react";
 import { BLOG_CATEGORIES } from "@/lib/blog-data";
+import SeoScoreBadge from "@/components/admin/SeoScoreBadge";
+import { SeoScoreResult } from "@/lib/seo-scorer";
 
 export const dynamic = "force-dynamic";
 
 export default async function BlogAdminPage() {
-  const posts = await getBlogPosts();
+  const [posts, scores] = await Promise.all([getBlogPosts(), getBlogSeoScores()]);
 
   return (
     <div>
@@ -13,7 +15,7 @@ export default async function BlogAdminPage() {
         <div>
           <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Blog Yazıları</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">
-            {posts.length} yazı · Başlık, açıklama ve meta etiketlerini düzenleyin.
+            {posts.length} yazı · Başlık, açıklama ve meta etiketlerini düzenleyin. SEO skoru kayıt sırasında otomatik hesaplanır.
           </p>
         </div>
         <a
@@ -41,7 +43,7 @@ export default async function BlogAdminPage() {
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {catPosts.map((post) => (
-                <BlogPostRow key={post.slug} post={post} />
+                <BlogPostRow key={post.slug} post={post} seoScore={scores[post.slug] ?? null} />
               ))}
             </div>
           </div>
@@ -62,7 +64,7 @@ export default async function BlogAdminPage() {
             </div>
             <div className="divide-y divide-slate-100 dark:divide-slate-800">
               {others.map((post) => (
-                <BlogPostRow key={post.slug} post={post} />
+                <BlogPostRow key={post.slug} post={post} seoScore={scores[post.slug] ?? null} />
               ))}
             </div>
           </div>
@@ -72,7 +74,7 @@ export default async function BlogAdminPage() {
   );
 }
 
-function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
+function BlogPostRow({ post, seoScore }: { post: BlogPostWithOverride; seoScore: SeoScoreResult | null }) {
   return (
     <details className="group">
       <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none">
@@ -90,17 +92,17 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
               </span>
             )}
           </div>
-          <div className="flex items-center gap-3 mt-0.5">
+          <div className="flex items-center gap-3 mt-0.5 flex-wrap">
             <span className="text-xs text-slate-400">{post.publishedAt}</span>
             <span className="text-xs text-slate-400">·</span>
             <span className="text-xs text-slate-400">{post.readTime}</span>
             <span className="text-xs text-slate-400">·</span>
             <span className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-500 px-1.5 py-0.5 rounded">{post.category}</span>
+            <SeoScoreBadge score={seoScore} compact />
           </div>
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* External link — no onClick needed in Server Component */}
           <a
             href={`/blog/${post.slug}`}
             target="_blank"
@@ -113,6 +115,13 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
         </div>
       </summary>
 
+      {/* SEO Score full breakdown */}
+      {seoScore && (
+        <div className="px-6 pt-4 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
+          <SeoScoreBadge score={seoScore} />
+        </div>
+      )}
+
       {/* Save form */}
       <div className="px-6 pt-4 pb-2 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
         <form action={saveBlogPostAction} className="space-y-4">
@@ -123,7 +132,8 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
             <Field label="Görsel URL" name="image" defaultValue={post.image} placeholder="/images/cami-katalog-01.png" />
           </div>
 
-          <Field label="Özet (excerpt)" name="excerpt" defaultValue={post.excerpt} type="textarea" />
+          <Field label="Özet (excerpt)" name="excerpt" defaultValue={post.excerpt} type="textarea" rows={2} />
+          <Field label="İçerik" name="content" defaultValue={post.content} type="textarea" rows={6} />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Field label="Kategori" name="category" defaultValue={post.category} placeholder="Rehber" />
@@ -131,9 +141,18 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
             <Field label="Okuma Süresi" name="readTime" defaultValue={post.readTime} placeholder="3 dk" />
           </div>
 
-          <Field label="Yayın Tarihi" name="publishedAt" defaultValue={post.publishedAt} placeholder="2025-01-15" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Field label="Yayın Tarihi" name="publishedAt" defaultValue={post.publishedAt} placeholder="2025-01-15" />
+            <Field
+              label="SEO Anahtar Kelime"
+              name="seoKeyword"
+              defaultValue={post.seoKeyword ?? post.tags?.[0] ?? ""}
+              placeholder="cami halısı"
+            />
+          </div>
+
           <Field label="SEO Başlık (metaTitle)" name="metaTitle" defaultValue={post.metaTitle} />
-          <Field label="SEO Açıklama (metaDescription)" name="metaDescription" defaultValue={post.metaDescription} type="textarea" />
+          <Field label="SEO Açıklama (metaDescription)" name="metaDescription" defaultValue={post.metaDescription} type="textarea" rows={2} />
 
           <div className="pb-2">
             <button
@@ -141,7 +160,7 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all"
             >
               <Save className="w-4 h-4" />
-              Kaydet
+              Kaydet &amp; SEO Hesapla
             </button>
           </div>
         </form>
@@ -167,16 +186,16 @@ function BlogPostRow({ post }: { post: BlogPostWithOverride }) {
 }
 
 function Field({
-  label, name, defaultValue, placeholder, type = "text",
+  label, name, defaultValue, placeholder, type = "text", rows = 3,
 }: {
-  label: string; name: string; defaultValue: string; placeholder?: string; type?: "text" | "textarea";
+  label: string; name: string; defaultValue: string; placeholder?: string; type?: "text" | "textarea"; rows?: number;
 }) {
   const cls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
   return (
     <div>
       <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">{label}</label>
       {type === "textarea" ? (
-        <textarea name={name} defaultValue={defaultValue} placeholder={placeholder} rows={3} className={`${cls} resize-y`} />
+        <textarea name={name} defaultValue={defaultValue} placeholder={placeholder} rows={rows} className={`${cls} resize-y`} />
       ) : (
         <input type="text" name={name} defaultValue={defaultValue} placeholder={placeholder} className={cls} />
       )}

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { BLOG_POSTS, BlogPost } from "@/lib/blog-data";
+import { scorePage, saveSeoScore, SeoScoreResult } from "@/lib/seo-scorer";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");
@@ -20,9 +21,10 @@ export interface BlogOverride {
   author?: string;
   publishedAt?: string;
   readTime?: string;
+  seoKeyword?: string;
 }
 
-export type BlogPostWithOverride = BlogPost & { hasOverride: boolean };
+export type BlogPostWithOverride = BlogPost & { hasOverride: boolean; seoKeyword?: string };
 
 export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
   const prisma = await getPrisma();
@@ -46,10 +48,28 @@ export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
   });
 }
 
+export async function getBlogSeoScores(): Promise<Record<string, SeoScoreResult | null>> {
+  const prisma = await getPrisma();
+  try {
+    const slugs = BLOG_POSTS.map((p) => p.slug);
+    const keys = slugs.map((s) => `seo_score_blog_${s}`);
+    const rows = await prisma.setting.findMany({ where: { key: { in: keys } } });
+    const result: Record<string, SeoScoreResult | null> = {};
+    for (const slug of slugs) {
+      const row = rows.find((r) => r.key === `seo_score_blog_${slug}`);
+      result[slug] = row ? (JSON.parse(row.value) as SeoScoreResult) : null;
+    }
+    return result;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
 export async function saveBlogPostAction(formData: FormData): Promise<void> {
   const slug = formData.get("slug") as string;
   const title = (formData.get("title") as string)?.trim();
   const excerpt = (formData.get("excerpt") as string)?.trim();
+  const content = (formData.get("content") as string)?.trim();
   const metaTitle = (formData.get("metaTitle") as string)?.trim();
   const metaDescription = (formData.get("metaDescription") as string)?.trim();
   const image = (formData.get("image") as string)?.trim();
@@ -57,6 +77,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
   const author = (formData.get("author") as string)?.trim();
   const publishedAt = (formData.get("publishedAt") as string)?.trim();
   const readTime = (formData.get("readTime") as string)?.trim();
+  const seoKeyword = (formData.get("seoKeyword") as string)?.trim();
 
   const prisma = await getPrisma();
   try {
@@ -67,6 +88,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
       slug,
       ...(title ? { title } : {}),
       ...(excerpt ? { excerpt } : {}),
+      ...(content ? { content } : {}),
       ...(metaTitle ? { metaTitle } : {}),
       ...(metaDescription ? { metaDescription } : {}),
       ...(image ? { image } : {}),
@@ -74,6 +96,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
       ...(author ? { author } : {}),
       ...(publishedAt ? { publishedAt } : {}),
       ...(readTime ? { readTime } : {}),
+      ...(seoKeyword ? { seoKeyword } : {}),
     };
 
     const idx = overrides.findIndex((o) => o.slug === slug);
@@ -88,6 +111,19 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
       update: { value: JSON.stringify(overrides) },
       create: { key: "blog_overrides", value: JSON.stringify(overrides) },
     });
+
+    // ── SEO Score ──────────────────────────────────────────────────────────
+    const origPost = BLOG_POSTS.find((p) => p.slug === slug);
+    const mergedOverride = overrides.find((o) => o.slug === slug) ?? {};
+    const kw = seoKeyword || mergedOverride.seoKeyword || origPost?.tags?.[0] || "cami halısı";
+    const seoScore = scorePage({
+      keyword: kw,
+      title: title || origPost?.title || "",
+      metaDescription: metaDescription || origPost?.metaDescription || "",
+      content: content || origPost?.content || "",
+      excerpt: excerpt || origPost?.excerpt || "",
+    });
+    await saveSeoScore(`blog_${slug}`, seoScore);
 
     revalidatePath("/blog", "layout");
   } finally {
@@ -107,6 +143,20 @@ export async function resetBlogPostAction(formData: FormData): Promise<void> {
       where: { key: "blog_overrides" },
       data: { value: JSON.stringify(updated) },
     });
+
+    // Recompute SEO score from original post data
+    const origPost = BLOG_POSTS.find((p) => p.slug === slug);
+    if (origPost) {
+      const seoScore = scorePage({
+        keyword: origPost.tags?.[0] || "cami halısı",
+        title: origPost.title,
+        metaDescription: origPost.metaDescription || "",
+        content: origPost.content,
+        excerpt: origPost.excerpt,
+      });
+      await saveSeoScore(`blog_${slug}`, seoScore);
+    }
+
     revalidatePath("/blog", "layout");
   } finally {
     await prisma.$disconnect();

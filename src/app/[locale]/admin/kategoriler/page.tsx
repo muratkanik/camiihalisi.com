@@ -1,10 +1,12 @@
-import { getCategories, saveCategoryAction, resetCategoryAction, CategoryWithOverride } from "./actions";
+import { getCategories, getCategorySeoScores, saveCategoryAction, resetCategoryAction, CategoryWithOverride } from "./actions";
 import { Package, ChevronRight, RotateCcw, Save, ExternalLink } from "lucide-react";
+import SeoScoreBadge from "@/components/admin/SeoScoreBadge";
+import { SeoScoreResult } from "@/lib/seo-scorer";
 
 export const dynamic = "force-dynamic";
 
 export default async function KategorilerAdminPage() {
-  const categories = await getCategories();
+  const [categories, scores] = await Promise.all([getCategories(), getCategorySeoScores()]);
   const mainSlugs = ["akrilik-cami-halisi","yun-cami-halisi","polipropilen-cami-halisi","polyamid-cami-halisi","ozel-desen-axminster-cami-halisi"];
   const mainCategories = categories.filter((c) => mainSlugs.includes(c.slug));
   const subCategories = categories.filter((c) => !mainSlugs.includes(c.slug));
@@ -14,14 +16,14 @@ export default async function KategorilerAdminPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Kategori Yönetimi</h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">
-          Kategorilerin başlık, açıklama, görsel ve özelliklerini düzenleyin. Değişiklikler anında yayınlanır.
+          Kategorilerin başlık, açıklama, görsel ve özelliklerini düzenleyin. SEO skoru kayıt sırasında otomatik hesaplanır.
         </p>
       </div>
 
       <Section title="Ana Kategoriler" icon={<Package className="w-4 h-4" />}>
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {mainCategories.map((cat) => (
-            <CategoryRow key={cat.slug} cat={cat} />
+            <CategoryRow key={cat.slug} cat={cat} seoScore={scores[cat.slug] ?? null} />
           ))}
         </div>
       </Section>
@@ -29,7 +31,7 @@ export default async function KategorilerAdminPage() {
       <Section title="Alt Kategoriler" icon={<ChevronRight className="w-4 h-4" />}>
         <div className="divide-y divide-slate-100 dark:divide-slate-800">
           {subCategories.map((cat) => (
-            <CategoryRow key={cat.slug} cat={cat} isSubcategory />
+            <CategoryRow key={cat.slug} cat={cat} seoScore={scores[cat.slug] ?? null} isSubcategory />
           ))}
         </div>
       </Section>
@@ -51,7 +53,11 @@ function Section({ title, icon, children }: { title: string; icon: React.ReactNo
   );
 }
 
-function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride; isSubcategory?: boolean }) {
+function CategoryRow({ cat, seoScore, isSubcategory = false }: {
+  cat: CategoryWithOverride;
+  seoScore: SeoScoreResult | null;
+  isSubcategory?: boolean;
+}) {
   return (
     <details className="group" id={`cat-${cat.slug}`}>
       <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none">
@@ -61,7 +67,7 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
         </div>
 
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span className="font-semibold text-slate-800 dark:text-white text-sm">{cat.title}</span>
             {cat.hasOverride && (
               <span className="text-xs bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 px-2 py-0.5 rounded-full font-medium">
@@ -74,11 +80,13 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-400 mt-0.5 truncate">/kategori/{cat.slug}</p>
+          <div className="flex items-center gap-3 mt-0.5 flex-wrap">
+            <p className="text-xs text-slate-400">/kategori/{cat.slug}</p>
+            <SeoScoreBadge score={seoScore} compact />
+          </div>
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0">
-          {/* External link — opens in new tab, no onClick needed */}
           <a
             href={`/kategori/${cat.slug}`}
             target="_blank"
@@ -91,6 +99,13 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
         </div>
       </summary>
 
+      {/* SEO Score full breakdown */}
+      {seoScore && (
+        <div className="px-6 pt-4 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
+          <SeoScoreBadge score={seoScore} />
+        </div>
+      )}
+
       {/* Save form */}
       <div className="px-6 pt-4 pb-2 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
         <form action={saveCategoryAction} className="space-y-4">
@@ -101,19 +116,23 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
             <Field label="Rozet" name="badge" defaultValue={cat.badge} placeholder="Örn: En Çok Satan" />
           </div>
 
-          <Field label="Açıklama" name="description" defaultValue={cat.description} placeholder="Kategori açıklaması" type="textarea" />
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Field label="Görsel URL" name="image" defaultValue={cat.image} placeholder="/images/cami-1.png" />
+            <Field label="SEO Anahtar Kelime" name="seoKeyword" defaultValue={cat.seoKeyword} placeholder="akrilik cami halısı" />
             <Field label="Renk (hex)" name="color" defaultValue={cat.color} placeholder="#1B4332" />
           </div>
 
-          <Field
-            label="Özellikler (virgülle ayırın)"
-            name="features"
-            defaultValue={cat.features.join(", ")}
-            placeholder="Solmaz Renk, Yumuşak Doku, Ekonomik"
-          />
+          <Field label="Açıklama (sayfa içeriği)" name="description" defaultValue={cat.description} placeholder="Kategori açıklaması" type="textarea" />
+          <Field label="SEO Meta Açıklama (160 karakter)" name="metaDescription" defaultValue={cat.metaDescription} placeholder="Google arama sonuçlarında görünen açıklama..." type="textarea" rows={2} />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Field label="Görsel URL" name="image" defaultValue={cat.image} placeholder="/images/cami-1.png" />
+            <Field
+              label="Özellikler (virgülle ayırın)"
+              name="features"
+              defaultValue={cat.features.join(", ")}
+              placeholder="Solmaz Renk, Yumuşak Doku, Ekonomik"
+            />
+          </div>
 
           <div className="flex items-center gap-2 pb-2">
             <button
@@ -121,7 +140,7 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all"
             >
               <Save className="w-4 h-4" />
-              Kaydet
+              Kaydet &amp; SEO Hesapla
             </button>
             <span className="text-xs text-slate-400 ml-auto font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
               {cat.slug}
@@ -150,16 +169,16 @@ function CategoryRow({ cat, isSubcategory = false }: { cat: CategoryWithOverride
 }
 
 function Field({
-  label, name, defaultValue, placeholder, type = "text",
+  label, name, defaultValue, placeholder, type = "text", rows = 3,
 }: {
-  label: string; name: string; defaultValue: string; placeholder?: string; type?: "text" | "textarea";
+  label: string; name: string; defaultValue: string; placeholder?: string; type?: "text" | "textarea"; rows?: number;
 }) {
   const cls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
   return (
     <div>
       <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">{label}</label>
       {type === "textarea" ? (
-        <textarea name={name} defaultValue={defaultValue} placeholder={placeholder} rows={3} className={`${cls} resize-y`} />
+        <textarea name={name} defaultValue={defaultValue} placeholder={placeholder} rows={rows} className={`${cls} resize-y`} />
       ) : (
         <input type="text" name={name} defaultValue={defaultValue} placeholder={placeholder} className={cls} />
       )}
