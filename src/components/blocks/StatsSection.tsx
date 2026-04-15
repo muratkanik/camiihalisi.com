@@ -12,7 +12,7 @@ interface Stat {
 const stats: Stat[] = [
   { value: 50, suffix: "+", label: "Yıl Tecrübe", description: "Cami halısı üretiminde" },
   { value: 10000, suffix: "+", label: "Cami", description: "Türkiye ve dünya genelinde" },
-  { value: 81, suffix: " İl", label: "Teslimat", description: "Kapıya teslim, tüm Türkiye" },
+  { value: 81, suffix: " Şehir", label: "Teslimat", description: "Kapıya teslim, tüm Türkiye" },
   { value: 100, suffix: "%", label: "Yerli Üretim", description: "Türkiye'de üretilmiş kalite" },
 ];
 
