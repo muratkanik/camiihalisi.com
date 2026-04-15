@@ -101,7 +101,7 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
 
           {/* Butonlar */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="/kategori/akrilik-cami-halisi" className="btn btn-gold !text-base !px-8 !py-4">
+            <a href="#kategoriler" className="btn btn-gold !text-base !px-8 !py-4">
               Koleksiyonları İncele
               <ArrowRight className="w-5 h-5" />
             </a>

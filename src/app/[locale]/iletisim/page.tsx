@@ -155,18 +155,48 @@ export default function IletisimPage() {
                           </div>
                         </div>
 
+                        <p className="text-xs text-[#6B6355] bg-[#F7F3EC] rounded-lg px-3 py-2 border border-[#DDD8CE]">
+                          Tüm alanlar isteğe bağlıdır. Dilediğiniz alanı boş bırakabilirsiniz.
+                        </p>
+
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              Adınız Soyadınız *
+                              Adınız Soyadınız
                             </label>
                             <input
                               type="text"
-                              required
                               value={form.name}
                               onChange={(e) => setForm({ ...form, name: e.target.value })}
                               className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="Adınız"
+                              placeholder="Adınız (isteğe bağlı)"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
+                              Telefon
+                            </label>
+                            <input
+                              type="tel"
+                              value={form.phone}
+                              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
+                              placeholder="05XX XXX XX XX (isteğe bağlı)"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
+                              E-posta
+                            </label>
+                            <input
+                              type="email"
+                              value={form.email}
+                              onChange={(e) => setForm({ ...form, email: e.target.value })}
+                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
+                              placeholder="e-posta (isteğe bağlı)"
                             />
                           </div>
                           <div>
@@ -178,36 +208,7 @@ export default function IletisimPage() {
                               value={form.mosque}
                               onChange={(e) => setForm({ ...form, mosque: e.target.value })}
                               className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="Cami adı"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              E-posta *
-                            </label>
-                            <input
-                              type="email"
-                              required
-                              value={form.email}
-                              onChange={(e) => setForm({ ...form, email: e.target.value })}
-                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="ornek@email.com"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              Telefon *
-                            </label>
-                            <input
-                              type="tel"
-                              required
-                              value={form.phone}
-                              onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="05XX XXX XX XX"
+                              placeholder="Cami adı (isteğe bağlı)"
                             />
                           </div>
                         </div>

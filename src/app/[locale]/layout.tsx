@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -203,6 +204,7 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           {children}
+          <WhatsAppButton />
         </NextIntlClientProvider>
       </body>
     </html>
