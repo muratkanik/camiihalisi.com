@@ -11,19 +11,20 @@ const SITE_URL = "https://camiihalisi.com";
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=hakkimizda";
 
 export const metadata: Metadata = {
-  title: "Hakkımızda | Asil Halı A.Ş. – 50 Yılı Aşkın Cami Halısı Tecrübesi",
+  title: "Hakkımızda | Asil Halı A.Ş. – 1940'tan Bu Yana Cami Halısı Ustası",
   description:
-    "Asil Halı A.Ş., 50 yılı aşkın tecrübesiyle Türkiye'nin önde gelen cami halısı üreticisidir. Tarihimiz, değerlerimiz ve misyonumuz hakkında bilgi alın.",
+    "Asil Halı A.Ş., 1940'tan bu yana Kayseri'de cami halısı üretmektedir. 80+ yıl tecrübe, 10.000+ cami referansı. Tarihimiz, değerlerimiz ve misyonumuz hakkında bilgi alın.",
   alternates: { canonical: `${SITE_URL}/hakkimizda` },
 };
 
 const MILESTONES = [
-  { year: "1970", text: "Asil Halı, İstanbul'da küçük bir atölyeyle cami halısı üretimine başladı." },
-  { year: "1985", text: "İlk makine parkı yatırımı. Günlük üretim kapasitesi 10 kat arttı." },
-  { year: "1995", text: "ISO 9001 kalite sertifikası alındı. İhracat başladı." },
+  { year: "1940", text: "Asil Halı, Kayseri'de kuruluş. El tezgahlarıyla başlayan ustalık yolculuğu." },
+  { year: "1960", text: "Kayseri fabrikasında ilk mekanik tezgahlar. Üretim kapasitesi hızla artıyor." },
+  { year: "1980", text: "Cami halısı özel üretimine odaklanıldı. Türkiye'nin önde gelen üreticilerinden biri olundu." },
+  { year: "1995", text: "ISO 9001 kalite sertifikası alındı. Orta Doğu'ya ihracat başladı." },
   { year: "2005", text: "Modern fabrika tesisine taşındı. Yıllık 500.000 m² üretim kapasitesi." },
   { year: "2015", text: "Solution Dyed Nylon teknolojisiyle polyamid serisini piyasaya sundu." },
-  { year: "2024", text: "10.000+ cami referansı. Türkiye'nin dört bir yanında ve 15 ülkede teslimat." },
+  { year: "2024", text: "10.000+ cami referansı. Türkiye'nin 81 ilinde ve uluslararası projelerde teslimat." },
 ];
 
 const VALUES = [
@@ -85,10 +86,10 @@ export default async function HakkimizdaPage({
               className="text-4xl md:text-6xl font-bold text-white mb-4 max-w-3xl"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
-              50 Yılı Aşkın Tecrübeyle Türkiye'nin Cami Halısı Ustası
+              1940'tan Bu Yana Türkiye'nin Cami Halısı Ustası
             </h1>
             <p className="text-lg text-white/70 max-w-2xl">
-              1970'ten bu yana, her camiye yaraşır kaliteyle; inanç, emek ve ustalıkla üretiyoruz.
+              Kayseri'den dünyaya; 80 yılı aşkın ustalık, 10.000'i aşkın cami referansıyla ibadethane zeminlerinde.
             </p>
           </div>
         </section>
@@ -129,8 +130,8 @@ export default async function HakkimizdaPage({
               <div className="relative">
                 <div className="rounded-2xl overflow-hidden shadow-2xl">
                   <img
-                    src="/images/cami-3.png"
-                    alt="Asil Halı üretim tesisi"
+                    src="/images/hd-foto-01.jpg"
+                    alt="Asil Halı tamamlanan cami projesi"
                     className="w-full h-80 object-cover"
                   />
                 </div>
@@ -140,7 +141,7 @@ export default async function HakkimizdaPage({
                     className="text-4xl font-bold"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
-                    50+
+                    80+
                   </div>
                   <div className="text-sm font-semibold">Yıl Tecrübe</div>
                 </div>
@@ -206,6 +207,37 @@ export default async function HakkimizdaPage({
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Fotoğraf Galerisi ── */}
+        <section className="section bg-white">
+          <div className="container-site">
+            <div className="text-center mb-10">
+              <span className="badge badge-gold mb-4">Projelerimizden</span>
+              <h2 className="section-title mb-3">Tamamlanan Cami Halısı Projeleri</h2>
+              <div className="gold-line mx-auto" />
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {[
+                "/images/hd-foto-02.jpg", "/images/hd-foto-03.jpg", "/images/hd-foto-04.jpg", "/images/hd-foto-05.jpg",
+                "/images/hd-foto-06.jpg", "/images/hd-foto-07.jpg", "/images/hd-foto-08.jpg", "/images/hd-foto-09.jpg",
+                "/images/hd-foto-10.jpg", "/images/hd-foto-11.jpg", "/images/referans-bilecik.jpg", "/images/referans-esentepe.jpg",
+              ].map((src, i) => (
+                <div key={i} className="rounded-xl overflow-hidden aspect-square group">
+                  <img
+                    src={src}
+                    alt={`Tamamlanan cami halısı projesi ${i + 1}`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <a href={`${prefix}/galeri`} className="btn btn-gold">
+                Tüm Fotoğraf Galerisini Gör
+              </a>
             </div>
           </div>
         </section>

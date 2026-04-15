@@ -172,6 +172,76 @@ export default async function ReferanslarPage({
           </div>
         </section>
 
+        {/* Gerçekleştirilen Projelerden Görüntüler */}
+        <section className="section bg-white">
+          <div className="container-site">
+            <div className="text-center mb-12">
+              <span className="badge badge-gold mb-4">Görüntüler</span>
+              <h2 className="section-title">Gerçekleştirilen Projelerden Görüntüler</h2>
+              <div className="gold-line mx-auto mt-4" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+              {/* Bilecik Cami Projesi */}
+              <div className="relative group overflow-hidden rounded-xl">
+                <img
+                  src="/images/referans-bilecik.jpg"
+                  alt="Bilecik Cami Projesi"
+                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                  <p className="text-white font-semibold text-lg">Bilecik Cami Projesi</p>
+                </div>
+              </div>
+
+              {/* Esentepe Cami Projesi */}
+              <div className="relative group overflow-hidden rounded-xl">
+                <img
+                  src="/images/referans-esentepe.jpg"
+                  alt="Esentepe Cami Projesi"
+                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                  <p className="text-white font-semibold text-lg">Esentepe Cami Projesi</p>
+                </div>
+              </div>
+
+              {/* Panoramik Cami Görünümü */}
+              <div className="relative group overflow-hidden rounded-xl">
+                <img
+                  src="/images/panorama-cami.jpg"
+                  alt="Panoramik Cami Görünümü"
+                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                  <p className="text-white font-semibold text-lg">Panoramik Cami Görünümü</p>
+                </div>
+              </div>
+
+              {/* HD Fotoğraflar 01-09 */}
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                <div key={`hd-${num}`} className="relative group overflow-hidden rounded-xl">
+                  <img
+                    src={`/images/hd-foto-${String(num).padStart(2, "0")}.jpg`}
+                    alt="Tamamlanan Cami Halısı Projesi"
+                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                    <p className="text-white font-semibold text-sm">Tamamlanan Proje</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Galeri linki */}
+            <div className="text-center">
+              <a href={`${prefix}/galeri`} className="btn btn-primary inline-flex">
+                Tüm Galeriyi Gör
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+
         <CTASection variant="green" title="Caminiz İçin Referans Listesi İsteyin" subtitle="Bölgenizdeki tamamladığımız projeler hakkında bilgi almak için iletişime geçin." />
       </main>
 

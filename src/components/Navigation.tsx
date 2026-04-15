@@ -293,6 +293,9 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
               <Link href={`${prefix}/referanslar`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#EDE8DF] hover:text-[#1B4332] transition-colors">
                 Referanslar
               </Link>
+              <Link href={`${prefix}/galeri`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#EDE8DF] hover:text-[#1B4332] transition-colors">
+                Galeri
+              </Link>
               <Link href={`${prefix}/blog`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#EDE8DF] hover:text-[#1B4332] transition-colors">
                 Blog
               </Link>
@@ -434,6 +437,9 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
 
               <Link href={`${prefix}/referanslar`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#1B4332] hover:bg-[#EDE8DF] rounded-lg" onClick={() => setMobileOpen(false)}>
                 Referanslar
+              </Link>
+              <Link href={`${prefix}/galeri`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#1B4332] hover:bg-[#EDE8DF] rounded-lg" onClick={() => setMobileOpen(false)}>
+                Galeri
               </Link>
               <Link href={`${prefix}/blog`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#1B4332] hover:bg-[#EDE8DF] rounded-lg" onClick={() => setMobileOpen(false)}>
                 Blog

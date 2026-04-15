@@ -112,6 +112,7 @@ export default async function Footer({ locale }: FooterProps) {
               {[
                 { href: "/hakkimizda", label: "Hakkımızda" },
                 { href: "/referanslar", label: "Referanslar" },
+                { href: "/galeri", label: "Fotoğraf Galerisi" },
                 { href: "/teknik-ozellikler", label: "Teknik Özellikler" },
                 { href: "/blog", label: "Blog & Makaleler" },
                 { href: "/iletisim", label: "İletişim" },

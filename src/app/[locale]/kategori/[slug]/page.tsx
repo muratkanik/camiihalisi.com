@@ -32,6 +32,27 @@ interface CategoryData {
   relatedSlugs: string[];
 }
 
+const CATEGORY_IMAGES: Record<string, string> = {
+  "akrilik-cami-halisi": "/images/cami-katalog-01.png",
+  "safli-akrilik-cami-halisi": "/images/cami-katalog-02.png",
+  "gobekli-akrilik-cami-halisi": "/images/cami-katalog-03.png",
+  "seccadeli-akrilik-cami-halisi": "/images/cami-katalog-04.png",
+  "yun-cami-halisi": "/images/cami-katalog-05.png",
+  "safli-yun-cami-halisi": "/images/cami-katalog-06.png",
+  "gobekli-yun-cami-halisi": "/images/cami-katalog-07.png",
+  "seccadeli-yun-cami-halisi": "/images/cami-katalog-08.png",
+  "polipropilen-cami-halisi": "/images/cami-katalog-09.png",
+  "safli-polipropilen-cami-halisi": "/images/cami-katalog-10.png",
+  "gobekli-polipropilen-cami-halisi": "/images/cami-katalog-11.png",
+  "seccadeli-polipropilen-cami-halisi": "/images/cami-katalog-12.png",
+  "polyamid-cami-halisi": "/images/cami-katalog-13.png",
+  "safli-polyamid-cami-halisi": "/images/cami-katalog-14.png",
+  "gobekli-polyamid-cami-halisi": "/images/cami-katalog-15.png",
+  "seccadeli-polyamid-cami-halisi": "/images/cami-katalog-16.png",
+  "ozel-desen-axminster-cami-halisi": "/images/cami-katalog-17.png",
+  "kece-cami-halisi-altligi": "/images/cami-katalog-18.png",
+};
+
 const CATEGORIES: Record<string, CategoryData> = {
   "akrilik-cami-halisi": {
     slug: "akrilik-cami-halisi",
@@ -941,6 +962,9 @@ export default async function KategoriPage({
 
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
+  // Use mapped catalog image for hero, or fallback to default
+  const heroImage = CATEGORY_IMAGES[slug] || cat.heroImage;
+
   // JSON-LD: Product + BreadcrumbList
   const productLD = {
     "@context": "https://schema.org",
@@ -994,7 +1018,7 @@ export default async function KategoriPage({
         <section className="relative h-[60vh] min-h-[400px] max-h-[600px] flex items-end overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img
-              src={cat.heroImage}
+              src={heroImage}
               alt={cat.title}
               className="w-full h-full object-cover object-center"
             />
