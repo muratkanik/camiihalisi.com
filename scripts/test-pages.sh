@@ -87,16 +87,16 @@ done
 echo ""
 echo "━━━ Blog (ilk 10 yazı) ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 for slug in \
-  cami-halisi-cesitleri-ve-ozellikleri \
-  cami-halisi-nasil-secilir \
-  cami-halisi-bakimi \
-  akrilik-cami-halisi-ozellikleri \
-  yun-cami-halisi-avantajlari \
-  cami-halisi-fiyatlari \
-  cami-halisi-olculeri \
-  cami-halisi-temizligi \
-  cami-halisi-modelleri \
-  cami-halisi-montaji; do
+  bakim-plani-olmayan-cami-halilarinda-olusabilecek-riskler \
+  buyuk-camilerde-dogru-hali-secimi \
+  cami-halilarinda-erken-yipranmanin-asil-nedenleri \
+  cami-halisi-fiyati-maliyeti-etkileyen-temel-faktorler \
+  cami-halisi-seciminde-yapilan-yaygin-hatalar \
+  cami-halisi-uygulamasi-ve-montaji \
+  cami-mimarisi-hali-tasarimini-nasil-etkiler \
+  ozel-cami-halisi-tasarimi \
+  ucuz-cami-halisi-mi-dogru-cami-halisi-mi \
+  yun-akrilik-ve-polipropilen-cami-halilari; do
   check "/blog/$slug"
 done
 

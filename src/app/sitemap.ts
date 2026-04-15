@@ -6,7 +6,23 @@ import { CATEGORIES, getCategoryPriority } from "@/lib/categories";
 
 const SITE_URL = "https://camiihalisi.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// DB'den aktif keyword'leri çek (yoksa boş dizi döner)
+async function getActiveKeywords(): Promise<Array<{ citySlug: string; keywordSlug: string }>> {
+  try {
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+    const kws = await prisma.cityKeyword.findMany({
+      where: { isActive: true },
+      select: { citySlug: true, keywordSlug: true },
+    });
+    await prisma.$disconnect();
+    return kws;
+  } catch {
+    return [];
+  }
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -36,6 +52,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: city.type === "il" ? 0.8 : 0.6,
   }));
 
+  // Şehir+keyword kombinasyon sayfaları — Supabase'den otomatik
+  const activeKeywords = await getActiveKeywords();
+  const keywordPages: MetadataRoute.Sitemap = activeKeywords.map(({ citySlug, keywordSlug }) => ({
+    url: `${SITE_URL}/cami-halisi/${citySlug}/${keywordSlug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
   // Uluslararası sayfalar — src/lib/cities-international.ts'den otomatik
   const intlPages: MetadataRoute.Sitemap = INTL_CITIES.flatMap((city) =>
     city.locales.map((locale) => ({
@@ -54,5 +79,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...categoryPages, ...cityPages, ...intlPages, ...blogPages];
+  return [...staticPages, ...categoryPages, ...cityPages, ...keywordPages, ...intlPages, ...blogPages];
 }

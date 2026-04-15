@@ -46,10 +46,18 @@ export default function AdminPage() {
           <h1 className="text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">Otonom İçerik Motoru</h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">Anahtar kelimeyi verin, AI dört dile otonom çevirip sıraya alsın.</p>
         </div>
-        <a href="/" target="_blank" className="btn-outline flex items-center gap-2 !px-5 !py-2.5">
-          Siteyi Canlı Gör
-          <ArrowRight className="w-4 h-4" />
-        </a>
+        <div className="flex items-center gap-2">
+          <a href="/admin/sehirler" className="btn-outline flex items-center gap-2 !px-4 !py-2 text-sm">
+            🗺️ Şehirler & Keyword
+          </a>
+          <a href="/admin/ayarlar" className="btn-outline flex items-center gap-2 !px-4 !py-2 text-sm">
+            ⚙️ Ayarlar
+          </a>
+          <a href="/" target="_blank" className="btn-outline flex items-center gap-2 !px-5 !py-2.5">
+            Siteyi Canlı Gör
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
       </header>
 
       <div className="glass-card overflow-hidden mb-10 transition-all hover:shadow-2xl">
