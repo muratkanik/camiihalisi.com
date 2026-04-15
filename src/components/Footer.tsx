@@ -44,18 +44,19 @@ export default function Footer({ locale }: FooterProps) {
 
           {/* Sütun 1: Marka */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M18 2L22.9 7.1H30.9L30.9 15.1L36 18L30.9 20.9V28.9H22.9L18 34L13.1 28.9H5.1V20.9L0 18L5.1 15.1V7.1H13.1L18 2Z" fill="#2D6A4F" />
-                <path d="M18 8L21.2 11.2H26.8L26.8 16.8L30 18L26.8 19.2V24.8H21.2L18 28L14.8 24.8H9.2V19.2L6 18L9.2 16.8V11.2H14.8L18 8Z" fill="#C9972B" />
-                <circle cx="18" cy="18" r="4" fill="#F7F3EC" />
+            <div className="flex items-center gap-2.5 mb-4">
+              <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M20 2L25.5 8H33.5V16L40 20L33.5 24V32H25.5L20 38L14.5 32H6.5V24L0 20L6.5 16V8H14.5Z" fill="#2D6A4F"/>
+                <path d="M20 9L23.8 13H29.2V18.2L33 20L29.2 21.8V27H23.8L20 31L16.2 27H10.8V21.8L7 20L10.8 18.2V13H16.2Z" fill="#C9972B"/>
+                <circle cx="20" cy="20" r="5.5" fill="#1B4332"/>
+                <circle cx="20" cy="20" r="2.5" fill="#F7F3EC"/>
               </svg>
               <div>
-                <div className="font-bold text-white text-base" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <div className="font-bold text-white text-lg leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                   CAMİİ HALISI
                 </div>
-                <div className="text-[10px] text-[#C9972B] uppercase tracking-widest">
-                  Bilgi Portalı
+                <div className="text-[11px] font-semibold" style={{ color: "#C9972B" }}>
+                  by <span className="font-bold">Asil Halı</span>
                 </div>
               </div>
             </div>

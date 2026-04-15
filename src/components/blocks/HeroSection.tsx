@@ -21,7 +21,7 @@ interface HeroContent {
 }
 
 export default function HeroSection({ content }: { content?: HeroContent }) {
-  const title = content?.title || "Camiye Layık Kalite";
+  const title = content?.title || "Cami Halısında Türkiye'nin Güvenilir Adresi";
   const subtitle =
     content?.subtitle ||
     "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. 50 yılı aşkın tecrübe, binlerce cami referansı.";

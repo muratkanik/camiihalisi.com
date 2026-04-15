@@ -46,12 +46,19 @@ export async function generateMetadata({
     keywords: [
       "cami halısı", "cami halıları", "cami halısı fiyatları",
       "akrilik cami halısı", "yün cami halısı", "polipropilen cami halısı",
+      "mescit halısı", "cami halısı modelleri", "cami halısı üretimi",
       "mosque carpet", "mosque carpet turkey", "سجادة مسجد",
       "Asil Halı", "cami halısı üretici", "cami halısı toptan",
     ],
     authors: [{ name: "Asil Halı A.Ş.", url: "https://www.asilhali.com.tr" }],
     creator: "Asil Halı A.Ş.",
     publisher: "Asil Halı A.Ş.",
+    icons: {
+      icon: [
+        { url: "/icon.svg", type: "image/svg+xml" },
+      ],
+      apple: "/icon.svg",
+    },
     robots: {
       index: true,
       follow: true,
