@@ -1,148 +1,112 @@
-"use client";
+import { Image, Package, BookOpen, MapPin, Users, Settings, ArrowRight, BarChart2, Sparkles } from "lucide-react";
+import AiEngineWidget from "./AiEngineWidget";
+import { CATEGORIES } from "@/lib/categories";
+import { BLOG_POSTS } from "@/lib/blog-data";
+import { PrismaClient } from "@prisma/client";
 
-import { useState } from "react";
-import { Sparkles, Loader2, Target, CheckCircle2, AlertTriangle, ArrowRight } from "lucide-react";
+export const dynamic = "force-dynamic";
 
-export default function AdminPage() {
-  const [keyword, setKeyword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<any>(null);
-  const [error, setError] = useState<string | null>(null);
+async function getDashboardStats() {
+  const prisma = new PrismaClient();
+  try {
+    const [userCount, keywordCount, cityCount] = await Promise.all([
+      prisma.user.count(),
+      prisma.cityKeyword.count({ where: { isActive: true } }),
+      prisma.city.count(),
+    ]);
+    return { userCount, keywordCount, cityCount };
+  } catch {
+    return { userCount: 0, keywordCount: 0, cityCount: 0 };
+  } finally {
+    await prisma.$disconnect();
+  }
+}
 
-  const handleGenerate = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!keyword.trim()) return;
+export default async function AdminDashboard() {
+  const { userCount, keywordCount, cityCount } = await getDashboardStats();
 
-    setLoading(true);
-    setResults(null);
-    setError(null);
+  const stats = [
+    { label: "Kategori", value: CATEGORIES.length, icon: <Package className="w-5 h-5" />, color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400", href: "/admin/kategoriler" },
+    { label: "Blog Yazısı", value: BLOG_POSTS.length, icon: <BookOpen className="w-5 h-5" />, color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400", href: "/admin/blog" },
+    { label: "Aktif Keyword", value: keywordCount, icon: <MapPin className="w-5 h-5" />, color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400", href: "/admin/sehirler" },
+    { label: "Şehir/İlçe", value: cityCount, icon: <BarChart2 className="w-5 h-5" />, color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400", href: "/admin/sehirler" },
+    { label: "Admin Kullanıcı", value: userCount, icon: <Users className="w-5 h-5" />, color: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400", href: "/admin/kullanicilar" },
+  ];
 
-    try {
-      const res = await fetch("/api/ai/generate-content", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ keyword })
-      });
-      
-      const data = await res.json();
-      
-      if (!res.ok) {
-        throw new Error(data.error || "Sunucu hatası oluştu.");
-      }
-      
-      setResults(data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const quickLinks = [
+    { label: "Hero Slayt Yönetimi", desc: "Ana sayfadaki fotoğraf slaytlarını düzenle", href: "/admin/hero", icon: <Image className="w-5 h-5" /> },
+    { label: "Kategori Yönetimi", desc: "23 kategori başlık, açıklama ve görsel düzenleme", href: "/admin/kategoriler", icon: <Package className="w-5 h-5" /> },
+    { label: "Blog Yazıları", desc: `${BLOG_POSTS.length} blog yazısının içeriğini düzenle`, href: "/admin/blog", icon: <BookOpen className="w-5 h-5" /> },
+    { label: "Şehirler & Keyword", desc: `${cityCount} şehir/ilçe · ${keywordCount} aktif keyword`, href: "/admin/sehirler", icon: <MapPin className="w-5 h-5" /> },
+    { label: "Kullanıcı Yönetimi", desc: "Admin kullanıcıları ekle, düzenle, sil", href: "/admin/kullanicilar", icon: <Users className="w-5 h-5" /> },
+    { label: "Site Ayarları", desc: "Telefon, e-posta, sosyal medya linkleri", href: "/admin/ayarlar", icon: <Settings className="w-5 h-5" /> },
+  ];
 
   return (
-    <div className="w-full">
-      
-      <header className="flex justify-between items-center mb-10">
-        <div>
-          <h1 className="text-4xl font-extrabold text-slate-800 dark:text-white tracking-tight">Otonom İçerik Motoru</h1>
-          <p className="text-slate-500 dark:text-slate-400 mt-2 text-lg">Anahtar kelimeyi verin, AI dört dile otonom çevirip sıraya alsın.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <a href="/admin/sehirler" className="btn-outline flex items-center gap-2 !px-4 !py-2 text-sm">
-            🗺️ Şehirler & Keyword
-          </a>
-          <a href="/admin/ayarlar" className="btn-outline flex items-center gap-2 !px-4 !py-2 text-sm">
-            ⚙️ Ayarlar
-          </a>
-          <a href="/" target="_blank" className="btn-outline flex items-center gap-2 !px-5 !py-2.5">
-            Siteyi Canlı Gör
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </header>
-
-      <div className="glass-card overflow-hidden mb-10 transition-all hover:shadow-2xl">
-        <div className="p-8 border-b border-slate-100/50 dark:border-slate-800/50 bg-slate-50/30 dark:bg-slate-900/30">
-          <div className="flex items-center gap-3 text-primary mb-3">
-            <Target className="w-6 h-6" />
-            <h2 className="font-extrabold text-xl">Yeni Görev Başlat</h2>
-          </div>
-          <p className="text-slate-500 dark:text-slate-400 font-medium">
-            Girilen anahtar kelime için veri tabanındaki uzmanlık PDF'leri (ContentArchive) baz alınarak içerik tasarlanır. AI çevirileri yapar ve otonom yayına alır.
-          </p>
-        </div>
-        
-        <form onSubmit={handleGenerate} className="p-8">
-          <div className="flex flex-col md:flex-row gap-5">
-            <div className="flex-1 relative">
-              <input 
-                type="text" 
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-                placeholder="Örn: Yün Cami Halısı İmalatçıları"
-                className="w-full px-6 py-4 rounded-2xl bg-white/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-lg shadow-inner"
-              />
-            </div>
-            <button 
-              type="submit"
-              disabled={loading || !keyword}
-              className="btn-primary !px-10 !py-4"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-6 h-6 animate-spin" />
-                  İşleniyor
-                </>
-              ) : (
-                <>
-                  <Sparkles className="w-6 h-6" />
-                  Motoru Başlat
-                </>
-              )}
-            </button>
-          </div>
-        </form>
+    <div>
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white">Dashboard</h1>
+        <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">camiihalisi.com yönetim paneline hoş geldiniz.</p>
       </div>
 
-      {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-start gap-3 mb-8">
-          <AlertTriangle className="w-5 h-5 mt-0.5 shrink-0" />
-          <p>{error}</p>
-        </div>
-      )}
+      {/* Stats row */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+        {stats.map((s) => (
+          <a
+            key={s.label}
+            href={s.href}
+            className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 hover:shadow-md transition-all group"
+          >
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${s.color}`}>
+              {s.icon}
+            </div>
+            <div className="text-2xl font-extrabold text-slate-800 dark:text-white group-hover:text-[#C9972B] transition-colors">
+              {s.value}
+            </div>
+            <div className="text-xs text-slate-500 mt-0.5 font-medium">{s.label}</div>
+          </a>
+        ))}
+      </div>
 
-      {results && (
-        <div className="space-y-6">
-          <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl flex items-center gap-3">
-            <CheckCircle2 className="w-6 h-6 shrink-0" />
-            <div>
-              <h3 className="font-semibold">{results.message}</h3>
+      {/* Quick links grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        {quickLinks.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-md hover:border-[#C9972B]/30 transition-all group flex items-start gap-4"
+          >
+            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 text-slate-500 dark:text-slate-400 group-hover:bg-[#C9972B]/10 group-hover:text-[#C9972B] transition-all">
+              {link.icon}
             </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="p-4 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
-              <h3 className="font-semibold text-slate-800">TR (Master İçerik)</h3>
-              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold font-mono">
-                SEO Skor: {results.payload?.tr?.seo_score_estimated || 95}
-              </span>
-            </div>
-            <div className="p-6">
-              <pre className="bg-slate-900 text-slate-300 p-4 rounded-xl text-sm overflow-x-auto">
-                {JSON.stringify(results.payload?.tr, null, 2)}
-              </pre>
-            </div>
-            <div className="p-4 bg-slate-50 border-t border-slate-100">
-              <h4 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Otonom Çeviri Kuyruğu Tamamlandı:</h4>
-              <div className="flex gap-4">
-                 <div className="flex-1 bg-white border border-slate-200 rounded-lg p-3 text-center">🇺🇸 English API Düğümü <CheckCircle2 className="w-4 h-4 text-emerald-500 inline ml-1"/></div>
-                 <div className="flex-1 bg-white border border-slate-200 rounded-lg p-3 text-center">🇸🇦 Arabic API Düğümü <CheckCircle2 className="w-4 h-4 text-emerald-500 inline ml-1"/></div>
-                 <div className="flex-1 bg-white border border-slate-200 rounded-lg p-3 text-center">🇫🇷 French API Düğümü <CheckCircle2 className="w-4 h-4 text-emerald-500 inline ml-1"/></div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold text-slate-800 dark:text-white text-sm group-hover:text-[#C9972B] transition-colors">{link.label}</span>
+                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#C9972B] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
               </div>
+              <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{link.desc}</p>
             </div>
+          </a>
+        ))}
+      </div>
+
+      {/* AI Content Engine */}
+      <div className="bg-gradient-to-br from-[#0D2418] to-[#1B4332] rounded-2xl p-6 text-white">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-5 h-5 text-[#C9972B]" />
+              <h2 className="font-extrabold text-lg">Otonom İçerik Motoru (AI)</h2>
+            </div>
+            <p className="text-white/60 text-sm leading-relaxed max-w-lg">
+              Anahtar kelime girin, AI 4 dilde otomatik SEO içeriği oluştursun ve yayına alsın.
+              Şehir+keyword sayfaları için dinamik içerik üretir.
+            </p>
           </div>
         </div>
-      )}
-
+        <AiEngineWidget />
+      </div>
     </div>
   );
 }
