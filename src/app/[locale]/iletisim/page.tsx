@@ -1,57 +1,70 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronRight, Phone, Mail, MapPin, ExternalLink, Send, Clock } from "lucide-react";
-
+import {
+  ChevronRight, Phone, Mail, MapPin, ExternalLink, Send,
+  MessageCircle, Globe, Building2, Factory, Home, Briefcase, Warehouse,
+} from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
+import type { ContactOffice } from "../admin/iletisim/actions";
+import { DEFAULT_OFFICES } from "../admin/iletisim/actions";
 
-const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=iletisim";
+const TYPE_ICON: Record<string, React.ElementType> = {
+  merkez: Building2,
+  fabrika: Factory,
+  ofis: Briefcase,
+  "home-office": Home,
+  depo: Warehouse,
+  yurtdisi: Globe,
+};
 
-const CONTACT_INFO = [
-  {
-    icon: Phone,
-    title: "Telefon",
-    lines: ["+90 532 346 79 39"],
-    href: "tel:+905323467939",
-    cta: "Hemen Ara",
-  },
-  {
-    icon: Mail,
-    title: "E-posta",
-    lines: ["info@asilhali.com.tr", "satis@asilhali.com.tr"],
-    href: "mailto:info@asilhali.com.tr",
-    cta: "Mail Gönder",
-  },
-  {
-    icon: MapPin,
-    title: "Adres",
-    lines: ["Asil Halı Fabrika ve Showroom", "Melikgazi, Kayseri"],
-    href: "https://maps.google.com/?q=Asil+Hali+Kayseri",
-    cta: "Haritada Gör",
-  },
-  {
-    icon: Clock,
-    title: "Çalışma Saatleri",
-    lines: ["Pzt–Cum: 08:00–18:00", "Cmt: 09:00–14:00"],
-    href: null,
-    cta: null,
-  },
-];
+const TYPE_LABEL: Record<string, string> = {
+  merkez: "Merkez", fabrika: "Fabrika", ofis: "Ofis",
+  "home-office": "Temsilci", depo: "Depo", yurtdisi: "Uluslararası",
+};
+
+const TYPE_COLOR: Record<string, string> = {
+  merkez: "bg-[#1B4332] text-white",
+  fabrika: "bg-slate-700 text-white",
+  ofis: "bg-blue-700 text-white",
+  "home-office": "bg-emerald-700 text-white",
+  depo: "bg-slate-500 text-white",
+  yurtdisi: "bg-purple-700 text-white",
+};
+
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
 
 export default function IletisimPage() {
-  const [form, setForm] = useState({
-    name: "", email: "", phone: "", mosque: "", message: "", type: "teklif",
-  });
+  const [offices, setOffices] = useState<ContactOffice[]>(DEFAULT_OFFICES);
+  const [form, setForm] = useState({ name: "", email: "", phone: "", mosque: "", message: "", type: "teklif" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/iletisim")
+      .then((r) => r.json())
+      .then((d) => { if (d.offices) setOffices(d.offices); })
+      .catch(() => {});
+  }, []);
+
+  const activeOffices = offices.filter((o) => o.active);
+  const byRegion = activeOffices.reduce<Record<string, ContactOffice[]>>((acc, o) => {
+    (acc[o.region] = acc[o.region] ?? []).push(o);
+    return acc;
+  }, {});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    // Simüle gönderim — gerçek projede /api/contact endpoint'ine POST atılır
-    await new Promise((r) => setTimeout(r, 1000));
+    await new Promise((r) => setTimeout(r, 800));
     setSubmitted(true);
     setLoading(false);
   };
@@ -59,263 +72,231 @@ export default function IletisimPage() {
   return (
     <>
       <Navigation locale="tr" />
-
       <main id="main-content">
         {/* ── Hero ── */}
         <section className="bg-[#1B4332] py-20 relative overflow-hidden">
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
-            }}
-          />
+          <div className="absolute inset-0 opacity-10" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
+          }} />
           <div className="container-site relative z-10">
-            <nav className="flex items-center gap-2 text-sm text-white/50 mb-6" aria-label="Breadcrumb">
+            <nav className="flex items-center gap-2 text-sm text-white/50 mb-6">
               <Link href="/" className="hover:text-white transition-colors">Ana Sayfa</Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span className="text-[#E4B84A]">İletişim</span>
             </nav>
-            <h1
-              className="text-4xl md:text-6xl font-bold text-white mb-4"
-              style={{ fontFamily: "'Cormorant Garamond', serif" }}
-            >
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               İletişime Geçin
             </h1>
             <p className="text-lg text-white/70 max-w-xl">
-              Caminiz için ücretsiz keşif, fiyat teklifi veya teknik danışmanlık için
-              aşağıdaki formu doldurun ya da doğrudan iletişime geçin.
+              Türkiye genelinde ofis ve temsilciliklerimizle, New York şubemizle hizmetinizdeyiz.
             </p>
+            {/* Quick contact bar */}
+            <div className="flex flex-wrap gap-3 mt-8">
+              <a href="tel:+903522323838" className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
+                <Phone className="w-4 h-4" /> +90 352 232 38 38
+              </a>
+              <a href="https://wa.me/905323467939" target="_blank" rel="noopener" className="flex items-center gap-2 px-4 py-2.5 bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/30 rounded-xl text-white text-sm font-medium transition-all">
+                <WhatsAppIcon className="w-4 h-4" /> WhatsApp
+              </a>
+              <a href="mailto:info@asilhali.com.tr" className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
+                <Mail className="w-4 h-4" /> info@asilhali.com.tr
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* ── İçerik ── */}
+        {/* ── Form + Quick Info ── */}
         <section className="section bg-[#F7F3EC]">
           <div className="container-site">
-            <div className="grid lg:grid-cols-2 gap-12">
-
-              {/* Sol: Form */}
-              <div>
-                <div className="bg-white rounded-2xl border border-[#DDD8CE] p-8 shadow-sm">
-                  {submitted ? (
-                    <div className="text-center py-12">
-                      <div className="w-16 h-16 rounded-full bg-[#1B4332]/10 flex items-center justify-center mx-auto mb-4">
-                        <Send className="w-7 h-7 text-[#1B4332]" />
-                      </div>
-                      <h2
-                        className="text-2xl font-bold text-[#1B4332] mb-2"
-                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                      >
-                        Mesajınız İletildi!
-                      </h2>
-                      <p className="text-[#6B6355] leading-relaxed">
-                        En kısa sürede sizinle iletişime geçeceğiz. Daha hızlı yanıt için{" "}
-                        <a
-                          href="tel:+905323467939"
-                          className="text-[#1B4332] font-semibold underline"
-                        >
-                          bizi arayabilirsiniz
-                        </a>
-                        .
-                      </p>
+            <div className="grid lg:grid-cols-2 gap-12 mb-16">
+              {/* Form */}
+              <div className="bg-white rounded-2xl border border-[#DDD8CE] p-8 shadow-sm">
+                {submitted ? (
+                  <div className="text-center py-12">
+                    <div className="w-16 h-16 rounded-full bg-[#1B4332]/10 flex items-center justify-center mx-auto mb-4">
+                      <Send className="w-7 h-7 text-[#1B4332]" />
                     </div>
-                  ) : (
-                    <>
-                      <h2
-                        className="text-2xl font-bold text-[#1B4332] mb-6"
-                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                      >
-                        Teklif / Danışmanlık Formu
-                      </h2>
-
-                      <form onSubmit={handleSubmit} className="space-y-4">
-                        {/* Talep türü */}
-                        <div>
-                          <label className="block text-sm font-medium text-[#1A1A1A] mb-2">
-                            Talebiniz
-                          </label>
-                          <div className="grid grid-cols-3 gap-2">
-                            {[
-                              { val: "teklif", label: "Fiyat Teklifi" },
-                              { val: "kesif", label: "Ücretsiz Keşif" },
-                              { val: "bilgi", label: "Bilgi Talebi" },
-                            ].map((opt) => (
-                              <button
-                                key={opt.val}
-                                type="button"
-                                onClick={() => setForm({ ...form, type: opt.val })}
-                                className={`py-2.5 px-3 rounded-xl text-sm font-medium border transition-all ${
-                                  form.type === opt.val
-                                    ? "bg-[#1B4332] text-white border-[#1B4332]"
-                                    : "bg-white text-[#6B6355] border-[#DDD8CE] hover:border-[#1B4332]/40"
-                                }`}
-                              >
-                                {opt.label}
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-
-                        <p className="text-xs text-[#6B6355] bg-[#F7F3EC] rounded-lg px-3 py-2 border border-[#DDD8CE]">
-                          Tüm alanlar isteğe bağlıdır. Dilediğiniz alanı boş bırakabilirsiniz.
-                        </p>
-
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              Adınız Soyadınız
-                            </label>
-                            <input
-                              type="text"
-                              value={form.name}
-                              onChange={(e) => setForm({ ...form, name: e.target.value })}
-                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="Adınız (isteğe bağlı)"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              Telefon
-                            </label>
-                            <input
-                              type="tel"
-                              value={form.phone}
-                              onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="05XX XXX XX XX (isteğe bağlı)"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          <div>
-                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              E-posta
-                            </label>
-                            <input
-                              type="email"
-                              value={form.email}
-                              onChange={(e) => setForm({ ...form, email: e.target.value })}
-                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="e-posta (isteğe bağlı)"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                              Cami / Kurum Adı
-                            </label>
-                            <input
-                              type="text"
-                              value={form.mosque}
-                              onChange={(e) => setForm({ ...form, mosque: e.target.value })}
-                              className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all"
-                              placeholder="Cami adı (isteğe bağlı)"
-                            />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
-                            Mesajınız
-                          </label>
-                          <textarea
-                            rows={4}
-                            value={form.message}
-                            onChange={(e) => setForm({ ...form, message: e.target.value })}
-                            className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-[#1A1A1A] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all resize-none"
-                            placeholder="Caminizin metrekaresi, istediğiniz halı türü veya sorularınız..."
-                          />
-                        </div>
-
-                        <button
-                          type="submit"
-                          disabled={loading}
-                          className="btn btn-primary w-full justify-center"
-                        >
-                          {loading ? "Gönderiliyor..." : "Gönder"}
-                          <Send className="w-4 h-4" />
-                        </button>
-
-                        <p className="text-xs text-[#6B6355] text-center">
-                          Bu form yalnızca bilgilendirme amaçlıdır. Resmi teklif için{" "}
-                          <a href={MAIN_SITE_URL} target="_blank" rel="noopener" className="text-[#1B4332] underline font-medium">
-                            asilhali.com.tr
-                          </a>
-                          {" "}ziyaret edin.
-                        </p>
-                      </form>
-                    </>
-                  )}
-                </div>
+                    <h2 className="text-2xl font-bold text-[#1B4332] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Mesajınız İletildi!</h2>
+                    <p className="text-[#6B6355]">En kısa sürede iletişime geçeceğiz. Acil durumlar için{" "}
+                      <a href="tel:+903522323838" className="text-[#1B4332] font-semibold underline">bizi arayın</a>.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <h2 className="text-2xl font-bold text-[#1B4332] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                      Teklif / Danışmanlık Formu
+                    </h2>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <div className="grid grid-cols-3 gap-2">
+                        {[{ val: "teklif", label: "Fiyat Teklifi" }, { val: "kesif", label: "Ücretsiz Keşif" }, { val: "bilgi", label: "Bilgi Talebi" }].map((opt) => (
+                          <button key={opt.val} type="button" onClick={() => setForm({ ...form, type: opt.val })}
+                            className={`py-2.5 rounded-xl text-sm font-medium border transition-all ${form.type === opt.val ? "bg-[#1B4332] text-white border-[#1B4332]" : "bg-white text-[#6B6355] border-[#DDD8CE] hover:border-[#1B4332]/40"}`}>
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Adınız Soyadınız" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
+                        <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Telefon" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="E-posta" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
+                        <input type="text" value={form.mosque} onChange={(e) => setForm({ ...form, mosque: e.target.value })} placeholder="Cami / Kurum Adı" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
+                      </div>
+                      <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Caminizin metrekaresi, istediğiniz halı türü veya sorularınız..." className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all resize-none" />
+                      <button type="submit" disabled={loading} className="btn btn-primary w-full justify-center">
+                        {loading ? "Gönderiliyor..." : "Gönder"} <Send className="w-4 h-4" />
+                      </button>
+                    </form>
+                  </>
+                )}
               </div>
 
-              {/* Sağ: İletişim bilgileri */}
-              <div className="space-y-5">
+              {/* Hızlı iletişim */}
+              <div className="space-y-4">
                 <div>
                   <span className="badge badge-gold mb-4">Direkt İletişim</span>
-                  <h2 className="section-title mb-3">
-                    Hemen Ulaşın
-                  </h2>
-                  <div className="gold-line mb-6" />
-                  <p className="text-[#6B6355] leading-relaxed">
-                    Asil Halı uzman ekibimiz, cami halısı projeniz için danışmanlık
-                    vermek üzere hazır. Ölçüm, malzeme seçimi veya fiyat konusunda
-                    hızlı yanıt için doğrudan arayabilirsiniz.
+                  <h2 className="section-title mb-2">Hemen Ulaşın</h2>
+                  <div className="gold-line mb-4" />
+                  <p className="text-[#6B6355] text-sm leading-relaxed">
+                    Kayseri merkez fabrikamız, İstanbul ofisimiz ve Türkiye genelindeki bölge temsilcilerimizle hizmetinizdeyiz.
                   </p>
                 </div>
 
-                {CONTACT_INFO.map((item, i) => {
-                  const Icon = item.icon;
-                  return (
-                    <div
-                      key={i}
-                      className="flex items-start gap-4 p-5 bg-white rounded-2xl border border-[#DDD8CE] hover:border-[#C9972B]/40 transition-all"
-                    >
-                      <div className="w-11 h-11 rounded-xl bg-[#1B4332]/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-[#1B4332]" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-1">
-                          {item.title}
-                        </div>
-                        {item.lines.map((line, j) => (
-                          <div key={j} className="text-sm text-[#1A1A1A] font-medium">{line}</div>
-                        ))}
-                      </div>
-                      {item.href && item.cta && (
-                        <a
-                          href={item.href}
-                          target={item.href.startsWith("http") ? "_blank" : undefined}
-                          rel={item.href.startsWith("http") ? "noopener" : undefined}
-                          className="text-xs font-semibold text-[#1B4332] hover:text-[#C9972B] transition-colors flex-shrink-0"
-                        >
-                          {item.cta} →
-                        </a>
-                      )}
-                    </div>
-                  );
-                })}
+                {/* WhatsApp card */}
+                <a href="https://wa.me/905323467939?text=Merhaba%2C+cami+hal%C4%B1s%C4%B1+hakk%C4%B1nda+bilgi+almak+istiyorum." target="_blank" rel="noopener"
+                  className="flex items-center gap-4 p-5 bg-[#25D366] rounded-2xl text-white hover:bg-[#20b858] transition-all group">
+                  <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
+                    <WhatsAppIcon className="w-6 h-6" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="font-bold text-sm">WhatsApp ile Yazın</div>
+                    <div className="text-white/80 text-sm">+90 532 346 79 39 — Hızlı yanıt</div>
+                  </div>
+                  <ExternalLink className="w-4 h-4 opacity-70 group-hover:opacity-100" />
+                </a>
 
-                {/* Resmi site banner */}
+                {/* Email card */}
+                <a href="mailto:info@asilhali.com.tr"
+                  className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-[#DDD8CE] hover:border-[#C9972B]/40 transition-all">
+                  <div className="w-11 h-11 rounded-xl bg-[#1B4332]/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-[#1B4332]" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-0.5">E-Posta</div>
+                    <div className="text-sm font-medium text-[#1A1A1A]">info@asilhali.com.tr</div>
+                  </div>
+                </a>
+
+                {/* Official site */}
                 <div className="bg-[#C9972B] rounded-2xl p-5 text-[#1A1A1A]">
-                  <p className="text-sm font-semibold mb-1">Resmi Alış Veriş Sitesi</p>
-                  <a
-                    href={MAIN_SITE_URL}
-                    target="_blank"
-                    rel="noopener"
-                    className="flex items-center gap-2 text-lg font-bold hover:opacity-80 transition-opacity"
-                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                  >
-                    www.asilhali.com.tr
-                    <ExternalLink className="w-4 h-4" />
+                  <p className="text-sm font-semibold mb-1">Resmi Alışveriş & Katalog</p>
+                  <a href="https://www.asilhali.com.tr" target="_blank" rel="noopener"
+                    className="flex items-center gap-2 text-lg font-bold hover:opacity-80 transition-opacity" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                    www.asilhali.com.tr <ExternalLink className="w-4 h-4" />
                   </a>
-                  <p className="text-xs mt-1 opacity-70">Katalog, sipariş ve fiyat teklifi için</p>
+                  <p className="text-xs mt-1 opacity-70">Fiyat teklifi ve sipariş için</p>
                 </div>
               </div>
+            </div>
+
+            {/* ── Tüm Ofisler ── */}
+            <div>
+              <div className="text-center mb-10">
+                <span className="badge badge-gold mb-4">Lokasyonlarımız</span>
+                <h2 className="section-title">Türkiye ve Dünya Genelinde</h2>
+                <div className="gold-line mx-auto mt-3" />
+              </div>
+
+              {Object.entries(byRegion).map(([region, regionOffices]) => (
+                <div key={region} className="mb-10">
+                  <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-4 flex items-center gap-2">
+                    <span className="flex-1 border-t border-[#DDD8CE]" />
+                    {region}
+                    <span className="flex-1 border-t border-[#DDD8CE]" />
+                  </h3>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {regionOffices.map((office) => {
+                      const TypeIcon = TYPE_ICON[office.type] ?? Building2;
+                      return (
+                        <div key={office.id} className="bg-white rounded-2xl border border-[#DDD8CE] hover:border-[#C9972B]/40 hover:shadow-md transition-all p-5">
+                          {/* Card header */}
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${TYPE_COLOR[office.type] ?? "bg-slate-600 text-white"}`}>
+                              <TypeIcon className="w-5 h-5" />
+                            </div>
+                            <div>
+                              <div className="font-bold text-sm text-[#1A1A1A]">{office.title}</div>
+                              <span className="text-xs bg-[#F7F3EC] text-[#6B6355] border border-[#DDD8CE] px-1.5 py-0.5 rounded font-medium">
+                                {TYPE_LABEL[office.type] ?? office.type}
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Address */}
+                          {(office.address || office.city) && (
+                            <div className="flex gap-2 mb-3">
+                              <MapPin className="w-3.5 h-3.5 text-[#C9972B] flex-shrink-0 mt-0.5" />
+                              <div className="text-xs text-[#6B6355] leading-relaxed">
+                                {office.address && <div>{office.address}</div>}
+                                <div className="font-medium text-[#1A1A1A]">{office.city}{office.country && office.country !== "Türkiye" ? `, ${office.country}` : ""}</div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Phones */}
+                          {office.phones.length > 0 && (
+                            <div className="space-y-1.5 mb-3">
+                              {office.phones.map((p, i) => (
+                                <a key={i} href={`tel:${p.number.replace(/\s/g, "")}`}
+                                  className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#1B4332] transition-colors">
+                                  <Phone className="w-3 h-3 text-[#1B4332] flex-shrink-0" />
+                                  <span className="text-[#6B6355]">{p.label}:</span>
+                                  <span className="font-medium">{p.number}</span>
+                                </a>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* Email */}
+                          {office.email && (
+                            <a href={`mailto:${office.email}`} className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#1B4332] transition-colors mb-1.5">
+                              <Mail className="w-3 h-3 text-[#1B4332] flex-shrink-0" />
+                              <span>{office.email}</span>
+                            </a>
+                          )}
+
+                          {/* WhatsApp */}
+                          {office.whatsapp && (
+                            <a href={`https://wa.me/${office.whatsapp.replace(/[^0-9]/g, "")}`} target="_blank" rel="noopener"
+                              className="flex items-center gap-2 text-xs text-[#25D366] hover:opacity-80 transition-opacity mb-1.5">
+                              <WhatsAppIcon className="w-3 h-3 flex-shrink-0" />
+                              <span className="font-medium">WhatsApp ile Yaz</span>
+                            </a>
+                          )}
+
+                          {/* Work hours */}
+                          {office.workHours && (
+                            <div className="text-xs text-[#6B6355] mt-2 pt-2 border-t border-[#DDD8CE]">{office.workHours}</div>
+                          )}
+
+                          {/* Maps link */}
+                          {office.mapsUrl && (
+                            <a href={office.mapsUrl} target="_blank" rel="noopener"
+                              className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#1B4332] hover:text-[#C9972B] transition-colors">
+                              <MapPin className="w-3 h-3" /> Yol Tarifi Al →
+                            </a>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
       </main>
-
       <Footer locale="tr" />
     </>
   );

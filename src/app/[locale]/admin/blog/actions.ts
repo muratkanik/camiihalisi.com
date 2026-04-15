@@ -29,16 +29,21 @@ export type BlogPostWithOverride = BlogPost & { hasOverride: boolean; seoKeyword
 export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
   const prisma = await getPrisma();
   let overrides: BlogOverride[] = [];
+  let dynamicPosts: BlogPost[] = [];
   try {
-    const setting = await prisma.setting.findUnique({ where: { key: "blog_overrides" } });
-    if (setting) overrides = JSON.parse(setting.value);
+    const [overrideSetting, dynamicSetting] = await Promise.all([
+      prisma.setting.findUnique({ where: { key: "blog_overrides" } }),
+      prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } }),
+    ]);
+    if (overrideSetting) overrides = JSON.parse(overrideSetting.value);
+    if (dynamicSetting) dynamicPosts = JSON.parse(dynamicSetting.value);
   } catch {
     // ignore
   } finally {
     await prisma.$disconnect();
   }
 
-  return BLOG_POSTS.map((post) => {
+  const staticWithOverrides = BLOG_POSTS.map((post) => {
     const override = overrides.find((o) => o.slug === post.slug) ?? {};
     return {
       ...post,
@@ -46,6 +51,13 @@ export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
       hasOverride: Object.keys(override).length > 0,
     };
   });
+
+  // Dynamic (AI-generated) posts — mark as hasOverride: false (no reset option)
+  const dynamicWithOverrides = dynamicPosts
+    .filter((dp) => !BLOG_POSTS.some((sp) => sp.slug === dp.slug))
+    .map((post) => ({ ...post, hasOverride: false }));
+
+  return [...staticWithOverrides, ...dynamicWithOverrides];
 }
 
 export async function getBlogSeoScores(): Promise<Record<string, SeoScoreResult | null>> {
