@@ -31,7 +31,7 @@ function renderMarkdown(text: string): string {
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/^-\s+(.+)$/gm, "<li>$1</li>")
-    .replace(/(<li>.*<\/li>\n?)+/gs, (match) => `<ul class="list-disc pl-5 space-y-1 my-2">${match}</ul>`)
+    .replace(/(<li>.*<\/li>\n?)+/g, (match) => `<ul class="list-disc pl-5 space-y-1 my-2">${match}</ul>`)
     .replace(/\n{2,}/g, "</p><p class='mt-2'>")
     .replace(/^(.+)$/m, "<p>$1</p>");
 }
