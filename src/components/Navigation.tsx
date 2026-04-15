@@ -90,26 +90,33 @@ export default function Navigation({ locale }: NavProps) {
               </Link>
 
               {/* Kategoriler Dropdown */}
-              <div className="relative" onMouseLeave={() => setDropdownOpen(false)}>
+              <div
+                className="relative"
+                onMouseEnter={() => setDropdownOpen(true)}
+                onMouseLeave={() => setDropdownOpen(false)}
+              >
                 <button
-                  onMouseEnter={() => setDropdownOpen(true)}
                   className="flex items-center gap-1 px-4 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#EDE8DF] hover:text-[#1B4332] transition-colors"
+                  aria-expanded={dropdownOpen}
                 >
                   Ürünler
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`} />
                 </button>
+                {/* Invisible bridge between button and dropdown to prevent gap-triggered close */}
                 {dropdownOpen && (
-                  <div className="absolute top-full left-0 mt-1 w-64 bg-white border border-[#DDD8CE] rounded-xl shadow-lg overflow-hidden">
-                    {categories.map((cat) => (
-                      <Link
-                        key={cat.href}
-                        href={`${prefix}/kategori/${cat.href}`}
-                        className="block px-4 py-3 text-sm text-[#1A1A1A] hover:bg-[#F7F3EC] hover:text-[#1B4332] font-medium transition-colors border-b border-[#EDE8DF] last:border-0"
-                        onClick={() => setDropdownOpen(false)}
-                      >
-                        {cat.label}
-                      </Link>
-                    ))}
+                  <div className="absolute top-full left-0 pt-1 w-64">
+                    <div className="bg-white border border-[#DDD8CE] rounded-xl shadow-lg overflow-hidden">
+                      {categories.map((cat) => (
+                        <Link
+                          key={cat.href}
+                          href={`${prefix}/kategori/${cat.href}`}
+                          className="block px-4 py-3 text-sm text-[#1A1A1A] hover:bg-[#F7F3EC] hover:text-[#1B4332] font-medium transition-colors border-b border-[#EDE8DF] last:border-0"
+                          onClick={() => setDropdownOpen(false)}
+                        >
+                          {cat.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
