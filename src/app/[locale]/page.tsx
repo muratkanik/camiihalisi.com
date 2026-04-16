@@ -7,8 +7,9 @@ import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/blocks/HeroSection";
 import { getSettings } from "@/lib/settings";
-import StatsSection from "@/components/blocks/StatsSection";
-import CategoryGrid from "@/components/blocks/CategoryGrid";
+import ProblemSection from "@/components/blocks/ProblemSection";
+import CategoryShowcase from "@/components/blocks/CategoryShowcase";
+import TrustSection from "@/components/blocks/TrustSection";
 import FeatureGrid from "@/components/blocks/FeatureGrid";
 import BlogPreview from "@/components/blocks/BlogPreview";
 import CTASection from "@/components/blocks/CTASection";
@@ -81,32 +82,35 @@ export default async function HomePage({
       <Navigation locale={locale} />
 
       <main id="main-content">
-        {/* 1. Hero Bölümü */}
+        {/* 1. Hero — split layout */}
         <HeroSection content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
 
-        {/* 2. İstatistikler */}
-        <StatsSection />
+        {/* 2. Problem — Neden Erken Yıpranır? */}
+        <ProblemSection />
 
-        {/* 3. Kategori Grid */}
-        <CategoryGrid locale={locale} />
+        {/* 3. Ürün Showcase — Hangi Halı Uygun? */}
+        <CategoryShowcase locale={locale} />
 
-        {/* 4. Özellikler / Neden Asil Halı */}
+        {/* 4. Güven & Referans — 30 Yıldır */}
+        <TrustSection />
+
+        {/* 5. Özellikler — Neden Asil Halı? */}
         <FeatureGrid />
 
-        {/* 5. CTA — Ana Siteye Yönlendirme */}
+        {/* 6. CTA — Ana Siteye Yönlendirme */}
         <CTASection
           variant="green"
           title="Caminiz İçin En İyi Halıyı Seçelim"
           subtitle="50 yılı aşkın tecrübemizle, caminizin mimarisine ve bütçesine özel halı çözümü sunuyoruz. Türkiye'nin dört bir yanına teslimat ve montaj."
         />
 
-        {/* 6. Blog Önizleme */}
+        {/* 7. Blog Önizleme */}
         <BlogPreview locale={locale} />
 
-        {/* 7. SSS */}
+        {/* 8. SSS */}
         <FAQSection />
 
-        {/* 8. Son CTA */}
+        {/* 9. Son CTA */}
         <CTASection
           variant="cream"
           title="Fiyat Teklifi Almak İster misiniz?"

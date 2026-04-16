@@ -1,181 +1,132 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ExternalLink } from "lucide-react";
-import { useState, useEffect } from "react";
+import { ArrowRight, Check } from "lucide-react";
+
+const HERO_IMAGE = "/images/cami-hero.png";
 
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dhero%26utm_campaign%3Dsite&from=hero&label=fiyat-teklifi&cat=outbound";
 
-// Kendi cami görsellerimiz
-const IMAGES = [
-  { src: "/images/cami-hero.png", alt: "Güzel bir cami iç mekanı" },
-  { src: "/images/hd-foto-01.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-02.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-03.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-04.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-05.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-06.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-07.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-08.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-09.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-10.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-11.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-12.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-13.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-14.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-15.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-16.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-17.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-18.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-19.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-20.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-22.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-23.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-24.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-25.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-26.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/hd-foto-28.jpg", alt: "HD Cami Fotoğrafı" },
-  { src: "/images/panorama-cami.jpg", alt: "Panoramik Cami Görünümü" },
+const CHECKS = [
+  "İhtiyaçlarınıza Özel Çözüm",
+  "Uzman Satış Danışmanları",
+  "Ücretsiz ve Hızlı Teklif",
 ];
 
 interface HeroContent {
   title?: string;
   subtitle?: string;
-  buttons?: Array<{ label: string; action: string; variant?: string }>;
 }
 
 export default function HeroSection({ content }: { content?: HeroContent }) {
-  const title = content?.title || "Cami Halısında Türkiye'nin Güvenilir Adresi";
-  const subtitle =
-    content?.subtitle ||
-    "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. 50 yılı aşkın tecrübe, binlerce cami referansı.";
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % IMAGES.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
-    <section
-      className="relative w-full h-[92vh] min-h-[580px] max-h-[900px] flex items-center justify-center overflow-hidden"
-      aria-label="Ana hero bölümü"
-    >
-      {/* ── Arka Plan Slider ── */}
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={currentIndex}
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.6, ease: "easeInOut" }}
-          className="absolute inset-0 z-0"
-        >
-          <img
-            src={IMAGES[currentIndex].src}
-            alt={IMAGES[currentIndex].alt}
-            className="w-full h-full object-cover object-center"
-          />
-        </motion.div>
-      </AnimatePresence>
+    <section className="w-full bg-[#F0FDFE] overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[560px]">
 
-      {/* ── Koyu Overlay — AAA Kontrast Garantisi ── */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#003B40]/95 via-[#003B40]/55 to-[#003B40]/25" />
-      <div className="absolute inset-0 z-10 bg-black/15" />
-
-      {/* ── İslami Geometrik Overlay (subtle) ── */}
-      <div
-        className="absolute inset-0 z-10 opacity-[0.04] pointer-events-none"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='60' cy='60' r='55' stroke='%23C9972B' stroke-width='1' fill='none'/%3E%3Ccircle cx='60' cy='60' r='40' stroke='%23C9972B' stroke-width='1' fill='none'/%3E%3Ccircle cx='60' cy='60' r='25' stroke='%23C9972B' stroke-width='1' fill='none'/%3E%3C/svg%3E")`,
-          backgroundSize: "120px 120px",
-        }}
-      />
-
-      {/* ── Ön Plan İçerik ── */}
-      <div className="relative z-20 container-site text-center flex flex-col items-center px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-4xl"
-        >
+        {/* ── Sol: İçerik ── */}
+        <div className="flex flex-col justify-center px-8 md:px-12 lg:px-16 py-14 lg:py-16 bg-white">
           {/* Üst etiket */}
-          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-[#C9972B]/40 bg-black/30 backdrop-blur-sm">
-            <span className="text-[#E4B84A] text-xs font-semibold tracking-widest uppercase">
-              ☽ Asil Halı A.Ş. ☾
+          <div className="inline-flex items-center gap-2 mb-5 self-start">
+            <span className="w-6 h-px bg-[#C9972B]" />
+            <span className="text-xs font-bold text-[#C9972B] uppercase tracking-widest">
+              Asil Halı A.Ş.
             </span>
           </div>
 
-          {/* Ana Başlık */}
-          <h1
-            className="text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-tight mb-6 drop-shadow-2xl"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
-          >
-            {title}
+          {/* Ana başlık */}
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#0D1B1E] leading-tight mb-4">
+            Cami Halısı mı<br />Arıyorsunuz?
           </h1>
 
           {/* Alt başlık */}
-          <p className="text-lg md:text-xl text-white/85 leading-relaxed mb-10 max-w-2xl mx-auto drop-shadow-lg">
-            {subtitle}
+          <p className="text-[#5A6A6D] text-base md:text-lg leading-relaxed mb-7 max-w-md">
+            Ucuz Bir Çözüm mü, Uzun Yıllar Sorunsuz Kullanacağınız Güvenilir Bir Sistem mi?
           </p>
 
-          {/* Butonlar */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a href="#kategoriler" className="btn btn-gold !text-base !px-8 !py-4">
-              Koleksiyonları İncele
-              <ArrowRight className="w-5 h-5" />
-            </a>
+          {/* CTA butonu */}
+          <div className="flex flex-wrap items-center gap-4 mb-8">
             <a
               href={MAIN_SITE_URL}
               target="_blank"
               rel="noopener"
-              className="btn btn-outline !text-base !px-8 !py-4"
+              className="inline-flex items-center gap-2 bg-[#C9972B] hover:bg-[#B8821E] text-white font-bold px-7 py-3.5 rounded-full transition-all shadow-md hover:shadow-lg text-base"
             >
-              Asil Halı'ya Git
-              <ExternalLink className="w-4 h-4" />
+              Teklif Al
+              <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="#kategoriler"
+              className="text-sm font-semibold text-[#006064] hover:text-[#C9972B] transition-colors underline underline-offset-4"
+            >
+              Modelleri İncele →
             </a>
           </div>
 
-          {/* Güven rozeti */}
-          <div className="flex flex-wrap gap-6 justify-center items-center mt-10">
-            {["50+ Yıl Tecrübe", "10.000+ Cami Referansı", "Türkiye Geneli Teslimat"].map(
-              (item) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-2 text-white/75 text-sm"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C9972B]" />
-                  {item}
-                </div>
-              )
-            )}
-          </div>
-        </motion.div>
-      </div>
+          {/* Checkmark listesi */}
+          <ul className="space-y-2.5">
+            {CHECKS.map((item) => (
+              <li key={item} className="flex items-center gap-3 text-sm text-[#0D1B1E] font-medium">
+                <span className="w-5 h-5 rounded-full bg-[#E0F7FA] flex items-center justify-center flex-shrink-0">
+                  <Check className="w-3 h-3 text-[#006064]" strokeWidth={3} />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      {/* ── Slider Göstergeleri ── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-        {IMAGES.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentIndex(idx)}
-            className={`transition-all duration-400 rounded-full ${
-              idx === currentIndex
-                ? "w-8 h-2.5 bg-[#C9972B]"
-                : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70"
-            }`}
-            aria-label={`Slayt ${idx + 1}`}
+        {/* ── Sağ: Görsel + floating etiketler ── */}
+        <div className="relative min-h-[320px] lg:min-h-0">
+          <img
+            src={HERO_IMAGE}
+            alt="Asil Halı — Cami iç mekanı turkuaz halı"
+            className="w-full h-full object-cover object-center"
           />
-        ))}
-      </div>
 
-      {/* ── Alt Gradient Geçiş ── */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F0FDFE] to-transparent z-20" />
+          {/* Hafif overlay */}
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#006064]/10" />
+
+          {/* Floating etiket — Uzun Ömür */}
+          <div className="absolute top-[18%] left-4 md:left-8">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg border border-[#B2EBF2]">
+              <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">Uzun Ömür</p>
+              <p className="text-[10px] text-[#5A6A6D]">15-20 yıl kullanım ömrü</p>
+            </div>
+            {/* ok */}
+            <div className="ml-6 mt-0.5 w-px h-8 bg-[#C9972B]/60" />
+          </div>
+
+          {/* Floating etiket — Yüksek Konfor */}
+          <div className="absolute top-[46%] right-4 md:right-8">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg border border-[#B2EBF2]">
+              <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">Yüksek Konfor</p>
+              <p className="text-[10px] text-[#5A6A6D]">Namaz konforunu artırır</p>
+            </div>
+          </div>
+
+          {/* Floating etiket — Profesyonel Uygulama */}
+          <div className="absolute bottom-[12%] right-4 md:right-8">
+            <div className="bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-lg border border-[#B2EBF2]">
+              <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">Profesyonel Uygulama</p>
+              <p className="text-[10px] text-[#5A6A6D]">Uzman ekip montajı</p>
+            </div>
+          </div>
+
+          {/* Stats ribbon */}
+          <div className="absolute bottom-0 left-0 right-0 bg-[#006064]/80 backdrop-blur-sm px-6 py-3 flex gap-6 overflow-hidden">
+            {[
+              { n: "50+", l: "Yıl Tecrübe" },
+              { n: "10.000+", l: "Referans Cami" },
+              { n: "81", l: "Şehir Teslimat" },
+            ].map((s) => (
+              <div key={s.l} className="text-center flex-1">
+                <div className="text-lg font-extrabold text-[#E4B84A] leading-none">{s.n}</div>
+                <div className="text-[10px] text-white/80 mt-0.5">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 }
