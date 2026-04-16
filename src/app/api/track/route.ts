@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getVisitorInfo } from "@/lib/visitor-info";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");
   return new PrismaClient();
 }
 
-// POST /api/track — tıklama olayı kaydet
+// POST /api/track — tıklama olayı kaydet (client-side fire)
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -15,19 +16,24 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: false }, { status: 400 });
     }
 
-    const ua = req.headers.get("user-agent")?.slice(0, 200) ?? undefined;
-    const referer = req.headers.get("referer")?.slice(0, 500) ?? undefined;
+    const v = getVisitorInfo(req);
 
     const prisma = await getPrisma();
     try {
       await (prisma as any).clickEvent.create({
         data: {
-          fromPage: fromPage.slice(0, 500),
-          toUrl: toUrl.slice(0, 500),
-          label: (label ?? "").slice(0, 100),
-          category: category ?? "outbound",
-          ua,
-          referer,
+          fromPage:  fromPage.slice(0, 500),
+          toUrl:     toUrl.slice(0, 500),
+          label:     (label ?? "").slice(0, 100),
+          category:  category ?? "outbound",
+          referer:   v.referer,
+          refDomain: v.refDomain,
+          ua:        v.ua,
+          device:    v.device,
+          browser:   v.browser,
+          ip:        v.ip,
+          country:   v.country,
+          city:      v.city,
         },
       });
     } finally {
@@ -36,7 +42,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch {
-    // Hata takip akışını bozmasın
     return NextResponse.json({ ok: false });
   }
 }

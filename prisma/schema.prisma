@@ -107,27 +107,40 @@ model ContentArchive {
 // ── Trafik Takip ──────────────────────────────────────────────────
 
 model ClickEvent {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  fromPage  String   // Kaynak sayfa (ör: "/kategori/akrilik-cami-halisi")
-  toUrl     String   // Hedef URL (ör: "https://www.asilhali.com.tr?...")
-  label     String   // Tıklama etiketi (ör: "Teklif Al", "CTA Hero", "nav")
-  category  String   @default("outbound") // "outbound" | "whatsapp" | "phone" | "form"
-  referer   String?  // HTTP referer
-  ua        String?  // Kısaltılmış user-agent
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  fromPage    String   // Kaynak sayfa (ör: "/kategori/akrilik-cami-halisi")
+  toUrl       String   // Hedef URL (ör: "https://www.asilhali.com.tr?...")
+  label       String   // Tıklama etiketi (ör: "teklif-al", "whatsapp", "nav")
+  category    String   @default("outbound") // "outbound" | "whatsapp" | "phone" | "form"
+  referer     String?  // HTTP Referer header
+  refDomain   String?  // Sadece domain (ör: "google.com", "facebook.com")
+  ua          String?  // Kısaltılmış user-agent
+  device      String?  // "mobile" | "tablet" | "desktop"
+  browser     String?  // "chrome" | "safari" | "firefox" | "edge" | "other"
+  ip          String?  // Ziyaretçi IP (x-forwarded-for'dan ilk IP)
+  country     String?  // Ülke kodu (x-vercel-ip-country, ör: "TR")
+  city        String?  // Şehir (x-vercel-ip-city)
 
   @@index([createdAt])
   @@index([fromPage])
   @@index([category])
+  @@index([country])
+  @@index([device])
 }
 
 model PageView {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   page      String   // URL yolu (ör: "/kategori/akrilik-cami-halisi")
-  referer   String?  // Nereden geldi
-  country   String?  // Ülke kodu (Vercel header'ından)
+  referer   String?  // HTTP Referer header
+  refDomain String?  // Kaynak domain
+  country   String?  // Ülke kodu (x-vercel-ip-country)
+  city      String?  // Şehir
+  device    String?  // "mobile" | "tablet" | "desktop"
+  ip        String?  // Ziyaretçi IP
 
   @@index([createdAt])
   @@index([page])
+  @@index([country])
 }

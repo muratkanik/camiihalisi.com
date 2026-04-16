@@ -1,209 +1,347 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  ExternalLink, MousePointerClick, TrendingUp,
-  Calendar, BarChart2, ArrowUpRight, RefreshCw
-} from "lucide-react";
 
-interface ClickRow {
-  fromPage: string;
-  label: string;
-  category: string;
-  count: number;
-  lastSeen: string;
-}
-
-interface Stats {
+interface TrafikData {
   today: number;
   week: number;
   month: number;
   total: number;
-  byPage: ClickRow[];
-  byLabel: { label: string; count: number }[];
+  whatsappCount: number;
+  siteCount: number;
+  byPage:     { fromPage: string; label: string; count: number }[];
+  byLabel:    { label: string; count: number }[];
   byCategory: { category: string; count: number }[];
-  recent: { fromPage: string; toUrl: string; label: string; createdAt: string }[];
+  byCountry:  { code: string; name: string; flag: string; count: number }[];
+  byCity:     { city: string; count: number }[];
+  byDevice:   { device: string; count: number }[];
+  byBrowser:  { browser: string; count: number }[];
+  byRef:      { domain: string; count: number }[];
+  recent: {
+    fromPage: string; toUrl: string; label: string; category: string;
+    country?: string; city?: string; device?: string; browser?: string;
+    refDomain?: string; createdAt: string;
+  }[];
+}
+
+const PERIODS = [
+  { key: "today", label: "Bugün" },
+  { key: "week",  label: "7 Gün" },
+  { key: "month", label: "30 Gün" },
+  { key: "all",   label: "Tümü" },
+];
+
+const DEVICE_ICON: Record<string, string> = {
+  mobile: "📱", tablet: "🖥️", desktop: "💻",
+};
+const BROWSER_ICON: Record<string, string> = {
+  chrome: "🟢", safari: "🔵", firefox: "🦊", edge: "🟦", opera: "🔴", ie: "⬛", other: "⬜",
+};
+const CAT_ICON: Record<string, string> = {
+  outbound: "🔗", whatsapp: "💬", phone: "📞", form: "📋",
+};
+
+function StatCard({ label, value, sub }: { label: string; value: number; sub?: string }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#B2EBF2] p-5 flex flex-col gap-1">
+      <span className="text-xs text-[#6B6355] uppercase tracking-widest font-semibold">{label}</span>
+      <span className="text-3xl font-bold text-[#006064]">{value.toLocaleString("tr-TR")}</span>
+      {sub && <span className="text-xs text-[#6B6355]">{sub}</span>}
+    </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="text-sm font-bold text-[#006064] uppercase tracking-widest mb-3 mt-6 flex items-center gap-2">
+      {children}
+    </h2>
+  );
 }
 
 export default function TrafikPage() {
-  const [stats, setStats] = useState<Stats | null>(null);
+  const [period, setPeriod] = useState("week");
+  const [data, setData] = useState<TrafikData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [period, setPeriod] = useState<"today" | "week" | "month" | "all">("week");
 
-  const load = async () => {
+  useEffect(() => {
     setLoading(true);
-    const res = await fetch(`/api/admin/trafik?period=${period}`);
-    if (res.ok) setStats(await res.json());
-    setLoading(false);
-  };
-
-  useEffect(() => { load(); }, [period]);
-
-  const periodLabel = { today: "Bugün", week: "Bu Hafta", month: "Bu Ay", all: "Tüm Zamanlar" }[period];
+    fetch(`/api/admin/trafik?period=${period}`)
+      .then((r) => r.json())
+      .then((d) => { setData(d); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, [period]);
 
   return (
-    <div>
+    <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Başlık */}
-      <div className="flex items-start justify-between mb-8">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Trafik Takip</h1>
-          <p className="text-slate-500 text-sm mt-1">
-            camiihalisi.com → asilhali.com.tr yönlendirme istatistikleri
+          <h1 className="text-2xl font-bold text-[#1A1A1A]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            Trafik Takip
+          </h1>
+          <p className="text-sm text-[#6B6355] mt-0.5">
+            asilhali.com.tr yönlendirme & ziyaretçi verileri
           </p>
         </div>
-        <button
-          onClick={load}
-          className="flex items-center gap-2 px-3 py-2 text-sm bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition"
-        >
-          <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
-          Yenile
-        </button>
-      </div>
-
-      {/* Dönem Seçici */}
-      <div className="flex gap-2 mb-6">
-        {(["today", "week", "month", "all"] as const).map((p) => (
-          <button
-            key={p}
-            onClick={() => setPeriod(p)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-              period === p
-                ? "bg-[#006064] text-white"
-                : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50"
-            }`}
-          >
-            {{ today: "Bugün", week: "Bu Hafta", month: "Bu Ay", all: "Tümü" }[p]}
-          </button>
-        ))}
+        {/* Dönem seçici */}
+        <div className="flex gap-2">
+          {PERIODS.map((p) => (
+            <button
+              key={p.key}
+              onClick={() => setPeriod(p.key)}
+              className={`px-4 py-1.5 rounded-lg text-sm font-semibold border transition-all ${
+                period === p.key
+                  ? "bg-[#006064] text-white border-[#006064]"
+                  : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]"
+              }`}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center h-40 text-slate-400">
-          <RefreshCw className="w-6 h-6 animate-spin mr-2" /> Yükleniyor...
+        <div className="flex items-center justify-center py-24 text-[#6B6355]">
+          Yükleniyor…
         </div>
-      ) : !stats ? (
-        <div className="text-center text-slate-400 py-20">Veri yüklenemedi</div>
+      ) : !data ? (
+        <div className="text-red-500 py-12 text-center">Veri alınamadı</div>
       ) : (
         <>
-          {/* Özet Kartlar */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {[
-              { label: "Bugün", value: stats.today, icon: Calendar, color: "bg-blue-50 text-blue-700 border-blue-100" },
-              { label: "Bu Hafta", value: stats.week, icon: TrendingUp, color: "bg-teal-50 text-teal-700 border-teal-100" },
-              { label: "Bu Ay", value: stats.month, icon: BarChart2, color: "bg-amber-50 text-amber-700 border-amber-100" },
-              { label: "Toplam", value: stats.total, icon: MousePointerClick, color: "bg-slate-50 text-slate-700 border-slate-100" },
-            ].map(({ label, value, icon: Icon, color }) => (
-              <div key={label} className={`rounded-2xl border p-5 ${color}`}>
-                <Icon className="w-5 h-5 mb-2 opacity-70" />
-                <div className="text-3xl font-bold">{value.toLocaleString("tr-TR")}</div>
-                <div className="text-sm font-medium mt-1">{label}</div>
-              </div>
-            ))}
+          {/* ── Özet Kartlar ── */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <StatCard label="Bugün" value={data.today} />
+            <StatCard label="7 Gün" value={data.week} />
+            <StatCard label="30 Gün" value={data.month} />
+            <StatCard label="Toplam" value={data.total} />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            {/* Sayfaya Göre Tıklama */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-              <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide mb-4 flex items-center gap-2">
-                <ArrowUpRight className="w-4 h-4 text-[#006064]" />
-                Sayfa Bazlı Tıklama — {periodLabel}
-              </h2>
-              {stats.byPage.length === 0 ? (
-                <p className="text-slate-400 text-sm py-8 text-center">Henüz kayıt yok</p>
-              ) : (
-                <div className="space-y-2">
-                  {stats.byPage.slice(0, 10).map((row, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="w-5 text-xs text-slate-400 text-right">{i + 1}</div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium text-slate-700 truncate">{row.fromPage}</div>
-                        <div className="text-xs text-slate-400">{row.label || "—"}</div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="h-2 rounded-full bg-[#006064]/20"
-                          style={{ width: `${Math.max(8, (row.count / (stats.byPage[0]?.count || 1)) * 80)}px` }}
-                        />
-                        <span className="text-sm font-bold text-[#006064] w-8 text-right">{row.count}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Butona Göre */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-              <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide mb-4 flex items-center gap-2">
-                <MousePointerClick className="w-4 h-4 text-[#C9972B]" />
-                Buton / Kaynak Etiket — {periodLabel}
-              </h2>
-              {stats.byLabel.length === 0 ? (
-                <p className="text-slate-400 text-sm py-8 text-center">Henüz kayıt yok</p>
-              ) : (
-                <div className="space-y-2">
-                  {stats.byLabel.slice(0, 10).map((row, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <div className="w-5 text-xs text-slate-400 text-right">{i + 1}</div>
-                      <div className="flex-1 text-sm font-medium text-slate-700 truncate">{row.label || "—"}</div>
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="h-2 rounded-full bg-[#C9972B]/30"
-                          style={{ width: `${Math.max(8, (row.count / (stats.byLabel[0]?.count || 1)) * 80)}px` }}
-                        />
-                        <span className="text-sm font-bold text-[#C9972B] w-8 text-right">{row.count}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+          {/* WA vs Site */}
+          <div className="grid grid-cols-2 gap-4 mt-4">
+            <StatCard
+              label="💬 WhatsApp Tıklaması"
+              value={data.whatsappCount}
+              sub="Bu dönem WhatsApp bağlantısı"
+            />
+            <StatCard
+              label="🔗 Site Yönlendirme"
+              value={data.siteCount}
+              sub="Bu dönem asilhali.com.tr"
+            />
           </div>
 
-          {/* Son Tıklamalar */}
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-            <h2 className="text-sm font-bold text-slate-700 uppercase tracking-wide mb-4 flex items-center gap-2">
-              <ExternalLink className="w-4 h-4 text-slate-500" />
-              Son Tıklamalar
-            </h2>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-slate-100">
-                    <th className="text-left pb-2 text-xs text-slate-400 font-medium">Tarih/Saat</th>
-                    <th className="text-left pb-2 text-xs text-slate-400 font-medium">Kaynak Sayfa</th>
-                    <th className="text-left pb-2 text-xs text-slate-400 font-medium">Etiket</th>
-                    <th className="text-left pb-2 text-xs text-slate-400 font-medium">Hedef</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {stats.recent.length === 0 ? (
-                    <tr>
-                      <td colSpan={4} className="py-8 text-center text-slate-400">Henüz kayıt yok</td>
-                    </tr>
-                  ) : (
-                    stats.recent.map((row, i) => (
-                      <tr key={i} className="border-b border-slate-50 hover:bg-slate-50">
-                        <td className="py-2 pr-4 text-slate-400 whitespace-nowrap text-xs">
-                          {new Date(row.createdAt).toLocaleString("tr-TR", { dateStyle: "short", timeStyle: "short" })}
-                        </td>
-                        <td className="py-2 pr-4 text-slate-700 truncate max-w-[180px]">{row.fromPage}</td>
-                        <td className="py-2 pr-4">
-                          <span className="inline-block px-2 py-0.5 text-xs bg-[#E0F7FA] text-[#006064] rounded-full">
-                            {row.label || "—"}
-                          </span>
-                        </td>
-                        <td className="py-2 text-slate-400 text-xs truncate max-w-[160px]">
-                          <a href={row.toUrl} target="_blank" rel="noopener noreferrer" className="hover:text-[#006064] flex items-center gap-1">
-                            asilhali.com.tr <ExternalLink className="w-3 h-3" />
-                          </a>
-                        </td>
+          {/* ── Ülkeler + Şehirler ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+            <div>
+              <SectionTitle>🌍 Ülkeler</SectionTitle>
+              {data.byCountry.length === 0 ? (
+                <p className="text-xs text-[#6B6355]">Henüz veri yok</p>
+              ) : (
+                <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                        <th className="text-left px-4 py-2.5">Ülke</th>
+                        <th className="text-right px-4 py-2.5">Tıklama</th>
                       </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody>
+                      {data.byCountry.map((r) => (
+                        <tr key={r.code} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
+                          <td className="px-4 py-2.5 font-medium">
+                            <span className="mr-2">{r.flag}</span>{r.name}
+                          </td>
+                          <td className="px-4 py-2.5 text-right font-bold text-[#006064]">{r.count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
+
+            <div>
+              <SectionTitle>🇹🇷 Türkiye Şehirleri</SectionTitle>
+              {data.byCity.length === 0 ? (
+                <p className="text-xs text-[#6B6355]">Henüz veri yok</p>
+              ) : (
+                <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                        <th className="text-left px-4 py-2.5">Şehir</th>
+                        <th className="text-right px-4 py-2.5">Tıklama</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.byCity.map((r) => (
+                        <tr key={r.city} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
+                          <td className="px-4 py-2.5 font-medium">{r.city}</td>
+                          <td className="px-4 py-2.5 text-right font-bold text-[#006064]">{r.count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Cihaz + Browser + Kaynak ── */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-2">
+            <div>
+              <SectionTitle>📱 Cihaz Türü</SectionTitle>
+              <div className="bg-white rounded-2xl border border-[#B2EBF2] p-4 space-y-2">
+                {data.byDevice.length === 0 ? (
+                  <p className="text-xs text-[#6B6355]">Veri yok</p>
+                ) : data.byDevice.map((r) => (
+                  <div key={r.device} className="flex items-center justify-between">
+                    <span className="text-sm capitalize">
+                      {DEVICE_ICON[r.device] ?? "❓"} {r.device}
+                    </span>
+                    <span className="font-bold text-[#006064]">{r.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <SectionTitle>🌐 Tarayıcı</SectionTitle>
+              <div className="bg-white rounded-2xl border border-[#B2EBF2] p-4 space-y-2">
+                {data.byBrowser.length === 0 ? (
+                  <p className="text-xs text-[#6B6355]">Veri yok</p>
+                ) : data.byBrowser.map((r) => (
+                  <div key={r.browser} className="flex items-center justify-between">
+                    <span className="text-sm capitalize">
+                      {BROWSER_ICON[r.browser] ?? "⬜"} {r.browser}
+                    </span>
+                    <span className="font-bold text-[#006064]">{r.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <SectionTitle>🔀 Trafik Kaynağı</SectionTitle>
+              <div className="bg-white rounded-2xl border border-[#B2EBF2] p-4 space-y-2">
+                {data.byRef.length === 0 ? (
+                  <p className="text-xs text-[#6B6355]">Çoğunlukla direkt trafik</p>
+                ) : data.byRef.map((r) => (
+                  <div key={r.domain} className="flex items-center justify-between">
+                    <span className="text-sm truncate max-w-[150px]">{r.domain}</span>
+                    <span className="font-bold text-[#006064]">{r.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* ── Sayfa + Etiket ── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+            <div>
+              <SectionTitle>🏷️ Tıklanan Buton / Link</SectionTitle>
+              {data.byLabel.length === 0 ? (
+                <p className="text-xs text-[#6B6355]">Henüz tıklama yok</p>
+              ) : (
+                <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                        <th className="text-left px-4 py-2.5">Etiket</th>
+                        <th className="text-right px-4 py-2.5">Tıklama</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.byLabel.map((r) => (
+                        <tr key={r.label} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
+                          <td className="px-4 py-2.5 font-mono text-xs">{r.label || "(etiket yok)"}</td>
+                          <td className="px-4 py-2.5 text-right font-bold text-[#006064]">{r.count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <SectionTitle>📄 Sayfa Bazlı Tıklamalar</SectionTitle>
+              {data.byPage.length === 0 ? (
+                <p className="text-xs text-[#6B6355]">Henüz tıklama yok</p>
+              ) : (
+                <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                        <th className="text-left px-4 py-2.5">Sayfa</th>
+                        <th className="text-left px-4 py-2.5">Etiket</th>
+                        <th className="text-right px-4 py-2.5">Adet</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {data.byPage.map((r, i) => (
+                        <tr key={i} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
+                          <td className="px-4 py-2 text-xs font-mono truncate max-w-[150px]">{r.fromPage}</td>
+                          <td className="px-4 py-2 text-xs text-[#6B6355] truncate max-w-[120px]">{r.label}</td>
+                          <td className="px-4 py-2 text-right font-bold text-[#006064]">{r.count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Son Tıklamalar ── */}
+          <SectionTitle>🕐 Son Tıklamalar</SectionTitle>
+          <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="bg-[#F0FDFE] text-[#006064] font-semibold">
+                  <th className="text-left px-3 py-2.5">Zaman</th>
+                  <th className="text-left px-3 py-2.5">Sayfa</th>
+                  <th className="text-left px-3 py-2.5">Etiket</th>
+                  <th className="text-left px-3 py-2.5">Tür</th>
+                  <th className="text-left px-3 py-2.5">Ülke / Şehir</th>
+                  <th className="text-left px-3 py-2.5">Cihaz</th>
+                  <th className="text-left px-3 py-2.5">Kaynak</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.recent.map((r, i) => (
+                  <tr key={i} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/40">
+                    <td className="px-3 py-2 whitespace-nowrap text-[#6B6355]">
+                      {new Date(r.createdAt).toLocaleString("tr-TR", {
+                        month: "short", day: "numeric",
+                        hour: "2-digit", minute: "2-digit",
+                      })}
+                    </td>
+                    <td className="px-3 py-2 font-mono max-w-[140px] truncate">{r.fromPage}</td>
+                    <td className="px-3 py-2 max-w-[120px] truncate">{r.label}</td>
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {CAT_ICON[r.category] ?? "?"} {r.category}
+                    </td>
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {r.country ?? "?"}{r.city ? ` / ${r.city}` : ""}
+                    </td>
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {r.device ? `${DEVICE_ICON[r.device] ?? ""} ${r.device}` : "?"}
+                    </td>
+                    <td className="px-3 py-2 text-[#6B6355]">{r.refDomain ?? "direkt"}</td>
+                  </tr>
+                ))}
+                {data.recent.length === 0 && (
+                  <tr>
+                    <td colSpan={7} className="px-4 py-8 text-center text-[#6B6355]">
+                      Henüz tıklama kaydı yok
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
           </div>
         </>
       )}
