@@ -3,24 +3,37 @@ import { ArrowRight, Quote } from "lucide-react";
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtrust%26utm_campaign%3Dsite&from=trust&label=iletisime-gec&cat=outbound";
 
-const TESTIMONIALS = [
+export interface Testimonial {
+  name: string;
+  location: string;
+  quote: string;
+  rating?: number; // 1-5, defaults to 5
+}
+
+const DEFAULT_TESTIMONIALS: Testimonial[] = [
   {
     name: "Mehmet Bey",
     location: "Ankara — Camii Derneği",
-    avatar: "/images/avatar-1.jpg",
     quote:
       "Doğru halıyı seçmek sayesinde yıllardır sorunsuz bir şekilde kullanıyoruz. Destek ve profesyonelliklerinden dolayı Allah razı olsun.",
+    rating: 5,
   },
   {
     name: "Hasan Efendi",
     location: "İstanbul — Camii Vakfı",
-    avatar: "/images/avatar-2.jpg",
     quote:
       "10 yıl önce döşettik, hâlâ ilk günkü gibi duruyor. Rengi solmadı, deformasyona uğramadı. Asil Halı'yı herkese tavsiye ederiz.",
+    rating: 5,
   },
 ];
 
-export default function TrustSection() {
+interface TrustSectionProps {
+  testimonials?: Testimonial[];
+}
+
+export default function TrustSection({ testimonials }: TrustSectionProps) {
+  const items = (testimonials && testimonials.length > 0) ? testimonials : DEFAULT_TESTIMONIALS;
+
   return (
     <section className="section overflow-hidden">
       <div className="container-site">
@@ -78,7 +91,7 @@ export default function TrustSection() {
 
           {/* ── Sağ: Referans kartları ── */}
           <div className="flex flex-col gap-5">
-            {TESTIMONIALS.map((t, i) => (
+            {items.slice(0, 3).map((t, i) => (
               <div
                 key={i}
                 className="bg-white rounded-2xl border border-[#B2EBF2] p-6 shadow-sm hover:shadow-md transition-shadow"
@@ -102,7 +115,7 @@ export default function TrustSection() {
                   </div>
                   {/* Yıldızlar */}
                   <div className="ml-auto flex gap-0.5">
-                    {[...Array(5)].map((_, si) => (
+                    {[...Array(t.rating ?? 5)].map((_, si) => (
                       <svg key={si} className="w-3.5 h-3.5 text-[#C9972B]" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>

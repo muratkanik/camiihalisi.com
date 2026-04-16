@@ -4,6 +4,7 @@ export interface BlogPost {
   excerpt: string;
   content: string;
   category: string;
+  subcategory?: string;
   tags: string[];
   readTime: string;
   publishedAt: string;
@@ -13,7 +14,7 @@ export interface BlogPost {
   metaDescription: string;
 }
 
-export const BLOG_CATEGORIES = ["Tümü", "Rehber", "Teknik", "Bakım", "Proje", "Malzeme"];
+export const BLOG_CATEGORIES = ["Tümü", "Rehber", "Teknik", "Bakım", "Proje", "Malzeme", "SSS", "Faydalı Bilgiler"];
 
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -1095,6 +1096,125 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     "metaTitle": "Zamanla Değer Kaybetmeyen Cami Halısı Tasarımı Nasıl Oluşturulur  | Asil Halı",
     "metaDescription": "Zamanla Değer Kaybetmeyen Cami Halısı Tasarımı Nasıl Oluşturulur? Bazı cami halıları yıllar geçtikçe eskimiş ve demode bir görünüm kazanırken, bazıları uzu"
+  },
+
+  // ── SSS Kategorisi ──────────────────────────────────────────────────────────
+  {
+    "slug": "cami-halisi-siparisi-nasil-verilir",
+    "title": "Cami halısı siparişi nasıl verebilirim?",
+    "excerpt": "Asil Halı resmi web sitesi veya telefon üzerinden sipariş verebilirsiniz. Teknik ekibimiz ölçümünüzü alarak size özel fiyat teklifi hazırlar.",
+    "content": "Asil Halı resmi web sitesi asilhali.com.tr üzerinden veya telefon ile iletişime geçerek sipariş verebilirsiniz. Teknik ekibimiz caminizin ölçümünü alarak size özel fiyat teklifi hazırlar. Sipariş sürecinde boyut, desen ve renk seçimleri uzmanlarımız eşliğinde yapılır. Üretim başlamadan önce onayınız alınır ve teslimat tarihi netleştirilir.",
+    "category": "SSS",
+    "tags": ["sipariş", "cami halısı", "fiyat teklifi"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-01",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-hero.png",
+    "metaTitle": "Cami Halısı Siparişi Nasıl Verilir? | Asil Halı",
+    "metaDescription": "Asil Halı cami halısı siparişi ve adım adım sipariş süreci."
+  },
+  {
+    "slug": "hangi-hali-turu-cami-icin-en-uygun",
+    "title": "Hangi halı türü cami için en uygundur?",
+    "excerpt": "Cami büyüklüğü, bütçe ve kullanım yoğunluğuna göre değişir. Küçük camiler için akrilik, büyük camiler için yün veya polyamid tercih edilir.",
+    "content": "Cami büyüklüğüne, bütçeye ve kullanım yoğunluğuna göre değişir. Küçük mahalle camileri için akrilik tercih edilirken büyük camilerde yün veya polyamid tercih edilir. Polipropilen neme dayanıklılığıyla öne çıkar. Ücretsiz danışmanlığımızdan yararlanarak caminize en uygun halıyı belirleyebilirsiniz.",
+    "category": "SSS",
+    "tags": ["halı türleri", "akrilik", "yün", "polyamid"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-02",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-3.png",
+    "metaTitle": "Cami İçin En Uygun Halı Türü Hangisi? | Asil Halı",
+    "metaDescription": "Akrilik, yün, polipropilen, polyamid — caminiz için doğru halı türü nasıl seçilir?"
+  },
+  {
+    "slug": "cami-halisi-ne-siklikla-degistirilmeli",
+    "title": "Cami halısı ne sıklıkla değiştirilmelidir?",
+    "excerpt": "Kaliteli bir cami halısı 15-20 yıl kullanılabilir. Yoğun kullanım, yetersiz bakım veya nem ömrü kısaltabilir.",
+    "content": "Kaliteli bir cami halısı 15-20 yıl kullanılabilir. Ancak yoğun kullanım, yetersiz bakım veya nem gibi faktörler ömrü kısaltabilir. Düzenli temizlik ve profesyonel bakım ömrü uzatır. Renk solması, deformasyon veya hijyenik sorunlar değişim zamanının geldiğine işaret eder.",
+    "category": "SSS",
+    "tags": ["halı ömrü", "bakım", "değişim"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-03",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-4.png",
+    "metaTitle": "Cami Halısı Ne Sıklıkla Değiştirilmeli? | Asil Halı",
+    "metaDescription": "Cami halısı ömrü, bakım ve değişim zamanını belirleyen faktörler."
+  },
+  {
+    "slug": "teslimat-suresi-ne-kadar",
+    "title": "Teslimat süresi ne kadar?",
+    "excerpt": "Standart siparişlerde 3-6 hafta, acil siparişlerde 2-3 hafta içinde teslimat sağlanır.",
+    "content": "Standart siparişlerde 3-6 hafta, acil siparişlerde ise 2-3 hafta içinde teslimat sağlanır. Üretim sürecini şeffaf biçimde takip edebilirsiniz. Türkiye genelinde 81 ile hızlı ve güvenli teslimat yapılmaktadır.",
+    "category": "SSS",
+    "tags": ["teslimat", "sipariş süresi"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-04",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-5.png",
+    "metaTitle": "Cami Halısı Teslimat Süresi | Asil Halı",
+    "metaDescription": "Cami halısı sipariş ve teslimat süreleri hakkında bilgiler."
+  },
+  {
+    "slug": "ozel-desen-tasarim-mumkun-mu",
+    "title": "Özel desen tasarımı mümkün müdür?",
+    "excerpt": "Evet. Caminizin mimarisine ve rengine uygun özel desen tasarımı yapılabilir. Tasarım süreci ücretsizdir.",
+    "content": "Evet. Caminizin mimarisine, rengine veya bölgenin geleneğine uygun özel desen tasarımı yapılabilir. Tasarım süreci ücretsizdir ve onayınız alındıktan sonra üretime geçilir. Ücretsiz 3D görselleştirme hizmetimizle tasarımı önceden görebilirsiniz.",
+    "category": "SSS",
+    "tags": ["özel desen", "axminster", "tasarım"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-05",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/ozel-cami-halisi.png",
+    "metaTitle": "Özel Desen Cami Halısı Tasarımı | Asil Halı",
+    "metaDescription": "Caminize özel desen ve renk seçeneğiyle üretilen Axminster cami halıları."
+  },
+
+  // ── Faydalı Bilgiler — Birçok Camide Halılar Neden Erken Yıpranır? ─────────
+  {
+    "slug": "yanlis-teknik-secim-neden-hali-yipratiyor",
+    "title": "Yanlış Teknik Seçim",
+    "excerpt": "Doğru iplik, yoğunluk ve alt yapı seçilmezse halılar hızla deforme olur.",
+    "content": "Cami halısı seçiminde teknik özellikler kritik önem taşır. İplik türü, düğüm sıklığı ve alt yapı malzemesi doğru seçilmediğinde halı kısa sürede bozulur. Polipropilen, akrilik, yün ve polyamid iplikler farklı dayanıklılık özellikleri sunar. Yüksek trafik alanlarında yüksek yoğunluklu, sağlam alt yapılı halılar tercih edilmelidir. Uzman danışmanlık olmadan yapılan teknik seçimler uzun vadede ciddi maliyet artışına yol açar.",
+    "category": "Faydalı Bilgiler",
+    "subcategory": "Birçok Camide Halılar Neden Erken Yıpranır?",
+    "tags": ["teknik seçim", "iplik", "cami halısı"],
+    "readTime": "2 dk",
+    "publishedAt": "2025-02-01",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-3.png",
+    "metaTitle": "Yanlış Teknik Seçim Cami Halısını Neden Yıpratır? | Asil Halı",
+    "metaDescription": "Doğru iplik, yoğunluk ve alt yapı seçiminin cami halısı ömrüne etkisi."
+  },
+  {
+    "slug": "eksik-zemin-analizi-cami-halisini-nasil-etkiler",
+    "title": "Eksik Zemin Analizi",
+    "excerpt": "Zemin detayları ve kullanım yoğunluğu yanlış analiz edilirse çözümsüz sorunlar kaçınılmaz olur.",
+    "content": "Cami zemininin özellikleri halı seçiminde ve montajında belirleyici rol oynar. Zemin ısısı, nem oranı, düzlük ve kullanım yoğunluğu detaylı analiz edilmeden yapılan uygulamalar uzun vadede ciddi sorunlara neden olur. Nem fazla olan camilerde uygun nem bariyeri kullanılmadan döşenen halılar küflenir. Asil Halı her proje öncesinde kapsamlı zemin analizi yaparak en uygun çözümü belirler.",
+    "category": "Faydalı Bilgiler",
+    "subcategory": "Birçok Camide Halılar Neden Erken Yıpranır?",
+    "tags": ["zemin analizi", "nem", "montaj"],
+    "readTime": "2 dk",
+    "publishedAt": "2025-02-02",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-4.png",
+    "metaTitle": "Zemin Analizi Olmadan Cami Halısı Döşemek | Asil Halı",
+    "metaDescription": "Eksik zemin analizi cami halısına nasıl zarar verir? Uzman ekip çözümleri."
+  },
+  {
+    "slug": "kalitesiz-montaj-sureci-hali-omrunu-kisaltiyor",
+    "title": "Kalitesiz Montaj Süreci",
+    "excerpt": "Düzensiz ve profesyonel olmayan montaj işlemleri halının ömrünü kısaltır.",
+    "content": "Cami halısı kalitesi kadar montaj kalitesi de önemlidir. Profesyonel olmayan montaj ekipleri halı kenarlarını düzgün sabitleyemez, bağlantı noktalarında boşluk bırakır ve yanlış gerdirme uygular. Bu hatalar zamanla köşe kalkması, dalgalanma ve erken aşınmaya yol açar. Asil Halı uzman montaj ekibi her projeyi titizlikle planlayarak en uzun ömürlü sonucu elde eder.",
+    "category": "Faydalı Bilgiler",
+    "subcategory": "Birçok Camide Halılar Neden Erken Yıpranır?",
+    "tags": ["montaj", "profesyonel uygulama", "kalite"],
+    "readTime": "2 dk",
+    "publishedAt": "2025-02-03",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-5.png",
+    "metaTitle": "Kalitesiz Montaj Cami Halısını Neden Yıpratır? | Asil Halı",
+    "metaDescription": "Profesyonel olmayan montaj işlemlerinin cami halısı ömrüne olumsuz etkileri."
   }
 ];
 

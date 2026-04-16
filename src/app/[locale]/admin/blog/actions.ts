@@ -18,6 +18,7 @@ export interface BlogOverride {
   metaDescription?: string;
   image?: string;
   category?: string;
+  subcategory?: string;
   author?: string;
   publishedAt?: string;
   readTime?: string;
@@ -90,6 +91,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
   const publishedAt = (formData.get("publishedAt") as string)?.trim();
   const readTime = (formData.get("readTime") as string)?.trim();
   const seoKeyword = (formData.get("seoKeyword") as string)?.trim();
+  const subcategory = (formData.get("subcategory") as string)?.trim();
 
   const prisma = await getPrisma();
   try {
@@ -105,6 +107,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
       ...(metaDescription ? { metaDescription } : {}),
       ...(image ? { image } : {}),
       ...(category ? { category } : {}),
+      ...(subcategory !== undefined ? { subcategory } : {}),
       ...(author ? { author } : {}),
       ...(publishedAt ? { publishedAt } : {}),
       ...(readTime ? { readTime } : {}),

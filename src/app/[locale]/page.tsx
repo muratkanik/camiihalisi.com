@@ -7,13 +7,15 @@ import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/blocks/HeroSection";
 import { getSettings } from "@/lib/settings";
-import ProblemSection from "@/components/blocks/ProblemSection";
+import ProblemSection, { type ProblemItem } from "@/components/blocks/ProblemSection";
 import CategoryShowcase from "@/components/blocks/CategoryShowcase";
-import TrustSection from "@/components/blocks/TrustSection";
+import TrustSection, { type Testimonial } from "@/components/blocks/TrustSection";
 import FeatureGrid from "@/components/blocks/FeatureGrid";
 import BlogPreview from "@/components/blocks/BlogPreview";
 import CTASection from "@/components/blocks/CTASection";
-import FAQSection from "@/components/blocks/FAQSection";
+import FAQSection, { type FAQItem } from "@/components/blocks/FAQSection";
+import { getBlogPosts as getBlogPostsFromAdmin } from "@/app/[locale]/admin/blog/actions";
+import { getTestimonials } from "@/app/[locale]/admin/yorumlar/actions";
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -55,7 +57,27 @@ export default async function HomePage({
 
   setRequestLocale(locale);
 
-  const settings = await getSettings();
+  // Fetch data in parallel
+  const [settings, allBlogPosts, testimonials] = await Promise.all([
+    getSettings(),
+    getBlogPostsFromAdmin().catch(() => []),
+    getTestimonials().catch(() => []),
+  ]);
+
+  // SSS sorularını blog'dan al (category: "SSS")
+  const faqItems: FAQItem[] = allBlogPosts
+    .filter((p) => p.category === "SSS")
+    .map((p) => ({ question: p.title, answer: p.excerpt }));
+
+  // ProblemSection verilerini blog'dan al (category: "Faydalı Bilgiler", subcategory: "Birçok Camide Halılar Neden Erken Yıpranır?")
+  const problemItems: ProblemItem[] = allBlogPosts
+    .filter((p) => p.category === "Faydalı Bilgiler" && (p as any).subcategory === "Birçok Camide Halılar Neden Erken Yıpranır?")
+    .map((p, i) => ({
+      title: p.title,
+      desc: p.excerpt,
+      slug: p.slug,
+      iconIndex: i,
+    }));
 
   // JSON-LD: BreadcrumbList için ana sayfa
   const breadcrumbLD = {
@@ -82,17 +104,17 @@ export default async function HomePage({
       <Navigation locale={locale} />
 
       <main id="main-content">
-        {/* 1. Hero — split layout */}
+        {/* 1. Hero — full-width slider with overlay */}
         <HeroSection content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
 
-        {/* 2. Problem — Neden Erken Yıpranır? */}
-        <ProblemSection />
+        {/* 2. Problem — Neden Erken Yıpranır? (blog'dan) */}
+        <ProblemSection items={problemItems} locale={locale} />
 
         {/* 3. Ürün Showcase — Hangi Halı Uygun? */}
         <CategoryShowcase locale={locale} />
 
-        {/* 4. Güven & Referans — 30 Yıldır */}
-        <TrustSection />
+        {/* 4. Güven & Referans — 30 Yıldır (admin'den) */}
+        <TrustSection testimonials={testimonials} />
 
         {/* 5. Özellikler — Neden Asil Halı? */}
         <FeatureGrid />
@@ -107,8 +129,8 @@ export default async function HomePage({
         {/* 7. Blog Önizleme */}
         <BlogPreview locale={locale} />
 
-        {/* 8. SSS */}
-        <FAQSection />
+        {/* 8. SSS (blog'dan — kategori: SSS) */}
+        <FAQSection faqs={faqItems.length > 0 ? faqItems : undefined} />
 
         {/* 9. Son CTA */}
         <CTASection

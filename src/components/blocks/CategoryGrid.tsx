@@ -8,7 +8,7 @@ const CATEGORIES = [
     title: "Akrilik Cami Halısı",
     description: "Parlak renkleri, yumuşak dokusu ve ekonomik fiyatıyla en çok tercih edilen halı türü.",
     badge: "En Çok Satan",
-    image: "/images/cami-1.png",
+    image: "/images/cami-3.png",   // turkuaz saflı akrilik
     color: "#006064",
     features: ["Solmaz Renk", "Yumuşak Doku", "Ekonomik"],
     subcategories: [
@@ -22,7 +22,7 @@ const CATEGORIES = [
     title: "Yün Cami Halısı",
     description: "Doğal yünün sıcaklığı ve dayanıklılığıyla ibadethaneye özel lüks.",
     badge: "Premium",
-    image: "/images/cami-2.png",
+    image: "/images/cami-4.png",   // turkuaz desenli büyük cami
     color: "#0097A7",
     features: ["%100 Doğal", "Isı Yalıtımı", "Uzun Ömür"],
     subcategories: [
@@ -36,7 +36,7 @@ const CATEGORIES = [
     title: "Polipropilen Cami Halısı",
     description: "Neme ve lekeye karşı üstün direnciyle yüksek trafik alanları için üretilmiş.",
     badge: "Dayanıklı",
-    image: "/images/cami-3.png",
+    image: "/images/gobekli-cami-halisi.png",
     color: "#006064",
     features: ["Kolay Temizlik", "Leke Tutmaz", "Yüksek Trafik"],
     subcategories: [
@@ -50,7 +50,7 @@ const CATEGORIES = [
     title: "Polyamid Cami Halısı",
     description: "Sentetik liflerin en kalitelisi. Yüksek aşınma direnci ve canlı renklerle büyük camilerin tercihi.",
     badge: "Profesyonel",
-    image: "/images/cami-4.png",
+    image: "/images/gobek-desenli-cami-halisi.png",
     color: "#0097A7",
     features: ["Aşınmaz", "Canlı Renkler", "Büyük Hacim"],
     subcategories: [

@@ -4,23 +4,23 @@ import { ArrowRight } from "lucide-react";
 const PRODUCTS = [
   {
     slug:  "akrilik-cami-halisi",
-    label: "Saf Turkuaz Halı",
-    image: "/images/cami-1.png",
-  },
-  {
-    slug:  "yun-cami-halisi",
-    label: "Camii Desenli Halı",
-    image: "/images/cami-2.png",
+    label: "Saflı Turkuaz Akrilik",
+    image: "/images/cami-3.png",   // turkuaz saflı akrilik
   },
   {
     slug:  "polipropilen-cami-halisi",
-    label: "Açık Mavi Düz Halı",
-    image: "/images/cami-3.png",
+    label: "Göbekli Cami Halısı",
+    image: "/images/gobekli-cami-halisi.png",
+  },
+  {
+    slug:  "yun-cami-halisi",
+    label: "Büyük Cami Desenli",
+    image: "/images/cami-4.png",   // turkuaz büyük cami
   },
   {
     slug:  "ozel-desen-axminster-cami-halisi",
     label: "Özel Desen Axminster",
-    image: "/images/cami-4.png",
+    image: "/images/ozel-cami-halisi.png",
   },
 ];
 

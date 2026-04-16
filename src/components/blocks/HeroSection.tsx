@@ -13,6 +13,8 @@ const IMAGES = [
   { src: "/images/hd-foto-05.jpg",  alt: "HD Cami Fotoğrafı" },
   { src: "/images/hd-foto-06.jpg",  alt: "HD Cami Fotoğrafı" },
   { src: "/images/panorama-cami.jpg", alt: "Panoramik Cami Görünümü" },
+  { src: "/images/gobekli-cami-halisi.png", alt: "Göbekli Cami Halısı" },
+  { src: "/images/ozel-cami-halisi.png",    alt: "Özel Desen Cami Halısı" },
 ];
 
 const MAIN_SITE_URL =
