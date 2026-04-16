@@ -137,7 +137,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
         <Field label="Alt Kategori (isteğe bağlı)" name="subcategory" defaultValue={(post as any).subcategory ?? ""} placeholder="Birçok Camide Halılar Neden Erken Yıpranır?" />
         <Field label="Yazar" name="author" defaultValue={post.author} placeholder="Asil Halı Uzmanları" />
       </div>
-      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Field label="Okuma Süresi" name="readTime" defaultValue={post.readTime} placeholder="3 dk" />
       </div>
