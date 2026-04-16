@@ -396,7 +396,7 @@ export default async function SSSPage({
         </section>
 
         <CTASection
-          variant="gold"
+          variant="cream"
           title="Cami Halısı Siparişi İçin Ücretsiz Teklif Alın"
           subtitle="Ölçü, desen ve bütçenize göre kişiselleştirilmiş fiyat teklifi. 24 saat içinde dönüş."
         />

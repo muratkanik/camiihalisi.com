@@ -27,9 +27,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Dosya bulunamadı" }, { status: 400 });
     }
 
-    const { put } = await import("@vercel/blob");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const blobModule = await import("@vercel/blob" as any);
     const filename = `gallery/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_")}`;
-    const blob = await put(filename, file, {
+    const blob = await blobModule.put(filename, file, {
       access: "public",
       token,
     });

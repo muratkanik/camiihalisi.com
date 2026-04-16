@@ -11,9 +11,11 @@ async function getBlobImages(): Promise<string[]> {
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token) return [];
   try {
-    const { list } = await import("@vercel/blob");
-    const { blobs } = await list({ prefix: "gallery/" });
-    return blobs.map((b) => b.url);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const blobModule = await import("@vercel/blob" as any);
+    const { blobs } = await blobModule.list({ prefix: "gallery/" });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return blobs.map((b: any) => b.url);
   } catch {
     return [];
   }
@@ -52,8 +54,9 @@ export async function DELETE(req: NextRequest) {
   }
 
   try {
-    const { del } = await import("@vercel/blob");
-    await del(url);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const blobModule = await import("@vercel/blob" as any);
+    await blobModule.del(url);
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     return NextResponse.json(

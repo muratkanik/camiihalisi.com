@@ -1,5 +1,5 @@
 import { getHeroSlides, removeHeroSlideAction, toggleHeroSlideAction, initDefaultSlidesAction } from "./actions";
-import { Image as ImageIcon, Eye, EyeOff, Trash2, RefreshCw } from "lucide-react";
+import { Image as ImageIcon, Eye, EyeOff, Trash2, RefreshCw, Plus } from "lucide-react";
 import HeroAddFormClient from "@/components/admin/HeroAddFormClient";
 
 export const dynamic = "force-dynamic";
