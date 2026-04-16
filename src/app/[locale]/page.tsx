@@ -79,27 +79,146 @@ export default async function HomePage({
       iconIndex: i,
     }));
 
-  // JSON-LD: BreadcrumbList için ana sayfa
+  // ── JSON-LD: Yapısal veriler ─────────────────────────────────────────────────
+
+  // Organization — AI sistemleri ve Google için şirket kimliği
+  const organizationLD = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
+    name: "Asil Halı A.Ş.",
+    alternateName: ["Asil Halı", "camiihalisi.com"],
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/images/logo.png`,
+      width: 200,
+      height: 60,
+    },
+    description:
+      "Türkiye'nin köklü cami halısı üreticisi. 1970'ten bu yana akrilik, yün, polipropilen ve Axminster cami halıları üretmekteyiz.",
+    foundingDate: "1970",
+    numberOfEmployees: { "@type": "QuantitativeValue", value: "100+" },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Kayseri",
+      addressRegion: "Kayseri",
+      addressCountry: "TR",
+    },
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        telephone: "+90-352-232-38-38",
+        contactType: "customer service",
+        areaServed: "TR",
+        availableLanguage: "Turkish",
+      },
+      {
+        "@type": "ContactPoint",
+        telephone: "+90-532-346-79-39",
+        contactType: "sales",
+        contactOption: "WhatsApp",
+        areaServed: "TR",
+      },
+    ],
+    sameAs: [
+      "https://www.asilhali.com.tr",
+    ],
+  };
+
+  // LocalBusiness — yerel SEO için
+  const localBusinessLD = {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "HomeGoodsStore"],
+    "@id": `${SITE_URL}/#localbusiness`,
+    name: "Asil Halı — Cami Halısı",
+    url: SITE_URL,
+    telephone: "+90-352-232-38-38",
+    priceRange: "₺₺",
+    image: `${SITE_URL}/images/panorama-cami.jpg`,
+    description:
+      "Türkiye genelinde 10.000+ camiye hizmet eden cami halısı üreticisi ve tedarikçisi.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Kayseri Organize Sanayi Bölgesi",
+      addressLocality: "Kayseri",
+      addressCountry: "TR",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 38.7225,
+      longitude: 35.4875,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        opens: "08:00",
+        closes: "18:00",
+      },
+    ],
+    areaServed: {
+      "@type": "Country",
+      name: "Turkey",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Cami Halısı Ürün Kataloğu",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Akrilik Cami Halısı" } },
+        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Yün Cami Halısı" } },
+        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Polipropilen Cami Halısı" } },
+        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Polyamid Cami Halısı" } },
+        { "@type": "Offer", itemOffered: { "@type": "Product", name: "Özel Desen Axminster Cami Halısı" } },
+      ],
+    },
+  };
+
+  // WebSite — sitelink searchbox için
+  const websiteLD = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: "camiihalisi.com",
+    description: "Türkiye'nin cami halısı portal sitesi",
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    inLanguage: ["tr", "en", "ar", "fr"],
+    potentialAction: {
+      "@type": "SearchAction",
+      target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/sss?q={search_term_string}` },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  // FAQPage — SSS'ten ilk 5 soru
+  const faqLD = faqItems.slice(0, 5).length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.slice(0, 5).map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  } : null;
+
+  // BreadcrumbList
   const breadcrumbLD = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Ana Sayfa",
-        item: SITE_URL,
-      },
+      { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: SITE_URL },
     ],
   };
 
   return (
     <>
-      {/* Sayfa özel JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLD) }}
-      />
+      {/* Yapısal veriler — SEO & AI keşif */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLD) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLD) }} />
+      {faqLD && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLD) }} />}
 
       <Navigation locale={locale} />
 
