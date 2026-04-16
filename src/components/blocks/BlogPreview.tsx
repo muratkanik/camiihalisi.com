@@ -61,7 +61,7 @@ export default function BlogPreview({ locale }: BlogPreviewProps) {
           </div>
           <Link
             href={`${prefix}/blog`}
-            className="flex items-center gap-1.5 text-[#1B4332] font-semibold text-sm hover:text-[#C9972B] transition-colors flex-shrink-0"
+            className="flex items-center gap-1.5 text-[#006064] font-semibold text-sm hover:text-[#C9972B] transition-colors flex-shrink-0"
           >
             Tüm Makaleler
             <ArrowRight className="w-4 h-4" />
@@ -77,7 +77,7 @@ export default function BlogPreview({ locale }: BlogPreviewProps) {
               className="group card flex flex-col"
             >
               {/* Görsel */}
-              <div className="relative h-44 overflow-hidden bg-[#EDE8DF]">
+              <div className="relative h-44 overflow-hidden bg-[#E0F7FA]">
                 <img
                   src={post.image}
                   alt={post.title}
@@ -94,7 +94,7 @@ export default function BlogPreview({ locale }: BlogPreviewProps) {
               {/* İçerik */}
               <div className="p-5 flex flex-col flex-1">
                 <h3
-                  className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#1B4332] transition-colors"
+                  className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#006064] transition-colors"
                   style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem" }}
                 >
                   {post.title}
@@ -107,7 +107,7 @@ export default function BlogPreview({ locale }: BlogPreviewProps) {
                     <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                     {post.readTime}
                   </div>
-                  <span className="text-xs text-[#1B4332] font-semibold group-hover:text-[#C9972B] transition-colors">
+                  <span className="text-xs text-[#006064] font-semibold group-hover:text-[#C9972B] transition-colors">
                     Oku →
                   </span>
                 </div>

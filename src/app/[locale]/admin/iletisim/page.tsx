@@ -128,7 +128,7 @@ export default function IletisimAdminPage() {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#1B4332] text-white text-sm font-bold hover:bg-[#0D2418] disabled:opacity-50 transition-all"
+            className="flex items-center gap-2 px-5 py-2 rounded-lg bg-[#006064] text-white text-sm font-bold hover:bg-[#003B40] disabled:opacity-50 transition-all"
           >
             <Save className="w-4 h-4" />
             {saving ? "Kaydediliyor..." : saved ? "✓ Kaydedildi!" : "Kaydet"}
@@ -158,7 +158,7 @@ export default function IletisimAdminPage() {
                   className="flex-1 flex items-center gap-3 text-left"
                 >
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white flex-shrink-0 ${
-                    office.type === "merkez" ? "bg-[#1B4332]" :
+                    office.type === "merkez" ? "bg-[#006064]" :
                     office.type === "fabrika" ? "bg-slate-600" :
                     office.type === "ofis" ? "bg-blue-600" :
                     office.type === "yurtdisi" ? "bg-purple-600" :
@@ -228,7 +228,7 @@ export default function IletisimAdminPage() {
                       <button
                         type="button"
                         onClick={() => addPhone(office.id)}
-                        className="flex items-center gap-1 text-xs text-[#1B4332] hover:text-[#C9972B] font-medium transition-colors"
+                        className="flex items-center gap-1 text-xs text-[#006064] hover:text-[#C9972B] font-medium transition-colors"
                       >
                         <Plus className="w-3.5 h-3.5" /> Telefon Ekle
                       </button>
@@ -260,7 +260,7 @@ export default function IletisimAdminPage() {
 
                   {/* Active toggle */}
                   <label className="flex items-center gap-3 cursor-pointer">
-                    <div className={`relative w-10 h-5 rounded-full transition-colors ${office.active ? "bg-[#1B4332]" : "bg-slate-300 dark:bg-slate-600"}`}>
+                    <div className={`relative w-10 h-5 rounded-full transition-colors ${office.active ? "bg-[#006064]" : "bg-slate-300 dark:bg-slate-600"}`}>
                       <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform ${office.active ? "translate-x-5" : "translate-x-0.5"}`} />
                       <input type="checkbox" className="sr-only" checked={office.active} onChange={(e) => updateOffice(office.id, { active: e.target.checked })} />
                     </div>
@@ -278,7 +278,7 @@ export default function IletisimAdminPage() {
       <button
         type="button"
         onClick={addOffice}
-        className="mt-4 flex items-center gap-2 w-full px-5 py-3 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-[#1B4332] hover:text-[#1B4332] transition-all text-sm font-medium justify-center"
+        className="mt-4 flex items-center gap-2 w-full px-5 py-3 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-[#006064] hover:text-[#006064] transition-all text-sm font-medium justify-center"
       >
         <Plus className="w-4 h-4" />
         Yeni Lokasyon Ekle

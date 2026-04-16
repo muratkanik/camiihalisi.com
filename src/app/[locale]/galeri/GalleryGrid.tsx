@@ -193,7 +193,7 @@ function GridItem({
 }) {
   return (
     <div
-      className={`relative group overflow-hidden rounded-xl cursor-pointer bg-[#1B4332]/20 ${heightClass}`}
+      className={`relative group overflow-hidden rounded-xl cursor-pointer bg-[#006064]/20 ${heightClass}`}
       onClick={onOpen}
     >
       <img
@@ -207,7 +207,7 @@ function GridItem({
         <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" />
       </div>
       {/* Caption strip at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/80 to-transparent px-3 py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/80 to-transparent px-3 py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
         <p className="text-white text-xs font-medium truncate">{caption}</p>
       </div>
     </div>
@@ -269,7 +269,7 @@ export default function GalleryGrid() {
       )}
 
       {/* ── Section 1: HD Cami Fotoğrafları ── */}
-      <section className="section bg-[#F7F3EC]">
+      <section className="section bg-[#F0FDFE]">
         <div className="container-site">
           <SectionHeader badge="HD Fotoğraflar" title="Tamamlanan Cami Projeleri" />
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -305,7 +305,7 @@ export default function GalleryGrid() {
       </section>
 
       {/* ── Section 3: Referans Projeler ── */}
-      <section className="section bg-[#F7F3EC]">
+      <section className="section bg-[#F0FDFE]">
         <div className="container-site">
           <SectionHeader badge="Referanslar" title="Öne Çıkan Projeler" />
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -341,10 +341,10 @@ export default function GalleryGrid() {
       </section>
 
       {/* ── Tüm galeri tek tıkla aç ── */}
-      <section className="py-8 bg-[#F7F3EC] border-t border-[#DDD8CE]">
+      <section className="py-8 bg-[#F0FDFE] border-t border-[#B2EBF2]">
         <div className="container-site text-center">
           <p className="text-[#6B6355] text-sm mb-4">
-            Tüm <strong className="text-[#1B4332]">{ALL_IMAGES.length} görsel</strong>i birden görüntülemek için:
+            Tüm <strong className="text-[#006064]">{ALL_IMAGES.length} görsel</strong>i birden görüntülemek için:
           </p>
           <button
             onClick={() => openLightbox(ALL_IMAGES, 0)}
@@ -356,7 +356,7 @@ export default function GalleryGrid() {
       </section>
 
       {/* ── WhatsApp CTA ── */}
-      <section className="section bg-[#0D2418]">
+      <section className="section bg-[#003B40]">
         <div className="container-site text-center">
           <h2
             className="text-3xl md:text-4xl font-bold text-white mb-4"
@@ -368,7 +368,7 @@ export default function GalleryGrid() {
             Beğendiğiniz deseni caminize uyarlayabiliriz. Ücretsiz ölçüm ve teklif için ulaşın.
           </p>
           <a
-            href="https://wa.me/905323467939?text=Merhaba%2C%20galeriden%20bir%20desen%20be%C4%9Fendim%2C%20bilgi%20almak%20istiyorum."
+            href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939%3Ftext%3DMerhaba%252C%2520galeriden%2520bir%2520desen%2520be%25C4%259Fendim%252C%2520bilgi%2520almak%2520istiyorum.&from=%2Fgaleri&label=whatsapp&cat=whatsapp"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-4 px-8 rounded-xl transition-all hover:scale-105 text-lg shadow-2xl"

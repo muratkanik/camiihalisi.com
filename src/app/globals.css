@@ -40,14 +40,14 @@
 
 :root {
   /* ── Zemin ── */
-  --background:         #F7F3EC;   /* Krem-Fildişi */
+  --background:         #F0FDFE;   /* Çok açık turkuaz-beyaz */
   --foreground:         #1A1A1A;   /* Koyu Metin — HER ZAMAN okunaklı */
 
-  /* ── Ana Renk: Zümrüt Yeşili ── */
-  --primary:            #1B4332;
-  --primary-foreground: #F7F3EC;
-  --primary-light:      #2D6A4F;
-  --primary-dark:       #0D2818;
+  /* ── Ana Renk: Turkuaz ── */
+  --primary:            #006064;
+  --primary-foreground: #F0FDFE;
+  --primary-light:      #0097A7;
+  --primary-dark:       #003B40;   /* Çok Koyu Turkuaz */
 
   /* ── Vurgu: Altın Varak ── */
   --secondary:          #C9972B;
@@ -58,22 +58,22 @@
   /* ── Yüzeyler ── */
   --surface:            #FFFFFF;
   --surface-elevated:   #FFFFFF;
-  --muted:              #EDE8DF;
-  --muted-foreground:   #6B6355;
+  --muted:              #E0F7FA;   /* Buz Turkuaz */
+  --muted-foreground:   #4A6A6C;
 
   /* ── Vurgu (açık yeşil ton) ── */
-  --accent:             #D8EBE1;
-  --accent-foreground:  #1B4332;
+  --accent:             #B2EBF2;   /* Açık Turkuaz */
+  --accent-foreground:  #006064;
 
   /* ── Sınır & Ring ── */
-  --border:             #DDD8CE;
-  --input:              #EDE8DF;
+  --border:             #B2EBF2;
+  --input:              #E0F7FA;
   --ring:               #C9972B;
 
   /* ── Özel ── */
   --gold-gradient: linear-gradient(135deg, #C9972B 0%, #E4B84A 50%, #9E7520 100%);
-  --green-gradient: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
-  --hero-overlay: linear-gradient(to top, rgba(13,40,24,0.92) 0%, rgba(13,40,24,0.55) 50%, rgba(0,0,0,0.2) 100%);
+  --teal-gradient: linear-gradient(135deg, #006064 0%, #0097A7 100%);
+  --hero-overlay: linear-gradient(to top, rgba(0,59,64,0.92) 0%, rgba(0,59,64,0.55) 50%, rgba(0,0,0,0.2) 100%);
 }
 
 /* ─── Temel Stiller ─────────────────────────────────────────── */
@@ -212,7 +212,7 @@
   }
 
   .glass-dark {
-    background: rgba(13,40,24,0.85);
+    background: rgba(0,59,64,0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(201,151,43,0.2);
@@ -271,7 +271,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231B4332' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23006064' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 0;
   }
@@ -320,7 +320,7 @@
 
   /* ── Ana Site CTA Banner ── */
   .main-site-cta {
-    background: var(--green-gradient);
+    background: var(--teal-gradient);
     color: var(--primary-foreground);
     padding: 0.875rem 1.5rem;
     text-align: center;

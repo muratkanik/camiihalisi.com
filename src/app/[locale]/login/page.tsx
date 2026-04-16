@@ -9,7 +9,7 @@ export default async function LoginPage({
   const { error } = await searchParams;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-[#0D2418]">
+    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-[#003B40]">
       {/* Arkaplan desen */}
       <div
         className="absolute inset-0 opacity-10"
@@ -23,7 +23,7 @@ export default async function LoginPage({
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-[#C9972B] flex items-center justify-center mx-auto mb-5 shadow-lg">
-            <LogIn className="w-8 h-8 text-[#0D2418]" />
+            <LogIn className="w-8 h-8 text-[#003B40]" />
           </div>
           <h1
             className="text-3xl font-bold text-white mb-1"
@@ -71,7 +71,7 @@ export default async function LoginPage({
 
           <button
             type="submit"
-            className="w-full flex items-center justify-center gap-2 bg-[#C9972B] hover:bg-[#B8861F] text-[#0D2418] font-bold py-3.5 rounded-xl transition-colors text-sm mt-2"
+            className="w-full flex items-center justify-center gap-2 bg-[#C9972B] hover:bg-[#B8861F] text-[#003B40] font-bold py-3.5 rounded-xl transition-colors text-sm mt-2"
           >
             Giriş Yap
             <ArrowRight className="w-4 h-4" />

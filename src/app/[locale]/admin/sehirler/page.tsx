@@ -33,9 +33,9 @@ export default async function SehirlerPage({
   const ilceler = cities.filter((c) => c.type === "ilce");
 
   return (
-    <div className="min-h-screen bg-[#F7F3EC]">
+    <div className="min-h-screen bg-[#F0FDFE]">
       {/* Header */}
-      <div className="bg-[#1B4332] text-white px-6 py-4 flex items-center justify-between">
+      <div className="bg-[#006064] text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href={`/admin`} className="text-white/60 hover:text-white text-sm transition-colors">← Admin</Link>
           <span className="text-white/40">/</span>
@@ -83,16 +83,16 @@ export default async function SehirlerPage({
         )}
 
         {/* Keyword Ekleme Formu */}
-        <div className="bg-white rounded-2xl border border-[#DDD8CE] p-6 shadow-sm">
+        <div className="bg-white rounded-2xl border border-[#B2EBF2] p-6 shadow-sm">
           <h2 className="text-lg font-bold text-[#1A1A1A] mb-1">Yeni Keyword Ekle</h2>
           <p className="text-sm text-[#6B6355] mb-4">
-            Bir şehire keyword ekleyin → <code className="bg-[#F7F3EC] px-1.5 py-0.5 rounded font-mono text-xs">/cami-halisi/[şehir]/[keyword-slug]</code> sayfası otomatik oluşur ve sitemap'e eklenir.
+            Bir şehire keyword ekleyin → <code className="bg-[#F0FDFE] px-1.5 py-0.5 rounded font-mono text-xs">/cami-halisi/[şehir]/[keyword-slug]</code> sayfası otomatik oluşur ve sitemap'e eklenir.
           </p>
           <form action={addKeywordAction} className="flex flex-wrap gap-3 items-end">
             <div className="flex-1 min-w-48">
               <label className="block text-xs font-semibold text-[#6B6355] mb-1.5 uppercase tracking-wide">Şehir</label>
               <select name="citySlug" required
-                className="w-full px-3 py-2.5 text-sm border border-[#DDD8CE] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20">
+                className="w-full px-3 py-2.5 text-sm border border-[#B2EBF2] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#006064]/20">
                 <option value="">Şehir seçin...</option>
                 <optgroup label="İller">
                   {iller.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
@@ -109,11 +109,11 @@ export default async function SehirlerPage({
                 name="keyword"
                 required
                 placeholder="örn: Plastik Cami Halısı"
-                className="w-full px-3 py-2.5 text-sm border border-[#DDD8CE] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1B4332]/20"
+                className="w-full px-3 py-2.5 text-sm border border-[#B2EBF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006064]/20"
               />
             </div>
             <button type="submit"
-              className="flex items-center gap-2 bg-[#1B4332] hover:bg-[#2D6A4F] text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">
+              className="flex items-center gap-2 bg-[#006064] hover:bg-[#0097A7] text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">
               <Plus className="w-4 h-4" />
               Ekle
             </button>
@@ -121,13 +121,13 @@ export default async function SehirlerPage({
         </div>
 
         {/* Aktif Keyword'ler */}
-        <div className="bg-white rounded-2xl border border-[#DDD8CE] shadow-sm overflow-hidden">
-          <div className="px-6 py-4 border-b border-[#DDD8CE] flex items-center justify-between">
+        <div className="bg-white rounded-2xl border border-[#B2EBF2] shadow-sm overflow-hidden">
+          <div className="px-6 py-4 border-b border-[#B2EBF2] flex items-center justify-between">
             <h2 className="text-lg font-bold text-[#1A1A1A]">
               Keyword'ler
               <span className="ml-2 text-sm font-normal text-[#6B6355]">({keywords.length} toplam)</span>
             </h2>
-            <span className="text-xs text-[#6B6355] bg-[#F7F3EC] px-2.5 py-1 rounded-full">
+            <span className="text-xs text-[#6B6355] bg-[#F0FDFE] px-2.5 py-1 rounded-full">
               {keywords.filter(k => k.isActive).length} aktif
             </span>
           </div>
@@ -137,7 +137,7 @@ export default async function SehirlerPage({
               Henüz keyword eklenmedi. Yukarıdan ekleyin.
             </div>
           ) : (
-            <div className="divide-y divide-[#DDD8CE]">
+            <div className="divide-y divide-[#B2EBF2]">
               {keywords.map((kw) => {
                 const city = cities.find(c => c.slug === kw.citySlug);
                 const url = `/cami-halisi/${kw.citySlug}/${kw.keywordSlug}`;
@@ -147,7 +147,7 @@ export default async function SehirlerPage({
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-semibold text-[#1A1A1A] text-sm">{city?.name ?? kw.citySlug}</span>
                         <span className="text-[#6B6355]">→</span>
-                        <span className="text-[#1B4332] font-medium text-sm">{kw.keyword}</span>
+                        <span className="text-[#006064] font-medium text-sm">{kw.keyword}</span>
                         {!kw.isActive && <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded">Pasif</span>}
                       </div>
                       <div className="flex items-center gap-2 mt-1">
@@ -164,7 +164,7 @@ export default async function SehirlerPage({
                         <input type="hidden" name="isActive" value={String(kw.isActive)} />
                         <button type="submit"
                           title={kw.isActive ? "Pasif yap" : "Aktif et"}
-                          className="p-1.5 rounded-lg hover:bg-[#F7F3EC] text-[#6B6355] hover:text-[#1B4332] transition-colors">
+                          className="p-1.5 rounded-lg hover:bg-[#F0FDFE] text-[#6B6355] hover:text-[#006064] transition-colors">
                           {kw.isActive ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                         </button>
                       </form>
@@ -186,8 +186,8 @@ export default async function SehirlerPage({
 
         {/* Şehir Listesi */}
         {dbReady && cities.length > 0 && (
-          <div className="bg-white rounded-2xl border border-[#DDD8CE] shadow-sm overflow-hidden">
-            <div className="px-6 py-4 border-b border-[#DDD8CE]">
+          <div className="bg-white rounded-2xl border border-[#B2EBF2] shadow-sm overflow-hidden">
+            <div className="px-6 py-4 border-b border-[#B2EBF2]">
               <h2 className="text-lg font-bold text-[#1A1A1A]">
                 Şehirler <span className="ml-2 text-sm font-normal text-[#6B6355]">({iller.length} il + {ilceler.length} ilçe)</span>
               </h2>
@@ -198,8 +198,8 @@ export default async function SehirlerPage({
                   <div key={c.slug}
                     className={`text-xs px-2.5 py-1.5 rounded-lg border flex items-center gap-1.5 ${
                       c.type === "il"
-                        ? "border-[#1B4332]/20 bg-[#1B4332]/5 text-[#1B4332]"
-                        : "border-[#DDD8CE] bg-[#F7F3EC] text-[#6B6355]"
+                        ? "border-[#006064]/20 bg-[#006064]/5 text-[#006064]"
+                        : "border-[#B2EBF2] bg-[#F0FDFE] text-[#6B6355]"
                     }`}>
                     <span className="flex-1 truncate">{c.name}</span>
                     <span className="opacity-50 flex-shrink-0">{c.type === "il" ? "●" : "○"}</span>

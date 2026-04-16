@@ -192,7 +192,7 @@ export default function SeoAnalysisPage() {
                 />
               </div>
               <button type="submit" disabled={loading || !keyword.trim()}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] disabled:opacity-50 disabled:cursor-not-allowed transition-all">
                 {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Analiz ediliyor...</> : <><Sparkles className="w-4 h-4" /> Analiz Et</>}
               </button>
             </div>
@@ -200,7 +200,7 @@ export default function SeoAnalysisPage() {
           <div className="flex flex-wrap gap-2">
             {QUICK_KEYWORDS.map((kw) => (
               <button key={kw} type="button" onClick={() => setKeyword(kw)}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${keyword === kw ? "bg-[#1B4332] text-white border-[#1B4332]" : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${keyword === kw ? "bg-[#006064] text-white border-[#006064]" : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"}`}>
                 {kw}
               </button>
             ))}
@@ -303,10 +303,10 @@ export default function SeoAnalysisPage() {
           )}
 
           {/* ── Blog Üretici ── */}
-          <div className="bg-gradient-to-br from-[#1B4332] to-[#0D2418] rounded-2xl p-6 text-white">
+          <div className="bg-gradient-to-br from-[#006064] to-[#003B40] rounded-2xl p-6 text-white">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-[#C9972B] flex items-center justify-center flex-shrink-0">
-                <PenLine className="w-5 h-5 text-[#0D2418]" />
+                <PenLine className="w-5 h-5 text-[#003B40]" />
               </div>
               <div className="flex-1">
                 <h3 className="font-extrabold text-lg mb-1">Bu Analizden Blog Yazısı Üret</h3>
@@ -316,7 +316,7 @@ export default function SeoAnalysisPage() {
 
                 {!generatedBlog && !applyResult && (
                   <button type="button" onClick={handleGenerateBlog} disabled={generatingBlog}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#C9972B] text-[#0D2418] font-bold text-sm hover:bg-[#E4B84A] disabled:opacity-50 transition-all">
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#C9972B] text-[#003B40] font-bold text-sm hover:bg-[#E4B84A] disabled:opacity-50 transition-all">
                     {generatingBlog ? <><Loader2 className="w-4 h-4 animate-spin" /> Blog yazısı oluşturuluyor...</> : <><Sparkles className="w-4 h-4" /> Blog Yazısı Oluştur</>}
                   </button>
                 )}
@@ -374,7 +374,7 @@ export default function SeoAnalysisPage() {
                             <button key={post.slug} type="button" onClick={() => setApplyTarget(post.slug)}
                               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all text-sm ${
                                 applyTarget === post.slug
-                                  ? "bg-[#C9972B] border-[#C9972B] text-[#0D2418] font-semibold"
+                                  ? "bg-[#C9972B] border-[#C9972B] text-[#003B40] font-semibold"
                                   : "bg-white/10 border-white/20 text-white hover:bg-white/20"
                               }`}>
                               <FileText className="w-4 h-4 flex-shrink-0" />
@@ -391,7 +391,7 @@ export default function SeoAnalysisPage() {
                       <button type="button" onClick={() => setApplyTarget("new")}
                         className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all text-sm ${
                           applyTarget === "new"
-                            ? "bg-[#C9972B] border-[#C9972B] text-[#0D2418] font-semibold"
+                            ? "bg-[#C9972B] border-[#C9972B] text-[#003B40] font-semibold"
                             : "bg-white/10 border-white/20 text-white hover:bg-white/20"
                         }`}>
                         <Sparkles className="w-4 h-4 flex-shrink-0" />
@@ -404,7 +404,7 @@ export default function SeoAnalysisPage() {
                     <div className="flex gap-3">
                       <button type="button" onClick={handleApply}
                         disabled={!applyTarget || applying}
-                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#C9972B] text-[#0D2418] font-bold text-sm hover:bg-[#E4B84A] disabled:opacity-50 transition-all">
+                        className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#C9972B] text-[#003B40] font-bold text-sm hover:bg-[#E4B84A] disabled:opacity-50 transition-all">
                         {applying ? <><Loader2 className="w-4 h-4 animate-spin" /> Uygulanıyor...</> : <><CheckCircle2 className="w-4 h-4" /> Uygula</>}
                       </button>
                       <button type="button" onClick={handleGenerateBlog}

@@ -6,7 +6,7 @@ const FEATURES = [
     title: "İbadete Layık Kalite",
     description:
       "Her iplik, her düğüm; camiye yaraşır bir kaliteyle işlenir. ISO sertifikalı üretim süreçleri.",
-    color: "#1B4332",
+    color: "#006064",
   },
   {
     icon: Ruler,
@@ -20,7 +20,7 @@ const FEATURES = [
     title: "Özel Desen Tasarımı",
     description:
       "Geleneksel İslami motifler veya modern geometrik desenler. Caminin mimarisine özel tasarım.",
-    color: "#1B4332",
+    color: "#006064",
   },
   {
     icon: Truck,
@@ -34,7 +34,7 @@ const FEATURES = [
     title: "50+ Yıl Tecrübe",
     description:
       "Asil Halı, 50 yılı aşkın deneyimiyle Türkiye'nin köklü cami halısı üreticilerinden biridir.",
-    color: "#1B4332",
+    color: "#006064",
   },
   {
     icon: HeartHandshake,
@@ -48,7 +48,7 @@ const FEATURES = [
     title: "10.000+ Referans",
     description:
       "Türkiye'nin dört bir yanında on binlerce camide döşenmiş, kanıtlanmış kalite.",
-    color: "#1B4332",
+    color: "#006064",
   },
   {
     icon: Clock,
@@ -83,7 +83,7 @@ export default function FeatureGrid() {
             return (
               <div
                 key={i}
-                className="p-6 rounded-2xl bg-[#F7F3EC] border border-[#DDD8CE] hover:border-[#C9972B]/40 hover:shadow-lg transition-all duration-300 group"
+                className="p-6 rounded-2xl bg-[#F0FDFE] border border-[#B2EBF2] hover:border-[#C9972B]/40 hover:shadow-lg transition-all duration-300 group"
               >
                 {/* İkon */}
                 <div

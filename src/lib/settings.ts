@@ -94,3 +94,38 @@ export function buildMainSiteUrl(
 ): string {
   return `${settings.mainSiteUrl}?utm_source=camiihalisi&utm_medium=${medium}&utm_campaign=${campaign}`;
 }
+
+/**
+ * Wrap any outbound URL through the /api/r click tracker.
+ * The tracker logs the click then 302-redirects to `to`.
+ */
+export function buildTrackedUrl(
+  to: string,
+  from: string,
+  label: string,
+  cat = "outbound"
+): string {
+  const params = new URLSearchParams({ to, from, label, cat });
+  return `/api/r?${params.toString()}`;
+}
+
+/** Tracked main site URL */
+export function buildTrackedMainSiteUrl(
+  settings: SiteSettings,
+  from: string,
+  label: string,
+  medium?: string
+): string {
+  const to = buildMainSiteUrl(settings, medium ?? from);
+  return buildTrackedUrl(to, from, label);
+}
+
+/** Tracked WhatsApp URL */
+export function buildTrackedWaUrl(
+  settings: SiteSettings,
+  from: string,
+  label: string
+): string {
+  const to = buildWaUrl(settings, from);
+  return buildTrackedUrl(to, from, label, "whatsapp");
+}

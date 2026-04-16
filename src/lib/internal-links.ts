@@ -31,7 +31,7 @@ export function applyLinks(text: string, links: LinkMap): string {
     const regex = new RegExp(`(?<!<[^>]*)\\b(${escaped})\\b`, "i");
 
     result = result.replace(regex, (match) => {
-      return `<a href="${url}" class="text-[#1B4332] underline underline-offset-2 decoration-[#C9972B]/60 hover:decoration-[#C9972B] font-medium transition-colors" title="${kw}">${match}</a>`;
+      return `<a href="${url}" class="text-[#006064] underline underline-offset-2 decoration-[#C9972B]/60 hover:decoration-[#C9972B] font-medium transition-colors" title="${kw}">${match}</a>`;
     });
   }
 

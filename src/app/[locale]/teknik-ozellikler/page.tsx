@@ -98,7 +98,7 @@ export default async function TeknikOzelliklerPage({
 
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#1B4332] py-20 relative overflow-hidden">
+        <section className="bg-[#006064] py-20 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")` }} />
           <div className="container-site relative z-10">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6" aria-label="Breadcrumb">
@@ -116,17 +116,17 @@ export default async function TeknikOzelliklerPage({
         </section>
 
         {/* Genel Teknik Özellikler */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="text-center mb-12">
               <span className="badge badge-gold mb-4">Standartlar & Normlar</span>
               <h2 className="section-title">Teknik Özellikler Tablosu</h2>
               <div className="gold-line mx-auto mt-4" />
             </div>
-            <div className="overflow-x-auto rounded-2xl border border-[#DDD8CE] bg-white mb-16">
+            <div className="overflow-x-auto rounded-2xl border border-[#B2EBF2] bg-white mb-16">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-[#1B4332] text-white">
+                  <tr className="bg-[#006064] text-white">
                     <th className="text-left px-5 py-3.5 font-semibold">Özellik</th>
                     <th className="text-left px-5 py-3.5 font-semibold">Değer / Standart</th>
                     <th className="text-left px-5 py-3.5 font-semibold hidden md:table-cell">Açıklama</th>
@@ -134,8 +134,8 @@ export default async function TeknikOzelliklerPage({
                 </thead>
                 <tbody>
                   {SPECS_TABLE.map((row, i) => (
-                    <tr key={row.ozellik} className={i % 2 === 0 ? "bg-white" : "bg-[#F7F3EC]"}>
-                      <td className="px-5 py-3.5 font-medium text-[#1B4332]">{row.ozellik}</td>
+                    <tr key={row.ozellik} className={i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]"}>
+                      <td className="px-5 py-3.5 font-medium text-[#006064]">{row.ozellik}</td>
                       <td className="px-5 py-3.5 font-semibold text-[#C9972B]">{row.deger}</td>
                       <td className="px-5 py-3.5 text-[#6B6355] hidden md:table-cell">{row.aciklama}</td>
                     </tr>
@@ -149,10 +149,10 @@ export default async function TeknikOzelliklerPage({
               <h2 className="section-title">Malzeme Karşılaştırması</h2>
               <div className="gold-line mx-auto mt-4" />
             </div>
-            <div className="overflow-x-auto rounded-2xl border border-[#DDD8CE] bg-white mb-16">
+            <div className="overflow-x-auto rounded-2xl border border-[#B2EBF2] bg-white mb-16">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="bg-[#1B4332] text-white">
+                  <tr className="bg-[#006064] text-white">
                     <th className="text-left px-5 py-3.5 font-semibold">Malzeme</th>
                     <th className="text-left px-5 py-3.5 font-semibold">Hav Yüksekliği</th>
                     <th className="text-left px-5 py-3.5 font-semibold">Ağırlık</th>
@@ -163,15 +163,15 @@ export default async function TeknikOzelliklerPage({
                 </thead>
                 <tbody>
                   {MATERIAL_SPECS.map((m, i) => (
-                    <tr key={m.malzeme} className={i % 2 === 0 ? "bg-white" : "bg-[#F7F3EC]"}>
-                      <td className="px-5 py-3.5 font-bold text-[#1B4332]">
+                    <tr key={m.malzeme} className={i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]"}>
+                      <td className="px-5 py-3.5 font-bold text-[#006064]">
                         <Link href={`${prefix}/kategori/${m.malzeme.toLowerCase().replace("ü", "u").replace("ı", "i")}-cami-halisi`} className="hover:text-[#C9972B] transition-colors">
                           {m.malzeme}
                         </Link>
                       </td>
                       <td className="px-5 py-3.5 text-[#6B6355]">{m.hav}</td>
                       <td className="px-5 py-3.5 text-[#6B6355]">{m.agirlik}</td>
-                      <td className="px-5 py-3.5 font-semibold text-[#1B4332]">{m.omur}</td>
+                      <td className="px-5 py-3.5 font-semibold text-[#006064]">{m.omur}</td>
                       <td className="px-5 py-3.5 text-[#C9972B] font-medium">{m.yangin}</td>
                       <td className="px-5 py-3.5 text-[#6B6355]">{m.garanti}</td>
                     </tr>
@@ -187,17 +187,17 @@ export default async function TeknikOzelliklerPage({
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
               {CERTS.map((cert) => (
-                <div key={cert.ad} className="bg-white rounded-xl border border-[#DDD8CE] p-5 hover:border-[#C9972B]/40 transition-colors">
+                <div key={cert.ad} className="bg-white rounded-xl border border-[#B2EBF2] p-5 hover:border-[#C9972B]/40 transition-colors">
                   <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-1">{cert.ad}</div>
-                  <div className="font-semibold text-[#1B4332] text-sm mb-1">{cert.konu}</div>
-                  <div className="text-xs text-[#6B6355]">Sınıf / Sonuç: <span className="font-bold text-[#1B4332]">{cert.sinif}</span></div>
+                  <div className="font-semibold text-[#006064] text-sm mb-1">{cert.konu}</div>
+                  <div className="text-xs text-[#6B6355]">Sınıf / Sonuç: <span className="font-bold text-[#006064]">{cert.sinif}</span></div>
                 </div>
               ))}
             </div>
 
             {/* Bfl-s1 açıklaması */}
-            <div className="bg-[#1B4332]/5 border border-[#1B4332]/20 rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-[#1B4332] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <div className="bg-[#006064]/5 border border-[#006064]/20 rounded-2xl p-8">
+              <h3 className="text-xl font-bold text-[#006064] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 Bfl-s1 Yangın Sınıfı Nedir?
               </h3>
               <p className="text-sm text-[#6B6355] leading-relaxed mb-4">

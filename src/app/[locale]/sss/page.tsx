@@ -278,7 +278,7 @@ export default async function SSSPage({
 
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#1B4332] py-16 px-4">
+        <section className="bg-[#006064] py-16 px-4">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6">
               <a href={`${prefix}/`} className="hover:text-white transition-colors">Ana Sayfa</a>
@@ -316,7 +316,7 @@ export default async function SSSPage({
         </section>
 
         {/* İçerik */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="max-w-4xl mx-auto space-y-16">
               {SSS_KATEGORILER.map((kat) => (
@@ -326,7 +326,7 @@ export default async function SSSPage({
                   className="scroll-mt-8"
                 >
                   <h2
-                    className="text-2xl font-bold text-[#1B4332] mb-2 flex items-center gap-3"
+                    className="text-2xl font-bold text-[#006064] mb-2 flex items-center gap-3"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     <span className="text-2xl">{kat.icon}</span>
@@ -336,23 +336,23 @@ export default async function SSSPage({
 
                   <div className="space-y-4">
                     {kat.sorular.map((item, i) => (
-                      <details key={i} className="group bg-white rounded-2xl border border-[#DDD8CE] overflow-hidden">
-                        <summary className="flex items-start justify-between gap-4 px-6 py-5 cursor-pointer hover:bg-[#F7F3EC]/50 transition-all list-none">
+                      <details key={i} className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
+                        <summary className="flex items-start justify-between gap-4 px-6 py-5 cursor-pointer hover:bg-[#F0FDFE]/50 transition-all list-none">
                           <h3 className="font-semibold text-[#1A1A1A] text-base leading-snug pr-4">
                             {item.soru}
                           </h3>
-                          <div className="w-6 h-6 rounded-full bg-[#1B4332]/10 flex items-center justify-center flex-shrink-0 mt-0.5 transition-transform group-open:rotate-180">
-                            <svg className="w-3 h-3 text-[#1B4332]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="w-6 h-6 rounded-full bg-[#006064]/10 flex items-center justify-center flex-shrink-0 mt-0.5 transition-transform group-open:rotate-180">
+                            <svg className="w-3 h-3 text-[#006064]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                             </svg>
                           </div>
                         </summary>
-                        <div className="px-6 pb-5 border-t border-[#EDE8DF]">
+                        <div className="px-6 pb-5 border-t border-[#E0F7FA]">
                           <p className="text-[#4A4035] leading-relaxed pt-4 text-sm">{item.cevap}</p>
                           {item.link && (
                             <Link
                               href={`${prefix}${item.link.href}`}
-                              className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-[#1B4332] hover:text-[#C9972B] transition-colors"
+                              className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-[#006064] hover:text-[#C9972B] transition-colors"
                             >
                               {item.link.label}
                               <ChevronRight className="w-3.5 h-3.5" />
@@ -367,7 +367,7 @@ export default async function SSSPage({
             </div>
 
             {/* Cevap Bulamadın mı? */}
-            <div className="mt-16 max-w-4xl mx-auto bg-[#1B4332] rounded-3xl p-8 text-center text-white">
+            <div className="mt-16 max-w-4xl mx-auto bg-[#006064] rounded-3xl p-8 text-center text-white">
               <Search className="w-10 h-10 text-[#C9972B] mx-auto mb-4" />
               <h2
                 className="text-2xl font-bold mb-3"
@@ -383,7 +383,7 @@ export default async function SSSPage({
                   Hemen Arayın
                 </a>
                 <a
-                  href="https://wa.me/905323467939?text=Cami halısı hakkında bilgi almak istiyorum."
+                  href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939%3Ftext%3DCami%2Bhal%C4%B1s%C4%B1%2Bhakk%C4%B1nda%2Bbilgi%2Balmak%2Bistiyorum.&from=%2Fsss&label=whatsapp&cat=whatsapp"
                   target="_blank"
                   rel="noopener"
                   className="btn btn-outline"

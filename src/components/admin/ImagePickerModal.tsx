@@ -267,7 +267,7 @@ export default function ImagePickerModal({ open, current, onSelect, onClose }: P
               type="button"
               onClick={() => { onSelect(selected); onClose(); }}
               disabled={!selected}
-              className="px-5 py-2 rounded-xl bg-[#1B4332] text-white text-sm font-bold hover:bg-[#0D2418] transition-all disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-[#006064] text-white text-sm font-bold hover:bg-[#003B40] transition-all disabled:opacity-50"
             >
               Seç
             </button>

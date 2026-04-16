@@ -92,7 +92,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* AI Content Engine */}
-      <div className="bg-gradient-to-br from-[#0D2418] to-[#1B4332] rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-br from-[#003B40] to-[#006064] rounded-2xl p-6 text-white">
         <div className="flex items-start justify-between mb-4">
           <div>
             <div className="flex items-center gap-2 mb-2">

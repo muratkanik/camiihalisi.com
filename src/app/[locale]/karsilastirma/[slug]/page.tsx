@@ -39,8 +39,8 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Akrilik vs Yün Cami Halısı: Hangisi Daha İyi?",
     metaTitle: "Akrilik vs Yün Cami Halısı Karşılaştırması 2025 | Asil Halı",
     metaDesc: "Akrilik mi yün mü cami halısı? Fiyat, ömür, bakım, desen, yangın güvenliği — tüm kriterlerde tarafsız karşılaştırma. Uzman tavsiyeleri ile.",
-    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#1B4332" },
-    b: { isim: "Yün", slug: "yun-cami-halisi", image: "/images/cami-katalog-05.png", renk: "#2D6A4F" },
+    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#006064" },
+    b: { isim: "Yün", slug: "yun-cami-halisi", image: "/images/cami-katalog-05.png", renk: "#0097A7" },
     ozet: "Akrilik ve yün, Türkiye'deki camilerde en yaygın kullanılan iki halı türüdür. Akrilik; ekonomik fiyatı, canlı renkleri ve kolay bakımıyla geniş kitlelere hitap ederken, yün; doğal yapısı, uzun ömrü ve ısı yalıtımıyla prestijli projelerin tercihi olmaya devam etmektedir.",
     kriterler: [
       { kriter: "Fiyat (m²)", aScore: 5, bScore: 2, aAciklama: "Yüne göre 2-4 kat daha ekonomik; geniş bütçe aralığı", bAciklama: "Hammadde ve işleme maliyeti yüksek; premium segment" },
@@ -72,8 +72,8 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Polipropilen vs Polyamid Cami Halısı: Detaylı Karşılaştırma",
     metaTitle: "Polipropilen vs Polyamid Cami Halısı 2025 | Asil Halı",
     metaDesc: "Polipropilen mi polyamid mi? Leke tutmazlık, aşınma direnci, renk kalıcılığı — tüm kriterlerde uzman karşılaştırması. Caminiz için doğru seçim.",
-    a: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#1B4332" },
-    b: { isim: "Polyamid", slug: "polyamid-cami-halisi", image: "/images/cami-katalog-13.png", renk: "#0D2418" },
+    a: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#006064" },
+    b: { isim: "Polyamid", slug: "polyamid-cami-halisi", image: "/images/cami-katalog-13.png", renk: "#003B40" },
     ozet: "Polipropilen ve polyamid, modern cami projelerinin iki önemli sentetik lif seçeneğidir. Polipropilen su ve leke direnciyle, polyamid ise üstün aşınma direnci ve renk kalıcılığıyla öne çıkar.",
     kriterler: [
       { kriter: "Fiyat (m²)", aScore: 4, bScore: 2, aAciklama: "Ekonomik; geniş proje bütçelerine uygun", bAciklama: "Yüksek hammadde maliyeti; premium fiyat aralığı" },
@@ -101,8 +101,8 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Akrilik vs Polipropilen Cami Halısı Karşılaştırması",
     metaTitle: "Akrilik vs Polipropilen Cami Halısı | Asil Halı",
     metaDesc: "Akrilik mi polipropilen mi? Renk, konfor, su direnci, fiyat — cami halısı seçiminde iki popüler seçeneğin kapsamlı karşılaştırması.",
-    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#1B4332" },
-    b: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#2D6A4F" },
+    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#006064" },
+    b: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#0097A7" },
     ozet: "Akrilik ve polipropilen, orta bütçeli cami projelerinin iki favorisidir. Akrilik daha parlak renk ve yumuşak dokusuyla öne çıkarken, polipropilen su ve leke direnciyle pratik bir seçenek sunar.",
     kriterler: [
       { kriter: "Renk Canlılığı", aScore: 5, bScore: 3, aAciklama: "Parlak, canlı renkler; yüne yakın görünüm", bAciklama: "Orta düzey renk; UV'de hafif solar" },
@@ -128,8 +128,8 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Yün vs Polyamid Cami Halısı: Premium Seçenekler",
     metaTitle: "Yün vs Polyamid Cami Halısı Karşılaştırması | Asil Halı",
     metaDesc: "Doğal yün mü sentetik polyamid mi? Büyük prestijli cami projeleri için iki premium seçeneğin tarafsız karşılaştırması.",
-    a: { isim: "Yün", slug: "yun-cami-halisi", image: "/images/cami-katalog-05.png", renk: "#2D6A4F" },
-    b: { isim: "Polyamid", slug: "polyamid-cami-halisi", image: "/images/cami-katalog-13.png", renk: "#0D2418" },
+    a: { isim: "Yün", slug: "yun-cami-halisi", image: "/images/cami-katalog-05.png", renk: "#0097A7" },
+    b: { isim: "Polyamid", slug: "polyamid-cami-halisi", image: "/images/cami-katalog-13.png", renk: "#003B40" },
     ozet: "Yün ve polyamid, büyük ve prestijli cami projelerinin iki premium seçeneğidir. Yün doğalllığı ve geleneksel değerleriyle, polyamid ise teknolojik üstünlüğü ve renk kalıcılığıyla öne çıkar.",
     kriterler: [
       { kriter: "Doğallık & Prestij", aScore: 5, bScore: 2, aAciklama: "Binlerce yıllık gelenek; doğal ve organik", bAciklama: "Sentetik; modern teknoloji, geleneksel değil" },
@@ -157,8 +157,8 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Saflı vs Göbekli vs Seccadeli Cami Halısı Desenleri",
     metaTitle: "Saflı, Göbekli, Seccadeli Cami Halısı Desen Karşılaştırması | Asil Halı",
     metaDesc: "Saflı mı göbekli mi seccadeli mi? Üç temel cami halısı deseninin detaylı karşılaştırması. Hangi desen caminize uygun? Asil Halı uzmanları anlatıyor.",
-    a: { isim: "Saflı", slug: "safli-akrilik-cami-halisi", image: "/images/cami-katalog-02.png", renk: "#1B4332" },
-    b: { isim: "Göbekli", slug: "gobekli-akrilik-cami-halisi", image: "/images/cami-katalog-03.png", renk: "#2D6A4F" },
+    a: { isim: "Saflı", slug: "safli-akrilik-cami-halisi", image: "/images/cami-katalog-02.png", renk: "#006064" },
+    b: { isim: "Göbekli", slug: "gobekli-akrilik-cami-halisi", image: "/images/cami-katalog-03.png", renk: "#0097A7" },
     ozet: "Saflı, göbekli ve seccadeli; Türkiye'deki camilerde en yaygın üç desen türüdür. Her biri farklı ihtiyaçlara ve cami mimarilerine hitap eder.",
     kriterler: [
       { kriter: "Namaz Hizalaması", aScore: 5, bScore: 3, aAciklama: "Saf çizgileri cemaati mükemmel hizalar", bAciklama: "Görsel merkez sağlar; saf çizgisi yok" },
@@ -259,7 +259,7 @@ export default async function KarsilastirmaPage({
       <Navigation locale={locale} />
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-gradient-to-br from-[#1B4332] to-[#0D2418] py-14 px-4">
+        <section className="bg-gradient-to-br from-[#006064] to-[#003B40] py-14 px-4">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6 flex-wrap">
               <a href={`${prefix}/`} className="hover:text-white">Ana Sayfa</a>
@@ -296,15 +296,15 @@ export default async function KarsilastirmaPage({
         </section>
 
         {/* Karşılaştırma Tablosu */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site max-w-4xl">
-            <h2 className="text-2xl font-bold text-[#1B4332] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <h2 className="text-2xl font-bold text-[#006064] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               Kriter Bazlı Karşılaştırma
             </h2>
 
-            <div className="bg-white rounded-2xl border border-[#DDD8CE] overflow-hidden mb-10">
+            <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden mb-10">
               {/* Header */}
-              <div className="grid grid-cols-3 bg-[#1B4332] text-white text-sm font-bold">
+              <div className="grid grid-cols-3 bg-[#006064] text-white text-sm font-bold">
                 <div className="px-4 py-3">Kriter</div>
                 <div className="px-4 py-3 border-l border-white/10">{c.a.isim}</div>
                 <div className="px-4 py-3 border-l border-white/10">{c.b.isim}</div>
@@ -314,16 +314,16 @@ export default async function KarsilastirmaPage({
                 const aWins = row.aScore > row.bScore;
                 const bWins = row.bScore > row.aScore;
                 return (
-                  <div key={i} className={`grid grid-cols-3 border-b border-[#EDE8DF] ${i % 2 === 0 ? "bg-white" : "bg-[#F7F3EC]/50"}`}>
+                  <div key={i} className={`grid grid-cols-3 border-b border-[#E0F7FA] ${i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]/50"}`}>
                     <div className="px-4 py-4 font-semibold text-sm text-[#1A1A1A] flex items-center gap-2">
                       {row.kriter}
                     </div>
-                    <div className={`px-4 py-4 border-l border-[#EDE8DF] ${aWins ? "bg-emerald-50/50" : ""}`}>
+                    <div className={`px-4 py-4 border-l border-[#E0F7FA] ${aWins ? "bg-emerald-50/50" : ""}`}>
                       <ScoreBar score={row.aScore} color={c.a.renk} />
                       <p className="text-xs text-[#6B6355] mt-1.5 leading-snug">{row.aAciklama}</p>
                       {aWins && <span className="text-xs font-bold text-emerald-600 mt-1 flex items-center gap-0.5"><Check className="w-3 h-3" /> Avantajlı</span>}
                     </div>
-                    <div className={`px-4 py-4 border-l border-[#EDE8DF] ${bWins ? "bg-emerald-50/50" : ""}`}>
+                    <div className={`px-4 py-4 border-l border-[#E0F7FA] ${bWins ? "bg-emerald-50/50" : ""}`}>
                       <ScoreBar score={row.bScore} color={c.b.renk} />
                       <p className="text-xs text-[#6B6355] mt-1.5 leading-snug">{row.bAciklama}</p>
                       {bWins && <span className="text-xs font-bold text-emerald-600 mt-1 flex items-center gap-0.5"><Check className="w-3 h-3" /> Avantajlı</span>}
@@ -334,7 +334,7 @@ export default async function KarsilastirmaPage({
             </div>
 
             {/* Sonuç */}
-            <div className="bg-[#1B4332] rounded-2xl p-8 text-white mb-10">
+            <div className="bg-[#006064] rounded-2xl p-8 text-white mb-10">
               <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 Sonuç: {verdictScore ? `${verdictScore.winner} Kazanıyor` : "Berabere — İkisi de Güçlü"}
               </h2>
@@ -353,13 +353,13 @@ export default async function KarsilastirmaPage({
 
             {/* İlgili sayfalar */}
             <div className="flex flex-wrap gap-3 mb-10">
-              <Link href={`${prefix}/kategori/${c.a.slug}`} className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#DDD8CE] bg-white text-[#1A1A1A] text-sm font-semibold hover:border-[#C9972B]/50 hover:shadow-sm transition-all">
+              <Link href={`${prefix}/kategori/${c.a.slug}`} className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#B2EBF2] bg-white text-[#1A1A1A] text-sm font-semibold hover:border-[#C9972B]/50 hover:shadow-sm transition-all">
                 {c.a.isim} Koleksiyonu <ChevronRight className="w-3.5 h-3.5 text-[#C9972B]" />
               </Link>
-              <Link href={`${prefix}/kategori/${c.b.slug}`} className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#DDD8CE] bg-white text-[#1A1A1A] text-sm font-semibold hover:border-[#C9972B]/50 hover:shadow-sm transition-all">
+              <Link href={`${prefix}/kategori/${c.b.slug}`} className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#B2EBF2] bg-white text-[#1A1A1A] text-sm font-semibold hover:border-[#C9972B]/50 hover:shadow-sm transition-all">
                 {c.b.isim} Koleksiyonu <ChevronRight className="w-3.5 h-3.5 text-[#C9972B]" />
               </Link>
-              <Link href={`${prefix}/sss`} className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#DDD8CE] bg-white text-[#1A1A1A] text-sm font-semibold hover:border-[#C9972B]/50 hover:shadow-sm transition-all">
+              <Link href={`${prefix}/sss`} className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-[#B2EBF2] bg-white text-[#1A1A1A] text-sm font-semibold hover:border-[#C9972B]/50 hover:shadow-sm transition-all">
                 Tüm SSS <ChevronRight className="w-3.5 h-3.5 text-[#C9972B]" />
               </Link>
             </div>
@@ -367,12 +367,12 @@ export default async function KarsilastirmaPage({
             {/* SSS */}
             {c.sss.length > 0 && (
               <div>
-                <h2 className="text-2xl font-bold text-[#1B4332] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <h2 className="text-2xl font-bold text-[#006064] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                   Sık Sorulan Sorular
                 </h2>
                 <div className="space-y-4">
                   {c.sss.map((s, i) => (
-                    <div key={i} className="bg-white rounded-2xl border border-[#DDD8CE] p-5">
+                    <div key={i} className="bg-white rounded-2xl border border-[#B2EBF2] p-5">
                       <h3 className="font-bold text-[#1A1A1A] mb-2">{s.soru}</h3>
                       <p className="text-sm text-[#4A4035] leading-relaxed">{s.cevap}</p>
                     </div>

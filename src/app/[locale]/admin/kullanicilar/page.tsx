@@ -38,7 +38,7 @@ function KullanicilarClient() {
         </div>
         <button
           onClick={loadUsers}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all"
         >
           <Users className="w-4 h-4" />
           Kullanıcıları Yükle
@@ -136,7 +136,7 @@ function KullanicilarClient() {
             {users.map((u) => (
               <details key={u.id} className="group">
                 <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none">
-                  <div className="w-9 h-9 rounded-full bg-[#1B4332] flex items-center justify-center flex-shrink-0">
+                  <div className="w-9 h-9 rounded-full bg-[#006064] flex items-center justify-center flex-shrink-0">
                     <span className="text-white font-bold text-sm">{u.email[0].toUpperCase()}</span>
                   </div>
                   <div className="flex-1 min-w-0">

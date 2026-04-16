@@ -38,7 +38,7 @@ export default async function CamiHalisiIndexPage({
       <Navigation locale={locale} />
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#1B4332] py-16">
+        <section className="bg-[#006064] py-16">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6">
               <Link href={`${prefix}/`} className="hover:text-white transition-colors">Ana Sayfa</Link>
@@ -56,7 +56,7 @@ export default async function CamiHalisiIndexPage({
         </section>
 
         {/* İl Listesi */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="text-center mb-10">
               <span className="badge badge-gold mb-4">İl Bazında Hizmet</span>
@@ -68,7 +68,7 @@ export default async function CamiHalisiIndexPage({
                 <Link
                   key={city.slug}
                   href={`${prefix}/cami-halisi/${city.slug}`}
-                  className="bg-white border border-[#DDD8CE] rounded-xl px-3 py-2.5 text-sm font-medium text-[#1A1A1A] hover:border-[#C9972B]/40 hover:text-[#1B4332] hover:shadow-sm transition-all text-center"
+                  className="bg-white border border-[#B2EBF2] rounded-xl px-3 py-2.5 text-sm font-medium text-[#1A1A1A] hover:border-[#C9972B]/40 hover:text-[#006064] hover:shadow-sm transition-all text-center"
                 >
                   {city.name}
                 </Link>
@@ -81,7 +81,7 @@ export default async function CamiHalisiIndexPage({
               if (!parentCity || districts.length === 0) return null;
               return (
                 <div key={parent} className="mb-10">
-                  <h2 className="text-xl font-bold text-[#1B4332] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                  <h2 className="text-xl font-bold text-[#006064] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                     <Link href={`${prefix}/cami-halisi/${parent}`} className="hover:text-[#C9972B] transition-colors">
                       {parentCity.name}
                     </Link>{" "}
@@ -92,7 +92,7 @@ export default async function CamiHalisiIndexPage({
                       <Link
                         key={d.slug}
                         href={`${prefix}/cami-halisi/${d.slug}`}
-                        className="bg-white border border-[#DDD8CE] rounded-lg px-3 py-2 text-xs font-medium text-[#6B6355] hover:border-[#C9972B]/40 hover:text-[#1B4332] transition-all text-center"
+                        className="bg-white border border-[#B2EBF2] rounded-lg px-3 py-2 text-xs font-medium text-[#6B6355] hover:border-[#C9972B]/40 hover:text-[#006064] transition-all text-center"
                       >
                         {d.name}
                       </Link>

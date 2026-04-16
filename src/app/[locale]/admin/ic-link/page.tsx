@@ -101,7 +101,7 @@ export default function IcLinkAdminPage() {
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all disabled:opacity-50"
+            className="flex items-center gap-2 px-5 py-2 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all disabled:opacity-50"
           >
             {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
             {saved ? "Kaydedildi!" : "Kaydet"}

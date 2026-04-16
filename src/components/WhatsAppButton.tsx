@@ -1,8 +1,8 @@
-import { getSettings, buildWaUrl } from "@/lib/settings";
+import { getSettings, buildTrackedWaUrl } from "@/lib/settings";
 
 export default async function WhatsAppButton() {
   const settings = await getSettings();
-  const waUrl = buildWaUrl(settings);
+  const waUrl = buildTrackedWaUrl(settings, "floating-btn", "whatsapp");
 
   return (
     <a

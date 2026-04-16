@@ -92,7 +92,7 @@ export default async function CityKeywordPage({
 
       <main id="main-content">
         {/* ── Hero ── */}
-        <section className="bg-[#1B4332] py-20 relative overflow-hidden">
+        <section className="bg-[#006064] py-20 relative overflow-hidden">
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -138,7 +138,7 @@ export default async function CityKeywordPage({
         </section>
 
         {/* ── İçerik ── */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="grid lg:grid-cols-2 gap-12 items-start">
               <div>
@@ -171,7 +171,7 @@ export default async function CityKeywordPage({
                     "10.000+ referans cami",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#1B4332] mt-0.5 flex-shrink-0" />
+                      <Check className="w-4 h-4 text-[#006064] mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-[#4A4035]">{item}</span>
                     </div>
                   ))}
@@ -179,7 +179,7 @@ export default async function CityKeywordPage({
               </div>
 
               {/* İletişim Kartı */}
-              <div className="bg-white rounded-2xl border border-[#DDD8CE] p-8 shadow-sm sticky top-24">
+              <div className="bg-white rounded-2xl border border-[#B2EBF2] p-8 shadow-sm sticky top-24">
                 <h3 className="text-xl font-bold text-[#1A1A1A] mb-2"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                   Teklif Alın
@@ -193,14 +193,14 @@ export default async function CityKeywordPage({
                     <MessageCircle className="w-4 h-4" />
                     WhatsApp ile Yazın
                   </a>
-                  <a href="https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=city-keyword"
+                  <a href="/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcity-keyword&from=city-keyword&label=main-site&cat=outbound"
                     target="_blank" rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 btn btn-gold w-full">
                     asilhali.com.tr'yi Ziyaret Et
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                   <Link href={`${prefix}/cami-halisi/${sehir}`}
-                    className="block text-center py-3 text-sm text-[#6B6355] hover:text-[#1B4332] transition-colors">
+                    className="block text-center py-3 text-sm text-[#6B6355] hover:text-[#006064] transition-colors">
                     ← {city.name} ana sayfasına dön
                   </Link>
                 </div>

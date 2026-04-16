@@ -57,7 +57,7 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 
 export default function StatsSection() {
   return (
-    <section className="bg-[#1B4332] py-16 relative overflow-hidden">
+    <section className="bg-[#006064] py-16 relative overflow-hidden">
       {/* Geometrik desen overlay */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none"
@@ -83,7 +83,7 @@ export default function StatsSection() {
               <div className="text-white font-semibold text-sm md:text-base mb-0.5">
                 {stat.label}
               </div>
-              <div className="text-[#F7F3EC]/60 text-xs md:text-sm">
+              <div className="text-[#F0FDFE]/60 text-xs md:text-sm">
                 {stat.description}
               </div>
             </div>

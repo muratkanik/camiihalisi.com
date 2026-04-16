@@ -1,4 +1,4 @@
-import { getSettings, buildWaUrl } from "@/lib/settings";
+import { getSettings, buildTrackedWaUrl } from "@/lib/settings";
 import Navigation from "./Navigation";
 
 interface Props {
@@ -14,7 +14,7 @@ export default async function NavigationWrapper({ locale }: Props) {
   return (
     <Navigation
       locale={locale}
-      waUrl={buildWaUrl(settings, "topnav")}
+      waUrl={buildTrackedWaUrl(settings, "nav", "whatsapp")}
       phone={settings.phone}
     />
   );

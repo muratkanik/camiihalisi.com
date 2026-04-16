@@ -103,3 +103,31 @@ model ContentArchive {
   originalText String
   createdAt    DateTime @default(now())
 }
+
+// ── Trafik Takip ──────────────────────────────────────────────────
+
+model ClickEvent {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  fromPage  String   // Kaynak sayfa (ör: "/kategori/akrilik-cami-halisi")
+  toUrl     String   // Hedef URL (ör: "https://www.asilhali.com.tr?...")
+  label     String   // Tıklama etiketi (ör: "Teklif Al", "CTA Hero", "nav")
+  category  String   @default("outbound") // "outbound" | "whatsapp" | "phone" | "form"
+  referer   String?  // HTTP referer
+  ua        String?  // Kısaltılmış user-agent
+
+  @@index([createdAt])
+  @@index([fromPage])
+  @@index([category])
+}
+
+model PageView {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  page      String   // URL yolu (ör: "/kategori/akrilik-cami-halisi")
+  referer   String?  // Nereden geldi
+  country   String?  // Ülke kodu (Vercel header'ından)
+
+  @@index([createdAt])
+  @@index([page])
+}

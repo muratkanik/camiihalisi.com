@@ -135,7 +135,7 @@ export default async function IntlMosqueCarpetPage({
       <Navigation locale={locale} />
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#1B4332] py-16 md:py-24 relative overflow-hidden">
+        <section className="bg-[#006064] py-16 md:py-24 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")` }} />
           <div className="container-site relative z-10">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6" aria-label="Breadcrumb">
@@ -157,7 +157,7 @@ export default async function IntlMosqueCarpetPage({
                     <MessageCircle className="w-5 h-5" />
                     {isAr ? "واتساب" : "WhatsApp"}
                   </a>
-                  <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#C9972B] hover:bg-[#B8861F] text-[#0D2418] font-bold py-3 px-5 rounded-xl transition-colors">
+                  <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-[#C9972B] hover:bg-[#B8861F] text-[#003B40] font-bold py-3 px-5 rounded-xl transition-colors">
                     {isAr ? "احصل على عرض سعر" : "Get Quote"}
                     <ExternalLink className="w-4 h-4" />
                   </a>
@@ -189,7 +189,7 @@ export default async function IntlMosqueCarpetPage({
         </section>
 
         {/* Products */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="text-center mb-10">
               <h2 className="section-title mb-3">
@@ -199,23 +199,23 @@ export default async function IntlMosqueCarpetPage({
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
               {carpetTypes.map((carpet) => (
-                <Link key={carpet.slug} href={`${prefix}/kategori/${carpet.slug}`} className="group bg-white rounded-xl border border-[#DDD8CE] p-5 hover:border-[#C9972B]/40 hover:shadow-md transition-all">
-                  <h3 className="font-bold text-[#1B4332] mb-2 group-hover:text-[#C9972B] transition-colors">{carpet.name}</h3>
+                <Link key={carpet.slug} href={`${prefix}/kategori/${carpet.slug}`} className="group bg-white rounded-xl border border-[#B2EBF2] p-5 hover:border-[#C9972B]/40 hover:shadow-md transition-all">
+                  <h3 className="font-bold text-[#006064] mb-2 group-hover:text-[#C9972B] transition-colors">{carpet.name}</h3>
                   <p className="text-sm text-[#6B6355]">{carpet.desc}</p>
                 </Link>
               ))}
             </div>
 
             {/* Advantages */}
-            <div className="bg-white rounded-2xl border border-[#DDD8CE] p-8">
-              <h2 className="text-2xl font-bold text-[#1B4332] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <div className="bg-white rounded-2xl border border-[#B2EBF2] p-8">
+              <h2 className="text-2xl font-bold text-[#006064] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 {isAr ? "لماذا أصيل هالي؟" : "Why Asil Hali for Your Mosque?"}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
                 {advantages.map((adv) => (
                   <div key={adv} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#1B4332]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-[#1B4332]" />
+                    <div className="w-5 h-5 rounded-full bg-[#006064]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-[#006064]" />
                     </div>
                     <span className="text-sm text-[#1A1A1A]">{adv}</span>
                   </div>

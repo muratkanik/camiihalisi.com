@@ -21,7 +21,7 @@ interface Props {
 const DESEN_LABELS = ["Tümü", "Standart", "Saflı", "Göbekli", "Seccadeli", "Özel"] as const;
 
 const RENK_OPTIONS = [
-  { label: "Yeşil", hex: "#1B4332", dark: true },
+  { label: "Turkuaz", hex: "#006064", dark: true },
   { label: "Lacivert", hex: "#1B2E5E", dark: true },
   { label: "Bordo", hex: "#8B1A1A", dark: true },
   { label: "Mavi", hex: "#1A4E8B", dark: true },
@@ -57,8 +57,8 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
               onClick={() => setActiveDesen(d)}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all border ${
                 activeDesen === d
-                  ? "bg-[#1B4332] text-white border-[#1B4332] shadow-sm"
-                  : "bg-white text-[#6B6355] border-[#DDD8CE] hover:border-[#1B4332]/40 hover:text-[#1B4332]"
+                  ? "bg-[#006064] text-white border-[#006064] shadow-sm"
+                  : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]/40 hover:text-[#006064]"
               }`}
             >
               {d}
@@ -88,7 +88,7 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
                   isActive
                     ? "ring-2 ring-offset-1 ring-[#C9972B] border-[#C9972B] shadow-sm"
-                    : "border-[#DDD8CE] hover:border-[#C9972B]/40"
+                    : "border-[#B2EBF2] hover:border-[#C9972B]/40"
                 } ${!hasItems && !isActive ? "opacity-30 cursor-not-allowed" : ""}`}
                 style={{ background: renk.hex }}
               >
@@ -104,7 +104,7 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
           {activeRenk && (
             <button
               onClick={() => setActiveRenk(null)}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold border border-[#DDD8CE] text-[#6B6355] hover:border-[#C9972B]/40 bg-white"
+              className="px-3 py-1.5 rounded-full text-xs font-semibold border border-[#B2EBF2] text-[#6B6355] hover:border-[#C9972B]/40 bg-white"
             >
               Tümü
             </button>
@@ -119,13 +119,13 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
 
       {/* Sonuç Sayısı */}
       <p className="text-sm text-[#6B6355]">
-        <span className="font-bold text-[#1B4332]">{filtered.length}</span> ürün çeşidi gösteriliyor
+        <span className="font-bold text-[#006064]">{filtered.length}</span> ürün çeşidi gösteriliyor
         {activeDesen !== "Tümü" && <span> · Desen: <strong>{activeDesen}</strong></span>}
       </p>
 
       {/* Ürün Grid */}
       {filtered.length === 0 ? (
-        <div className="py-12 text-center text-[#6B6355] border border-dashed border-[#DDD8CE] rounded-2xl">
+        <div className="py-12 text-center text-[#6B6355] border border-dashed border-[#B2EBF2] rounded-2xl">
           <p className="font-semibold">Bu filtrelerle ürün bulunamadı.</p>
           <button
             onClick={() => { setActiveDesen("Tümü"); setActiveRenk(null); }}
@@ -140,10 +140,10 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
             <Link
               key={item.slug}
               href={`${prefix}/kategori/${item.slug}`}
-              className="group bg-white rounded-2xl border border-[#DDD8CE] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-md transition-all"
+              className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-md transition-all"
             >
               {/* Image */}
-              <div className="relative aspect-square bg-[#F7F3EC] overflow-hidden">
+              <div className="relative aspect-square bg-[#F0FDFE] overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.image}
@@ -170,8 +170,8 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
 
               {/* Info */}
               <div className="p-3">
-                <p className="text-xs font-bold text-[#1B4332] uppercase tracking-wide">{item.desen}</p>
-                <h3 className="text-sm font-semibold text-[#1A1A1A] mt-0.5 leading-snug group-hover:text-[#1B4332] transition-colors line-clamp-2">
+                <p className="text-xs font-bold text-[#006064] uppercase tracking-wide">{item.desen}</p>
+                <h3 className="text-sm font-semibold text-[#1A1A1A] mt-0.5 leading-snug group-hover:text-[#006064] transition-colors line-clamp-2">
                   {item.title}
                 </h3>
                 <div className="flex items-center gap-1 mt-2 text-xs text-[#C9972B] font-semibold">

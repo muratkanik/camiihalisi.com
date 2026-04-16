@@ -46,7 +46,7 @@ export default async function BlogListePage({
 
       <main id="main-content">
         {/* ── Başlık Bandı ── */}
-        <section className="bg-[#1B4332] py-16 relative overflow-hidden">
+        <section className="bg-[#006064] py-16 relative overflow-hidden">
           <div
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
@@ -78,7 +78,7 @@ export default async function BlogListePage({
         </section>
 
         {/* ── Makale Listesi ── */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             {/* Kategori Filtreleri */}
             <div className="flex flex-wrap gap-2 mb-10">
@@ -87,8 +87,8 @@ export default async function BlogListePage({
                   key={cat}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                     cat === "Tümü"
-                      ? "bg-[#1B4332] text-white border-[#1B4332]"
-                      : "bg-white text-[#6B6355] border-[#DDD8CE] hover:border-[#C9972B]/50 hover:text-[#1B4332]"
+                      ? "bg-[#006064] text-white border-[#006064]"
+                      : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#C9972B]/50 hover:text-[#006064]"
                   }`}
                 >
                   {cat}
@@ -105,7 +105,7 @@ export default async function BlogListePage({
                   className="group card flex flex-col"
                 >
                   {/* Görsel */}
-                  <div className="relative h-48 overflow-hidden bg-[#EDE8DF]">
+                  <div className="relative h-48 overflow-hidden bg-[#E0F7FA]">
                     <img
                       src={post.image}
                       alt={post.title}
@@ -121,7 +121,7 @@ export default async function BlogListePage({
                   {/* İçerik */}
                   <div className="p-5 flex flex-col flex-1">
                     <h2
-                      className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#1B4332] transition-colors"
+                      className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#006064] transition-colors"
                       style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem" }}
                     >
                       {post.title}
@@ -135,19 +135,19 @@ export default async function BlogListePage({
                       {post.tags.slice(0, 3).map((tag) => (
                         <span
                           key={tag}
-                          className="text-[10px] px-2 py-0.5 bg-[#EDE8DF] text-[#6B6355] rounded-full"
+                          className="text-[10px] px-2 py-0.5 bg-[#E0F7FA] text-[#6B6355] rounded-full"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className="flex items-center justify-between pt-3 border-t border-[#EDE8DF]">
+                    <div className="flex items-center justify-between pt-3 border-t border-[#E0F7FA]">
                       <div className="flex items-center gap-1.5 text-xs text-[#6B6355]">
                         <Clock className="w-3.5 h-3.5" />
                         {post.readTime}
                       </div>
-                      <span className="flex items-center gap-1 text-xs text-[#1B4332] font-semibold group-hover:text-[#C9972B] transition-colors">
+                      <span className="flex items-center gap-1 text-xs text-[#006064] font-semibold group-hover:text-[#C9972B] transition-colors">
                         Oku
                         <ArrowRight className="w-3 h-3" />
                       </span>

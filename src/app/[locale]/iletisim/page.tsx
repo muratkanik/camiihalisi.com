@@ -26,7 +26,7 @@ const TYPE_LABEL: Record<string, string> = {
 };
 
 const TYPE_COLOR: Record<string, string> = {
-  merkez: "bg-[#1B4332] text-white",
+  merkez: "bg-[#006064] text-white",
   fabrika: "bg-slate-700 text-white",
   ofis: "bg-blue-700 text-white",
   "home-office": "bg-emerald-700 text-white",
@@ -74,7 +74,7 @@ export default function IletisimPage() {
       <Navigation locale="tr" />
       <main id="main-content">
         {/* ── Hero ── */}
-        <section className="bg-[#1B4332] py-20 relative overflow-hidden">
+        <section className="bg-[#006064] py-20 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
           }} />
@@ -95,7 +95,7 @@ export default function IletisimPage() {
               <a href="tel:+903522323838" className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
                 <Phone className="w-4 h-4" /> +90 352 232 38 38
               </a>
-              <a href="https://wa.me/905323467939" target="_blank" rel="noopener" className="flex items-center gap-2 px-4 py-2.5 bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/30 rounded-xl text-white text-sm font-medium transition-all">
+              <a href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939&from=%2Filetisim&label=whatsapp-hero&cat=whatsapp" target="_blank" rel="noopener" className="flex items-center gap-2 px-4 py-2.5 bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/30 rounded-xl text-white text-sm font-medium transition-all">
                 <WhatsAppIcon className="w-4 h-4" /> WhatsApp
               </a>
               <a href="mailto:info@asilhali.com.tr" className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
@@ -106,44 +106,44 @@ export default function IletisimPage() {
         </section>
 
         {/* ── Form + Quick Info ── */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="grid lg:grid-cols-2 gap-12 mb-16">
               {/* Form */}
-              <div className="bg-white rounded-2xl border border-[#DDD8CE] p-8 shadow-sm">
+              <div className="bg-white rounded-2xl border border-[#B2EBF2] p-8 shadow-sm">
                 {submitted ? (
                   <div className="text-center py-12">
-                    <div className="w-16 h-16 rounded-full bg-[#1B4332]/10 flex items-center justify-center mx-auto mb-4">
-                      <Send className="w-7 h-7 text-[#1B4332]" />
+                    <div className="w-16 h-16 rounded-full bg-[#006064]/10 flex items-center justify-center mx-auto mb-4">
+                      <Send className="w-7 h-7 text-[#006064]" />
                     </div>
-                    <h2 className="text-2xl font-bold text-[#1B4332] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Mesajınız İletildi!</h2>
+                    <h2 className="text-2xl font-bold text-[#006064] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Mesajınız İletildi!</h2>
                     <p className="text-[#6B6355]">En kısa sürede iletişime geçeceğiz. Acil durumlar için{" "}
-                      <a href="tel:+903522323838" className="text-[#1B4332] font-semibold underline">bizi arayın</a>.
+                      <a href="tel:+903522323838" className="text-[#006064] font-semibold underline">bizi arayın</a>.
                     </p>
                   </div>
                 ) : (
                   <>
-                    <h2 className="text-2xl font-bold text-[#1B4332] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                    <h2 className="text-2xl font-bold text-[#006064] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                       Teklif / Danışmanlık Formu
                     </h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="grid grid-cols-3 gap-2">
                         {[{ val: "teklif", label: "Fiyat Teklifi" }, { val: "kesif", label: "Ücretsiz Keşif" }, { val: "bilgi", label: "Bilgi Talebi" }].map((opt) => (
                           <button key={opt.val} type="button" onClick={() => setForm({ ...form, type: opt.val })}
-                            className={`py-2.5 rounded-xl text-sm font-medium border transition-all ${form.type === opt.val ? "bg-[#1B4332] text-white border-[#1B4332]" : "bg-white text-[#6B6355] border-[#DDD8CE] hover:border-[#1B4332]/40"}`}>
+                            className={`py-2.5 rounded-xl text-sm font-medium border transition-all ${form.type === opt.val ? "bg-[#006064] text-white border-[#006064]" : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]/40"}`}>
                             {opt.label}
                           </button>
                         ))}
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4">
-                        <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Adınız Soyadınız" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
-                        <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Telefon" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
+                        <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Adınız Soyadınız" className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
+                        <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="Telefon" className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
                       </div>
                       <div className="grid sm:grid-cols-2 gap-4">
-                        <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="E-posta" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
-                        <input type="text" value={form.mosque} onChange={(e) => setForm({ ...form, mosque: e.target.value })} placeholder="Cami / Kurum Adı" className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all" />
+                        <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="E-posta" className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
+                        <input type="text" value={form.mosque} onChange={(e) => setForm({ ...form, mosque: e.target.value })} placeholder="Cami / Kurum Adı" className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
                       </div>
-                      <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Caminizin metrekaresi, istediğiniz halı türü veya sorularınız..." className="w-full px-4 py-2.5 rounded-xl border border-[#DDD8CE] bg-[#F7F3EC] text-sm focus:outline-none focus:border-[#1B4332] focus:ring-2 focus:ring-[#1B4332]/10 transition-all resize-none" />
+                      <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Caminizin metrekaresi, istediğiniz halı türü veya sorularınız..." className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all resize-none" />
                       <button type="submit" disabled={loading} className="btn btn-primary w-full justify-center">
                         {loading ? "Gönderiliyor..." : "Gönder"} <Send className="w-4 h-4" />
                       </button>
@@ -164,7 +164,7 @@ export default function IletisimPage() {
                 </div>
 
                 {/* WhatsApp card */}
-                <a href="https://wa.me/905323467939?text=Merhaba%2C+cami+hal%C4%B1s%C4%B1+hakk%C4%B1nda+bilgi+almak+istiyorum." target="_blank" rel="noopener"
+                <a href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939%3Ftext%3DMerhaba%252C%2Bcami%2Bhal%25C4%25B1s%25C4%25B1%2Bhakk%25C4%25B1nda%2Bbilgi%2Balmak%2Bistiyorum.&from=%2Filetisim&label=whatsapp-card&cat=whatsapp" target="_blank" rel="noopener"
                   className="flex items-center gap-4 p-5 bg-[#25D366] rounded-2xl text-white hover:bg-[#20b858] transition-all group">
                   <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                     <WhatsAppIcon className="w-6 h-6" />
@@ -178,9 +178,9 @@ export default function IletisimPage() {
 
                 {/* Email card */}
                 <a href="mailto:info@asilhali.com.tr"
-                  className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-[#DDD8CE] hover:border-[#C9972B]/40 transition-all">
-                  <div className="w-11 h-11 rounded-xl bg-[#1B4332]/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5 text-[#1B4332]" />
+                  className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-[#B2EBF2] hover:border-[#C9972B]/40 transition-all">
+                  <div className="w-11 h-11 rounded-xl bg-[#006064]/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-[#006064]" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-0.5">E-Posta</div>
@@ -191,7 +191,7 @@ export default function IletisimPage() {
                 {/* Official site */}
                 <div className="bg-[#C9972B] rounded-2xl p-5 text-[#1A1A1A]">
                   <p className="text-sm font-semibold mb-1">Resmi Alışveriş & Katalog</p>
-                  <a href="https://www.asilhali.com.tr" target="_blank" rel="noopener"
+                  <a href="/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Diletisim&from=%2Filetisim&label=main-site&cat=outbound" target="_blank" rel="noopener"
                     className="flex items-center gap-2 text-lg font-bold hover:opacity-80 transition-opacity" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                     www.asilhali.com.tr <ExternalLink className="w-4 h-4" />
                   </a>
@@ -211,15 +211,15 @@ export default function IletisimPage() {
               {Object.entries(byRegion).map(([region, regionOffices]) => (
                 <div key={region} className="mb-10">
                   <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-4 flex items-center gap-2">
-                    <span className="flex-1 border-t border-[#DDD8CE]" />
+                    <span className="flex-1 border-t border-[#B2EBF2]" />
                     {region}
-                    <span className="flex-1 border-t border-[#DDD8CE]" />
+                    <span className="flex-1 border-t border-[#B2EBF2]" />
                   </h3>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {regionOffices.map((office) => {
                       const TypeIcon = TYPE_ICON[office.type] ?? Building2;
                       return (
-                        <div key={office.id} className="bg-white rounded-2xl border border-[#DDD8CE] hover:border-[#C9972B]/40 hover:shadow-md transition-all p-5">
+                        <div key={office.id} className="bg-white rounded-2xl border border-[#B2EBF2] hover:border-[#C9972B]/40 hover:shadow-md transition-all p-5">
                           {/* Card header */}
                           <div className="flex items-start gap-3 mb-4">
                             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${TYPE_COLOR[office.type] ?? "bg-slate-600 text-white"}`}>
@@ -227,7 +227,7 @@ export default function IletisimPage() {
                             </div>
                             <div>
                               <div className="font-bold text-sm text-[#1A1A1A]">{office.title}</div>
-                              <span className="text-xs bg-[#F7F3EC] text-[#6B6355] border border-[#DDD8CE] px-1.5 py-0.5 rounded font-medium">
+                              <span className="text-xs bg-[#F0FDFE] text-[#6B6355] border border-[#B2EBF2] px-1.5 py-0.5 rounded font-medium">
                                 {TYPE_LABEL[office.type] ?? office.type}
                               </span>
                             </div>
@@ -249,8 +249,8 @@ export default function IletisimPage() {
                             <div className="space-y-1.5 mb-3">
                               {office.phones.map((p, i) => (
                                 <a key={i} href={`tel:${p.number.replace(/\s/g, "")}`}
-                                  className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#1B4332] transition-colors">
-                                  <Phone className="w-3 h-3 text-[#1B4332] flex-shrink-0" />
+                                  className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#006064] transition-colors">
+                                  <Phone className="w-3 h-3 text-[#006064] flex-shrink-0" />
                                   <span className="text-[#6B6355]">{p.label}:</span>
                                   <span className="font-medium">{p.number}</span>
                                 </a>
@@ -260,8 +260,8 @@ export default function IletisimPage() {
 
                           {/* Email */}
                           {office.email && (
-                            <a href={`mailto:${office.email}`} className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#1B4332] transition-colors mb-1.5">
-                              <Mail className="w-3 h-3 text-[#1B4332] flex-shrink-0" />
+                            <a href={`mailto:${office.email}`} className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#006064] transition-colors mb-1.5">
+                              <Mail className="w-3 h-3 text-[#006064] flex-shrink-0" />
                               <span>{office.email}</span>
                             </a>
                           )}
@@ -277,13 +277,13 @@ export default function IletisimPage() {
 
                           {/* Work hours */}
                           {office.workHours && (
-                            <div className="text-xs text-[#6B6355] mt-2 pt-2 border-t border-[#DDD8CE]">{office.workHours}</div>
+                            <div className="text-xs text-[#6B6355] mt-2 pt-2 border-t border-[#B2EBF2]">{office.workHours}</div>
                           )}
 
                           {/* Maps link */}
                           {office.mapsUrl && (
                             <a href={office.mapsUrl} target="_blank" rel="noopener"
-                              className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#1B4332] hover:text-[#C9972B] transition-colors">
+                              className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#006064] hover:text-[#C9972B] transition-colors">
                               <MapPin className="w-3 h-3" /> Yol Tarifi Al →
                             </a>
                           )}

@@ -5,7 +5,7 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const MAIN_SITE_URL =
-  "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=hero&utm_campaign=site";
+  "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dhero%26utm_campaign%3Dsite&from=hero&label=fiyat-teklifi&cat=outbound";
 
 // Kendi cami görsellerimiz
 const IMAGES = [
@@ -84,7 +84,7 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
       </AnimatePresence>
 
       {/* ── Koyu Overlay — AAA Kontrast Garantisi ── */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0D2418]/95 via-[#0D2418]/55 to-[#0D2418]/25" />
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#003B40]/95 via-[#003B40]/55 to-[#003B40]/25" />
       <div className="absolute inset-0 z-10 bg-black/15" />
 
       {/* ── İslami Geometrik Overlay (subtle) ── */}
@@ -175,7 +175,7 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
       </div>
 
       {/* ── Alt Gradient Geçiş ── */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F7F3EC] to-transparent z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#F0FDFE] to-transparent z-20" />
     </section>
   );
 }

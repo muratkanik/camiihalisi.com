@@ -9,7 +9,7 @@ const CATEGORIES = [
     description: "Parlak renkleri, yumuşak dokusu ve ekonomik fiyatıyla en çok tercih edilen halı türü.",
     badge: "En Çok Satan",
     image: "/images/cami-1.png",
-    color: "#1B4332",
+    color: "#006064",
     features: ["Solmaz Renk", "Yumuşak Doku", "Ekonomik"],
     subcategories: [
       { label: "Saflı Akrilik", slug: "safli-akrilik-cami-halisi" },
@@ -23,7 +23,7 @@ const CATEGORIES = [
     description: "Doğal yünün sıcaklığı ve dayanıklılığıyla ibadethaneye özel lüks.",
     badge: "Premium",
     image: "/images/cami-2.png",
-    color: "#2D6A4F",
+    color: "#0097A7",
     features: ["%100 Doğal", "Isı Yalıtımı", "Uzun Ömür"],
     subcategories: [
       { label: "Saflı Yün", slug: "safli-yun-cami-halisi" },
@@ -37,7 +37,7 @@ const CATEGORIES = [
     description: "Neme ve lekeye karşı üstün direnciyle yüksek trafik alanları için üretilmiş.",
     badge: "Dayanıklı",
     image: "/images/cami-3.png",
-    color: "#1B4332",
+    color: "#006064",
     features: ["Kolay Temizlik", "Leke Tutmaz", "Yüksek Trafik"],
     subcategories: [
       { label: "Saflı Polipropilen", slug: "safli-polipropilen-cami-halisi" },
@@ -51,7 +51,7 @@ const CATEGORIES = [
     description: "Sentetik liflerin en kalitelisi. Yüksek aşınma direnci ve canlı renklerle büyük camilerin tercihi.",
     badge: "Profesyonel",
     image: "/images/cami-4.png",
-    color: "#2D6A4F",
+    color: "#0097A7",
     features: ["Aşınmaz", "Canlı Renkler", "Büyük Hacim"],
     subcategories: [
       { label: "Saflı Polyamid", slug: "safli-polyamid-cami-halisi" },
@@ -78,7 +78,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
   return (
-    <section id="kategoriler" className="section bg-[#F7F3EC] geometric-overlay">
+    <section id="kategoriler" className="section bg-[#F0FDFE] geometric-overlay">
       <div className="container-site relative z-10">
         {/* Başlık */}
         <div className="text-center mb-10">
@@ -99,7 +99,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
             <div key={cat.slug} className="group card card-gold-border overflow-hidden flex flex-col">
               {/* Görsel */}
               <Link href={`${prefix}/kategori/${cat.slug}`} className="block">
-                <div className="relative h-44 overflow-hidden bg-[#EDE8DF]">
+                <div className="relative h-44 overflow-hidden bg-[#E0F7FA]">
                   <Image
                     src={cat.image}
                     alt={cat.title}
@@ -127,14 +127,14 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
                 </div>
 
                 {/* Alt kategoriler — doğrudan görünür */}
-                <div className="border-t border-[#EDE8DF] pt-3 mb-3">
+                <div className="border-t border-[#E0F7FA] pt-3 mb-3">
                   <p className="text-xs font-semibold text-[#C9972B] uppercase tracking-widest mb-2">Alt Kategoriler</p>
                   <div className="grid grid-cols-1 gap-1">
                     {cat.subcategories.map((sub) => (
                       <Link
                         key={sub.slug}
                         href={`${prefix}/kategori/${sub.slug}`}
-                        className="flex items-center gap-1.5 py-1.5 px-2 text-xs font-medium text-[#1A1A1A] hover:text-[#1B4332] hover:bg-[#F7F3EC] rounded-lg transition-colors"
+                        className="flex items-center gap-1.5 py-1.5 px-2 text-xs font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#F0FDFE] rounded-lg transition-colors"
                       >
                         <ChevronRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
                         {sub.label}
@@ -146,7 +146,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
                 {/* Ana kategori CTA */}
                 <Link
                   href={`${prefix}/kategori/${cat.slug}`}
-                  className="flex items-center gap-1 text-[#1B4332] font-semibold text-sm hover:gap-2 transition-all mt-auto"
+                  className="flex items-center gap-1 text-[#006064] font-semibold text-sm hover:gap-2 transition-all mt-auto"
                 >
                   Tüm {cat.title} Modelleri
                   <ArrowRight className="w-4 h-4" />
@@ -157,7 +157,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
         </div>
 
         {/* Axminster Özel Sipariş */}
-        <div className="bg-gradient-to-r from-[#1B4332] to-[#2D6A4F] rounded-2xl overflow-hidden">
+        <div className="bg-gradient-to-r from-[#006064] to-[#0097A7] rounded-2xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-64 relative h-48 md:h-auto flex-shrink-0">
               <Image src={SPECIAL.image} alt={SPECIAL.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 256px" />
@@ -183,10 +183,10 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
         </div>
 
         {/* Halı Altı Malzemeleri Bağlantısı */}
-        <div className="mt-6 bg-white border border-[#DDD8CE] rounded-2xl p-6">
+        <div className="mt-6 bg-white border border-[#B2EBF2] rounded-2xl p-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h3 className="font-bold text-[#1B4332] text-lg mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <h3 className="font-bold text-[#006064] text-lg mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 Halı Altı Malzemeleri
               </h3>
               <p className="text-sm text-[#6B6355]">
@@ -194,7 +194,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
               </p>
               <div className="flex flex-wrap gap-2 mt-3">
                 {["Kauçuk Altlık", "TredMOR™ Berber Supreme", "600 gr Keçe", "1000 gr Keçe", "1200 gr Keçe"].map((item) => (
-                  <span key={item} className="text-xs bg-[#F7F3EC] border border-[#DDD8CE] text-[#6B6355] px-2.5 py-1 rounded-full">{item}</span>
+                  <span key={item} className="text-xs bg-[#F0FDFE] border border-[#B2EBF2] text-[#6B6355] px-2.5 py-1 rounded-full">{item}</span>
                 ))}
               </div>
             </div>

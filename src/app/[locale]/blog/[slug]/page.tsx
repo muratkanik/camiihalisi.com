@@ -109,7 +109,7 @@ export default async function BlogDetayPage({
           <div className="absolute inset-0 z-0">
             <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
           </div>
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0D2418]/95 via-[#0D2418]/60 to-transparent" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#003B40]/95 via-[#003B40]/60 to-transparent" />
           <div className="relative z-20 container-site pb-10 w-full">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-4" aria-label="Breadcrumb">
               <Link href={`${prefix}/`} className="hover:text-white transition-colors">Ana Sayfa</Link>
@@ -131,13 +131,13 @@ export default async function BlogDetayPage({
         </section>
 
         {/* ── İçerik ── */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="grid lg:grid-cols-3 gap-12">
               {/* Sol: Makale */}
               <article className="lg:col-span-2">
                 {/* Meta */}
-                <div className="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-[#DDD8CE]">
+                <div className="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-[#B2EBF2]">
                   <div className="flex items-center gap-1.5 text-sm text-[#6B6355]">
                     <Clock className="w-4 h-4 text-[#C9972B]" />
                     {post.readTime} okuma
@@ -148,7 +148,7 @@ export default async function BlogDetayPage({
                     })}
                   </div>
                   <div className="text-sm text-[#6B6355]">
-                    Yazan: <span className="font-medium text-[#1B4332]">{post.author}</span>
+                    Yazan: <span className="font-medium text-[#006064]">{post.author}</span>
                   </div>
                 </div>
 
@@ -164,7 +164,7 @@ export default async function BlogDetayPage({
                       return (
                         <h2
                           key={i}
-                          className="text-2xl font-bold text-[#1B4332] mt-10 mb-3 pt-6 border-t border-[#EDE8DF]"
+                          className="text-2xl font-bold text-[#006064] mt-10 mb-3 pt-6 border-t border-[#E0F7FA]"
                           style={{ fontFamily: "'Cormorant Garamond', serif" }}
                         >
                           {para.replace("## ", "")}
@@ -175,7 +175,7 @@ export default async function BlogDetayPage({
                       return (
                         <h3
                           key={i}
-                          className="text-xl font-bold text-[#1B4332] mt-6 mb-2"
+                          className="text-xl font-bold text-[#006064] mt-6 mb-2"
                           style={{ fontFamily: "'Cormorant Garamond', serif" }}
                         >
                           {para.replace("### ", "")}
@@ -198,15 +198,15 @@ export default async function BlogDetayPage({
                     if (para.includes("| ")) {
                       const rows = para.split("\n").filter((r) => r.includes("|") && !r.includes("---"));
                       return (
-                        <div key={i} className="overflow-x-auto my-6 rounded-xl border border-[#DDD8CE]">
+                        <div key={i} className="overflow-x-auto my-6 rounded-xl border border-[#B2EBF2]">
                           <table className="w-full text-sm">
                             <tbody>
                               {rows.map((row, j) => {
                                 const cells = row.split("|").filter(Boolean).map((c) => c.trim());
                                 return (
-                                  <tr key={j} className={j === 0 ? "bg-[#1B4332] text-white font-semibold" : j % 2 === 0 ? "bg-[#F7F3EC]" : "bg-white"}>
+                                  <tr key={j} className={j === 0 ? "bg-[#006064] text-white font-semibold" : j % 2 === 0 ? "bg-[#F0FDFE]" : "bg-white"}>
                                     {cells.map((cell, k) => (
-                                      <td key={k} className="px-4 py-3 border-b border-[#EDE8DF]">{cell}</td>
+                                      <td key={k} className="px-4 py-3 border-b border-[#E0F7FA]">{cell}</td>
                                     ))}
                                   </tr>
                                 );
@@ -219,7 +219,7 @@ export default async function BlogDetayPage({
                     if (para.startsWith("```")) {
                       const code = para.replace(/```[\w]*\n?/, "").replace(/```$/, "");
                       return (
-                        <pre key={i} className="bg-[#1B4332] text-[#E4B84A] rounded-xl p-5 my-4 text-sm overflow-x-auto">
+                        <pre key={i} className="bg-[#006064] text-[#E4B84A] rounded-xl p-5 my-4 text-sm overflow-x-auto">
                           <code>{code}</code>
                         </pre>
                       );
@@ -251,7 +251,7 @@ export default async function BlogDetayPage({
                 </div>
 
                 {/* Etiketler */}
-                <div className="mt-10 pt-6 border-t border-[#DDD8CE] flex flex-wrap gap-2">
+                <div className="mt-10 pt-6 border-t border-[#B2EBF2] flex flex-wrap gap-2">
                   <Tag className="w-4 h-4 text-[#C9972B] mt-0.5" />
                   {post.tags.map((tag) => (
                     <span key={tag} className="badge badge-green text-xs normal-case tracking-normal">
@@ -264,7 +264,7 @@ export default async function BlogDetayPage({
                 <div className="mt-8">
                   <Link
                     href={`${prefix}/blog`}
-                    className="inline-flex items-center gap-2 text-sm text-[#1B4332] font-medium hover:text-[#C9972B] transition-colors"
+                    className="inline-flex items-center gap-2 text-sm text-[#006064] font-medium hover:text-[#C9972B] transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     Tüm Makaleler
@@ -275,7 +275,7 @@ export default async function BlogDetayPage({
               {/* Sağ: Sidebar */}
               <aside className="space-y-6">
                 {/* CTA Kartı */}
-                <div className="bg-[#1B4332] rounded-2xl p-6 text-white sticky top-24">
+                <div className="bg-[#006064] rounded-2xl p-6 text-white sticky top-24">
                   <h3
                     className="text-xl font-bold text-white mb-2"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
@@ -286,7 +286,7 @@ export default async function BlogDetayPage({
                     Caminize özel ücretsiz keşif ve fiyat teklifi için Asil Halı ile iletişime geçin.
                   </p>
                   <a
-                    href="https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=blog-sidebar"
+                    href="/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dblog-sidebar&from=blog&label=teklif-al&cat=outbound"
                     target="_blank"
                     rel="noopener"
                     className="btn btn-gold w-full justify-center text-sm"
@@ -296,9 +296,9 @@ export default async function BlogDetayPage({
                 </div>
 
                 {/* İlgili Makaleler */}
-                <div className="bg-white rounded-2xl border border-[#DDD8CE] p-5">
+                <div className="bg-white rounded-2xl border border-[#B2EBF2] p-5">
                   <h3
-                    className="font-bold text-[#1B4332] mb-4"
+                    className="font-bold text-[#006064] mb-4"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     İlgili Makaleler
@@ -310,7 +310,7 @@ export default async function BlogDetayPage({
                         href={`${prefix}/blog/${rel.slug}`}
                         className="flex gap-3 group"
                       >
-                        <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-[#EDE8DF]">
+                        <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-[#E0F7FA]">
                           <img
                             src={rel.image}
                             alt={rel.title}
@@ -320,7 +320,7 @@ export default async function BlogDetayPage({
                         </div>
                         <div className="flex-1 min-w-0">
                           <p
-                            className="text-sm font-medium text-[#1A1A1A] leading-snug group-hover:text-[#1B4332] transition-colors line-clamp-2"
+                            className="text-sm font-medium text-[#1A1A1A] leading-snug group-hover:text-[#006064] transition-colors line-clamp-2"
                             style={{ fontFamily: "'Cormorant Garamond', serif" }}
                           >
                             {rel.title}
@@ -333,9 +333,9 @@ export default async function BlogDetayPage({
                 </div>
 
                 {/* Ürün Kategorileri */}
-                <div className="bg-[#F7F3EC] rounded-2xl border border-[#DDD8CE] p-5">
+                <div className="bg-[#F0FDFE] rounded-2xl border border-[#B2EBF2] p-5">
                   <h3
-                    className="font-bold text-[#1B4332] mb-4"
+                    className="font-bold text-[#006064] mb-4"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     Ürün Kategorileri
@@ -350,7 +350,7 @@ export default async function BlogDetayPage({
                       <Link
                         key={cat.slug}
                         href={`${prefix}/kategori/${cat.slug}`}
-                        className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#DDD8CE] hover:border-[#C9972B]/40 text-sm font-medium text-[#1A1A1A] hover:text-[#1B4332] transition-all"
+                        className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#B2EBF2] hover:border-[#C9972B]/40 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] transition-all"
                       >
                         {cat.label}
                         <ChevronRight className="w-3.5 h-3.5 text-[#C9972B]" />

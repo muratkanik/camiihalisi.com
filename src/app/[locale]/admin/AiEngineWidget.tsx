@@ -45,7 +45,7 @@ export default function AiEngineWidget() {
         <button
           type="submit"
           disabled={loading || !keyword.trim()}
-          className="px-6 py-3 rounded-xl bg-[#C9972B] hover:bg-[#B8861F] disabled:opacity-60 disabled:cursor-not-allowed text-[#0D2418] font-bold text-sm transition-all flex items-center gap-2"
+          className="px-6 py-3 rounded-xl bg-[#C9972B] hover:bg-[#B8861F] disabled:opacity-60 disabled:cursor-not-allowed text-[#003B40] font-bold text-sm transition-all flex items-center gap-2"
         >
           {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
           {loading ? "İşleniyor…" : "Motoru Başlat"}

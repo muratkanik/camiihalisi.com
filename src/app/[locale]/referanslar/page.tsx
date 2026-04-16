@@ -80,7 +80,7 @@ export default async function ReferanslarPage({
 
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#1B4332] py-20 relative overflow-hidden">
+        <section className="bg-[#006064] py-20 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")` }} />
           <div className="container-site relative z-10">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6" aria-label="Breadcrumb">
@@ -112,7 +112,7 @@ export default async function ReferanslarPage({
         </section>
 
         {/* Öne Çıkan Projeler */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="text-center mb-12">
               <span className="badge badge-gold mb-4">Öne Çıkan Projeler</span>
@@ -121,11 +121,11 @@ export default async function ReferanslarPage({
             </div>
             <div className="grid md:grid-cols-3 gap-6 mb-16">
               {NOTABLE_PROJECTS.map((p) => (
-                <div key={p.name} className="bg-white rounded-2xl border border-[#DDD8CE] p-6 hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 rounded-xl bg-[#1B4332]/10 flex items-center justify-center mb-4">
+                <div key={p.name} className="bg-white rounded-2xl border border-[#B2EBF2] p-6 hover:shadow-md transition-shadow">
+                  <div className="w-10 h-10 rounded-xl bg-[#006064]/10 flex items-center justify-center mb-4">
                     <Star className="w-5 h-5 text-[#C9972B]" />
                   </div>
-                  <h3 className="font-bold text-[#1B4332] text-lg mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{p.name}</h3>
+                  <h3 className="font-bold text-[#006064] text-lg mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{p.name}</h3>
                   <div className="space-y-1.5 text-sm text-[#6B6355]">
                     <div className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#C9972B]" />{p.location}</div>
                     <div>Kapsam: {p.scope}</div>
@@ -143,10 +143,10 @@ export default async function ReferanslarPage({
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {REFERENCES.map((ref) => (
-                <div key={ref.il} className="bg-white rounded-xl border border-[#DDD8CE] p-4 hover:border-[#C9972B]/40 transition-colors">
+                <div key={ref.il} className="bg-white rounded-xl border border-[#B2EBF2] p-4 hover:border-[#C9972B]/40 transition-colors">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-bold text-[#1B4332]">{ref.il}</h3>
-                    <span className="text-xs bg-[#1B4332]/10 text-[#1B4332] px-2 py-0.5 rounded-full font-semibold">{ref.adet}+</span>
+                    <h3 className="font-bold text-[#006064]">{ref.il}</h3>
+                    <span className="text-xs bg-[#006064]/10 text-[#006064] px-2 py-0.5 rounded-full font-semibold">{ref.adet}+</span>
                   </div>
                   <div className="text-xs text-[#C9972B] font-medium mb-2">{ref.tip}</div>
                   <ul className="space-y-0.5">
@@ -188,7 +188,7 @@ export default async function ReferanslarPage({
                   alt="Bilecik Cami Projesi"
                   className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                   <p className="text-white font-semibold text-lg">Bilecik Cami Projesi</p>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default async function ReferanslarPage({
                   alt="Esentepe Cami Projesi"
                   className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                   <p className="text-white font-semibold text-lg">Esentepe Cami Projesi</p>
                 </div>
               </div>
@@ -212,7 +212,7 @@ export default async function ReferanslarPage({
                   alt="Panoramik Cami Görünümü"
                   className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                   <p className="text-white font-semibold text-lg">Panoramik Cami Görünümü</p>
                 </div>
               </div>
@@ -225,7 +225,7 @@ export default async function ReferanslarPage({
                     alt="Tamamlanan Cami Halısı Projesi"
                     className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0D2418]/95 to-transparent p-4">
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                     <p className="text-white font-semibold text-sm">Tamamlanan Proje</p>
                   </div>
                 </div>

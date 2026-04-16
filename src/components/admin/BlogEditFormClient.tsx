@@ -156,7 +156,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
           {seoKeywords && (
             <div className="flex flex-wrap gap-1 mt-1.5">
               {seoKeywords.split(",").map((k) => k.trim()).filter(Boolean).map((kw, i) => (
-                <span key={i} className={`text-xs px-2 py-0.5 rounded-full ${i === 0 ? "bg-[#1B4332] text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}>
+                <span key={i} className={`text-xs px-2 py-0.5 rounded-full ${i === 0 ? "bg-[#006064] text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}>
                   {i === 0 && "★ "}{kw}
                 </span>
               ))}
@@ -170,7 +170,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
 
       <div className="pb-2">
         <button type="submit"
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1B4332] text-white font-bold text-sm hover:bg-[#0D2418] transition-all">
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all">
           <Save className="w-4 h-4" />
           Kaydet &amp; SEO Hesapla
         </button>

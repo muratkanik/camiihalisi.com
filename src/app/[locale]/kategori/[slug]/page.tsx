@@ -11,7 +11,11 @@ import FAQSection from "@/components/blocks/FAQSection";
 import CategoryFiltersClient from "@/components/blocks/CategoryFiltersClient";
 
 const SITE_URL = "https://camiihalisi.com";
-const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=kategori&utm_campaign=";
+
+function kategoriTrackedUrl(slug: string): string {
+  const to = `https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=kategori&utm_campaign=${slug}`;
+  return `/api/r?to=${encodeURIComponent(to)}&from=/kategori/${slug}&label=teklif-al&cat=outbound`;
+}
 
 interface CategoryData {
   slug: string;
@@ -54,8 +58,8 @@ const CATEGORY_IMAGES: Record<string, string> = {
 };
 
 // Common colors offered for each material type
-const COMMON_COLORS = ["#1B4332", "#1B2E5E", "#8B1A1A", "#1A4E8B", "#C9972B", "#7A7A7A"];
-const NATURAL_COLORS = ["#1B4332", "#1B2E5E", "#8B1A1A", "#6B4226", "#C9972B", "#F5EDD7"];
+const COMMON_COLORS = ["#006064", "#1B2E5E", "#8B1A1A", "#1A4E8B", "#C9972B", "#7A7A7A"];
+const NATURAL_COLORS = ["#006064", "#1B2E5E", "#8B1A1A", "#6B4226", "#C9972B", "#F5EDD7"];
 
 type CatalogDesen = "Saflı" | "Göbekli" | "Seccadeli" | "Standart" | "Özel";
 
@@ -118,7 +122,7 @@ Asil Halı'nın akrilik serisi; mihrap önünden saf aralarına, merdivenlerden 
     image: "/images/cami-1.png",
     heroImage: "/images/cami-hero.png",
     badge: "En Çok Satan",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "Uzun yıllar solmayan UV dirençli renkler",
       "Yumuşak ve konforlu doku — uzun ibadet seansları için ideal",
@@ -190,7 +194,7 @@ Asil Halı'nın yün serisi; New Zealand ve Türk yününden seçilen en kalitel
     image: "/images/cami-2.png",
     heroImage: "/images/cami-hero.png",
     badge: "Premium",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "%100 doğal yün, çevre dostu üretim",
       "Doğal ısı ve nem yönetimi",
@@ -257,7 +261,7 @@ Asil Halı'nın polipropilen serisi, özellikle büyük şehirlerdeki kalabalık
     image: "/images/cami-3.png",
     heroImage: "/images/cami-hero.png",
     badge: "Dayanıklı",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "Su ve neme karşı üstün direnç",
       "Leke tutmaz yüzey — kolay temizlik",
@@ -319,7 +323,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-4.png",
     heroImage: "/images/cami-hero.png",
     badge: "Profesyonel",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "En yüksek aşınma direnci — milyonlarca adım",
       "Solution Dyed teknolojisi ile solmaz renkler",
@@ -374,7 +378,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-1.png",
     heroImage: "/images/cami-hero.png",
     badge: "Popüler",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "Mihrap yönüne göre hassas hizalanmış saf çizgileri",
       "60-65 cm standart saf genişliği, özel ölçü seçeneği",
@@ -412,7 +416,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-2.png",
     heroImage: "/images/cami-hero.png",
     badge: "Özel Tasarım",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "Merkezi mihrap göbeği ile etkileyici görünüm",
       "İslami geometrik ve arabesk motifler",
@@ -447,7 +451,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-3.png",
     heroImage: "/images/cami-hero.png",
     badge: "Pratik Çözüm",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "Her namazlık pozisyona seccade motifi",
       "Cemaatin düzenli hizalanmasını sağlar",
@@ -481,7 +485,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-2.png",
     heroImage: "/images/cami-hero.png",
     badge: "Premium",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "Doğal yün — ısı ve nem yönetimi",
       "25-30 yıl kullanım ömrü",
@@ -516,7 +520,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-2.png",
     heroImage: "/images/cami-hero.png",
     badge: "Lüks Koleksiyon",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "Doğal yünün zengin dokusu",
       "Görkemli merkezi göbek motifi",
@@ -549,7 +553,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-2.png",
     heroImage: "/images/cami-hero.png",
     badge: "Konfor & Estetik",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: ["Doğal yün konforu", "Seccade motifli bireysel namazlıklar", "Kış aylarında doğal ısı", "25-30 yıl ömür"],
     specs: [
       { label: "Lif Türü", value: "Yün (100%)" },
@@ -576,7 +580,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-3.png",
     heroImage: "/images/cami-hero.png",
     badge: "Dayanıklı",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "Neme ve suya karşı üstün direnç",
       "Leke tutmaz yüzey",
@@ -609,7 +613,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-3.png",
     heroImage: "/images/cami-hero.png",
     badge: "Pratik & Estetik",
-    color: "#1B4332",
+    color: "#006064",
     advantages: ["Leke tutmaz göbek motifi", "Kolay temizlik", "Neme dayanıklı", "Orta bütçe için ideal"],
     specs: [
       { label: "Lif Türü", value: "Polipropilen (100%)" },
@@ -634,7 +638,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-3.png",
     heroImage: "/images/cami-hero.png",
     badge: "Kolay Bakım",
-    color: "#1B4332",
+    color: "#006064",
     advantages: ["Leke tutmaz seccade motifleri", "Kolay temizlik", "Ekonomik", "Çocuklu ortamlar için ideal"],
     specs: [
       { label: "Lif Türü", value: "Polipropilen (100%)" },
@@ -660,7 +664,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-4.png",
     heroImage: "/images/cami-hero.png",
     badge: "Profesyonel",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "En yüksek aşınma direnci",
       "Solution Dyed teknoloji — solmaz renkler",
@@ -693,7 +697,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-4.png",
     heroImage: "/images/cami-hero.png",
     badge: "İhale Favorisi",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: [
       "Polyamid dayanıklılığı + görkemli göbek motifi",
       "Solution Dyed renk teknolojisi",
@@ -724,7 +728,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-4.png",
     heroImage: "/images/cami-hero.png",
     badge: "Uzun Ömür",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: ["Seccade + polyamid dayanıklılığı", "20+ yıl ömür", "Solution Dyed renkler", "Büyük camiler için"],
     specs: [
       { label: "Lif Türü", value: "Polyamid / Naylon" },
@@ -794,7 +798,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-5.png",
     heroImage: "/images/cami-hero.png",
     badge: "Kaymaz & Koruyucu",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "Kaymaz kauçuk taban — halı kaymasını önler",
       "Nem bariyeri — küflenmeyi önler",
@@ -860,7 +864,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-6.png",
     heroImage: "/images/cami-hero.png",
     badge: "Isı & Ses Yalıtımı",
-    color: "#1B4332",
+    color: "#006064",
     advantages: [
       "3 farklı yoğunluk seçeneği",
       "Ses yalıtımı",
@@ -892,7 +896,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-6.png",
     heroImage: "/images/cami-hero.png",
     badge: "Ekonomik",
-    color: "#1B4332",
+    color: "#006064",
     advantages: ["Ekonomik fiyat", "Temel ses yalıtımı", "Temel ısı yalıtımı", "Küçük-orta boy camiler için"],
     specs: [{ label: "Yoğunluk", value: "600 gr/m²" }, { label: "Malzeme", value: "Keçe" }],
     useCases: ["Küçük cami ve mescitler", "Bütçe dostu projeler"],
@@ -911,7 +915,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-7.png",
     heroImage: "/images/cami-hero.png",
     badge: "Standart Seçim",
-    color: "#1B4332",
+    color: "#006064",
     advantages: ["Dengeli ses yalıtımı", "İyi ısı yalıtımı", "Orta-büyük camiler için ideal", "Uzun ömür"],
     specs: [{ label: "Yoğunluk", value: "1000 gr/m²" }, { label: "Malzeme", value: "Keçe" }],
     useCases: ["Orta-büyük boy camiler", "Standart projeler"],
@@ -930,7 +934,7 @@ Asil Halı polyamid serisi; Solution Dyed Nylon (SDN) teknolojiyle üretilerek r
     image: "/images/cami-8.png",
     heroImage: "/images/cami-hero.png",
     badge: "Premium Yalıtım",
-    color: "#2D6A4F",
+    color: "#0097A7",
     advantages: ["En yüksek ses yalıtımı", "Maksimum ısı tutma", "Büyük camiler için", "Uzun namaz konforu"],
     specs: [{ label: "Yoğunluk", value: "1200 gr/m²" }, { label: "Malzeme", value: "Keçe" }, { label: "Yalıtım", value: "Maksimum" }],
     useCases: ["Büyük şehir camileri", "Prestijli projeler", "İhale projeleri"],
@@ -1081,7 +1085,7 @@ export default async function KategoriPage({
               className="w-full h-full object-cover object-center"
             />
           </div>
-          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0D2418]/95 via-[#0D2418]/50 to-transparent" />
+          <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#003B40]/95 via-[#003B40]/50 to-transparent" />
 
           <div className="relative z-20 container-site pb-12 w-full">
             {/* Breadcrumb */}
@@ -1110,11 +1114,11 @@ export default async function KategoriPage({
 
         {/* ── Ürün Çeşitleri & Filtreler ── */}
         {CATALOG_DATA[slug] && (
-          <section className="py-12 bg-white border-b border-[#EDE8DF]">
+          <section className="py-12 bg-white border-b border-[#E0F7FA]">
             <div className="container-site">
               <div className="mb-8">
                 <h2
-                  className="text-2xl font-bold text-[#1B4332] mb-2"
+                  className="text-2xl font-bold text-[#006064] mb-2"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >
                   {cat.title} Çeşitleri
@@ -1129,7 +1133,7 @@ export default async function KategoriPage({
         )}
 
         {/* ── İçerik ── */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="grid lg:grid-cols-3 gap-12">
               {/* Sol: Detay */}
@@ -1148,16 +1152,16 @@ export default async function KategoriPage({
                 {/* Avantajlar */}
                 <div>
                   <h2
-                    className="text-2xl font-bold text-[#1B4332] mb-5"
+                    className="text-2xl font-bold text-[#006064] mb-5"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     Avantajlar ve Özellikler
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {cat.advantages.map((adv, i) => (
-                      <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-xl border border-[#DDD8CE]">
-                        <div className="w-5 h-5 rounded-full bg-[#1B4332]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-3 h-3 text-[#1B4332]" aria-hidden="true" />
+                      <div key={i} className="flex items-start gap-3 p-4 bg-white rounded-xl border border-[#B2EBF2]">
+                        <div className="w-5 h-5 rounded-full bg-[#006064]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <Check className="w-3 h-3 text-[#006064]" aria-hidden="true" />
                         </div>
                         <span className="text-sm text-[#1A1A1A] leading-snug">{adv}</span>
                       </div>
@@ -1168,7 +1172,7 @@ export default async function KategoriPage({
                 {/* Kullanım Alanları */}
                 <div>
                   <h2
-                    className="text-2xl font-bold text-[#1B4332] mb-5"
+                    className="text-2xl font-bold text-[#006064] mb-5"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     Kullanım Alanları
@@ -1187,19 +1191,19 @@ export default async function KategoriPage({
               {/* Sağ: Teknik Özellikler + CTA */}
               <div className="space-y-6">
                 {/* Teknik Kart */}
-                <div className="bg-white rounded-2xl border border-[#DDD8CE] overflow-hidden">
+                <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
                   <div
                     className="p-5"
                     style={{ background: `${cat.color}12`, borderBottom: `1px solid ${cat.color}20` }}
                   >
                     <h3
-                      className="font-bold text-[#1B4332] text-lg"
+                      className="font-bold text-[#006064] text-lg"
                       style={{ fontFamily: "'Cormorant Garamond', serif" }}
                     >
                       Teknik Özellikler
                     </h3>
                   </div>
-                  <div className="divide-y divide-[#EDE8DF]">
+                  <div className="divide-y divide-[#E0F7FA]">
                     {cat.specs.map((spec, i) => (
                       <div key={i} className="flex items-start justify-between gap-4 px-5 py-3.5">
                         <span className="text-xs text-[#6B6355] font-medium">{spec.label}</span>
@@ -1210,7 +1214,7 @@ export default async function KategoriPage({
                 </div>
 
                 {/* Teklif CTA Kartı */}
-                <div className="bg-[#1B4332] rounded-2xl p-6 text-white">
+                <div className="bg-[#006064] rounded-2xl p-6 text-white">
                   <h3
                     className="text-xl font-bold text-white mb-2"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
@@ -1221,7 +1225,7 @@ export default async function KategoriPage({
                     Caminizin ölçülerine göre ücretsiz fiyat teklifi ve danışmanlık hizmeti.
                   </p>
                   <a
-                    href={`${MAIN_SITE_URL}${slug}`}
+                    href={kategoriTrackedUrl(slug)}
                     target="_blank"
                     rel="noopener"
                     className="btn btn-gold w-full justify-center text-sm"
@@ -1238,9 +1242,9 @@ export default async function KategoriPage({
                 </div>
 
                 {/* İlgili Kategoriler */}
-                <div className="bg-[#F7F3EC] rounded-2xl border border-[#DDD8CE] p-5">
+                <div className="bg-[#F0FDFE] rounded-2xl border border-[#B2EBF2] p-5">
                   <h3
-                    className="font-bold text-[#1B4332] mb-4"
+                    className="font-bold text-[#006064] mb-4"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     Diğer Kategoriler
@@ -1250,7 +1254,7 @@ export default async function KategoriPage({
                       <Link
                         key={rel}
                         href={`${prefix}/kategori/${rel}`}
-                        className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#DDD8CE] hover:border-[#C9972B]/40 hover:shadow-sm transition-all text-sm font-medium text-[#1A1A1A] hover:text-[#1B4332]"
+                        className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#B2EBF2] hover:border-[#C9972B]/40 hover:shadow-sm transition-all text-sm font-medium text-[#1A1A1A] hover:text-[#006064]"
                       >
                         {CATEGORY_NAMES[rel]}
                         <ArrowRight className="w-3.5 h-3.5 text-[#C9972B]" />

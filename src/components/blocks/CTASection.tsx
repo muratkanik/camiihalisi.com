@@ -1,7 +1,7 @@
 import { ExternalLink, Phone, ArrowRight } from "lucide-react";
 
 const MAIN_SITE_URL =
-  "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=cta&utm_campaign=site";
+  "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcta%26utm_campaign%3Dsite&from=cta&label=fiyat-teklifi&cat=outbound";
 
 interface CTASectionProps {
   title?: string;
@@ -19,7 +19,7 @@ export default function CTASection({
   return (
     <section
       className={`section relative overflow-hidden ${
-        isGreen ? "bg-[#1B4332]" : "bg-[#F7F3EC]"
+        isGreen ? "bg-[#006064]" : "bg-[#F0FDFE]"
       }`}
     >
       {/* Geometrik arkaplan motifi */}
@@ -39,7 +39,7 @@ export default function CTASection({
           <div className="arabesque-divider mb-8">
             <span
               className={`text-sm font-semibold tracking-widest uppercase ${
-                isGreen ? "text-[#C9972B]" : "text-[#1B4332]"
+                isGreen ? "text-[#C9972B]" : "text-[#006064]"
               }`}
             >
               ☽ Asil Halı A.Ş. ☾
@@ -49,7 +49,7 @@ export default function CTASection({
           {/* Başlık */}
           <h2
             className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight ${
-              isGreen ? "text-white" : "text-[#1B4332]"
+              isGreen ? "text-white" : "text-[#006064]"
             }`}
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
@@ -59,7 +59,7 @@ export default function CTASection({
           {/* Açıklama */}
           <p
             className={`text-base md:text-lg leading-relaxed mb-10 ${
-              isGreen ? "text-[#F7F3EC]/80" : "text-[#6B6355]"
+              isGreen ? "text-[#F0FDFE]/80" : "text-[#6B6355]"
             }`}
           >
             {subtitle}
@@ -90,7 +90,7 @@ export default function CTASection({
           {/* Güven notu */}
           <p
             className={`mt-8 text-sm ${
-              isGreen ? "text-[#F7F3EC]/50" : "text-[#6B6355]/70"
+              isGreen ? "text-[#F0FDFE]/50" : "text-[#6B6355]/70"
             }`}
           >
             Ücretsiz keşif · Ücretsiz kargo · Montaj dahil seçenekler mevcut

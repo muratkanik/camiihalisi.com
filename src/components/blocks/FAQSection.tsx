@@ -53,7 +53,7 @@ export default function FAQSection({
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="section bg-[#F7F3EC]">
+    <section className="section bg-[#F0FDFE]">
       <div className="container-site">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Sol: Başlık */}
@@ -68,10 +68,10 @@ export default function FAQSection({
             <p className="mt-6 text-sm text-[#6B6355]/80 leading-relaxed">
               Yanıt bulamadığınız sorunuz mu var?{" "}
               <a
-                href="https://www.asilhali.com.tr/iletisim?utm_source=camiihalisi&utm_medium=faq"
+                href="/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%2Filetisim%3Futm_source%3Dcamiihalisi%26utm_medium%3Dfaq&from=faq&label=bize-ulasin&cat=outbound"
                 target="_blank"
                 rel="noopener"
-                className="text-[#1B4332] font-semibold underline underline-offset-2 hover:text-[#C9972B]"
+                className="text-[#006064] font-semibold underline underline-offset-2 hover:text-[#C9972B]"
               >
                 Bize ulaşın →
               </a>
@@ -88,7 +88,7 @@ export default function FAQSection({
                   className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                     isOpen
                       ? "border-[#C9972B]/50 shadow-md bg-white"
-                      : "border-[#DDD8CE] bg-white hover:border-[#C9972B]/30"
+                      : "border-[#B2EBF2] bg-white hover:border-[#C9972B]/30"
                   }`}
                 >
                   <button
@@ -111,7 +111,7 @@ export default function FAQSection({
                   </button>
                   {isOpen && (
                     <div className="px-5 pb-5">
-                      <p className="text-sm text-[#6B6355] leading-relaxed border-t border-[#EDE8DF] pt-4">
+                      <p className="text-sm text-[#6B6355] leading-relaxed border-t border-[#E0F7FA] pt-4">
                         {faq.answer}
                       </p>
                     </div>

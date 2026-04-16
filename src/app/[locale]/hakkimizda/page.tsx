@@ -65,7 +65,7 @@ export default async function HakkimizdaPage({
 
       <main id="main-content">
         {/* ── Hero ── */}
-        <section className="bg-[#1B4332] py-20 relative overflow-hidden">
+        <section className="bg-[#006064] py-20 relative overflow-hidden">
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -95,7 +95,7 @@ export default async function HakkimizdaPage({
         </section>
 
         {/* ── Misyon ── */}
-        <section className="section bg-[#F7F3EC] geometric-overlay">
+        <section className="section bg-[#F0FDFE] geometric-overlay">
           <div className="container-site relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
@@ -162,9 +162,9 @@ export default async function HakkimizdaPage({
               {VALUES.map((v, i) => {
                 const Icon = v.icon;
                 return (
-                  <div key={i} className="p-6 rounded-2xl bg-[#F7F3EC] border border-[#DDD8CE] text-center">
-                    <div className="w-12 h-12 rounded-xl bg-[#1B4332]/10 flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-6 h-6 text-[#1B4332]" />
+                  <div key={i} className="p-6 rounded-2xl bg-[#F0FDFE] border border-[#B2EBF2] text-center">
+                    <div className="w-12 h-12 rounded-xl bg-[#006064]/10 flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-6 h-6 text-[#006064]" />
                     </div>
                     <h3
                       className="font-bold text-[#1A1A1A] mb-2"
@@ -181,7 +181,7 @@ export default async function HakkimizdaPage({
         </section>
 
         {/* ── Tarihsel Yol Haritası ── */}
-        <section className="section bg-[#F7F3EC]">
+        <section className="section bg-[#F0FDFE]">
           <div className="container-site">
             <div className="text-center mb-12">
               <span className="badge badge-gold mb-4">Tarihimiz</span>
@@ -190,18 +190,18 @@ export default async function HakkimizdaPage({
             </div>
             <div className="relative max-w-3xl mx-auto">
               {/* Dikey çizgi */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#C9972B] to-[#1B4332]" />
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#C9972B] to-[#006064]" />
               <div className="space-y-8">
                 {MILESTONES.map((m, i) => (
                   <div key={i} className="flex gap-8 items-start relative">
                     {/* Yıl dairesi */}
-                    <div className="w-16 h-16 rounded-full bg-[#1B4332] border-4 border-[#C9972B] flex items-center justify-center flex-shrink-0 z-10">
+                    <div className="w-16 h-16 rounded-full bg-[#006064] border-4 border-[#C9972B] flex items-center justify-center flex-shrink-0 z-10">
                       <span className="text-xs font-bold text-[#E4B84A] leading-tight text-center">
                         {m.year}
                       </span>
                     </div>
                     {/* İçerik */}
-                    <div className="flex-1 bg-white rounded-xl border border-[#DDD8CE] p-5 shadow-sm">
+                    <div className="flex-1 bg-white rounded-xl border border-[#B2EBF2] p-5 shadow-sm">
                       <p className="text-sm text-[#4A4035] leading-relaxed">{m.text}</p>
                     </div>
                   </div>
@@ -243,11 +243,11 @@ export default async function HakkimizdaPage({
         </section>
 
         {/* ── Bu Site Hakkında ── */}
-        <section className="section-sm bg-[#1B4332]/5 border-y border-[#DDD8CE]">
+        <section className="section-sm bg-[#006064]/5 border-y border-[#B2EBF2]">
           <div className="container-site">
             <div className="max-w-2xl mx-auto text-center">
               <h2
-                className="text-2xl font-bold text-[#1B4332] mb-3"
+                className="text-2xl font-bold text-[#006064] mb-3"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
                 Bu Site Hakkında
