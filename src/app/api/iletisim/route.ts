@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { DEFAULT_OFFICES } from "@/app/[locale]/admin/iletisim/actions";
+import { DEFAULT_OFFICES } from "@/app/[locale]/admin/iletisim/types";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");

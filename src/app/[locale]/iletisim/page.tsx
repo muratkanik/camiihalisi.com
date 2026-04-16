@@ -8,8 +8,8 @@ import {
 } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
-import type { ContactOffice } from "../admin/iletisim/actions";
-import { DEFAULT_OFFICES } from "../admin/iletisim/actions";
+import type { ContactOffice } from "../admin/iletisim/types";
+import { DEFAULT_OFFICES } from "../admin/iletisim/types";
 
 const TYPE_ICON: Record<string, React.ElementType> = {
   merkez: Building2,

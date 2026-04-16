@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Save, RotateCcw, Plus, Trash2, Phone, MapPin, Mail, ExternalLink, AlertCircle } from "lucide-react";
-import type { ContactOffice, ContactPhone } from "./actions";
+import type { ContactOffice, ContactPhone } from "./types";
 
 export default function IletisimAdminPage() {
   const [offices, setOffices] = useState<ContactOffice[]>([]);
