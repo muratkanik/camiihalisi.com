@@ -2,11 +2,15 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  // Auth check
-  const cookieStore = await cookies();
-  const token = cookieStore.get("auth_token")?.value;
-  if (!token) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // Auth check — cron secret veya admin cookie
+  const cronSecret = process.env.CRON_SECRET;
+  const hasCronSecret = !!cronSecret && req.headers.get("x-cron-secret") === cronSecret;
+  if (!hasCronSecret) {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("auth_token")?.value;
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
   }
 
   const xaiKey = process.env.XAI_API_KEY;

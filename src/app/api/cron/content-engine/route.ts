@@ -118,12 +118,16 @@ export async function GET(req: NextRequest) {
     try {
       const analysisRes = await fetch(`${SITE_ORIGIN}/api/ai/seo-analysis`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Cookie: req.headers.get("cookie") ?? "" },
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: req.headers.get("cookie") ?? "",
+          "x-cron-secret": process.env.CRON_SECRET ?? "",
+        },
         body: JSON.stringify({ keyword }),
       });
       if (analysisRes.ok) {
-        const analysisData = await analysisRes.json();
-        seoAnalysis = analysisData.analysis ?? "";
+        const analysisText = await analysisRes.text();
+        try { seoAnalysis = JSON.parse(analysisText).analysis ?? ""; } catch { /* ignore */ }
       }
     } catch {
       // SEO analizi başarısız olsa da devam et
@@ -218,13 +222,19 @@ SADECE bu JSON formatında yanıt ver:
       }),
     });
 
+    const saveText = await saveRes.text();
     if (!saveRes.ok) {
-      const saveErr = await saveRes.json();
-      await logTask(prisma, keyword, targetSlug, "failed", `Kayıt hatası: ${JSON.stringify(saveErr)}`);
-      return NextResponse.json({ error: "Blog kaydedilemedi", detail: saveErr }, { status: 500 });
+      await logTask(prisma, keyword, targetSlug, "failed", `Kayıt hatası (${saveRes.status}): ${saveText.slice(0, 300)}`);
+      return NextResponse.json({ error: "Blog kaydedilemedi", status: saveRes.status, detail: saveText.slice(0, 300) }, { status: 500 });
     }
 
-    const saveData = await saveRes.json();
+    let saveData: Record<string, unknown>;
+    try {
+      saveData = JSON.parse(saveText);
+    } catch {
+      await logTask(prisma, keyword, targetSlug, "failed", `Kayıt yanıtı parse edilemedi: ${saveText.slice(0, 300)}`);
+      return NextResponse.json({ error: "Blog kayıt yanıtı geçersiz", detail: saveText.slice(0, 300) }, { status: 500 });
+    }
 
     // ── 6. AiTask Log ─────────────────────────────────────────────────────────
     const wordCount = (blogData.content ?? "").trim().split(/\s+/).length;
