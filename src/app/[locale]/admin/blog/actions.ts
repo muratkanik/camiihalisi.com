@@ -23,6 +23,7 @@ export interface BlogOverride {
   publishedAt?: string;
   readTime?: string;
   seoKeyword?: string;
+  status?: "published" | "draft";
 }
 
 export type BlogPostWithOverride = BlogPost & { hasOverride: boolean; seoKeyword?: string };
@@ -92,6 +93,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
   const readTime = (formData.get("readTime") as string)?.trim();
   const seoKeyword = (formData.get("seoKeyword") as string)?.trim();
   const subcategory = (formData.get("subcategory") as string)?.trim();
+  const status = (formData.get("status") as string)?.trim() as "published" | "draft" | undefined;
 
   const prisma = await getPrisma();
   try {
@@ -112,6 +114,7 @@ export async function saveBlogPostAction(formData: FormData): Promise<void> {
       ...(publishedAt ? { publishedAt } : {}),
       ...(readTime ? { readTime } : {}),
       ...(seoKeyword ? { seoKeyword } : {}),
+      ...(status ? { status } : {}),
     };
 
     const idx = overrides.findIndex((o) => o.slug === slug);

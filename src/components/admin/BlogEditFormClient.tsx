@@ -172,6 +172,33 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
       <Field label="SEO Başlık (metaTitle)" name="metaTitle" defaultValue={post.metaTitle} />
       <Field label="SEO Açıklama (metaDescription)" name="metaDescription" defaultValue={post.metaDescription} type="textarea" rows={2} />
 
+      {/* Yayın Durumu */}
+      <div>
+        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider">
+          Yayın Durumu
+        </label>
+        <div className="flex gap-4">
+          {(["published", "draft"] as const).map((s) => (
+            <label key={s} className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="radio"
+                name="status"
+                value={s}
+                defaultChecked={(post.status ?? "published") === s}
+                className="accent-[#006064]"
+              />
+              <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
+                s === "published"
+                  ? "bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400"
+                  : "bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
+              }`}>
+                {s === "published" ? "✅ Yayında" : "📝 Taslak"}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
       <div className="pb-2">
         <button type="submit"
           className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all">

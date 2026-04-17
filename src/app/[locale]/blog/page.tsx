@@ -98,7 +98,7 @@ export default async function BlogListePage({
 
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {BLOG_POSTS.map((post) => (
+              {BLOG_POSTS.filter((post) => (post.status ?? "published") === "published").map((post) => (
                 <Link
                   key={post.slug}
                   href={`${prefix}/blog/${post.slug}`}
