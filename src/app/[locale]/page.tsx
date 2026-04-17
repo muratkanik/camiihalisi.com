@@ -239,11 +239,7 @@ export default async function HomePage({
         <FeatureGrid />
 
         {/* 6. CTA — Ana Siteye Yönlendirme */}
-        <CTASection
-          variant="green"
-          title="Caminiz İçin En İyi Halıyı Seçelim"
-          subtitle="50 yılı aşkın tecrübemizle, caminizin mimarisine ve bütçesine özel halı çözümü sunuyoruz. Türkiye'nin dört bir yanına teslimat ve montaj."
-        />
+        <CTASection variant="green" />
 
         {/* 7. Blog Önizleme */}
         <BlogPreview locale={locale} />
@@ -252,11 +248,7 @@ export default async function HomePage({
         <FAQSection faqs={faqItems.length > 0 ? faqItems : undefined} />
 
         {/* 9. Son CTA */}
-        <CTASection
-          variant="cream"
-          title="Fiyat Teklifi Almak İster misiniz?"
-          subtitle="Asil Halı uzmanları caminizin ihtiyacını değerlendirerek size en uygun halı çözümünü ve fiyat teklifini sunar. Ücretsiz keşif ve danışmanlık hizmeti."
-        />
+        <CTASection variant="cream" />
       </main>
 
       <Footer locale={locale} />

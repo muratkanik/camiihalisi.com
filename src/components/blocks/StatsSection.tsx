@@ -1,20 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-interface Stat {
-  value: number;
-  suffix: string;
-  label: string;
-  description: string;
-}
-
-const stats: Stat[] = [
-  { value: 50, suffix: "+", label: "Yıl Tecrübe", description: "Cami halısı üretiminde" },
-  { value: 10000, suffix: "+", label: "Cami", description: "Türkiye ve dünya genelinde" },
-  { value: 81, suffix: " Şehir", label: "Teslimat", description: "Kapıya teslim, tüm Türkiye" },
-  { value: 100, suffix: "%", label: "Yerli Üretim", description: "Türkiye'de üretilmiş kalite" },
-];
+import { useTranslations } from "next-intl";
 
 function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
@@ -49,23 +36,30 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 
   return (
     <div ref={ref}>
-      {count.toLocaleString("tr-TR")}
+      {count.toLocaleString()}
       {suffix}
     </div>
   );
 }
 
 export default function StatsSection() {
+  const t = useTranslations("stats");
+
+  const stats = [
+    { value: 50,    suffix: "+",     label: t("experience"),  description: "" },
+    { value: 10000, suffix: "+",     label: t("mosques"),     description: "" },
+    { value: 81,    suffix: " " + t("cities"),  label: "",   description: "" },
+    { value: 100,   suffix: "%",     label: t("domestic"),    description: "" },
+  ];
+
   return (
     <section className="bg-[#006064] py-16 relative overflow-hidden">
-      {/* Geometrik desen overlay */}
       <div
         className="absolute inset-0 opacity-5 pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M40 0l5.88 10.18L57.32 6.7l-0.47 12.35 12.35-0.47-3.48 11.44L76 40l-10.18 5.88L69.3 57.32l-12.35-0.47 0.47 12.35-11.44-3.48L40 80l-5.88-10.18L22.68 73.3l0.47-12.35-12.35 0.47 3.48-11.44L4 40l10.18-5.88L10.7 22.68l12.35 0.47-0.47-12.35 11.44 3.48z'/%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
-
       <div className="container-site relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
@@ -80,12 +74,11 @@ export default function StatsSection() {
               >
                 <AnimatedNumber target={stat.value} suffix={stat.suffix} />
               </div>
-              <div className="text-white font-semibold text-sm md:text-base mb-0.5">
-                {stat.label}
-              </div>
-              <div className="text-[#F0FDFE]/60 text-xs md:text-sm">
-                {stat.description}
-              </div>
+              {stat.label && (
+                <div className="text-white font-semibold text-sm md:text-base">
+                  {stat.label}
+                </div>
+              )}
             </div>
           ))}
         </div>

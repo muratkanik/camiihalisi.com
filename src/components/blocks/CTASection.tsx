@@ -1,4 +1,5 @@
-import { ExternalLink, Phone, ArrowRight } from "lucide-react";
+import { ExternalLink, Phone } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcta%26utm_campaign%3Dsite&from=cta&label=fiyat-teklifi&cat=outbound";
@@ -9,12 +10,16 @@ interface CTASectionProps {
   variant?: "green" | "cream";
 }
 
-export default function CTASection({
-  title = "Caminiz İçin En İyi Halıyı Seçelim",
-  subtitle = "50 yılı aşkın tecrübemizle, caminizin ihtiyacına özel halı çözümü sunuyoruz. Ücretsiz keşif ve fiyat teklifi için hemen iletişime geçin.",
+export default async function CTASection({
+  title,
+  subtitle,
   variant = "green",
 }: CTASectionProps) {
+  const t = await getTranslations("cta");
   const isGreen = variant === "green";
+
+  const displayTitle = title ?? (isGreen ? t("greenTitle") : t("creamTitle"));
+  const displaySubtitle = subtitle ?? (isGreen ? t("greenSubtitle") : t("creamSubtitle"));
 
   return (
     <section
@@ -53,7 +58,7 @@ export default function CTASection({
             }`}
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            {title}
+            {displayTitle}
           </h2>
 
           {/* Açıklama */}
@@ -62,7 +67,7 @@ export default function CTASection({
               isGreen ? "text-[#F0FDFE]/80" : "text-[#6B6355]"
             }`}
           >
-            {subtitle}
+            {displaySubtitle}
           </p>
 
           {/* Butonlar */}
@@ -73,7 +78,7 @@ export default function CTASection({
               rel="noopener"
               className="btn btn-gold text-base !px-8 !py-3.5"
             >
-              Fiyat Teklifi Al — asilhali.com.tr
+              {t("getQuoteBtn")}
               <ExternalLink className="w-4 h-4" />
             </a>
             <a
@@ -83,7 +88,7 @@ export default function CTASection({
               }`}
             >
               <Phone className="w-4 h-4" />
-              Hemen Arayın
+              {t("callNow")}
             </a>
           </div>
 
@@ -93,7 +98,7 @@ export default function CTASection({
               isGreen ? "text-[#F0FDFE]/50" : "text-[#6B6355]/70"
             }`}
           >
-            Ücretsiz keşif · Ücretsiz kargo · Montaj dahil seçenekler mevcut
+            {t("trustNote")}
           </p>
         </div>
       </div>

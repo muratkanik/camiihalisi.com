@@ -21,13 +21,30 @@
     "badge": "50+ Years of Experience",
     "title": "Turkey's Trusted Mosque Carpet Specialist",
     "subtitle": "Custom-made mosque carpets from Turkey's master weavers. Thousands of mosque references, nationwide delivery.",
+    "questionTitle": "Looking for a Mosque Carpet?",
+    "questionSubtitle": "A Cheap Solution, or a Reliable System That Will Serve You for Years Without Problems?",
     "cta": "Get a Quote",
     "catalog": "Browse Catalog",
-    "whatsapp": "Message on WhatsApp"
+    "browseCatalog": "Browse Models →",
+    "whatsapp": "Message on WhatsApp",
+    "check1": "Tailored Solution for Your Needs",
+    "check2": "Expert Sales Consultants",
+    "check3": "Free and Fast Quote",
+    "badge1Title": "Long Lifespan",
+    "badge1Desc": "15-20 year lifespan",
+    "badge2Title": "High Comfort",
+    "badge2Desc": "Enhances prayer comfort",
+    "badge3Title": "Professional Installation",
+    "badge3Desc": "Expert team installation",
+    "statYears": "Years Experience",
+    "statMosques": "Mosque References",
+    "statCities": "Province Delivery"
   },
   "categories": {
     "title": "Mosque Carpet Categories",
     "subtitle": "Discover the mosque carpet that fits your needs",
+    "showcaseTitle": "Which Mosque Carpet is Right for You?",
+    "viewAll": "View All Carpet Models",
     "acrylic": "Acrylic Mosque Carpet",
     "wool": "Wool Mosque Carpet",
     "polypropylene": "Polypropylene Mosque Carpet",
@@ -38,16 +55,27 @@
     "details": "Details"
   },
   "features": {
+    "badge": "Why Asil Halı?",
+    "mainTitle": "How Do We Ensure Mosque-Worthy Quality?",
+    "mainSubtitle": "A place of worship is not an ordinary space. Every carpet we make is designed, woven and delivered with this awareness.",
     "title": "Why Asil Halı?",
     "subtitle": "Leading mosque carpet manufacturer with 50+ years of experience",
-    "experience": "50+ Years Experience",
-    "experienceDesc": "One of Turkey's leading mosque carpet manufacturers with over half a century of production experience.",
-    "references": "10,000+ Mosque References",
-    "referencesDesc": "Serving thousands of mosques across Turkey with Asil Halı quality assurance.",
-    "customDesign": "Custom Design",
-    "customDesignDesc": "Personalised solutions with custom colours, patterns and dimensions tailored to your mosque's architecture.",
+    "quality": "Mosque-Worthy Quality",
+    "qualityDesc": "Every thread, every knot worked with mosque-worthy quality. ISO-certified production processes.",
+    "customSize": "Custom Size Production",
+    "customSizeDesc": "Production exactly matching the mosque's square footage. Perfect fit from between columns to the mihrab.",
+    "customDesign": "Custom Pattern Design",
+    "customDesignDesc": "Traditional Islamic motifs or modern geometric patterns. Custom designs tailored to your mosque's architecture.",
     "delivery": "Nationwide Delivery",
-    "deliveryDesc": "Door-to-door delivery to all provinces with fast and reliable logistics."
+    "deliveryDesc": "Door-to-door delivery to all 81 provinces. Special logistics and installation for large mosques.",
+    "experience": "50+ Years Experience",
+    "experienceDesc": "Asil Halı is one of Turkey's established mosque carpet manufacturers with over 50 years of experience.",
+    "afterSales": "After-Sales Support",
+    "afterSalesDesc": "Warranty coverage, maintenance tips and repair service for a long-term customer relationship.",
+    "references": "10,000+ References",
+    "referencesDesc": "Proven quality installed in tens of thousands of mosques across Turkey.",
+    "fastProduction": "Fast Production Process",
+    "fastProductionDesc": "Fast and transparent process tracking from order to delivery. Priority production for urgent projects."
   },
   "cta": {
     "title": "Get a Free Quote",
@@ -55,23 +83,42 @@
     "button": "Get a Quote Now",
     "whatsapp": "Chat on WhatsApp",
     "phone": "Phone",
-    "or": "or"
+    "or": "or",
+    "callNow": "Call Now",
+    "getQuoteBtn": "Get Quote — asilhali.com.tr",
+    "trustNote": "Free survey · Free shipping · Installation options available",
+    "greenTitle": "Let's Choose the Best Carpet for Your Mosque",
+    "greenSubtitle": "With over 50 years of experience, we offer carpet solutions tailored to your mosque's architecture and budget. Delivery and installation across Turkey.",
+    "creamTitle": "Would You Like a Price Quote?",
+    "creamSubtitle": "Asil Halı experts will assess your mosque's needs and provide the most suitable carpet solution and price offer. Free survey and consultation."
   },
   "stats": {
     "experience": "Years Experience",
     "mosques": "Mosque References",
     "cities": "Province Delivery",
-    "satisfaction": "Customer Satisfaction"
+    "satisfaction": "Customer Satisfaction",
+    "domestic": "Domestic Production"
   },
   "faq": {
     "title": "Frequently Asked Questions",
-    "subtitle": "Everything you need to know about mosque carpets"
+    "subtitle": "Everything you need to know about mosque carpets",
+    "contactNote": "Have a question you can't find the answer to?",
+    "contactLink": "Contact us →"
   },
   "trust": {
     "title": "What Our Customers Say",
-    "subtitle": "Mosque managers and imams from across Turkey share their experiences"
+    "subtitle": "Mosque managers and imams from across Turkey share their experiences",
+    "mainTitle": "30 Years of Trusted Quality Service",
+    "mainSubtitle": "Don't leave mosque carpet selection to chance. Contact our experts now.",
+    "statYears": "Years Experience",
+    "statMosques": "Mosques",
+    "statCities": "Cities",
+    "cta": "Get in Touch"
   },
   "blog": {
+    "badge": "Knowledge Center",
+    "sectionTitle": "Mosque Carpet Guides",
+    "read": "Read →",
     "title": "Blog & Articles",
     "subtitle": "Guides, maintenance tips and technical information about mosque carpets",
     "readMore": "Read More",
@@ -89,7 +136,9 @@
   },
   "footer": {
     "description": "Turkey's established mosque carpet manufacturer. 50+ years experience, 10,000+ mosque references.",
+    "infoPortal": "Information and content portal of Turkey's established mosque carpet manufacturer Asil Halı A.Ş. Comprehensive guides on mosque-specific carpet solutions.",
     "products": "Products",
+    "carpetMenu": "Mosque Carpet",
     "company": "Company",
     "contact": "Contact",
     "rights": "All rights reserved.",
@@ -102,15 +151,24 @@
     "address": "Address",
     "phone": "Phone",
     "email": "Email",
-    "followUs": "Follow Us"
+    "followUs": "Social Media",
+    "officialSite": "Official Shopping Site",
+    "siteTagline": "Visit our main site for quotes, orders and catalogue",
+    "whatsappBtn": "Chat on WhatsApp",
+    "quoteBtn": "Get Quote — asilhali.com.tr",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "copyrightNote": "This is an information portal. For shopping:",
+    "quran": "Mosques belong to Allah, so do not invoke alongside Allah anyone.",
+    "quranRef": "— Surah Al-Jinn, Verse 18"
   },
   "contact": {
     "title": "Contact",
-    "subtitle": "Get in touch to receive a quote or for more information",
+    "subtitle": "Get in touch with us for a quote or information",
     "name": "Full Name",
     "email": "Email",
     "phone": "Phone",
-    "message": "Message",
+    "message": "Your Message",
     "mosqueName": "Mosque Name",
     "city": "City",
     "area": "Area (m²)",
@@ -125,11 +183,11 @@
   },
   "gallery": {
     "title": "Gallery",
-    "subtitle": "Samples from our projects"
+    "subtitle": "Examples from our projects"
   },
   "references": {
     "title": "Our References",
-    "subtitle": "Mosques we have served across Turkey"
+    "subtitle": "Examples of mosques we have served across Turkey"
   },
   "common": {
     "loading": "Loading...",

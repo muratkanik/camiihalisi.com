@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export interface FAQItem {
   question: string;
@@ -11,33 +12,27 @@ export interface FAQItem {
 const DEFAULT_FAQS: FAQItem[] = [
   {
     question: "Cami halısı siparişi nasıl verebilirim?",
-    answer:
-      "Asil Halı'nın resmi web sitesi asilhali.com.tr üzerinden veya telefon ile iletişime geçerek sipariş verebilirsiniz. Teknik ekibimiz caminizin ölçümünü alarak size özel fiyat teklifi hazırlar.",
+    answer: "Asil Halı'nın resmi web sitesi asilhali.com.tr üzerinden veya telefon ile iletişime geçerek sipariş verebilirsiniz. Teknik ekibimiz caminizin ölçümünü alarak size özel fiyat teklifi hazırlar.",
   },
   {
     question: "Cami halısı ölçümü nasıl alınır?",
-    answer:
-      "Cami alanının uzunluk ve genişlik ölçüleri alınır, sütun ve mihrap gibi özel alanlar ayrıca hesaplanır. Uzman ekibimiz yerinde keşif yaparak kesin ölçüm alabilir veya mimari planlardan hesaplama yapabilir.",
+    answer: "Cami alanının uzunluk ve genişlik ölçüleri alınır, sütun ve mihrap gibi özel alanlar ayrıca hesaplanır. Uzman ekibimiz yerinde keşif yaparak kesin ölçüm alabilir veya mimari planlardan hesaplama yapabilir.",
   },
   {
     question: "Hangi halı türü cami için en uygundur?",
-    answer:
-      "Cami büyüklüğüne, bütçeye ve kullanım yoğunluğuna göre değişir. Küçük mahalle camileri için akrilik tercih edilirken büyük camilerde yün veya polyamid tercih edilir. Ücretsiz danışmanlığımızdan yararlanabilirsiniz.",
+    answer: "Cami büyüklüğüne, bütçeye ve kullanım yoğunluğuna göre değişir. Küçük mahalle camileri için akrilik tercih edilirken büyük camilerde yün veya polyamid tercih edilir. Ücretsiz danışmanlığımızdan yararlanabilirsiniz.",
   },
   {
     question: "Cami halısı ne sıklıkla değiştirilmelidir?",
-    answer:
-      "Kaliteli bir cami halısı 15-20 yıl kullanılabilir. Ancak yoğun kullanım, yetersiz bakım veya nem gibi faktörler ömrü kısaltabilir. Düzenli temizlik ve profesyonel bakım ömrü uzatır.",
+    answer: "Kaliteli bir cami halısı 15-20 yıl kullanılabilir. Ancak yoğun kullanım, yetersiz bakım veya nem gibi faktörler ömrü kısaltabilir. Düzenli temizlik ve profesyonel bakım ömrü uzatır.",
   },
   {
     question: "Teslimat süresi ne kadar?",
-    answer:
-      "Standart siparişlerde 3-6 hafta, acil siparişlerde ise 2-3 hafta içinde teslimat sağlanır. Üretim sürecini şeffaf biçimde takip edebilirsiniz.",
+    answer: "Standart siparişlerde 3-6 hafta, acil siparişlerde ise 2-3 hafta içinde teslimat sağlanır. Üretim sürecini şeffaf biçimde takip edebilirsiniz.",
   },
   {
     question: "Özel desen tasarımı mümkün müdür?",
-    answer:
-      "Evet. Caminizin mimarisine, rengine veya bulunduğu bölgenin geleneğine uygun özel desen tasarımı yapılabilir. Tasarım süreci ücretsizdir ve onayınız alındıktan sonra üretime geçilir.",
+    answer: "Evet. Caminizin mimarisine, rengine veya bulunduğu bölgenin geleneğine uygun özel desen tasarımı yapılabilir. Tasarım süreci ücretsizdir ve onayınız alındıktan sonra üretime geçilir.",
   },
 ];
 
@@ -48,9 +43,12 @@ interface FAQSectionProps {
 
 export default function FAQSection({
   faqs = DEFAULT_FAQS,
-  title = "Sık Sorulan Sorular",
+  title,
 }: FAQSectionProps) {
+  const t = useTranslations("faq");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const displayTitle = title ?? t("title");
 
   return (
     <section className="section bg-[#F0FDFE]">
@@ -59,21 +57,20 @@ export default function FAQSection({
           {/* Sol: Başlık */}
           <div className="lg:sticky lg:top-28">
             <span className="badge badge-gold mb-4">SSS</span>
-            <h2 className="section-title mb-4">{title}</h2>
+            <h2 className="section-title mb-4">{displayTitle}</h2>
             <div className="gold-line mb-6" />
             <p className="section-subtitle text-[#6B6355]">
-              Cami halısı seçimi, sipariş ve teslimat hakkında merak ettiğiniz
-              her şeyin yanıtı burada.
+              {t("subtitle")}
             </p>
             <p className="mt-6 text-sm text-[#6B6355]/80 leading-relaxed">
-              Yanıt bulamadığınız sorunuz mu var?{" "}
+              {t("contactNote")}{" "}
               <a
                 href="/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%2Filetisim%3Futm_source%3Dcamiihalisi%26utm_medium%3Dfaq&from=faq&label=bize-ulasin&cat=outbound"
                 target="_blank"
                 rel="noopener"
                 className="text-[#006064] font-semibold underline underline-offset-2 hover:text-[#C9972B]"
               >
-                Bize ulaşın →
+                {t("contactLink")}
               </a>
             </p>
           </div>

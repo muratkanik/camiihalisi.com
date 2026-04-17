@@ -21,13 +21,30 @@
     "badge": "50+ Yıl Tecrübe",
     "title": "Cami Halısında Türkiye'nin Güvenilir Adresi",
     "subtitle": "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. Binlerce cami referansı, Türkiye geneli teslimat.",
+    "questionTitle": "Cami Halısı mı Arıyorsunuz?",
+    "questionSubtitle": "Ucuz Bir Çözüm mü, Uzun Yıllar Sorunsuz Kullanacağınız Güvenilir Bir Sistem mi?",
     "cta": "Teklif Al",
     "catalog": "Katalog İncele",
-    "whatsapp": "WhatsApp'tan Yaz"
+    "browseCatalog": "Modelleri İncele →",
+    "whatsapp": "WhatsApp'tan Yaz",
+    "check1": "İhtiyaçlarınıza Özel Çözüm",
+    "check2": "Uzman Satış Danışmanları",
+    "check3": "Ücretsiz ve Hızlı Teklif",
+    "badge1Title": "Uzun Ömür",
+    "badge1Desc": "15-20 yıl kullanım ömrü",
+    "badge2Title": "Yüksek Konfor",
+    "badge2Desc": "Namaz konforunu artırır",
+    "badge3Title": "Profesyonel Uygulama",
+    "badge3Desc": "Uzman ekip montajı",
+    "statYears": "Yıl Tecrübe",
+    "statMosques": "Referans Cami",
+    "statCities": "Şehir Teslimat"
   },
   "categories": {
     "title": "Cami Halısı Kategorileri",
     "subtitle": "İhtiyacınıza uygun cami halısını keşfedin",
+    "showcaseTitle": "Hangi Cami Halısı Sizin İçin Uygun?",
+    "viewAll": "Tüm Halı Modellerini Gör",
     "acrylic": "Akrilik Cami Halısı",
     "wool": "Yün Cami Halısı",
     "polypropylene": "Polipropilen Cami Halısı",
@@ -38,16 +55,27 @@
     "details": "Detaylar"
   },
   "features": {
+    "badge": "Neden Asil Halı?",
+    "mainTitle": "Camiye Layık Kaliteyi Nasıl Sağlıyoruz?",
+    "mainSubtitle": "İbadethane, sıradan bir mekan değildir. Her halımız bu bilinçle tasarlanır, dokunur ve teslim edilir.",
     "title": "Neden Asil Halı?",
     "subtitle": "50 yılı aşkın tecrübeyle cami halısında lider",
-    "experience": "50+ Yıl Tecrübe",
-    "experienceDesc": "Türkiye'nin önde gelen cami halısı üreticilerinden biri olarak yarım asrı aşkın üretim deneyimi.",
-    "references": "10.000+ Cami Referansı",
-    "referencesDesc": "Türkiye'nin dört bir yanında binlerce camide Asil Halı güvencesiyle hizmet veriyoruz.",
-    "customDesign": "Özel Tasarım",
-    "customDesignDesc": "Caminizin mimarisine özel renk, desen ve boyut seçenekleriyle kişiselleştirilmiş çözümler.",
+    "quality": "İbadete Layık Kalite",
+    "qualityDesc": "Her iplik, her düğüm; camiye yaraşır bir kaliteyle işlenir. ISO sertifikalı üretim süreçleri.",
+    "customSize": "Özel Ölçü Üretim",
+    "customSizeDesc": "Caminin metre kare ölçüsüne göre birebir üretim. Sütun aralarından mihrap önüne kadar tam uyum.",
+    "customDesign": "Özel Desen Tasarımı",
+    "customDesignDesc": "Geleneksel İslami motifler veya modern geometrik desenler. Caminin mimarisine özel tasarım.",
     "delivery": "Türkiye Geneli Teslimat",
-    "deliveryDesc": "Tüm illere kapıdan kapıya teslimat imkânı, hızlı ve güvenli lojistik."
+    "deliveryDesc": "81 ile kapıya teslim. Büyük ölçekli camiler için özel lojistik ve kurulum hizmeti.",
+    "experience": "50+ Yıl Tecrübe",
+    "experienceDesc": "Asil Halı, 50 yılı aşkın deneyimiyle Türkiye'nin köklü cami halısı üreticilerinden biridir.",
+    "afterSales": "Satış Sonrası Destek",
+    "afterSalesDesc": "Garanti kapsamı, bakım önerileri ve onarım hizmetiyle uzun süreli müşteri ilişkisi.",
+    "references": "10.000+ Referans",
+    "referencesDesc": "Türkiye'nin dört bir yanında on binlerce camide döşenmiş, kanıtlanmış kalite.",
+    "fastProduction": "Hızlı Üretim Süreci",
+    "fastProductionDesc": "Siparişten teslimata kadar hızlı ve şeffaf süreç takibi. Acil projeler için öncelikli üretim."
   },
   "cta": {
     "title": "Ücretsiz Teklif Alın",
@@ -55,23 +83,42 @@
     "button": "Hemen Teklif Al",
     "whatsapp": "WhatsApp'tan Yaz",
     "phone": "Telefon",
-    "or": "veya"
+    "or": "veya",
+    "callNow": "Hemen Arayın",
+    "getQuoteBtn": "Fiyat Teklifi Al — asilhali.com.tr",
+    "trustNote": "Ücretsiz keşif · Ücretsiz kargo · Montaj dahil seçenekler mevcut",
+    "greenTitle": "Caminiz İçin En İyi Halıyı Seçelim",
+    "greenSubtitle": "50 yılı aşkın tecrübemizle, caminizin mimarisine ve bütçesine özel halı çözümü sunuyoruz. Türkiye'nin dört bir yanına teslimat ve montaj.",
+    "creamTitle": "Fiyat Teklifi Almak İster misiniz?",
+    "creamSubtitle": "Asil Halı uzmanları caminizin ihtiyacını değerlendirerek size en uygun halı çözümünü ve fiyat teklifini sunar. Ücretsiz keşif ve danışmanlık hizmeti."
   },
   "stats": {
     "experience": "Yıl Tecrübe",
     "mosques": "Cami Referansı",
     "cities": "İl Teslimat",
-    "satisfaction": "Müşteri Memnuniyeti"
+    "satisfaction": "Müşteri Memnuniyeti",
+    "domestic": "Yerli Üretim"
   },
   "faq": {
     "title": "Sık Sorulan Sorular",
-    "subtitle": "Cami halısı hakkında merak ettikleriniz"
+    "subtitle": "Cami halısı hakkında merak ettikleriniz",
+    "contactNote": "Yanıt bulamadığınız sorunuz mu var?",
+    "contactLink": "Bize ulaşın →"
   },
   "trust": {
     "title": "Müşterilerimiz Ne Diyor?",
-    "subtitle": "Türkiye'nin dört bir yanından cami yöneticileri ve imamlar deneyimlerini paylaşıyor"
+    "subtitle": "Türkiye'nin dört bir yanından cami yöneticileri ve imamlar deneyimlerini paylaşıyor",
+    "mainTitle": "30 Yıldır Güven ve Kaliteyle Hizmet Ediyoruz",
+    "mainSubtitle": "Cami halısı seçimini şansa bırakmayın, şimdi uzmanlarımızla iletişime geçin.",
+    "statYears": "Yıl Tecrübe",
+    "statMosques": "Cami",
+    "statCities": "Şehir",
+    "cta": "İletişime Geç"
   },
   "blog": {
+    "badge": "Bilgi Merkezi",
+    "sectionTitle": "Cami Halısı Rehberleri",
+    "read": "Oku →",
     "title": "Blog & Makaleler",
     "subtitle": "Cami halısı hakkında rehber, bakım ipuçları ve teknik bilgiler",
     "readMore": "Devamını Oku",
@@ -89,7 +136,9 @@
   },
   "footer": {
     "description": "Türkiye'nin köklü cami halısı üreticisi. 50+ yıl tecrübe, 10.000+ cami referansı.",
+    "infoPortal": "Türkiye'nin köklü cami halısı üreticisi Asil Halı A.Ş.'nin bilgi ve içerik portalı. İbadete özel halı çözümleri hakkında kapsamlı rehberler.",
     "products": "Ürünler",
+    "carpetMenu": "Cami Halısı",
     "company": "Kurumsal",
     "contact": "İletişim",
     "rights": "Tüm hakları saklıdır.",
@@ -102,7 +151,16 @@
     "address": "Adres",
     "phone": "Telefon",
     "email": "E-posta",
-    "followUs": "Sosyal Medya"
+    "followUs": "Sosyal Medya",
+    "officialSite": "Resmi Alış Veriş Sitesi",
+    "siteTagline": "Fiyat teklifi, sipariş ve katalog için ana sitemizi ziyaret edin",
+    "whatsappBtn": "WhatsApp ile Yazın",
+    "quoteBtn": "Teklif Al — asilhali.com.tr",
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsOfUse": "Kullanım Şartları",
+    "copyrightNote": "Bu site bir bilgi portalıdır. Alış veriş için:",
+    "quran": "Mescitler Allah'ındır, o hâlde Allah ile birlikte kimseye kulluk etmeyin.",
+    "quranRef": "— Cin Suresi, 18. Ayet"
   },
   "contact": {
     "title": "İletişim",

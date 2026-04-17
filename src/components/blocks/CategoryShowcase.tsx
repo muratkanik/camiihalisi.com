@@ -1,26 +1,27 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
 const PRODUCTS = [
   {
     slug:  "akrilik-cami-halisi",
-    label: "Saflı Turkuaz Akrilik",
-    image: "/images/cami-3.png",   // turkuaz saflı akrilik
+    image: "/images/cami-3.png",
+    labelKey: "acrylic" as const,
   },
   {
     slug:  "polipropilen-cami-halisi",
-    label: "Göbekli Cami Halısı",
     image: "/images/gobekli-cami-halisi.png",
+    labelKey: "polypropylene" as const,
   },
   {
     slug:  "yun-cami-halisi",
-    label: "Büyük Cami Desenli",
-    image: "/images/cami-4.png",   // turkuaz büyük cami
+    image: "/images/cami-4.png",
+    labelKey: "wool" as const,
   },
   {
     slug:  "ozel-desen-axminster-cami-halisi",
-    label: "Özel Desen Axminster",
     image: "/images/ozel-cami-halisi.png",
+    labelKey: "special" as const,
   },
 ];
 
@@ -28,7 +29,8 @@ interface Props {
   locale?: string;
 }
 
-export default function CategoryShowcase({ locale = "tr" }: Props) {
+export default async function CategoryShowcase({ locale = "tr" }: Props) {
+  const t = await getTranslations("categories");
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
   return (
@@ -37,7 +39,7 @@ export default function CategoryShowcase({ locale = "tr" }: Props) {
         {/* Başlık */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-[#0D1B1E] leading-tight">
-            Hangi Cami Halısı<br className="hidden sm:block" /> Sizin İçin Uygun?
+            {t("showcaseTitle")}
           </h2>
         </div>
 
@@ -52,12 +54,12 @@ export default function CategoryShowcase({ locale = "tr" }: Props) {
               <div className="aspect-square overflow-hidden bg-[#F0FDFE]">
                 <img
                   src={p.image}
-                  alt={p.label}
+                  alt={t(p.labelKey)}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
               <div className="px-3 py-2.5 text-center">
-                <p className="text-sm font-semibold text-[#0D1B1E] leading-snug">{p.label}</p>
+                <p className="text-sm font-semibold text-[#0D1B1E] leading-snug">{t(p.labelKey)}</p>
               </div>
             </Link>
           ))}
@@ -69,7 +71,7 @@ export default function CategoryShowcase({ locale = "tr" }: Props) {
             href={`${prefix}/kategori/akrilik-cami-halisi`}
             className="inline-flex items-center gap-2 bg-[#006064] hover:bg-[#00494D] text-white font-bold px-8 py-3.5 rounded-full transition-all text-base shadow-md hover:shadow-lg"
           >
-            Tüm Halı Modellerini Gör
+            {t("viewAll")}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>

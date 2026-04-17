@@ -4,7 +4,6 @@ import {routing} from './routing';
 /**
  * DB override'larını dosya mesajlarının üzerine uygular.
  * Overrides shape: { [namespace]: { [locale]: { [flatKey]: string } } }
- * flatKey "blog.categories.all" gibi noktalı yol olabilir.
  */
 function applyOverrides(
   messages: Record<string, unknown>,
@@ -18,7 +17,6 @@ function applyOverrides(
     if (!keyMap) continue;
 
     for (const [flatKey, value] of Object.entries(keyMap)) {
-      // Set deeply nested value using dot-notation path
       const parts = [ns, ...flatKey.split(".")];
       let obj = result as Record<string, unknown>;
       for (let i = 0; i < parts.length - 1; i++) {
@@ -35,17 +33,26 @@ function applyOverrides(
   return result;
 }
 
+// In-memory cache for DB overrides — keyed by locale, expires after 2 minutes
+const overrideCache: Map<string, { messages: Record<string, unknown>; ts: number }> = new Map();
+const CACHE_TTL = 120_000; // 2 minutes
+
 export default getRequestConfig(async ({requestLocale}) => {
   let locale = await requestLocale;
 
-  // Ensure that a valid locale is used
   if (!locale || !routing.locales.includes(locale as any)) {
     locale = routing.defaultLocale;
   }
 
   const fileMessages = (await import(`../../messages/${locale}.json`)).default as Record<string, unknown>;
 
-  // DB override'larını uygula (hata olursa görmezden gel)
+  // Check cache
+  const cached = overrideCache.get(locale);
+  if (cached && Date.now() - cached.ts < CACHE_TTL) {
+    return { locale, messages: cached.messages };
+  }
+
+  // Fetch DB overrides and merge
   let messages = fileMessages;
   try {
     const { PrismaClient } = await import("@prisma/client");
@@ -59,6 +66,8 @@ export default getRequestConfig(async ({requestLocale}) => {
   } catch {
     // DB erişim hatası — dosya mesajlarını kullan
   }
+
+  overrideCache.set(locale, { messages, ts: Date.now() });
 
   return {
     locale,

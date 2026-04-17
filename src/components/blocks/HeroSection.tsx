@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const IMAGES = [
   { src: "/images/cami-hero.png",   alt: "Cami iç mekanı — turkuaz halı" },
@@ -20,18 +21,13 @@ const IMAGES = [
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dhero%26utm_campaign%3Dsite&from=hero&label=fiyat-teklifi&cat=outbound";
 
-const CHECKS = [
-  "İhtiyaçlarınıza Özel Çözüm",
-  "Uzman Satış Danışmanları",
-  "Ücretsiz ve Hızlı Teklif",
-];
-
 interface HeroContent {
   title?: string;
   subtitle?: string;
 }
 
 export default function HeroSection({ content }: { content?: HeroContent }) {
+  const h = useTranslations("hero");
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
@@ -60,12 +56,11 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Sol gradient overlay — yazı okunabilirliği ── */}
+      {/* ── Sol gradient overlay ── */}
       <div className="absolute inset-0 z-10 bg-gradient-to-r from-white/92 via-white/60 to-transparent" />
-      {/* Altta hafif koyu bant (stats için) */}
       <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-[#003B40]/70 to-transparent" />
 
-      {/* ── İçerik (slider üzeri) ── */}
+      {/* ── İçerik ── */}
       <div className="absolute inset-0 z-20 flex items-center">
         <div className="w-full px-6 md:px-12 lg:px-20">
           <div className="max-w-lg">
@@ -80,12 +75,12 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
 
             {/* Ana başlık */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#0D1B1E] leading-tight mb-4">
-              Cami Halısı mı<br />Arıyorsunuz?
+              {h("questionTitle")}
             </h1>
 
             {/* Alt başlık */}
             <p className="text-[#334748] text-base md:text-lg leading-relaxed mb-7 max-w-sm">
-              Ucuz Bir Çözüm mü, Uzun Yıllar Sorunsuz Kullanacağınız Güvenilir Bir Sistem mi?
+              {h("questionSubtitle")}
             </p>
 
             {/* CTA */}
@@ -96,20 +91,20 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
                 rel="noopener"
                 className="inline-flex items-center gap-2 bg-[#C9972B] hover:bg-[#B8821E] text-white font-bold px-7 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl text-base"
               >
-                Teklif Al
+                {h("cta")}
                 <ArrowRight className="w-4 h-4" />
               </a>
               <a
                 href="#kategoriler"
                 className="text-sm font-semibold text-[#006064] hover:text-[#C9972B] transition-colors underline underline-offset-4"
               >
-                Modelleri İncele →
+                {h("browseCatalog")}
               </a>
             </div>
 
             {/* Checkmarks */}
             <ul className="space-y-2.5">
-              {CHECKS.map((item) => (
+              {[h("check1"), h("check2"), h("check3")].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm text-[#0D1B1E] font-medium">
                   <span className="w-5 h-5 rounded-full bg-[#006064]/15 flex items-center justify-center flex-shrink-0">
                     <Check className="w-3 h-3 text-[#006064]" strokeWidth={3} />
@@ -122,32 +117,32 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
         </div>
       </div>
 
-      {/* ── Floating etiketler — sağ tarafta görsel üzerinde ── */}
+      {/* ── Floating etiketler ── */}
       <div className="absolute right-6 md:right-16 top-[22%] z-20">
         <div className="bg-white/85 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-[#B2EBF2]">
-          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">Uzun Ömür</p>
-          <p className="text-[10px] text-[#5A6A6D]">15-20 yıl kullanım ömrü</p>
+          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">{h("badge1Title")}</p>
+          <p className="text-[10px] text-[#5A6A6D]">{h("badge1Desc")}</p>
         </div>
       </div>
       <div className="absolute right-6 md:right-16 top-[46%] z-20">
         <div className="bg-white/85 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-[#B2EBF2]">
-          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">Yüksek Konfor</p>
-          <p className="text-[10px] text-[#5A6A6D]">Namaz konforunu artırır</p>
+          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">{h("badge2Title")}</p>
+          <p className="text-[10px] text-[#5A6A6D]">{h("badge2Desc")}</p>
         </div>
       </div>
       <div className="absolute right-6 md:right-16 bottom-[20%] z-20">
         <div className="bg-white/85 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-[#B2EBF2]">
-          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">Profesyonel Uygulama</p>
-          <p className="text-[10px] text-[#5A6A6D]">Uzman ekip montajı</p>
+          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">{h("badge3Title")}</p>
+          <p className="text-[10px] text-[#5A6A6D]">{h("badge3Desc")}</p>
         </div>
       </div>
 
-      {/* ── Stats şeridi — altta ── */}
+      {/* ── Stats şeridi ── */}
       <div className="absolute bottom-0 inset-x-0 z-20 flex items-center justify-center gap-10 md:gap-20 py-4">
         {[
-          { n: "50+",     l: "Yıl Tecrübe" },
-          { n: "10.000+", l: "Referans Cami" },
-          { n: "81",      l: "Şehir Teslimat" },
+          { n: "50+",     l: h("statYears") },
+          { n: "10.000+", l: h("statMosques") },
+          { n: "81",      l: h("statCities") },
         ].map((s) => (
           <div key={s.l} className="text-center">
             <div className="text-xl md:text-2xl font-extrabold text-[#E4B84A] leading-none">{s.n}</div>
@@ -165,7 +160,7 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
             className={`w-1.5 h-1.5 rounded-full transition-all ${
               i === idx ? "bg-[#C9972B] w-4" : "bg-white/50"
             }`}
-            aria-label={`Görsel ${i + 1}`}
+            aria-label={`${i + 1}`}
           />
         ))}
       </div>

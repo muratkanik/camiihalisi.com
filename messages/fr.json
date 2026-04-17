@@ -19,15 +19,32 @@
   },
   "hero": {
     "badge": "Plus de 50 ans d'expérience",
-    "title": "Le spécialiste turque des tapis de mosquée de confiance",
+    "title": "Le spécialiste turc des tapis de mosquée de confiance",
     "subtitle": "Tapis de mosquée fabriqués sur mesure par les maîtres tisserands de Turquie. Des milliers de références de mosquées, livraison nationale.",
+    "questionTitle": "Vous cherchez un tapis de mosquée?",
+    "questionSubtitle": "Une solution bon marché ou un système fiable qui vous servira des années sans problème?",
     "cta": "Demander un devis",
     "catalog": "Parcourir le catalogue",
-    "whatsapp": "Écrire sur WhatsApp"
+    "browseCatalog": "Voir les modèles →",
+    "whatsapp": "Écrire sur WhatsApp",
+    "check1": "Solution sur mesure pour vos besoins",
+    "check2": "Conseillers commerciaux experts",
+    "check3": "Devis gratuit et rapide",
+    "badge1Title": "Longue durée de vie",
+    "badge1Desc": "15-20 ans de durée de vie",
+    "badge2Title": "Grand confort",
+    "badge2Desc": "Améliore le confort de prière",
+    "badge3Title": "Installation professionnelle",
+    "badge3Desc": "Installation par équipe d'experts",
+    "statYears": "Ans d'expérience",
+    "statMosques": "Références mosquées",
+    "statCities": "Provinces livrées"
   },
   "categories": {
     "title": "Catégories de tapis de mosquée",
     "subtitle": "Découvrez le tapis de mosquée adapté à vos besoins",
+    "showcaseTitle": "Quel tapis de mosquée vous convient?",
+    "viewAll": "Voir tous les modèles de tapis",
     "acrylic": "Tapis de mosquée acrylique",
     "wool": "Tapis de mosquée laine",
     "polypropylene": "Tapis de mosquée polypropylène",
@@ -38,16 +55,27 @@
     "details": "Détails"
   },
   "features": {
-    "title": "Pourquoi Asil Halı ?",
+    "badge": "Pourquoi Asil Halı?",
+    "mainTitle": "Comment garantissons-nous une qualité digne d'une mosquée?",
+    "mainSubtitle": "Un lieu de culte n'est pas un espace ordinaire. Chaque tapis est conçu, tissé et livré avec cette conscience.",
+    "title": "Pourquoi Asil Halı?",
     "subtitle": "Fabricant leader de tapis de mosquée avec plus de 50 ans d'expérience",
-    "experience": "Plus de 50 ans d'expérience",
-    "experienceDesc": "L'un des principaux fabricants de tapis de mosquée de Turquie avec plus d'un demi-siècle d'expérience de production.",
-    "references": "Plus de 10 000 références de mosquées",
-    "referencesDesc": "Au service de milliers de mosquées à travers la Turquie avec la garantie qualité Asil Halı.",
-    "customDesign": "Design personnalisé",
-    "customDesignDesc": "Solutions personnalisées avec des couleurs, motifs et dimensions adaptés à l'architecture de votre mosquée.",
+    "quality": "Qualité digne d'une mosquée",
+    "qualityDesc": "Chaque fil, chaque nœud travaillé avec une qualité digne d'une mosquée. Processus de production certifiés ISO.",
+    "customSize": "Production sur mesure",
+    "customSizeDesc": "Production correspondant exactement à la superficie de la mosquée. Ajustement parfait des colonnes au mihrab.",
+    "customDesign": "Conception de motifs personnalisés",
+    "customDesignDesc": "Motifs islamiques traditionnels ou géométriques modernes. Designs personnalisés pour l'architecture de votre mosquée.",
     "delivery": "Livraison nationale",
-    "deliveryDesc": "Livraison porte-à-porte dans toutes les provinces avec une logistique rapide et fiable."
+    "deliveryDesc": "Livraison porte-à-porte dans les 81 provinces. Logistique et installation spéciales pour les grandes mosquées.",
+    "experience": "Plus de 50 ans d'expérience",
+    "experienceDesc": "Asil Halı est l'un des fabricants établis de tapis de mosquée en Turquie avec plus de 50 ans d'expérience.",
+    "afterSales": "Support après-vente",
+    "afterSalesDesc": "Couverture de garantie, conseils d'entretien et service de réparation pour une relation client durable.",
+    "references": "Plus de 10 000 références",
+    "referencesDesc": "Qualité prouvée installée dans des dizaines de milliers de mosquées à travers la Turquie.",
+    "fastProduction": "Processus de production rapide",
+    "fastProductionDesc": "Suivi rapide et transparent de la commande à la livraison. Production prioritaire pour les projets urgents."
   },
   "cta": {
     "title": "Obtenir un devis gratuit",
@@ -55,23 +83,42 @@
     "button": "Obtenir un devis maintenant",
     "whatsapp": "Écrire sur WhatsApp",
     "phone": "Téléphone",
-    "or": "ou"
+    "or": "ou",
+    "callNow": "Appeler maintenant",
+    "getQuoteBtn": "Devis — asilhali.com.tr",
+    "trustNote": "Visite gratuite · Livraison gratuite · Options d'installation disponibles",
+    "greenTitle": "Choisissons le meilleur tapis pour votre mosquée",
+    "greenSubtitle": "Avec plus de 50 ans d'expérience, nous proposons des solutions de tapis adaptées à l'architecture et au budget de votre mosquée. Livraison et installation dans toute la Turquie.",
+    "creamTitle": "Souhaitez-vous un devis?",
+    "creamSubtitle": "Les experts d'Asil Halı évalueront les besoins de votre mosquée et vous proposeront la solution de tapis la plus adaptée. Visite et consultation gratuites."
   },
   "stats": {
     "experience": "Ans d'expérience",
     "mosques": "Références de mosquées",
     "cities": "Provinces livrées",
-    "satisfaction": "Satisfaction client"
+    "satisfaction": "Satisfaction client",
+    "domestic": "Production nationale"
   },
   "faq": {
     "title": "Questions fréquentes",
-    "subtitle": "Tout ce que vous devez savoir sur les tapis de mosquée"
+    "subtitle": "Tout ce que vous devez savoir sur les tapis de mosquée",
+    "contactNote": "Vous avez une question sans réponse?",
+    "contactLink": "Contactez-nous →"
   },
   "trust": {
     "title": "Ce que disent nos clients",
-    "subtitle": "Des gestionnaires de mosquées et imams de toute la Turquie partagent leurs expériences"
+    "subtitle": "Des gestionnaires de mosquées et imams de toute la Turquie partagent leurs expériences",
+    "mainTitle": "30 ans de service de qualité de confiance",
+    "mainSubtitle": "Ne laissez pas le choix du tapis de mosquée au hasard. Contactez nos experts maintenant.",
+    "statYears": "Ans d'expérience",
+    "statMosques": "Mosquées",
+    "statCities": "Villes",
+    "cta": "Nous contacter"
   },
   "blog": {
+    "badge": "Centre de connaissances",
+    "sectionTitle": "Guides de tapis de mosquée",
+    "read": "Lire →",
     "title": "Blog & Articles",
     "subtitle": "Guides, conseils d'entretien et informations techniques sur les tapis de mosquée",
     "readMore": "Lire la suite",
@@ -88,9 +135,11 @@
     }
   },
   "footer": {
-    "description": "Fabricant établi de tapis de mosquée en Turquie. Plus de 50 ans d'expérience, plus de 10 000 références de mosquées.",
+    "description": "Fabricant établi de tapis de mosquée en Turquie. 50+ ans d'expérience, 10 000+ références de mosquées.",
+    "infoPortal": "Portail d'information et de contenu d'Asil Halı A.Ş., fabricant établi de tapis de mosquée en Turquie. Guides complets sur les solutions de tapis spécifiques aux lieux de culte.",
     "products": "Produits",
-    "company": "Société",
+    "carpetMenu": "Tapis de mosquée",
+    "company": "Entreprise",
     "contact": "Contact",
     "rights": "Tous droits réservés.",
     "about": "À propos",
@@ -102,11 +151,20 @@
     "address": "Adresse",
     "phone": "Téléphone",
     "email": "E-mail",
-    "followUs": "Suivez-nous"
+    "followUs": "Réseaux sociaux",
+    "officialSite": "Site officiel de vente",
+    "siteTagline": "Visitez notre site principal pour les devis, commandes et catalogue",
+    "whatsappBtn": "Écrire sur WhatsApp",
+    "quoteBtn": "Devis — asilhali.com.tr",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsOfUse": "Conditions d'utilisation",
+    "copyrightNote": "Ceci est un portail d'information. Pour acheter:",
+    "quran": "Les mosquées appartiennent à Allah, n'invoquez donc personne avec Allah.",
+    "quranRef": "— Sourate Al-Jinn, Verset 18"
   },
   "contact": {
     "title": "Contact",
-    "subtitle": "Contactez-nous pour un devis ou pour plus d'informations",
+    "subtitle": "Contactez-nous pour un devis ou des informations",
     "name": "Nom complet",
     "email": "E-mail",
     "phone": "Téléphone",
@@ -120,8 +178,8 @@
     "error": "Une erreur s'est produite. Veuillez réessayer."
   },
   "about": {
-    "title": "À propos de nous",
-    "subtitle": "Spécialiste turque des tapis de mosquée avec plus de 50 ans d'expérience"
+    "title": "À propos",
+    "subtitle": "Spécialiste turc des tapis de mosquée avec plus de 50 ans d'expérience"
   },
   "gallery": {
     "title": "Galerie",
@@ -129,12 +187,12 @@
   },
   "references": {
     "title": "Nos références",
-    "subtitle": "Mosquées que nous avons servies à travers la Turquie"
+    "subtitle": "Exemples de mosquées que nous avons servies à travers la Turquie"
   },
   "common": {
     "loading": "Chargement...",
     "error": "Une erreur s'est produite",
-    "notFound": "Page introuvable",
+    "notFound": "Page non trouvée",
     "backHome": "Retour à l'accueil",
     "learnMore": "En savoir plus",
     "viewAll": "Voir tout",

@@ -1,13 +1,18 @@
 import Link from "next/link";
 import { ExternalLink, Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { getSettings, buildTrackedWaUrl, buildTrackedMainSiteUrl } from "@/lib/settings";
+import { getTranslations } from "next-intl/server";
 
 interface FooterProps {
   locale: string;
 }
 
 export default async function Footer({ locale }: FooterProps) {
-  const settings = await getSettings();
+  const [settings, t] = await Promise.all([
+    getSettings(),
+    getTranslations("footer"),
+  ]);
+
   const MAIN_SITE_URL = buildTrackedMainSiteUrl(settings, "footer", "main-site");
   const WA_URL = buildTrackedWaUrl(settings, "footer", "whatsapp");
   const INSTAGRAM_URL = settings.instagramUrl;
@@ -21,7 +26,7 @@ export default async function Footer({ locale }: FooterProps) {
       <div className="border-b border-[#C9972B]/30 py-6">
         <div className="container-site text-center">
           <p className="text-sm text-[#C9972B]/80 mb-2 uppercase tracking-widest font-semibold">
-            Resmi Alış Veriş Sitesi
+            {t("officialSite")}
           </p>
           <a
             href={MAIN_SITE_URL}
@@ -34,7 +39,7 @@ export default async function Footer({ locale }: FooterProps) {
             <ExternalLink className="w-5 h-5" />
           </a>
           <p className="mt-2 text-sm text-[#F0FDFE]/60">
-            Fiyat teklifi, sipariş ve katalog için ana sitemizi ziyaret edin
+            {t("siteTagline")}
           </p>
         </div>
       </div>
@@ -62,22 +67,20 @@ export default async function Footer({ locale }: FooterProps) {
               </div>
             </div>
             <p className="text-sm text-[#F0FDFE]/70 leading-relaxed mb-4">
-              Türkiye'nin köklü cami halısı üreticisi Asil Halı A.Ş.'nin bilgi ve içerik portalı.
-              İbadete özel halı çözümleri hakkında kapsamlı rehberler.
+              {t("infoPortal")}
             </p>
-            {/* İslami alıntı */}
             <div className="border-l-2 border-[#C9972B]/50 pl-3 mt-4">
               <p className="text-xs text-[#F0FDFE]/50 italic leading-relaxed">
-                "Mescitler Allah'ındır, o hâlde Allah ile birlikte kimseye kulluk etmeyin."
+                &ldquo;{t("quran")}&rdquo;
               </p>
-              <p className="text-[10px] text-[#C9972B]/70 mt-1">— Cin Suresi, 18. Ayet</p>
+              <p className="text-[10px] text-[#C9972B]/70 mt-1">{t("quranRef")}</p>
             </div>
           </div>
 
           {/* Sütun 2: Ürünler */}
           <div>
             <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-4">
-              Cami Halısı
+              {t("carpetMenu")}
             </h3>
             <ul className="space-y-2">
               {[
@@ -103,19 +106,19 @@ export default async function Footer({ locale }: FooterProps) {
             </ul>
           </div>
 
-          {/* Sütun 3: Bilgi */}
+          {/* Sütun 3: Kurumsal */}
           <div>
             <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-4">
-              Kurumsal & Rehberler
+              {t("company")}
             </h3>
             <ul className="space-y-2.5">
               {[
-                { href: "/hakkimizda", label: "Hakkımızda" },
-                { href: "/referanslar", label: "Referanslar" },
-                { href: "/galeri", label: "Fotoğraf Galerisi" },
-                { href: "/teknik-ozellikler", label: "Teknik Özellikler" },
-                { href: "/blog", label: "Blog & Makaleler" },
-                { href: "/iletisim", label: "İletişim" },
+                { href: "/hakkimizda", labelKey: "about" as const },
+                { href: "/referanslar", labelKey: "references" as const },
+                { href: "/galeri", labelKey: "gallery" as const },
+                { href: "/teknik-ozellikler", labelKey: "technicalSpecs" as const },
+                { href: "/blog", labelKey: "blog" as const },
+                { href: "/iletisim", labelKey: "contactUs" as const },
               ].map((item) => (
                 <li key={item.href}>
                   <Link
@@ -123,14 +126,14 @@ export default async function Footer({ locale }: FooterProps) {
                     className="text-sm text-[#F0FDFE]/70 hover:text-[#E4B84A] transition-colors flex items-center gap-1.5"
                   >
                     <span className="w-1 h-1 rounded-full bg-[#C9972B]/50 flex-shrink-0" />
-                    {item.label}
+                    {t(item.labelKey)}
                   </Link>
                 </li>
               ))}
             </ul>
             {/* Sosyal Medya */}
             <div className="mt-6">
-              <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-3">Sosyal Medya</h3>
+              <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-3">{t("followUs")}</h3>
               <div className="flex gap-2">
                 <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-[#25D366]/20 hover:bg-[#25D366]/30 rounded-lg flex items-center justify-center transition-colors" aria-label="WhatsApp">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#25D366" className="w-4 h-4">
@@ -150,7 +153,7 @@ export default async function Footer({ locale }: FooterProps) {
           {/* Sütun 4: İletişim */}
           <div>
             <h3 className="text-sm font-bold text-[#C9972B] uppercase tracking-widest mb-4">
-              İletişim
+              {t("contact")}
             </h3>
             <ul className="space-y-3">
               <li>
@@ -187,7 +190,7 @@ export default async function Footer({ locale }: FooterProps) {
                 className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-2.5 px-4 rounded-xl transition-colors text-sm w-full justify-center"
               >
                 <MessageCircle className="w-4 h-4" />
-                WhatsApp ile Yazın
+                {t("whatsappBtn")}
               </a>
               <a
                 href={MAIN_SITE_URL}
@@ -195,7 +198,7 @@ export default async function Footer({ locale }: FooterProps) {
                 rel="noopener noreferrer"
                 className="btn btn-gold text-sm w-full justify-center"
               >
-                Teklif Al — asilhali.com.tr
+                {t("quoteBtn")}
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
               <div className="flex gap-2 pt-1">
@@ -215,19 +218,18 @@ export default async function Footer({ locale }: FooterProps) {
       <div className="border-t border-[#F0FDFE]/10 py-5">
         <div className="container-site flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-[#F0FDFE]/40">
           <p>
-            © {year} Asil Halı A.Ş. — Bu site bir bilgi portalıdır.
-            Alış veriş için:{" "}
+            © {year} Asil Halı A.Ş. — {t("copyrightNote")}{" "}
             <a href={MAIN_SITE_URL} className="text-[#C9972B]/70 hover:text-[#C9972B]" target="_blank" rel="noopener">
               asilhali.com.tr
             </a>
           </p>
           <div className="flex items-center gap-4">
             <Link href={`${prefix}/gizlilik`} className="hover:text-[#F0FDFE]/70 transition-colors">
-              Gizlilik Politikası
+              {t("privacyPolicy")}
             </Link>
             <span>|</span>
             <Link href={`${prefix}/kullanim-sartlari`} className="hover:text-[#F0FDFE]/70 transition-colors">
-              Kullanım Şartları
+              {t("termsOfUse")}
             </Link>
           </div>
         </div>

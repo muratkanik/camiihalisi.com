@@ -17,19 +17,43 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const post = getBlogPost(slug);
   if (!post) return { title: "Makale bulunamadı" };
 
+  let metaTitle = post.metaTitle;
+  let metaDescription = post.metaDescription;
+
+  // Load locale-specific meta for non-TR
+  if (locale !== "tr") {
+    try {
+      const { PrismaClient } = await import("@prisma/client");
+      const prisma = new PrismaClient();
+      const row = await prisma.setting
+        .findUnique({ where: { key: "blog_translations" } })
+        .finally(() => prisma.$disconnect());
+      if (row) {
+        const all = JSON.parse(row.value) as Record<string, Record<string, Record<string, string>>>;
+        const lt = all[slug]?.[locale];
+        if (lt?.metaTitle) metaTitle = lt.metaTitle;
+        if (lt?.metaDescription) metaDescription = lt.metaDescription;
+      }
+    } catch {
+      // fall back to Turkish
+    }
+  }
+
+  const canonical = locale === "tr" ? `${SITE_URL}/blog/${slug}` : `${SITE_URL}/${locale}/blog/${slug}`;
+
   return {
-    title: post.metaTitle,
-    description: post.metaDescription,
+    title: metaTitle,
+    description: metaDescription,
     authors: [{ name: post.author }],
-    alternates: { canonical: `${SITE_URL}/blog/${slug}` },
+    alternates: { canonical },
     openGraph: {
       type: "article",
-      title: post.metaTitle,
-      description: post.metaDescription,
+      title: metaTitle,
+      description: metaDescription,
       images: [{ url: `${SITE_URL}${post.image}` }],
       publishedTime: post.publishedAt,
     },

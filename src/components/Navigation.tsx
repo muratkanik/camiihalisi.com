@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, ExternalLink, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
+import LocaleSwitcher from "./LocaleSwitcher";
 
 const MAIN_SITE_URL = "/api/r?to=https%3A%2F%2Fasilhali.com.tr%2F%23!cami-halisi%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtopnav%26utm_campaign%3Dsite&from=nav&label=main-site&cat=outbound";
 const DEFAULT_WA_URL = "/api/r?to=https%3A%2F%2Fwa.me%2F905062259235%3Ftext%3DMerhaba%252C%2520cami%2520hal%25C4%25B1s%25C4%25B1%2520hakk%25C4%25B1nda%2520bilgi%2520almak%2520istiyorum.&from=nav&label=whatsapp&cat=whatsapp";
@@ -314,6 +315,9 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 {t?.contact ?? "İletişim"}
               </Link>
 
+              {/* Dil Seçici */}
+              <LocaleSwitcher currentLocale={locale} />
+
               {/* WhatsApp CTA */}
               <a
                 href={WA_URL}
@@ -337,8 +341,9 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
               </a>
             </nav>
 
-            {/* Mobil: WhatsApp + Hamburger */}
+            {/* Mobil: Dil + WhatsApp + Hamburger */}
             <div className="md:hidden flex items-center gap-2">
+              <LocaleSwitcher currentLocale={locale} />
               <a
                 href={WA_URL}
                 target="_blank"
