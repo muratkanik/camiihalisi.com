@@ -79,11 +79,18 @@ export async function GET(req: Request) {
   return NextResponse.json({ posts: scored });
 }
 
+function isCronRequest(req: Request): boolean {
+  const secret = process.env.CRON_SECRET;
+  return !!secret && req.headers.get("x-cron-secret") === secret;
+}
+
 // POST /api/admin/blog — apply blog data
 export async function POST(req: Request) {
-  const cookieStore = await cookies();
-  if (!cookieStore.get("auth_token")?.value) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!isCronRequest(req)) {
+    const cookieStore = await cookies();
+    if (!cookieStore.get("auth_token")?.value) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
   }
 
   const { targetSlug, blogData } = await req.json();

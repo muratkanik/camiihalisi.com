@@ -207,7 +207,11 @@ SADECE bu JSON formatında yanıt ver:
     // ── 5. Blog'u Kaydet ──────────────────────────────────────────────────────
     const saveRes = await fetch(`${SITE_ORIGIN}/api/admin/blog`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Cookie: req.headers.get("cookie") ?? "" },
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: req.headers.get("cookie") ?? "",
+        "x-cron-secret": process.env.CRON_SECRET ?? "",
+      },
       body: JSON.stringify({
         targetSlug: mode === "improve" ? targetSlug : null,
         blogData: { ...blogData, slug: targetSlug },
