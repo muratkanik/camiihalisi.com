@@ -1,5 +1,6 @@
 import { ExternalLink, Phone } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { getSettings } from "@/lib/settings";
 
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcta%26utm_campaign%3Dsite&from=cta&label=fiyat-teklifi&cat=outbound";
@@ -15,7 +16,7 @@ export default async function CTASection({
   subtitle,
   variant = "green",
 }: CTASectionProps) {
-  const t = await getTranslations("cta");
+  const [t, settings] = await Promise.all([getTranslations("cta"), getSettings()]);
   const isGreen = variant === "green";
 
   const displayTitle = title ?? (isGreen ? t("greenTitle") : t("creamTitle"));
@@ -82,7 +83,7 @@ export default async function CTASection({
               <ExternalLink className="w-4 h-4" />
             </a>
             <a
-              href="tel:+905323467939"
+              href={`tel:${settings.phone.replace(/\s/g, "")}`}
               className={`btn text-base !px-8 !py-3.5 ${
                 isGreen ? "btn-outline" : "btn-outline-dark"
               }`}

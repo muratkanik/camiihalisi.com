@@ -21,10 +21,10 @@ export const DEFAULTS: SiteSettings = {
   heroTitle: "Cami Halısında Türkiye'nin Güvenilir Adresi",
   heroSubtitle:
     "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. 50 yılı aşkın tecrübe, binlerce cami referansı.",
-  whatsappNumber: "905062259235",
-  phone: "+90 532 346 79 39",
+  whatsappNumber: "905323467939",
+  phone: "+90 352 232 38 38",
   email: "info@asilhali.com.tr",
-  address: "Kayseri, Türkiye",
+  address: "Anbar Mah. Demirciler Sit. 14.cad No.46, Melikgazi / Kayseri",
   instagramUrl: "https://www.instagram.com/mosquecarpets",
   linkedinUrl: "https://www.linkedin.com/company/asil-hali",
   facebookUrl: "",
