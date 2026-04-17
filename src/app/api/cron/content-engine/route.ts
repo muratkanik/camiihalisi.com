@@ -208,57 +208,92 @@ SADECE bu JSON formatında yanıt ver:
       return NextResponse.json({ error: "AI geçersiz JSON döndürdü", raw: raw.slice(0, 500) }, { status: 500 });
     }
 
-    // ── 5. Blog'u Kaydet ──────────────────────────────────────────────────────
-    const saveRes = await fetch(`${SITE_ORIGIN}/api/admin/blog`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Cookie: req.headers.get("cookie") ?? "",
-        "x-cron-secret": process.env.CRON_SECRET ?? "",
-      },
-      body: JSON.stringify({
-        targetSlug: mode === "improve" ? targetSlug : null,
-        blogData: { ...blogData, slug: targetSlug },
-      }),
-    });
-
-    const saveText = await saveRes.text();
-    if (!saveRes.ok) {
-      await logTask(prisma, keyword, targetSlug, "failed", `Kayıt hatası (${saveRes.status}): ${saveText.slice(0, 300)}`);
-      return NextResponse.json({ error: "Blog kaydedilemedi", status: saveRes.status, detail: saveText.slice(0, 300) }, { status: 500 });
+    // ── 5. Blog'u Doğrudan Kaydet (HTTP fetch yok — Vercel auth bypass sorunu) ─
+    function slugify(text: string): string {
+      const trMap: Record<string, string> = {
+        ç:"c",ğ:"g",ı:"i",İ:"i",ö:"o",ş:"s",ü:"u",Ç:"c",Ğ:"g",Ö:"o",Ş:"s",Ü:"u",
+      };
+      return text.toLowerCase()
+        .replace(/[çğışöüÇĞİÖŞÜ]/g, (c) => trMap[c] ?? c)
+        .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
     }
 
-    let saveData: Record<string, unknown>;
+    let savedSlug: string;
+    let isNew: boolean;
+
+    const { scorePage, saveSeoScore } = await import("@/lib/seo-scorer");
+
+    if (mode === "improve") {
+      // Mevcut postu güncelle (blog_overrides)
+      const setting = await prisma.setting.findUnique({ where: { key: "blog_overrides" } });
+      const overrides = setting ? JSON.parse(setting.value) : [];
+      const idx = overrides.findIndex((o: { slug: string }) => o.slug === targetSlug);
+      const updated = {
+        slug: targetSlug, title: blogData.title, metaTitle: blogData.metaTitle,
+        metaDescription: blogData.metaDescription, excerpt: blogData.excerpt,
+        content: blogData.content, seoKeyword: blogData.seoKeyword,
+        ...(blogData.category ? { category: blogData.category } : {}),
+        ...(blogData.readTime ? { readTime: blogData.readTime } : {}),
+      };
+      if (idx >= 0) overrides[idx] = { ...overrides[idx], ...updated };
+      else overrides.push(updated);
+      await prisma.setting.upsert({
+        where: { key: "blog_overrides" },
+        update: { value: JSON.stringify(overrides) },
+        create: { key: "blog_overrides", value: JSON.stringify(overrides) },
+      });
+      savedSlug = targetSlug;
+      isNew = false;
+    } else {
+      // Yeni dinamik blog yazısı oluştur
+      const slug = slugify(blogData.title) || `ai-blog-${Date.now()}`;
+      const newPost = {
+        slug, title: blogData.title,
+        metaTitle: blogData.metaTitle || blogData.title,
+        metaDescription: blogData.metaDescription || "",
+        excerpt: blogData.excerpt || "",
+        content: blogData.content || "",
+        category: blogData.category || category,
+        tags: blogData.tags || [keyword],
+        readTime: blogData.readTime || "5 dk",
+        publishedAt: new Date().toISOString().split("T")[0],
+        author: "Asil Halı Uzmanları",
+        image: "/images/cami-katalog-01.png",
+        seoKeyword: blogData.seoKeyword || keyword,
+      };
+      const row = await prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } });
+      const existing = row ? JSON.parse(row.value) : [];
+      const deduped = existing.filter((p: { slug: string }) => p.slug !== slug);
+      deduped.push(newPost);
+      await prisma.setting.upsert({
+        where: { key: "dynamic_blog_posts" },
+        update: { value: JSON.stringify(deduped) },
+        create: { key: "dynamic_blog_posts", value: JSON.stringify(deduped) },
+      });
+      savedSlug = slug;
+      isNew = true;
+    }
+
+    // SEO skoru kaydet
     try {
-      saveData = JSON.parse(saveText);
-    } catch {
-      await logTask(prisma, keyword, targetSlug, "failed", `Kayıt yanıtı parse edilemedi: ${saveText.slice(0, 300)}`);
-      return NextResponse.json({ error: "Blog kayıt yanıtı geçersiz", detail: saveText.slice(0, 300) }, { status: 500 });
-    }
+      const score = scorePage({
+        keyword: blogData.seoKeyword || keyword,
+        title: blogData.title, metaDescription: blogData.metaDescription || "",
+        content: blogData.content || "", excerpt: blogData.excerpt || "",
+      });
+      await saveSeoScore(`blog_${savedSlug}`, score);
+    } catch { /* ignore */ }
 
     // ── 6. AiTask Log ─────────────────────────────────────────────────────────
     const wordCount = (blogData.content ?? "").trim().split(/\s+/).length;
     await logTask(
-      prisma, keyword, targetSlug, "completed",
-      JSON.stringify({
-        mode,
-        slug: saveData.slug,
-        isNew: saveData.isNew,
-        wordCount,
-        title: blogData.title,
-        elapsed: Date.now() - startTime,
-      })
+      prisma, keyword, savedSlug, "completed",
+      JSON.stringify({ mode, slug: savedSlug, isNew, wordCount, title: blogData.title, elapsed: Date.now() - startTime })
     );
 
     return NextResponse.json({
-      ok: true,
-      mode,
-      keyword,
-      slug: saveData.slug,
-      isNew: saveData.isNew,
-      title: blogData.title,
-      wordCount,
-      elapsed: Date.now() - startTime,
+      ok: true, mode, keyword, slug: savedSlug, isNew,
+      title: blogData.title, wordCount, elapsed: Date.now() - startTime,
     });
 
   } catch (err: unknown) {
