@@ -1311,7 +1311,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "image": "/images/gobekli-cami-halisi.png",
     "metaTitle": "Yün mü Akrilik mi Cami Halısı? Hangisi Daha İyi | Asil Halı",
     "metaDescription": "Yün ve akrilik cami halısı karşılaştırması: ömür, fiyat, temizlik ve bakım avantajları."
-  }
+  },
 
 
   // ── Faydalı Bilgiler — Birçok Camide Halılar Neden Erken Yıpranır? ─────────
