@@ -42,16 +42,35 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
+interface PageSettings {
+  phone: string;
+  email: string;
+  whatsappNumber: string;
+  whatsappMessage: string;
+}
+
+const DEFAULT_SETTINGS: PageSettings = {
+  phone: "+90 506 225 92 35",
+  email: "info@asilhali.com.tr",
+  whatsappNumber: "905062259235",
+  whatsappMessage: "Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.",
+};
+
 export default function IletisimPage() {
   const [offices, setOffices] = useState<ContactOffice[]>(DEFAULT_OFFICES);
+  const [settings, setSettings] = useState<PageSettings>(DEFAULT_SETTINGS);
   const [form, setForm] = useState({ name: "", email: "", phone: "", mosque: "", message: "", type: "teklif" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   useEffect(() => {
     fetch("/api/iletisim")
       .then((r) => r.json())
-      .then((d) => { if (d.offices) setOffices(d.offices); })
+      .then((d) => {
+        if (d.offices) setOffices(d.offices);
+        if (d.settings) setSettings(d.settings);
+      })
       .catch(() => {});
   }, []);
 
@@ -64,9 +83,24 @@ export default function IletisimPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setSubmitted(true);
-    setLoading(false);
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/iletisim", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSubmitError(data.error ?? "Gönderim sırasında hata oluştu.");
+      } else {
+        setSubmitted(true);
+      }
+    } catch {
+      setSubmitError("Bağlantı hatası. Lütfen tekrar deneyin.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,14 +126,14 @@ export default function IletisimPage() {
             </p>
             {/* Quick contact bar */}
             <div className="flex flex-wrap gap-3 mt-8">
-              <a href="tel:+903522323838" className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
-                <Phone className="w-4 h-4" /> +90 352 232 38 38
+              <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
+                <Phone className="w-4 h-4" /> {settings.phone}
               </a>
-              <a href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939&from=%2Filetisim&label=whatsapp-hero&cat=whatsapp" target="_blank" rel="noopener" className="flex items-center gap-2 px-4 py-2.5 bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/30 rounded-xl text-white text-sm font-medium transition-all">
+              <a href={`/api/r?to=https%3A%2F%2Fwa.me%2F${settings.whatsappNumber}%3Ftext%3D${settings.whatsappMessage}&from=%2Filetisim&label=whatsapp-hero&cat=whatsapp`} target="_blank" rel="noopener" className="flex items-center gap-2 px-4 py-2.5 bg-[#25D366]/20 hover:bg-[#25D366]/30 border border-[#25D366]/30 rounded-xl text-white text-sm font-medium transition-all">
                 <WhatsAppIcon className="w-4 h-4" /> WhatsApp
               </a>
-              <a href="mailto:info@asilhali.com.tr" className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
-                <Mail className="w-4 h-4" /> info@asilhali.com.tr
+              <a href={`mailto:${settings.email}`} className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-white text-sm font-medium transition-all">
+                <Mail className="w-4 h-4" /> {settings.email}
               </a>
             </div>
           </div>
@@ -144,6 +178,11 @@ export default function IletisimPage() {
                         <input type="text" value={form.mosque} onChange={(e) => setForm({ ...form, mosque: e.target.value })} placeholder="Cami / Kurum Adı" className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
                       </div>
                       <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Caminizin metrekaresi, istediğiniz halı türü veya sorularınız..." className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all resize-none" />
+                      {submitError && (
+                        <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                          ⚠ {submitError}
+                        </div>
+                      )}
                       <button type="submit" disabled={loading} className="btn btn-primary w-full justify-center">
                         {loading ? "Gönderiliyor..." : "Gönder"} <Send className="w-4 h-4" />
                       </button>
@@ -164,27 +203,29 @@ export default function IletisimPage() {
                 </div>
 
                 {/* WhatsApp card */}
-                <a href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939%3Ftext%3DMerhaba%252C%2Bcami%2Bhal%25C4%25B1s%25C4%25B1%2Bhakk%25C4%25B1nda%2Bbilgi%2Balmak%2Bistiyorum.&from=%2Filetisim&label=whatsapp-card&cat=whatsapp" target="_blank" rel="noopener"
+                <a href={`/api/r?to=https%3A%2F%2Fwa.me%2F${settings.whatsappNumber}%3Ftext%3D${settings.whatsappMessage}&from=%2Filetisim&label=whatsapp-card&cat=whatsapp`} target="_blank" rel="noopener"
                   className="flex items-center gap-4 p-5 bg-[#25D366] rounded-2xl text-white hover:bg-[#20b858] transition-all group">
                   <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center flex-shrink-0">
                     <WhatsAppIcon className="w-6 h-6" />
                   </div>
                   <div className="flex-1">
                     <div className="font-bold text-sm">WhatsApp ile Yazın</div>
-                    <div className="text-white/80 text-sm">+90 532 346 79 39 — Hızlı yanıt</div>
+                    <div className="text-white/80 text-sm">
+                      +{settings.whatsappNumber.replace(/^90/, "0").replace(/(\d{4})(\d{3})(\d{2})(\d{2})$/, "$1 $2 $3 $4")} — Hızlı yanıt
+                    </div>
                   </div>
                   <ExternalLink className="w-4 h-4 opacity-70 group-hover:opacity-100" />
                 </a>
 
                 {/* Email card */}
-                <a href="mailto:info@asilhali.com.tr"
+                <a href={`mailto:${settings.email}`}
                   className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-[#B2EBF2] hover:border-[#C9972B]/40 transition-all">
                   <div className="w-11 h-11 rounded-xl bg-[#006064]/10 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-[#006064]" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-0.5">E-Posta</div>
-                    <div className="text-sm font-medium text-[#1A1A1A]">info@asilhali.com.tr</div>
+                    <div className="text-sm font-medium text-[#1A1A1A]">{settings.email}</div>
                   </div>
                 </a>
 
