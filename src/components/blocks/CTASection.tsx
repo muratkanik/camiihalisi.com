@@ -1,6 +1,4 @@
-import { ExternalLink, Phone } from "lucide-react";
-import { getTranslations } from "next-intl/server";
-import { getSettings } from "@/lib/settings";
+import { ExternalLink, Phone, ArrowRight } from "lucide-react";
 
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcta%26utm_campaign%3Dsite&from=cta&label=fiyat-teklifi&cat=outbound";
@@ -11,16 +9,12 @@ interface CTASectionProps {
   variant?: "green" | "cream";
 }
 
-export default async function CTASection({
-  title,
-  subtitle,
+export default function CTASection({
+  title = "Caminiz İçin En İyi Halıyı Seçelim",
+  subtitle = "50 yılı aşkın tecrübemizle, caminizin ihtiyacına özel halı çözümü sunuyoruz. Ücretsiz keşif ve fiyat teklifi için hemen iletişime geçin.",
   variant = "green",
 }: CTASectionProps) {
-  const [t, settings] = await Promise.all([getTranslations("cta"), getSettings()]);
   const isGreen = variant === "green";
-
-  const displayTitle = title ?? (isGreen ? t("greenTitle") : t("creamTitle"));
-  const displaySubtitle = subtitle ?? (isGreen ? t("greenSubtitle") : t("creamSubtitle"));
 
   return (
     <section
@@ -59,7 +53,7 @@ export default async function CTASection({
             }`}
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            {displayTitle}
+            {title}
           </h2>
 
           {/* Açıklama */}
@@ -68,7 +62,7 @@ export default async function CTASection({
               isGreen ? "text-[#F0FDFE]/80" : "text-[#6B6355]"
             }`}
           >
-            {displaySubtitle}
+            {subtitle}
           </p>
 
           {/* Butonlar */}
@@ -79,17 +73,17 @@ export default async function CTASection({
               rel="noopener"
               className="btn btn-gold text-base !px-8 !py-3.5"
             >
-              {t("getQuoteBtn")}
+              Fiyat Teklifi Al — asilhali.com.tr
               <ExternalLink className="w-4 h-4" />
             </a>
             <a
-              href={`tel:${settings.phone.replace(/\s/g, "")}`}
+              href="tel:+905323467939"
               className={`btn text-base !px-8 !py-3.5 ${
                 isGreen ? "btn-outline" : "btn-outline-dark"
               }`}
             >
               <Phone className="w-4 h-4" />
-              {t("callNow")}
+              Hemen Arayın
             </a>
           </div>
 
@@ -99,7 +93,7 @@ export default async function CTASection({
               isGreen ? "text-[#F0FDFE]/50" : "text-[#6B6355]/70"
             }`}
           >
-            {t("trustNote")}
+            Ücretsiz keşif · Ücretsiz kargo · Montaj dahil seçenekler mevcut
           </p>
         </div>
       </div>
