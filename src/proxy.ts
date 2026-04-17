@@ -9,5 +9,5 @@ export function proxy(request: Parameters<typeof intlMiddleware>[0]) {
 }
 
 export const config = {
-  matcher: ['/', '/(tr|en|ar|fr)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)']
+  matcher: ['/', '/(tr|en|ar|fr)/:path*', '/((?!api/|_next|_vercel|.*\\..*).*)']
 };
