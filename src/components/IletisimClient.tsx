@@ -117,9 +117,9 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
       {/* ── Form + Quick Info ── */}
       <section className="section bg-[#F0FDFE]">
         <div className="container-site">
-          <div className="grid lg:grid-cols-2 gap-12 mb-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-10 lg:mb-16">
             {/* Form */}
-            <div className="bg-white rounded-2xl border border-[#B2EBF2] p-8 shadow-sm">
+            <div className="bg-white rounded-2xl border border-[#B2EBF2] p-5 sm:p-8 shadow-sm">
               {submitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 rounded-full bg-[#006064]/10 flex items-center justify-center mx-auto mb-4">
@@ -136,7 +136,7 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
                     {t("formTitle")}
                   </h2>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 xs:grid-cols-3 sm:grid-cols-3 gap-2">
                       {([["teklif", "typeQuote"], ["kesif", "typeVisit"], ["bilgi", "typeInfo"]] as const).map(([val, key]) => (
                         <button key={val} type="button" onClick={() => setForm({ ...form, type: val })}
                           className={`py-2.5 rounded-xl text-xs sm:text-sm font-medium border transition-all ${form.type === val ? "bg-[#006064] text-white border-[#006064]" : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]/40"}`}>

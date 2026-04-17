@@ -93,6 +93,7 @@
     color: var(--foreground);
     font-family: var(--font-sans);
     line-height: 1.6;
+    overflow-x: hidden;
   }
 
   /* Başlıklar: Display font */
@@ -372,20 +373,34 @@
 
   /* ── Bölüm Boşlukları ── */
   .section {
-    padding: 5rem 0;
-  }
-
-  .section-sm {
     padding: 3rem 0;
   }
 
+  .section-sm {
+    padding: 1.75rem 0;
+  }
+
   .section-lg {
-    padding: 7rem 0;
+    padding: 4rem 0;
+  }
+
+  @media (min-width: 768px) {
+    .section    { padding: 5rem 0; }
+    .section-sm { padding: 3rem 0; }
+    .section-lg { padding: 7rem 0; }
   }
 
   .container-site {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-site { padding: 0 1.5rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .container-site { padding: 0 2rem; }
   }
 }

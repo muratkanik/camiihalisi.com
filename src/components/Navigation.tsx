@@ -3,14 +3,23 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, ExternalLink, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
+import LocaleSwitcher from "./LocaleSwitcher";
 
 const MAIN_SITE_URL = "/api/r?to=https%3A%2F%2Fasilhali.com.tr%2F%23!cami-halisi%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtopnav%26utm_campaign%3Dsite&from=nav&label=main-site&cat=outbound";
 const DEFAULT_WA_URL = "/api/r?to=https%3A%2F%2Fwa.me%2F905062259235%3Ftext%3DMerhaba%252C%2520cami%2520hal%25C4%25B1s%25C4%25B1%2520hakk%25C4%25B1nda%2520bilgi%2520almak%2520istiyorum.&from=nav&label=whatsapp&cat=whatsapp";
+
+export interface NavTranslations {
+  mainSite: string; mainSiteLink: string; whatsapp: string; instagram: string;
+  linkedin: string; products: string; carpets: string; underlay: string;
+  gallery: string; blog: string; about: string; contact: string;
+  references: string; technicalSpecs: string; getQuote: string; whatsappChat: string;
+}
 
 interface NavProps {
   locale: string;
   waUrl?: string;
   phone?: string;
+  t?: NavTranslations;
 }
 
 const CARPET_MENU = [
@@ -76,15 +85,7 @@ const UNDERLAY_MENU = [
   },
 ];
 
-const TOP_NAV = [
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/referanslar", label: "Referanslar" },
-  { href: "/blog", label: "Blog" },
-  { href: "/teknik-ozellikler", label: "Teknik Özellikler" },
-  { href: "/iletisim", label: "İletişim" },
-];
-
-export default function Navigation({ locale, waUrl, phone }: NavProps) {
+export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
   const WA_URL = waUrl ?? DEFAULT_WA_URL;
   const PHONE = phone ?? "+90 532 346 79 39";
   const PHONE_HREF = PHONE.replace(/\s/g, "");
@@ -104,6 +105,14 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
   }, []);
 
   const prefix = locale === "tr" ? "" : `/${locale}`;
+
+  const TOP_NAV = [
+    { href: `${prefix}/hakkimizda`, label: t?.about ?? "Hakkımızda" },
+    { href: `${prefix}/referanslar`, label: t?.references ?? "Referanslar" },
+    { href: `${prefix}/blog`, label: t?.blog ?? "Blog" },
+    { href: `${prefix}/teknik-ozellikler`, label: t?.technicalSpecs ?? "Teknik Özellikler" },
+    { href: `${prefix}/iletisim`, label: t?.contact ?? "İletişim" },
+  ];
 
   const openCarpet = () => {
     if (carpetTimer.current) clearTimeout(carpetTimer.current);
@@ -125,20 +134,20 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
       {/* ── Üst Bilgi Bandı ── */}
       <div className="main-site-cta text-sm flex items-center justify-between px-4 md:px-8">
         <span>
-          Asil Halı A.Ş. resmi sitesi:{" "}
+          {t?.mainSite ?? "Asil Halı A.Ş. resmi sitesi:"}{" "}
           <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer">
-            asilhali.com.tr →
+            {t?.mainSiteLink ?? "asilhali.com.tr →"}
           </a>
         </span>
         <div className="hidden md:flex items-center gap-4">
           <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:underline">
-            <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
+            <MessageCircle className="w-3.5 h-3.5" /> {t?.whatsapp ?? "WhatsApp"}
           </a>
           <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="hover:underline">
-            Instagram
+            {t?.instagram ?? "Instagram"}
           </a>
           <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="hover:underline">
-            LinkedIn
+            {t?.linkedin ?? "LinkedIn"}
           </a>
           <a href={`tel:${PHONE_HREF}`} className="flex items-center gap-1 hover:underline">
             <Phone className="w-3.5 h-3.5" /> {PHONE}
@@ -206,7 +215,7 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
                     onMouseEnter={openCarpet}
                     onMouseLeave={closeCarpet}
                   >
-                    <div className="bg-white border border-[#B2EBF2] rounded-xl shadow-xl overflow-hidden w-[580px]">
+                    <div className="bg-white border border-[#B2EBF2] rounded-xl shadow-xl overflow-hidden w-[min(580px,calc(100vw-2rem))]">
                       <div className="grid grid-cols-2 gap-0 p-4">
                         {CARPET_MENU.map((group) => (
                           <div key={group.parentSlug} className="p-2">
@@ -291,20 +300,23 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
               </div>
 
               <Link href={`${prefix}/referanslar`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                Referanslar
+                {t?.references ?? "Referanslar"}
               </Link>
               <Link href={`${prefix}/galeri`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                Galeri
+                {t?.gallery ?? "Galeri"}
               </Link>
               <Link href={`${prefix}/blog`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                Blog
+                {t?.blog ?? "Blog"}
               </Link>
               <Link href={`${prefix}/teknik-ozellikler`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                Teknik
+                {t?.technicalSpecs ?? "Teknik"}
               </Link>
               <Link href={`${prefix}/iletisim`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                İletişim
+                {t?.contact ?? "İletişim"}
               </Link>
+
+              {/* Dil Seçici */}
+              <LocaleSwitcher currentLocale={locale} />
 
               {/* WhatsApp CTA */}
               <a
@@ -324,13 +336,14 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
                 rel="noopener noreferrer"
                 className="btn btn-primary text-sm ml-1 !py-2 !px-3"
               >
-                Teklif Al
+                {t?.getQuote ?? "Teklif Al"}
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </nav>
 
-            {/* Mobil: WhatsApp + Hamburger */}
+            {/* Mobil: Dil + WhatsApp + Hamburger */}
             <div className="md:hidden flex items-center gap-2">
+              <LocaleSwitcher currentLocale={locale} />
               <a
                 href={WA_URL}
                 target="_blank"
@@ -435,19 +448,19 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
                 Hakkımızda
               </Link>
               <Link href={`${prefix}/referanslar`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                Referanslar
+                {t?.references ?? "Referanslar"}
               </Link>
               <Link href={`${prefix}/galeri`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                Galeri
+                {t?.gallery ?? "Galeri"}
               </Link>
               <Link href={`${prefix}/blog`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                Blog
+                {t?.blog ?? "Blog"}
               </Link>
               <Link href={`${prefix}/teknik-ozellikler`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 Teknik Özellikler
               </Link>
               <Link href={`${prefix}/iletisim`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                İletişim
+                {t?.contact ?? "İletişim"}
               </Link>
 
               {/* Sosyal linkler mobil */}
@@ -466,7 +479,7 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
                 rel="noopener noreferrer"
                 className="btn btn-primary text-sm mx-0 mb-2"
               >
-                Asil Halı'ya Git — Teklif Al
+                {t?.getQuote ?? "Asil Halı'ya Git — Teklif Al"}
                 <ExternalLink className="w-3.5 h-3.5" />
               </a>
             </div>
