@@ -3,6 +3,7 @@ import { BookOpen, ExternalLink, ChevronRight, RotateCcw } from "lucide-react";
 import { BLOG_CATEGORIES } from "@/lib/blog-data";
 import SeoScoreBadge from "@/components/admin/SeoScoreBadge";
 import BlogEditFormClient from "@/components/admin/BlogEditFormClient";
+import BlogCreatorModal from "@/components/admin/BlogCreatorModal";
 import { SeoScoreResult } from "@/lib/seo-scorer";
 
 export const dynamic = "force-dynamic";
@@ -19,10 +20,13 @@ export default async function BlogAdminPage() {
             {posts.length} yazı · SEO skoru kayıt sırasında hesaplanır · Kısa içerik için AI genişletme aktif
           </p>
         </div>
-        <a href="/blog" target="_blank" rel="noopener"
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
-          <ExternalLink className="w-4 h-4" /> Blogu Görüntüle
-        </a>
+        <div className="flex items-center gap-3">
+          <BlogCreatorModal />
+          <a href="/blog" target="_blank" rel="noopener"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+            <ExternalLink className="w-4 h-4" /> Blogu Görüntüle
+          </a>
+        </div>
       </div>
 
       {BLOG_CATEGORIES.filter((c) => c !== "Tümü").map((cat) => {
