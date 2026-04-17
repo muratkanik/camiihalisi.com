@@ -17,7 +17,7 @@ export interface SiteSettings {
   whatsappMessage: string;
 }
 
-const DEFAULTS: SiteSettings = {
+export const DEFAULTS: SiteSettings = {
   heroTitle: "Cami Halısında Türkiye'nin Güvenilir Adresi",
   heroSubtitle:
     "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. 50 yılı aşkın tecrübe, binlerce cami referansı.",

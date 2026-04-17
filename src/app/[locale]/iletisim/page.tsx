@@ -152,7 +152,7 @@ export default function IletisimPage() {
                     </div>
                     <h2 className="text-2xl font-bold text-[#006064] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Mesajınız İletildi!</h2>
                     <p className="text-[#6B6355]">En kısa sürede iletişime geçeceğiz. Acil durumlar için{" "}
-                      <a href="tel:+903522323838" className="text-[#006064] font-semibold underline">bizi arayın</a>.
+                      <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="text-[#006064] font-semibold underline">bizi arayın</a>.
                     </p>
                   </div>
                 ) : (
