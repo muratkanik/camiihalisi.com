@@ -130,7 +130,7 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
           </div>
           <div className="divide-y divide-slate-100 dark:divide-slate-800">
             {tasks.map((task) => {
-              let logObj: Record<string, unknown> | null = null;
+              let logObj: { title?: string; wordCount?: number } | null = null;
               try { logObj = task.logs ? JSON.parse(task.logs) : null; } catch { /* ignore */ }
 
               return (
@@ -153,10 +153,10 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-slate-800 dark:text-white truncate">{task.keyword}</p>
                     {logObj?.title && (
-                      <p className="text-xs text-slate-400 truncate">{logObj.title as string}</p>
+                      <p className="text-xs text-slate-400 truncate">{logObj.title}</p>
                     )}
                     {logObj?.wordCount && (
-                      <p className="text-xs text-slate-400">{logObj.wordCount as number} kelime</p>
+                      <p className="text-xs text-slate-400">{logObj.wordCount} kelime</p>
                     )}
                   </div>
                   <div className="flex-shrink-0 text-xs text-slate-400">
