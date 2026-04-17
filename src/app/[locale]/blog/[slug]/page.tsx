@@ -56,6 +56,28 @@ export default async function BlogDetayPage({
   const post = getBlogPost(slug);
   if (!post) notFound();
 
+  // Load locale-specific translations if not Turkish
+  if (locale !== "tr") {
+    try {
+      const { PrismaClient } = await import("@prisma/client");
+      const prisma = new PrismaClient();
+      const row = await prisma.setting.findUnique({ where: { key: "blog_translations" } }).finally(() => prisma.$disconnect());
+      if (row) {
+        const allTrans = JSON.parse(row.value) as Record<string, Record<string, Record<string, string>>>;
+        const locTrans = allTrans[slug]?.[locale];
+        if (locTrans) {
+          if (locTrans.title) (post as typeof post & { title: string }).title = locTrans.title;
+          if (locTrans.excerpt) post.excerpt = locTrans.excerpt;
+          if (locTrans.content) post.content = locTrans.content;
+          if (locTrans.metaTitle) post.metaTitle = locTrans.metaTitle;
+          if (locTrans.metaDescription) post.metaDescription = locTrans.metaDescription;
+        }
+      }
+    } catch {
+      // ignore — fall back to Turkish
+    }
+  }
+
   const related = getRelatedPosts(slug);
   const prefix = locale === "tr" ? "" : `/${locale}`;
 

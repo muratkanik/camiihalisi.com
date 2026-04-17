@@ -6,6 +6,7 @@ import { saveBlogPostAction } from "@/app/[locale]/admin/blog/actions";
 import type { BlogPostWithOverride } from "@/app/[locale]/admin/blog/actions";
 import type { SeoScoreResult } from "@/lib/seo-scorer";
 import ImagePickerField from "./ImagePickerField";
+import BlogTranslationsWidget from "./BlogTranslationsWidget";
 
 interface Props {
   post: BlogPostWithOverride;
@@ -59,6 +60,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
   const inputCls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
 
   return (
+    <>
     <form ref={formRef} action={saveBlogPostAction} className="space-y-4">
       <input type="hidden" name="slug" value={post.slug} />
       {/* Keep content in sync via hidden input when state changes */}
@@ -207,6 +209,19 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
         </button>
       </div>
     </form>
+
+    {/* Blog Translations Widget — outside form so it doesn't interfere */}
+    <BlogTranslationsWidget
+      slug={post.slug}
+      sourceTR={{
+        title: post.title,
+        excerpt: post.excerpt,
+        content: post.content,
+        metaTitle: post.metaTitle,
+        metaDescription: post.metaDescription,
+      }}
+    />
+    </>
   );
 }
 
