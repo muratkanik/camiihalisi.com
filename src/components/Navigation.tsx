@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, ExternalLink, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
 
-const MAIN_SITE_URL = "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtopnav%26utm_campaign%3Dsite&from=nav&label=main-site&cat=outbound";
-const DEFAULT_WA_URL = "/api/r?to=https%3A%2F%2Fwa.me%2F905323467939%3Ftext%3DMerhaba%252C%2520cami%2520hal%25C4%25B1s%25C4%25B1%2520hakk%25C4%25B1nda%2520bilgi%2520almak%2520istiyorum.&from=nav&label=whatsapp&cat=whatsapp";
+const MAIN_SITE_URL = "/api/r?to=https%3A%2F%2Fasilhali.com.tr%2F%23!cami-halisi%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtopnav%26utm_campaign%3Dsite&from=nav&label=main-site&cat=outbound";
+const DEFAULT_WA_URL = "/api/r?to=https%3A%2F%2Fwa.me%2F905062259235%3Ftext%3DMerhaba%252C%2520cami%2520hal%25C4%25B1s%25C4%25B1%2520hakk%25C4%25B1nda%2520bilgi%2520almak%2520istiyorum.&from=nav&label=whatsapp&cat=whatsapp";
 
 interface NavProps {
   locale: string;
@@ -134,7 +134,7 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
           <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:underline">
             <MessageCircle className="w-3.5 h-3.5" /> WhatsApp
           </a>
-          <a href="https://www.instagram.com/asilcarpet" target="_blank" rel="noopener noreferrer" className="hover:underline">
+          <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="hover:underline">
             Instagram
           </a>
           <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="hover:underline">
@@ -251,7 +251,7 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
                   className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors"
                   aria-expanded={underlayOpen}
                 >
-                  Halı Altı
+                  Halı Altlığı
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${underlayOpen ? "rotate-180" : ""}`} />
                 </button>
                 {underlayOpen && (
@@ -400,7 +400,7 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
                   className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
                   onClick={() => setMobileExpanded(mobileExpanded === "underlay" ? null : "underlay")}
                 >
-                  Halı Altı Malzemeleri
+                  Halı Altlığı
                   <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded === "underlay" ? "rotate-180" : ""}`} />
                 </button>
                 {mobileExpanded === "underlay" && (
@@ -452,7 +452,7 @@ export default function Navigation({ locale, waUrl, phone }: NavProps) {
 
               {/* Sosyal linkler mobil */}
               <div className="flex gap-2 px-4 py-3 mt-1 border-t border-[#B2EBF2]">
-                <a href="https://www.instagram.com/asilcarpet/" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#B2EBF2]">
+                <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#B2EBF2]">
                   Instagram
                 </a>
                 <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-2 text-xs font-semibold bg-[#E8E0D5] rounded-lg text-[#1A1A1A] hover:bg-[#B2EBF2]">

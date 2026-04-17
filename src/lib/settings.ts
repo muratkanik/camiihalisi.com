@@ -21,14 +21,14 @@ const DEFAULTS: SiteSettings = {
   heroTitle: "Cami Halısında Türkiye'nin Güvenilir Adresi",
   heroSubtitle:
     "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. 50 yılı aşkın tecrübe, binlerce cami referansı.",
-  whatsappNumber: "905323467939",
+  whatsappNumber: "905062259235",
   phone: "+90 532 346 79 39",
   email: "info@asilhali.com.tr",
   address: "Kayseri, Türkiye",
-  instagramUrl: "https://www.instagram.com/asilcarpet/",
+  instagramUrl: "https://www.instagram.com/mosquecarpets",
   linkedinUrl: "https://www.linkedin.com/company/asil-hali",
   facebookUrl: "",
-  mainSiteUrl: "https://www.asilhali.com.tr",
+  mainSiteUrl: "https://asilhali.com.tr/#!cami-halisi",
   whatsappMessage:
     "Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.",
 };
