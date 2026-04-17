@@ -12,6 +12,14 @@ interface AiTaskLog {
   createdAt: string;
 }
 
+interface CronResult {
+  isNew?: boolean;
+  title?: string;
+  slug?: string;
+  wordCount?: number;
+  elapsed?: number;
+}
+
 interface Props {
   nextKeyword: string | null;
   nextSlug: string | null;
@@ -20,7 +28,7 @@ interface Props {
 
 export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks: initialTasks }: Props) {
   const [running, setRunning] = useState(false);
-  const [result, setResult] = useState<Record<string, unknown> | null>(null);
+  const [result, setResult] = useState<CronResult | null>(null);
   const [error, setError] = useState("");
   const [tasks, setTasks] = useState<AiTaskLog[]>(initialTasks);
 
@@ -87,9 +95,9 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
                   <CheckCircle2 className="w-4 h-4" />
                   {result.isNew ? "Yeni makale yayınlandı!" : "Mevcut makale güncellendi!"}
                 </div>
-                <p className="text-white/80"><span className="text-white/50">Başlık:</span> {result.title as string}</p>
-                <p className="text-white/80"><span className="text-white/50">Kelime:</span> {result.wordCount as number}</p>
-                <p className="text-white/80"><span className="text-white/50">Süre:</span> {Math.round((result.elapsed as number) / 1000)}s</p>
+                <p className="text-white/80"><span className="text-white/50">Başlık:</span> {result.title}</p>
+                <p className="text-white/80"><span className="text-white/50">Kelime:</span> {result.wordCount}</p>
+                <p className="text-white/80"><span className="text-white/50">Süre:</span> {result.elapsed ? Math.round(result.elapsed / 1000) : 0}s</p>
                 {result.slug && (
                   <a
                     href={`/blog/${result.slug}`}
