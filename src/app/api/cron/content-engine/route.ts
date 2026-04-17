@@ -251,6 +251,12 @@ SADECE bu JSON formatında yanıt ver:
       elapsed: Date.now() - startTime,
     });
 
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    try {
+      await logTask(prisma, "unknown", "unknown", "failed", `Unhandled error: ${msg}`);
+    } catch { /* ignore */ }
+    return NextResponse.json({ error: "Beklenmeyen hata", detail: msg }, { status: 500 });
   } finally {
     await prisma.$disconnect();
   }
