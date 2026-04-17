@@ -1170,6 +1170,150 @@ export const BLOG_POSTS: BlogPost[] = [
     "metaDescription": "Caminize özel desen ve renk seçeneğiyle üretilen Axminster cami halıları."
   },
 
+
+  // ── Ek SSS Soruları ────────────────────────────────────────────────────────
+  {
+    "slug": "cami-halisi-m2-fiyati-ne-kadar",
+    "title": "Cami halısı m² fiyatı ne kadar?",
+    "excerpt": "Akrilik cami halısı için m² fiyatı 150–300 TL, yün için 400–800 TL, polipropilen için 200–400 TL arasındadır (2025 ortalama). Kesin fiyat için ücretsiz teklif alabilirsiniz.",
+    "content": "Cami halısı m² fiyatı malzeme türüne, desen karmaşıklığına ve sipariş büyüklüğüne göre değişir. Akrilik cami halısı m² başına yaklaşık 150–300 TL, yün 400–800 TL, polipropilen 200–400 TL, polyamid 300–600 TL aralığında seyreder. Özel desen Axminster halılar ise tamamen özelleştirilmiş üretim olduğundan fiyat teklif aşamasında belirlenir. Toplu siparişlerde indirim uygulanmaktadır. Ücretsiz keşif ve fiyat teklifi için iletişim formunu kullanabilirsiniz.",
+    "category": "SSS",
+    "tags": ["fiyat", "m2", "cami halısı fiyatları"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-06",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-3.png",
+    "metaTitle": "Cami Halısı m² Fiyatı 2025 | Asil Halı",
+    "metaDescription": "Akrilik, yün, polipropilen cami halısı m² fiyatları. 2025 güncel fiyat rehberi."
+  },
+  {
+    "slug": "cami-halisi-altligi-sart-mi",
+    "title": "Cami halısı altlığı şart mı?",
+    "excerpt": "Altlık zorunlu değildir, ancak halının ömrünü uzatır, nemden korur ve ısı yalıtımı sağlar. Nem sorunu olan camilerde keçe veya kauçuk altlık kesinlikle önerilir.",
+    "content": "Cami halısı altlığı teknik olarak zorunlu değildir, ancak birçok avantaj sağlar. Nem, soğuk ve çatlak zemin sorunlarında keçe veya kauçuk altlık kullanımı halının alt yapısını korur ve ömrünü %30–50 oranında uzatabilir. Ayrıca ibadet sırasında zemin soğukluğunu azaltır. Keçe altlık daha yumuşak bir his verirken, kauçuk altlık mükemmel nem bariyeri oluşturur. Zemin durumuna göre uzmanlarımız size uygun altlık türünü önerir.",
+    "category": "SSS",
+    "tags": ["altlık", "keçe", "kauçuk", "zemin"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-07",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-4.png",
+    "metaTitle": "Cami Halısı Altlığı Şart mı? | Asil Halı",
+    "metaDescription": "Cami halısı altlığı kullanımı, faydaları ve zemin koşullarına göre doğru altlık seçimi."
+  },
+  {
+    "slug": "cami-halisi-antibakteriyel-olmali-mi",
+    "title": "Cami halısı antibakteriyel özellikte olmalı mı?",
+    "excerpt": "Yoğun kullanımlı camilerde antibakteriyel özellik hijyen açısından önemlidir. Polipropilen ve polyamid lif yapıları doğal olarak bakteri barındırmaz; yün ise doğal antibakteriyel özelliklere sahiptir.",
+    "content": "Antibakteriyel özellik, özellikle günlük yoğun cemaate hizmet eden büyük camilerde kritik bir kriterdir. Polipropilen halılar nem tutmadığı için bakteri üremesine elverişli ortam oluşturmaz. Yün, doğal keratin yapısı sayesinde antibakteriyel etkiye sahiptir. Akrilik halılarda ise ek antibakteriyel işlem uygulanabilir. Asil Halı'nın bazı ürünleri Oeko-Tex sertifikalı antibakteriyel katkılarla üretilmektedir. Detaylı bilgi için teknik danışmanlık talep edebilirsiniz.",
+    "category": "SSS",
+    "tags": ["antibakteriyel", "hijyen", "sertifika"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-08",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-5.png",
+    "metaTitle": "Cami Halısı Antibakteriyel Özellik | Asil Halı",
+    "metaDescription": "Cami halılarında antibakteriyel özellik neden önemlidir? Hangi malzemeler doğal antibakteriyel?"
+  },
+  {
+    "slug": "cami-halisi-renk-secimi-nasil-yapilir",
+    "title": "Cami halısı renk seçimi nasıl yapılır?",
+    "excerpt": "Renk seçiminde cami mimarisi, duvar rengi ve aydınlatma temel kriterlerdir. Yeşil tonları geleneksel tercihken, lacivert ve krem de yaygındır. Açık renkler küçük camileri büyük gösterir.",
+    "content": "Cami halısı renk seçimi, mekanın genel atmosferini doğrudan etkiler. Geleneksel camilerde yeşilin farklı tonları (zümrüt, koyu yeşil, teal) en yaygın tercihtir. Modern mimaride lacivert, bej ve gri tonları da kullanılmaktadır. Küçük camilerde açık renkler mekanı büyük gösterirken, büyük tarihi camilerde koyu, yoğun renkler otoriter ve sıcak bir atmosfer yaratır. Renk seçiminde gün ışığı ve yapay aydınlatma da test edilmelidir. Ücretsiz 3D renk simülasyonuyla kararınızı vermeden önce görselleştirme yapabilirsiniz.",
+    "category": "SSS",
+    "tags": ["renk seçimi", "cami mimarisi", "desen"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-09",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/gobekli-cami-halisi.png",
+    "metaTitle": "Cami Halısı Renk Seçimi Nasıl Yapılır? | Asil Halı",
+    "metaDescription": "Cami halısı için doğru renk seçimi: mimari uyum, gün ışığı ve cemaat yoğunluğu kriterleri."
+  },
+  {
+    "slug": "cami-halisi-saflimi-gobeklimi",
+    "title": "Saflı mı göbekli mi cami halısı tercih edilmeli?",
+    "excerpt": "Saflı desen namaz saflarını net gösterir, pratik ve ekonomiktir. Göbekli desen ise görsel olarak zengindir, tarihi camilere daha uygundur. Her iki desen de kaliteli üretilebilir.",
+    "content": "Saflı cami halısı, namaz saflarını belirgin şekilde gösteren çizgi deseniyle pratiklik sağlar. Özellikle kalabalık, yönetimi kolay olması gereken camilerde tercih edilir. Göbekli (merkezi madalyonlu) desen ise estetik açıdan daha zengin bir görünüm sunar ve tarihi ya da büyük camilerde sıklıkla kullanılır. Her iki desen de akrilik, yün veya polipropilen malzemede üretilebilir. Cemaat büyüklüğü ve cami mimarisi göz önüne alınarak uzmanlarımızla birlikte en doğru tercih yapılabilir.",
+    "category": "SSS",
+    "tags": ["saflı", "göbekli", "desen seçimi"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-10",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/gobekli-cami-halisi.png",
+    "metaTitle": "Saflı mı Göbekli mi Cami Halısı? | Asil Halı",
+    "metaDescription": "Saflı ve göbekli cami halısı arasındaki fark, hangi cami için hangisi uygundur?"
+  },
+  {
+    "slug": "cami-halisi-olcusu-nasil-alinir",
+    "title": "Cami halısı ölçüsü nasıl alınır?",
+    "excerpt": "Uzun × geniş temel alan hesabına ek olarak mihrap, sütun ve çıkıntılar ayrı ölçülür. Yerinde keşif veya mimari plan üzerinden hesaplama yapılabilir. Asil Halı ücretsiz ölçüm hizmeti sunar.",
+    "content": "Cami halısı ölçüsü alırken önce namaz alanının toplam uzunluk ve genişliği ölçülür. Ardından mihrap nişi, sütun ayakları ve eşik gibi çıkıntılar ayrı ayrı hesaplanır. Soffa, son cemaat yeri ve minarenin dibi gibi ek alanlar isteğe bağlı eklenebilir. Asil Halı'nın teknik ekibi yerinde ücretsiz ölçüm yaparak kesin m² hesabı çıkarır. Mimari planınız varsa uzaktan hesaplama da mümkündür. Yanlış ölçüm gereksiz maliyet veya eksik alan sorununa yol açtığından profesyonel ölçüm önerilir.",
+    "category": "SSS",
+    "tags": ["ölçüm", "m2 hesaplama", "ücretsiz keşif"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-11",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-4.png",
+    "metaTitle": "Cami Halısı Ölçüsü Nasıl Alınır? | Asil Halı",
+    "metaDescription": "Cami halısı m² hesaplama rehberi. Mihrap, sütun ve çıkıntılar dahil doğru ölçüm nasıl yapılır?"
+  },
+  {
+    "slug": "kucuk-mahalle-camisi-icin-hali",
+    "title": "Küçük mahalle camisi için hangi halı uygundur?",
+    "excerpt": "Küçük camiler için akrilik veya polipropilen halı ideal seçimdir. Ekonomik, kolay temizlenir ve dar bütçeye uygundur. 150–250 m² arası siparişlerde üretim avantajlıdır.",
+    "content": "Küçük mahalle camileri genellikle 50–200 m² namaz alanına sahiptir. Bu büyüklük için akrilik cami halısı hem maliyet hem de performans açısından en verimli tercihtir. Polipropilen ise nem sorunu yaşayan eski camilerde akriliğe iyi bir alternatiftir. Yün veya polyamid bu ölçeklerde bütçeyi aşabilir, ancak cemaat yoğunluğu yüksekse düşünülebilir. Asil Halı küçük sipariş için ek kesim ücreti almamaktadır. Saflı veya seccadeli desen, mahalle camisinin pratik kullanımına daha uygundur.",
+    "category": "SSS",
+    "tags": ["küçük cami", "mahalle camisi", "ekonomik halı"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-12",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-3.png",
+    "metaTitle": "Küçük Mahalle Camisi İçin Cami Halısı | Asil Halı",
+    "metaDescription": "Küçük camilere uygun ekonomik cami halısı seçenekleri. Akrilik mi polipropilen mi?"
+  },
+  {
+    "slug": "cami-halisi-garantisi-ne-kadar",
+    "title": "Cami halısı garantisi ne kadar sürer?",
+    "excerpt": "Asil Halı ürünleri normal kullanım koşullarında 5 yıl imalat garantisi kapsamındadır. Doğru bakım ve montaj şartıyla halılar 15–20 yıl kullanım ömrüne ulaşır.",
+    "content": "Asil Halı cami halıları, normal kullanım koşullarında üretim kaynaklı hatalara karşı 5 yıl garanti kapsamındadır. Garanti; renk haslığı, lif kopması ve dokunuş bütünlüğü gibi imalat hatalarını kapsar. Mekanik hasar, yanlış temizlik veya montaj hataları garanti dışındadır. Doğru bakım planı uygulandığında halıların fiili kullanım ömrü 15–20 yıla ulaşabilir. Garanti kapsamı ve şartları hakkında detaylı bilgi almak için müşteri hizmetlerimizi arayabilirsiniz.",
+    "category": "SSS",
+    "tags": ["garanti", "kullanım ömrü", "kalite"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-13",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-5.png",
+    "metaTitle": "Cami Halısı Garantisi Ne Kadar? | Asil Halı",
+    "metaDescription": "Asil Halı cami halısı garanti süresi ve kapsamı. 5 yıl üretim garantisi ve 15–20 yıl kullanım ömrü."
+  },
+  {
+    "slug": "cami-halisi-nakliyesi-nasil-yapilir",
+    "title": "Cami halısı nakliyesi ve kurulumu nasıl yapılır?",
+    "excerpt": "Türkiye'nin 81 iline özel nakliye ve profesyonel montaj hizmeti verilmektedir. Nakliye ücreti sipariş büyüklüğüne ve şehre göre değişir; büyük siparişlerde ücretsiz nakliye sunulabilir.",
+    "content": "Asil Halı, Türkiye genelinde 81 ile nakliye ve montaj hizmeti sunmaktadır. Halılar özel araçlarla katlanmadan rulo olarak taşınır, böylece desen ve lif yapısı korunur. Montaj ekibi zemin hazırlığı, altlık yerleştirme ve halı serme işlemlerini profesyonelce gerçekleştirir. Nakliye ücreti şehre uzaklık ve sipariş m²'sine göre belirlenir; belirli bir tutarın üzerindeki siparişlerde nakliye ücretsizdir. Teslimat öncesinde kesin tarih ve saat müşteri ile koordineli belirlenir.",
+    "category": "SSS",
+    "tags": ["nakliye", "montaj", "kurulum", "teslimat"],
+    "readTime": "1 dk",
+    "publishedAt": "2025-01-14",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/cami-4.png",
+    "metaTitle": "Cami Halısı Nakliye ve Montaj Hizmeti | Asil Halı",
+    "metaDescription": "Cami halısı nakliyesi ve profesyonel montaj hizmeti. Türkiye genelinde 81 ile teslimat ve kurulum."
+  },
+  {
+    "slug": "cami-halisi-yun-mu-akrilik-mi-daha-iyi",
+    "title": "Yün mü akrilik mi cami için daha iyidir?",
+    "excerpt": "İkisi farklı ihtiyaçlara cevap verir. Yün doğal, uzun ömürlü ve ısı yalıtımlıdır; akrilik ise daha ekonomik, kolay temizlenir ve geniş renk seçeneği sunar.",
+    "content": "Yün cami halısı: Doğal protein yapısıyla antibakteriyel özellik taşır, nemi dengeler ve ısı yalıtımı sağlar. 20–30 yıl kullanım ömrüyle uzun vadede ekonomiktir. Ancak ilk yatırım maliyeti yüksektir ve nemli ortamlarda özel bakım gerektirir.\n\nAkrilik cami halısı: Yün görünümünü uygun fiyata sunar. Renk çeşitliliği fazladır, UV dayanıklılığı yüksektir ve kolay temizlenebilir. 15–20 yıl ömrüyle tatmin edici bir seçenektir.\n\nKarar: Büyük bütçeli tarihi camiler için yün; standart bütçeli mahalle camileri için akrilik idealdir. Ücretsiz danışmanlık için iletişim sayfamızı ziyaret edin.",
+    "category": "SSS",
+    "tags": ["yün", "akrilik", "karşılaştırma", "seçim"],
+    "readTime": "2 dk",
+    "publishedAt": "2025-01-15",
+    "author": "Asil Halı Uzmanları",
+    "image": "/images/gobekli-cami-halisi.png",
+    "metaTitle": "Yün mü Akrilik mi Cami Halısı? Hangisi Daha İyi | Asil Halı",
+    "metaDescription": "Yün ve akrilik cami halısı karşılaştırması: ömür, fiyat, temizlik ve bakım avantajları."
+  }
+
+
   // ── Faydalı Bilgiler — Birçok Camide Halılar Neden Erken Yıpranır? ─────────
   {
     "slug": "yanlis-teknik-secim-neden-hali-yipratiyor",
