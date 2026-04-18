@@ -58,11 +58,12 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   // Fetch data in parallel
-  const [settings, allBlogPosts, testimonials, tProblem] = await Promise.all([
+  const [settings, allBlogPosts, testimonials, tProblem, tFaq] = await Promise.all([
     getSettings(),
     getBlogPostsFromAdmin().catch(() => []),
     getTestimonials().catch(() => []),
     getTranslations("problem"),
+    getTranslations("faq"),
   ]);
 
   // SSS sorularını blog'dan al (category: "SSS")
@@ -258,8 +259,15 @@ export default async function HomePage({
         {/* 7. Blog Önizleme */}
         <BlogPreview locale={locale} />
 
-        {/* 8. SSS (blog'dan — kategori: SSS) */}
-        <FAQSection faqs={faqItems.length > 0 ? faqItems : undefined} />
+        {/* 8. SSS (blog'dan — kategori: SSS; yoksa çevrilmiş varsayılanlar) */}
+        <FAQSection faqs={faqItems.length > 0 ? faqItems : [
+          { question: tFaq("d1q"), answer: tFaq("d1a") },
+          { question: tFaq("d2q"), answer: tFaq("d2a") },
+          { question: tFaq("d3q"), answer: tFaq("d3a") },
+          { question: tFaq("d4q"), answer: tFaq("d4a") },
+          { question: tFaq("d5q"), answer: tFaq("d5a") },
+          { question: tFaq("d6q"), answer: tFaq("d6a") },
+        ]} />
 
         {/* 9. Son CTA */}
         <CTASection variant="cream" />
