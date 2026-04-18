@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from 'next-intl/server';
+import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from "next/navigation";
 
@@ -58,10 +58,11 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   // Fetch data in parallel
-  const [settings, allBlogPosts, testimonials] = await Promise.all([
+  const [settings, allBlogPosts, testimonials, tProblem] = await Promise.all([
     getSettings(),
     getBlogPostsFromAdmin().catch(() => []),
     getTestimonials().catch(() => []),
+    getTranslations("problem"),
   ]);
 
   // SSS sorularını blog'dan al (category: "SSS")
@@ -70,14 +71,27 @@ export default async function HomePage({
     .map((p) => ({ question: p.title, answer: p.excerpt }));
 
   // ProblemSection verilerini blog'dan al (category: "Faydalı Bilgiler", subcategory: "Birçok Camide Halılar Neden Erken Yıpranır?")
+  // Blog çevirilerini DB'den yükle
+  let blogTranslations: Record<string, Record<string, Record<string, string>>> = {};
+  try {
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+    const row = await prisma.setting.findUnique({ where: { key: "blog_translations" } });
+    await prisma.$disconnect();
+    if (row) blogTranslations = JSON.parse(row.value);
+  } catch { /* DB unavailable */ }
+
   const problemItems: ProblemItem[] = allBlogPosts
     .filter((p) => p.category === "Faydalı Bilgiler" && (p as any).subcategory === "Birçok Camide Halılar Neden Erken Yıpranır?")
-    .map((p, i) => ({
-      title: p.title,
-      desc: p.excerpt,
-      slug: p.slug,
-      iconIndex: i,
-    }));
+    .map((p, i) => {
+      const tr = locale !== "tr" ? blogTranslations[p.slug]?.[locale] : undefined;
+      return {
+        title: tr?.title ?? p.title,
+        desc: tr?.excerpt ?? p.excerpt,
+        slug: p.slug,
+        iconIndex: i,
+      };
+    });
 
   // ── JSON-LD: Yapısal veriler ─────────────────────────────────────────────────
 
@@ -227,7 +241,7 @@ export default async function HomePage({
         <HeroSection content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
 
         {/* 2. Problem — Neden Erken Yıpranır? (blog'dan) */}
-        <ProblemSection items={problemItems} locale={locale} />
+        <ProblemSection items={problemItems} sectionTitle={tProblem("sectionTitle")} locale={locale} />
 
         {/* 3. Ürün Showcase — Hangi Halı Uygun? */}
         <CategoryShowcase locale={locale} />
@@ -239,11 +253,7 @@ export default async function HomePage({
         <FeatureGrid />
 
         {/* 6. CTA — Ana Siteye Yönlendirme */}
-        <CTASection
-          variant="green"
-          title="Caminiz İçin En İyi Halıyı Seçelim"
-          subtitle="50 yılı aşkın tecrübemizle, caminizin mimarisine ve bütçesine özel halı çözümü sunuyoruz. Türkiye'nin dört bir yanına teslimat ve montaj."
-        />
+        <CTASection variant="green" />
 
         {/* 7. Blog Önizleme */}
         <BlogPreview locale={locale} />
@@ -252,11 +262,7 @@ export default async function HomePage({
         <FAQSection faqs={faqItems.length > 0 ? faqItems : undefined} />
 
         {/* 9. Son CTA */}
-        <CTASection
-          variant="cream"
-          title="Fiyat Teklifi Almak İster misiniz?"
-          subtitle="Asil Halı uzmanları caminizin ihtiyacını değerlendirerek size en uygun halı çözümünü ve fiyat teklifini sunar. Ücretsiz keşif ve danışmanlık hizmeti."
-        />
+        <CTASection variant="cream" />
       </main>
 
       <Footer locale={locale} />

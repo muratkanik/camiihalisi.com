@@ -46,11 +46,11 @@
     "subtitle": "Discover the mosque carpet that fits your needs",
     "showcaseTitle": "Which Mosque Carpet is Right for You?",
     "viewAll": "View All Carpet Models",
-    "acrylic": "Acrylic Mosque Carpet",
-    "wool": "Wool Mosque Carpet",
-    "polypropylene": "Polypropylene Mosque Carpet",
+    "acrylic": "Solid Turquoise Acrylic",
+    "wool": "Large Pattern Mosque Carpet",
+    "polypropylene": "Medallion Mosque Carpet",
     "polyamide": "Polyamide Mosque Carpet",
-    "special": "Custom Design",
+    "special": "Custom Axminster Design",
     "underlay": "Carpet Underlay",
     "seeAll": "View All",
     "details": "Details"
@@ -202,6 +202,9 @@
     "directions": "Get Directions",
     "whatsappWrite": "Chat on WhatsApp",
     "locationCount": "location"
+  },
+  "problem": {
+    "sectionTitle": "Why Do Mosque Carpets Wear Out Early?"
   },
   "about": {
     "title": "About Us",

@@ -46,11 +46,11 @@
     "subtitle": "Découvrez le tapis de mosquée adapté à vos besoins",
     "showcaseTitle": "Quel tapis de mosquée vous convient?",
     "viewAll": "Voir tous les modèles de tapis",
-    "acrylic": "Tapis de mosquée acrylique",
-    "wool": "Tapis de mosquée laine",
-    "polypropylene": "Tapis de mosquée polypropylène",
+    "acrylic": "Acrylique Turquoise Uni",
+    "wool": "Grand Motif Mosquée",
+    "polypropylene": "Tapis Mosquée à Médaillon",
     "polyamide": "Tapis de mosquée polyamide",
-    "special": "Design personnalisé",
+    "special": "Axminster Design Personnalisé",
     "underlay": "Sous-tapis",
     "seeAll": "Voir tout",
     "details": "Détails"
@@ -202,6 +202,9 @@
     "directions": "Obtenir l'Itinéraire",
     "whatsappWrite": "Écrire sur WhatsApp",
     "locationCount": "emplacement"
+  },
+  "problem": {
+    "sectionTitle": "Pourquoi les Tapis de Mosquée s'Usent-ils Prématurément?"
   },
   "about": {
     "title": "À propos",

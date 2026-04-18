@@ -46,11 +46,11 @@
     "subtitle": "İhtiyacınıza uygun cami halısını keşfedin",
     "showcaseTitle": "Hangi Cami Halısı Sizin İçin Uygun?",
     "viewAll": "Tüm Halı Modellerini Gör",
-    "acrylic": "Akrilik Cami Halısı",
-    "wool": "Yün Cami Halısı",
-    "polypropylene": "Polipropilen Cami Halısı",
+    "acrylic": "Saflı Turkuaz Akrilik",
+    "wool": "Büyük Cami Desenli",
+    "polypropylene": "Göbekli Cami Halısı",
     "polyamide": "Polyamid Cami Halısı",
-    "special": "Özel Desen",
+    "special": "Özel Desen Axminster",
     "underlay": "Halı Altlığı",
     "seeAll": "Tümünü Gör",
     "details": "Detaylar"
@@ -202,6 +202,9 @@
     "directions": "Yol Tarifi Al",
     "whatsappWrite": "WhatsApp ile Yaz",
     "locationCount": "lokasyon"
+  },
+  "problem": {
+    "sectionTitle": "Birçok Camide Halılar Neden Erken Yıpranır?"
   },
   "about": {
     "title": "Hakkımızda",
