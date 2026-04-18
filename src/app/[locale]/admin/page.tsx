@@ -1,5 +1,4 @@
-import { Image, Package, BookOpen, MapPin, Users, Settings, ArrowRight, BarChart2, Sparkles } from "lucide-react";
-import AiEngineWidget from "./AiEngineWidget";
+import { Image, Package, BookOpen, MapPin, Users, Settings, ArrowRight, BarChart2, Zap } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { BLOG_POSTS } from "@/lib/blog-data";
 import { PrismaClient } from "@prisma/client";
@@ -34,6 +33,7 @@ export default async function AdminDashboard() {
   ];
 
   const quickLinks = [
+    { label: "İçerik Motoru", desc: "AI ile blog yazısı üret · İçerik takvimini yönet", href: "/admin/icerik-motoru", icon: <Zap className="w-5 h-5" />, highlight: true },
     { label: "Hero Slayt Yönetimi", desc: "Ana sayfadaki fotoğraf slaytlarını düzenle", href: "/admin/hero", icon: <Image className="w-5 h-5" /> },
     { label: "Kategori Yönetimi", desc: "23 kategori başlık, açıklama ve görsel düzenleme", href: "/admin/kategoriler", icon: <Package className="w-5 h-5" /> },
     { label: "Blog Yazıları", desc: `${BLOG_POSTS.length} blog yazısının içeriğini düzenle`, href: "/admin/blog", icon: <BookOpen className="w-5 h-5" /> },
@@ -70,42 +70,41 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Quick links grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {quickLinks.map((link) => (
           <a
             key={link.href}
             href={link.href}
-            className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 hover:shadow-md hover:border-[#C9972B]/30 transition-all group flex items-start gap-4"
+            className={`rounded-2xl border p-5 hover:shadow-md transition-all group flex items-start gap-4 ${
+              (link as any).highlight
+                ? "bg-gradient-to-br from-[#003B40] to-[#006064] border-[#006064] text-white"
+                : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-[#C9972B]/30"
+            }`}
           >
-            <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center flex-shrink-0 text-slate-500 dark:text-slate-400 group-hover:bg-[#C9972B]/10 group-hover:text-[#C9972B] transition-all">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all ${
+              (link as any).highlight
+                ? "bg-[#C9972B]/20 text-[#E4B84A] group-hover:bg-[#C9972B]/30"
+                : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-[#C9972B]/10 group-hover:text-[#C9972B]"
+            }`}>
               {link.icon}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-semibold text-slate-800 dark:text-white text-sm group-hover:text-[#C9972B] transition-colors">{link.label}</span>
-                <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-[#C9972B] group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                <span className={`font-semibold text-sm transition-colors ${
+                  (link as any).highlight
+                    ? "text-white"
+                    : "text-slate-800 dark:text-white group-hover:text-[#C9972B]"
+                }`}>{link.label}</span>
+                <ArrowRight className={`w-4 h-4 group-hover:translate-x-0.5 transition-all flex-shrink-0 ${
+                  (link as any).highlight ? "text-[#E4B84A]" : "text-slate-300 group-hover:text-[#C9972B]"
+                }`} />
               </div>
-              <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">{link.desc}</p>
+              <p className={`text-xs mt-0.5 leading-relaxed ${
+                (link as any).highlight ? "text-white/60" : "text-slate-400"
+              }`}>{link.desc}</p>
             </div>
           </a>
         ))}
-      </div>
-
-      {/* AI Content Engine */}
-      <div className="bg-gradient-to-br from-[#003B40] to-[#006064] rounded-2xl p-6 text-white">
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-5 h-5 text-[#C9972B]" />
-              <h2 className="font-extrabold text-lg">Otonom İçerik Motoru (AI)</h2>
-            </div>
-            <p className="text-white/60 text-sm leading-relaxed max-w-lg">
-              Anahtar kelime girin, AI 4 dilde otomatik SEO içeriği oluştursun ve yayına alsın.
-              Şehir+keyword sayfaları için dinamik içerik üretir.
-            </p>
-          </div>
-        </div>
-        <AiEngineWidget />
       </div>
     </div>
   );
