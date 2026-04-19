@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useFormStatus } from "react-dom";
 import { Save, Sparkles, Loader2, CheckCircle2, Plus, X } from "lucide-react";
 import { saveBlogPostAction } from "@/app/[locale]/admin/blog/actions";
 import type { BlogPostWithOverride } from "@/app/[locale]/admin/blog/actions";
 import type { SeoScoreResult } from "@/lib/seo-scorer";
 import ImagePickerField from "./ImagePickerField";
+import BlogTranslationsWidget from "./BlogTranslationsWidget";
 
 interface Props {
   post: BlogPostWithOverride;
@@ -59,6 +61,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
   const inputCls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
 
   return (
+    <>
     <form ref={formRef} action={saveBlogPostAction} className="space-y-4">
       <input type="hidden" name="slug" value={post.slug} />
       {/* Keep content in sync via hidden input when state changes */}
@@ -172,14 +175,73 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
       <Field label="SEO Başlık (metaTitle)" name="metaTitle" defaultValue={post.metaTitle} />
       <Field label="SEO Açıklama (metaDescription)" name="metaDescription" defaultValue={post.metaDescription} type="textarea" rows={2} />
 
+      {/* Yayın Durumu */}
+      <div>
+        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider">
+          Yayın Durumu
+        </label>
+        <div className="flex gap-4">
+          {(["published", "draft"] as const).map((s) => (
+            <label key={s} className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="radio"
+                name="status"
+                value={s}
+                defaultChecked={(post.status ?? "published") === s}
+                className="accent-[#006064]"
+              />
+              <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
+                s === "published"
+                  ? "bg-green-100 text-green-700 dark:bg-green-950/30 dark:text-green-400"
+                  : "bg-amber-100 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
+              }`}>
+                {s === "published" ? "✅ Yayında" : "📝 Taslak"}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
       <div className="pb-2">
-        <button type="submit"
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all">
-          <Save className="w-4 h-4" />
-          Kaydet &amp; SEO Hesapla
-        </button>
+        <SaveButton />
       </div>
     </form>
+
+    {/* Blog Translations Widget — outside form so it doesn't interfere */}
+    <BlogTranslationsWidget
+      slug={post.slug}
+      sourceTR={{
+        title: post.title,
+        excerpt: post.excerpt,
+        content: post.content,
+        metaTitle: post.metaTitle,
+        metaDescription: post.metaDescription,
+      }}
+    />
+    </>
+  );
+}
+
+function SaveButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-[#006064]"
+    >
+      {pending ? (
+        <>
+          <Loader2 className="w-4 h-4 animate-spin" />
+          Kaydediliyor...
+        </>
+      ) : (
+        <>
+          <Save className="w-4 h-4" />
+          Kaydet &amp; SEO Hesapla
+        </>
+      )}
+    </button>
   );
 }
 
