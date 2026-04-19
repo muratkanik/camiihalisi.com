@@ -103,13 +103,11 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
               </span>
             )}
           </label>
-          {isContentShort && (
-            <button type="button" onClick={handleExpand} disabled={expanding}
-              className="flex items-center gap-1.5 text-xs font-semibold text-[#C9972B] hover:text-[#A07720] transition-colors disabled:opacity-50">
-              {expanding ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
-              {expanding ? "Üretiliyor..." : "✨ AI ile Genişlet"}
-            </button>
-          )}
+          <button type="button" onClick={handleExpand} disabled={expanding}
+            className="flex items-center gap-1.5 text-xs font-semibold text-[#C9972B] hover:text-[#A07720] transition-colors disabled:opacity-50">
+            {expanding ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+            {expanding ? "Üretiliyor..." : "✨ AI ile Genişlet"}
+          </button>
         </div>
 
         {isContentShort && (
