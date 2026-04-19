@@ -112,12 +112,12 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
     // Collect issues from seoScore
     const checks = seoScore?.checks;
     const issues: { field: string; problem: string }[] = [];
-    if (checks?.title.status !== "good")           issues.push({ field: "title",            problem: checks!.title.note });
-    if (checks?.metaDescription.status !== "good") issues.push({ field: "metaDescription",  problem: checks!.metaDescription.note });
-    if (checks?.contentLength.status !== "good")   issues.push({ field: "content",          problem: checks!.contentLength.note });
-    if (checks?.keywordDensity.status !== "good")  issues.push({ field: "keywordDensity",   problem: checks!.keywordDensity.note });
-    if (checks?.keywordInTitle.status !== "good")  issues.push({ field: "title",            problem: checks!.keywordInTitle.note });
-    if (checks?.keywordInMeta.status !== "good")   issues.push({ field: "metaDescription",  problem: checks!.keywordInMeta.note });
+    if (checks?.title?.status !== "good" && checks?.title?.note)           issues.push({ field: "title",           problem: checks.title.note });
+    if (checks?.metaDescription?.status !== "good" && checks?.metaDescription?.note) issues.push({ field: "metaDescription", problem: checks.metaDescription.note });
+    if (checks?.contentLength?.status !== "good" && checks?.contentLength?.note)   issues.push({ field: "content",         problem: checks.contentLength.note });
+    if (checks?.keywordDensity?.status !== "good" && checks?.keywordDensity?.note)  issues.push({ field: "keywordDensity",  problem: checks.keywordDensity.note });
+    if (checks?.keywordInTitle?.status !== "good" && checks?.keywordInTitle?.note)  issues.push({ field: "title",           problem: checks.keywordInTitle.note });
+    if (checks?.keywordInMeta?.status !== "good" && checks?.keywordInMeta?.note)   issues.push({ field: "metaDescription", problem: checks.keywordInMeta.note });
 
     if (!issues.length) {
       setSeoFix({});
@@ -205,7 +205,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
 
   const inputCls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
 
-  const hasSeoIssues = seoScore && Object.values(seoScore.checks).some((c) => c.status !== "good");
+  const hasSeoIssues = seoScore?.checks && Object.values(seoScore.checks).some((c) => c?.status !== "good");
   const fixHasSuggestions = seoFix && Object.values(seoFix).some((v) => !!v);
 
   return (
