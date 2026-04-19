@@ -10,7 +10,7 @@ interface FooterProps {
 export default async function Footer({ locale }: FooterProps) {
   const [settings, t] = await Promise.all([
     getSettings(),
-    getTranslations("footer"),
+    getTranslations({ locale, namespace: "footer" }),
   ]);
 
   const MAIN_SITE_URL = buildTrackedMainSiteUrl(settings, "footer", "main-site");
