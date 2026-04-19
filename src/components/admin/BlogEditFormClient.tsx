@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { Save, Sparkles, Loader2, CheckCircle2, Plus, X } from "lucide-react";
 import { saveBlogPostAction } from "@/app/[locale]/admin/blog/actions";
@@ -22,7 +22,9 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
   const [expanding, setExpanding] = useState(false);
   const [expansion, setExpansion] = useState("");
   const [expandError, setExpandError] = useState("");
+  const [insertedWords, setInsertedWords] = useState(0); // tracks last insertion for feedback
   const formRef = useRef<HTMLFormElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const contentScore = seoScore?.checks.contentLength;
   const isContentShort = contentScore && contentScore.status !== "good";
@@ -54,9 +56,25 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
   }
 
   function handleInsertExpansion() {
+    const words = expansion.trim().split(/\s+/).filter(Boolean).length;
+    setInsertedWords(words);
     setContent((prev) => prev.trim() + "\n\n" + expansion.trim());
     setExpansion("");
+    // Scroll textarea to bottom so user sees the new content
+    requestAnimationFrame(() => {
+      if (textareaRef.current) {
+        textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+        textareaRef.current.focus();
+      }
+    });
   }
+
+  // Clear insert feedback after 4s
+  useEffect(() => {
+    if (!insertedWords) return;
+    const t = setTimeout(() => setInsertedWords(0), 4000);
+    return () => clearTimeout(t);
+  }, [insertedWords]);
 
   const inputCls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
 
@@ -64,8 +82,6 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
     <>
     <form ref={formRef} action={saveBlogPostAction} className="space-y-4">
       <input type="hidden" name="slug" value={post.slug} />
-      {/* Keep content in sync via hidden input when state changes */}
-      <input type="hidden" name="content" value={content} />
       <input type="hidden" name="seoKeyword" value={seoKeywords} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -81,6 +97,11 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
           <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">
             İçerik
             <span className="ml-2 font-normal text-slate-400 normal-case">({wordCount} kelime)</span>
+            {insertedWords > 0 && (
+              <span className="ml-2 text-emerald-600 dark:text-emerald-400 font-semibold animate-pulse">
+                ✓ +{insertedWords} kelime eklendi
+              </span>
+            )}
           </label>
           {isContentShort && (
             <button type="button" onClick={handleExpand} disabled={expanding}
@@ -99,10 +120,12 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
         )}
 
         <textarea
+          ref={textareaRef}
+          name="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}
           rows={7}
-          className={`${inputCls} resize-y`}
+          className={`${inputCls} resize-y transition-shadow ${insertedWords > 0 ? "ring-2 ring-emerald-400" : ""}`}
           placeholder="Blog yazısının tam içeriği..."
         />
 
