@@ -36,7 +36,7 @@ export const DEFAULT_OFFICES: ContactOffice[] = [
     email: "info@asilhali.com.tr",
     whatsapp: "+905323467939",
     fax: "+90 352 321 10 27",
-    mapsUrl: "https://maps.google.com/?q=Asil+Hali+Kayseri+Melikgazi",
+    mapsUrl: "https://www.google.com/maps/place/Asil+Hal%C4%B1+Sanayi+ve+Ticaret+A.%C5%9E./@38.7515845,35.3688297,17z/data=!3m1!4b1!4m5!3m4!1s0x152b05710a1dd5ef:0x3f63d7650c7f6d76!8m2!3d38.7515845!4d35.3710184",
     workHours: "Pzt–Cum: 08:00–18:00 | Cmt: 09:00–14:00",
     active: true,
   },
@@ -51,7 +51,7 @@ export const DEFAULT_OFFICES: ContactOffice[] = [
     phones: [
       { label: "Fabrika", number: "+90 352 232 38 38" },
     ],
-    mapsUrl: "https://maps.google.com/?q=Kayseri+Organize+Sanayi",
+    mapsUrl: "https://www.google.com/maps/search/Kayseri+Organize+Sanayi+Serbest+Bölgesi/@38.8012,35.4301,14z",
     active: true,
   },
   {
@@ -65,7 +65,7 @@ export const DEFAULT_OFFICES: ContactOffice[] = [
       { label: "İstanbul", number: "+90 216 504 82 27" },
       { label: "Mesai Dışı", number: "+90 532 346 79 39" },
     ],
-    mapsUrl: "https://maps.google.com/?q=Caddebostan+Bagdat+Caddesi+346+Kadikoy",
+    mapsUrl: "https://www.google.com/maps/search/Caddebostan+Ba%C4%9Fdat+Caddesi+346+Yaprak+Apt+Kad%C4%B1k%C3%B6y+%C4%B0stanbul/@40.9637,29.0668,17z",
     active: true,
   },
   {
