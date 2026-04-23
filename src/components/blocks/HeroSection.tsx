@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 
 const IMAGES = [
@@ -48,10 +49,13 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
           transition={{ duration: 1.6, ease: "easeInOut" }}
           className="absolute inset-0 z-0"
         >
-          <img
+          <Image
             src={IMAGES[idx].src}
             alt={IMAGES[idx].alt}
-            className="w-full h-full object-cover object-center"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
           />
         </motion.div>
       </AnimatePresence>

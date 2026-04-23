@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Clock } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
@@ -76,11 +77,12 @@ export default async function BlogPreview({ locale }: BlogPreviewProps) {
               className="group card flex flex-col"
             >
               <div className="relative h-44 overflow-hidden bg-[#E0F7FA]">
-                <img
+                <Image
                   src={post.image}
                   alt={post.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 <span className="absolute top-3 left-3 badge badge-gold text-xs">

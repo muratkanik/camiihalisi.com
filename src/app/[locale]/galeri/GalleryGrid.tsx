@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, MessageCircle } from "lucide-react";
+import Image from "next/image";
 
 /* ── Tüm görsel havuzu ──────────────────────────────── */
 const HD_PHOTOS = [
@@ -121,14 +122,18 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
         className="relative flex items-center justify-center w-full h-full px-20 py-20"
         onClick={(e) => e.stopPropagation()}
       >
-        <img
-          key={image.src}
-          src={image.src}
-          alt={image.caption}
-          className="max-w-full max-h-full object-contain rounded-lg shadow-2xl select-none"
-          style={{ maxHeight: "calc(100vh - 140px)" }}
-          draggable={false}
-        />
+        <div className="relative w-full h-full" style={{ maxHeight: "calc(100vh - 140px)" }}>
+          <Image
+            key={image.src}
+            src={image.src}
+            alt={image.caption}
+            fill
+            priority
+            sizes="100vw"
+            className="object-contain rounded-lg shadow-2xl select-none"
+            draggable={false}
+          />
+        </div>
       </div>
 
       {/* Prev button */}
@@ -166,7 +171,7 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
                     : "border-white/20 opacity-60 hover:opacity-100"
                 }`}
               >
-                <img src={img.src} alt="" className="w-full h-full object-cover" />
+                <Image src={img.src} alt="" fill sizes="56px" className="object-cover" />
               </button>
             );
           })}
@@ -196,11 +201,12 @@ function GridItem({
       className={`relative group overflow-hidden rounded-xl cursor-pointer bg-[#006064]/20 ${heightClass}`}
       onClick={onOpen}
     >
-      <img
+      <Image
         src={src}
         alt={caption}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        loading="lazy"
+        fill
+        sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+        className="object-cover group-hover:scale-105 transition-transform duration-500"
       />
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">

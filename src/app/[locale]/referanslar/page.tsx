@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, ExternalLink, MapPin, Star } from "lucide-react";
 import { setRequestLocale } from "next-intl/server";
 import Navigation from "@/components/NavigationWrapper";
@@ -182,36 +183,24 @@ export default async function ReferanslarPage({
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
               {/* Bilecik Cami Projesi */}
-              <div className="relative group overflow-hidden rounded-xl">
-                <img
-                  src="/images/referans-bilecik.jpg"
-                  alt="Bilecik Cami Projesi"
-                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+              <div className="relative group overflow-hidden rounded-xl h-56">
+                <Image src="/images/referans-bilecik.jpg" alt="Bilecik Cami Projesi" fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                   <p className="text-white font-semibold text-lg">Bilecik Cami Projesi</p>
                 </div>
               </div>
 
               {/* Esentepe Cami Projesi */}
-              <div className="relative group overflow-hidden rounded-xl">
-                <img
-                  src="/images/referans-esentepe.jpg"
-                  alt="Esentepe Cami Projesi"
-                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+              <div className="relative group overflow-hidden rounded-xl h-56">
+                <Image src="/images/referans-esentepe.jpg" alt="Esentepe Cami Projesi" fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                   <p className="text-white font-semibold text-lg">Esentepe Cami Projesi</p>
                 </div>
               </div>
 
               {/* Panoramik Cami Görünümü */}
-              <div className="relative group overflow-hidden rounded-xl">
-                <img
-                  src="/images/panorama-cami.jpg"
-                  alt="Panoramik Cami Görünümü"
-                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
+              <div className="relative group overflow-hidden rounded-xl h-56">
+                <Image src="/images/panorama-cami.jpg" alt="Panoramik Cami Görünümü" fill sizes="(max-width:768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-300" />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                   <p className="text-white font-semibold text-lg">Panoramik Cami Görünümü</p>
                 </div>
@@ -219,11 +208,13 @@ export default async function ReferanslarPage({
 
               {/* HD Fotoğraflar 01-09 */}
               {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
-                <div key={`hd-${num}`} className="relative group overflow-hidden rounded-xl">
-                  <img
+                <div key={`hd-${num}`} className="relative group overflow-hidden rounded-xl h-56">
+                  <Image
                     src={`/images/hd-foto-${String(num).padStart(2, "0")}.jpg`}
                     alt="Tamamlanan Cami Halısı Projesi"
-                    className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    sizes="(max-width:768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/95 to-transparent p-4">
                     <p className="text-white font-semibold text-sm">Tamamlanan Proje</p>

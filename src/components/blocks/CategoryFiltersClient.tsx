@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
@@ -144,12 +145,12 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
             >
               {/* Image */}
               <div className="relative aspect-square bg-[#F0FDFE] overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
+                  fill
+                  sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 {item.badge && (
                   <span className="absolute top-2 left-2 text-xs font-bold bg-[#C9972B] text-white px-2.5 py-1 rounded-full">

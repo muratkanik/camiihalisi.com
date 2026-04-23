@@ -1,5 +1,6 @@
 import { ArrowRight, Quote } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtrust%26utm_campaign%3Dsite&from=trust&label=iletisime-gec&cat=outbound";
@@ -33,10 +34,12 @@ export default async function TrustSection({ testimonials }: TrustSectionProps) 
           {/* ── Sol: Metin + görsel ── */}
           <div className="relative">
             <div className="absolute inset-0 rounded-3xl overflow-hidden -z-10">
-              <img
+              <Image
                 src="/images/panorama-cami.jpg"
                 alt="Cami iç mekanı"
-                className="w-full h-full object-cover opacity-15"
+                fill
+                sizes="(max-width:1024px) 100vw, 50vw"
+                className="object-cover opacity-15"
               />
               <div className="absolute inset-0 bg-[#F0FDFE]/85" />
             </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, ArrowRight, Scale } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
@@ -105,8 +106,13 @@ export default async function KarsilastirmaHubPage({
                   className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-lg transition-all"
                 >
                   <div className="relative h-44 overflow-hidden bg-[#F0FDFE]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.image} alt={c.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <Image
+                      src={c.image}
+                      alt={c.title}
+                      fill
+                      sizes="(max-width:768px) 100vw, (max-width:1280px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
                     {c.hot && (
                       <span className="absolute top-3 left-3 bg-[#C9972B] text-white text-xs font-bold px-3 py-1 rounded-full">
                         En Çok Sorulan

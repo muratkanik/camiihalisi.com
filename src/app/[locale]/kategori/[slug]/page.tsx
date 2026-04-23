@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Check, ExternalLink, ChevronRight } from "lucide-react";
 
 import Navigation from "@/components/NavigationWrapper";
@@ -60,6 +61,22 @@ const CATEGORY_IMAGES: Record<string, string> = {
 // Common colors offered for each material type
 const COMMON_COLORS = ["#006064", "#1B2E5E", "#8B1A1A", "#1A4E8B", "#C9972B", "#7A7A7A"];
 const NATURAL_COLORS = ["#006064", "#1B2E5E", "#8B1A1A", "#6B4226", "#C9972B", "#F5EDD7"];
+
+// S101 desen renk varyantları — saflı kategorilerde gösterilir
+const S101_GALLERY = [
+  { src: "/images/s101-acik-cini.webp",  label: "Açık Çini"  },
+  { src: "/images/s101-bej.webp",         label: "Bej"        },
+  { src: "/images/s101-bordo.webp",       label: "Bordo"      },
+  { src: "/images/s101-hardal.webp",      label: "Hardal"     },
+  { src: "/images/s101-koyu-cini.webp",  label: "Koyu Çini"  },
+  { src: "/images/s101-turkuaz.webp",     label: "Turkuaz"    },
+];
+const SAFLI_SLUGS = new Set([
+  "safli-akrilik-cami-halisi",
+  "safli-yun-cami-halisi",
+  "safli-polipropilen-cami-halisi",
+  "safli-polyamid-cami-halisi",
+]);
 
 type CatalogDesen = "Saflı" | "Göbekli" | "Seccadeli" | "Standart" | "Özel";
 
@@ -1079,10 +1096,13 @@ export default async function KategoriPage({
         {/* ── Hero Bölümü ── */}
         <section className="relative h-[60vh] min-h-[400px] max-h-[600px] flex items-end overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <img
+            <Image
               src={heroImage}
               alt={cat.title}
-              className="w-full h-full object-cover object-center"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
             />
           </div>
           <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#003B40]/95 via-[#003B40]/50 to-transparent" />
@@ -1128,6 +1148,39 @@ export default async function KategoriPage({
                 </p>
               </div>
               <CategoryFiltersClient prefix={prefix} items={CATALOG_DATA[slug]!} />
+            </div>
+          </section>
+        )}
+
+        {/* ── S101 Desen Galerisi (yalnızca saflı kategoriler) ── */}
+        {SAFLI_SLUGS.has(slug) && (
+          <section className="py-14 bg-white border-b border-[#E0F7FA]">
+            <div className="container-site">
+              <h2
+                className="text-2xl font-bold text-[#006064] mb-2"
+                style={{ fontFamily: "'Cormorant Garamond', serif" }}
+              >
+                S101 Desen — Renk Seçenekleri
+              </h2>
+              <p className="text-sm text-[#6B6355] mb-8">
+                Aynı deseni farklı renk tonlarıyla görüntüleyin. Tüm renkler özel sipariş olarak üretilir.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                {S101_GALLERY.map(({ src, label }) => (
+                  <div key={src} className="group flex flex-col items-center gap-2">
+                    <div className="w-full aspect-square rounded-xl overflow-hidden border border-[#B2EBF2] group-hover:border-[#C9972B]/50 transition-colors shadow-sm">
+                      <Image
+                        src={src}
+                        alt={`Saflı cami halısı S101 desen ${label} renk`}
+                        width={300}
+                        height={300}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <span className="text-xs font-medium text-[#6B6355]">{label}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         )}

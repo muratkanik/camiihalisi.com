@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, ExternalLink, Award, Users, Globe, Factory } from "lucide-react";
 
 import Navigation from "@/components/NavigationWrapper";
@@ -128,11 +129,14 @@ export default async function HakkimizdaPage({
 
               {/* Görsel */}
               <div className="relative">
-                <div className="rounded-2xl overflow-hidden shadow-2xl">
-                  <img
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-80">
+                  <Image
                     src="/images/hd-foto-01.jpg"
                     alt="Asil Halı tamamlanan cami projesi"
-                    className="w-full h-80 object-cover"
+                    fill
+                    priority
+                    sizes="(max-width:1024px) 100vw, 50vw"
+                    className="object-cover"
                   />
                 </div>
                 {/* Üzerine bindirme kutusu */}
@@ -225,11 +229,13 @@ export default async function HakkimizdaPage({
                 "/images/hd-foto-06.jpg", "/images/hd-foto-07.jpg", "/images/hd-foto-08.jpg", "/images/hd-foto-09.jpg",
                 "/images/hd-foto-10.jpg", "/images/hd-foto-11.jpg", "/images/referans-bilecik.jpg", "/images/referans-esentepe.jpg",
               ].map((src, i) => (
-                <div key={i} className="rounded-xl overflow-hidden aspect-square group">
-                  <img
+                <div key={i} className="relative rounded-xl overflow-hidden aspect-square group">
+                  <Image
                     src={src}
                     alt={`Tamamlanan cami halısı projesi ${i + 1}`}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               ))}

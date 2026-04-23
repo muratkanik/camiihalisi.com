@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Check, X, Minus } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
@@ -277,16 +278,18 @@ export default async function KarsilastirmaPage({
             {/* Karşılaştırma Görseli */}
             <div className="mt-8 flex items-center gap-4 max-w-md">
               <div className="flex-1 rounded-2xl overflow-hidden border-2 border-white/20">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.a.image} alt={c.a.isim} className="w-full aspect-video object-cover" />
+                <div className="relative aspect-video">
+                  <Image src={c.a.image} alt={c.a.isim} fill sizes="(max-width:768px) 50vw, 200px" className="object-cover" />
+                </div>
                 <div className="px-3 py-2 text-center" style={{ background: c.a.renk }}>
                   <p className="text-white font-bold text-sm">{c.a.isim}</p>
                 </div>
               </div>
               <div className="text-white/60 font-black text-2xl">VS</div>
               <div className="flex-1 rounded-2xl overflow-hidden border-2 border-white/20">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.b.image} alt={c.b.isim} className="w-full aspect-video object-cover" />
+                <div className="relative aspect-video">
+                  <Image src={c.b.image} alt={c.b.isim} fill sizes="(max-width:768px) 50vw, 200px" className="object-cover" />
+                </div>
                 <div className="px-3 py-2 text-center" style={{ background: c.b.renk }}>
                   <p className="text-white font-bold text-sm">{c.b.isim}</p>
                 </div>
