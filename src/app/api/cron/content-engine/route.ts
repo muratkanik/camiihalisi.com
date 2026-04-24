@@ -253,7 +253,7 @@ SADECE bu JSON formatında yanıt ver:
       isNew = false;
     } else {
       // Yeni dinamik blog yazısı oluştur
-      const slug = slugify(blogData.title) || `ai-blog-${Date.now()}`;
+      const slug = targetSlug || slugify(blogData.title) || `ai-blog-${Date.now()}`;
       const newPost = {
         slug, title: blogData.title,
         metaTitle: blogData.metaTitle || blogData.title,
