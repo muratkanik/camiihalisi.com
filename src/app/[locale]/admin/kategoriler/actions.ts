@@ -8,7 +8,7 @@ export interface CategoryOverride {
   slug: string;
   title?: string;
   description?: string;
-  badge?: string;
+  badges?: string[];
   image?: string;
   features?: string[];
   color?: string;
@@ -24,7 +24,7 @@ export type CategoryWithOverride = {
   image: string;
   description: string;
   longDescription: string;
-  badge: string;
+  badges: string[];
   features: string[];
   color: string;
   metaDescription: string;
@@ -41,7 +41,7 @@ async function getPrisma() {
 const CATEGORY_DETAILS: Record<string, Partial<CategoryOverride>> = {
   "akrilik-cami-halisi": {
     description: "Parlak renkleri, yumuşak dokusu ve ekonomik fiyatıyla en çok tercih edilen halı türü.",
-    badge: "En Çok Satan",
+    badges: ["en-cok-satan"],
     image: "/images/cami-1.png",
     features: ["Solmaz Renk", "Yumuşak Doku", "Ekonomik"],
     color: "#0097A7",
@@ -50,7 +50,7 @@ const CATEGORY_DETAILS: Record<string, Partial<CategoryOverride>> = {
   },
   "yun-cami-halisi": {
     description: "Doğal yünün sıcaklığı ve dayanıklılığıyla ibadethaneye özel lüks.",
-    badge: "Premium",
+    badges: ["premium"],
     image: "/images/cami-2.png",
     features: ["%100 Doğal", "Isı Yalıtımı", "Uzun Ömür"],
     color: "#0097A7",
@@ -59,7 +59,7 @@ const CATEGORY_DETAILS: Record<string, Partial<CategoryOverride>> = {
   },
   "polipropilen-cami-halisi": {
     description: "Neme ve lekeye karşı üstün direnciyle yüksek trafik alanları için üretilmiş.",
-    badge: "Dayanıklı",
+    badges: ["dayanikli"],
     image: "/images/cami-3.png",
     features: ["Kolay Temizlik", "Leke Tutmaz", "Yüksek Trafik"],
     color: "#0097A7",
@@ -68,7 +68,7 @@ const CATEGORY_DETAILS: Record<string, Partial<CategoryOverride>> = {
   },
   "polyamid-cami-halisi": {
     description: "Sentetik liflerin en kalitelisi. Yüksek aşınma direnci ve canlı renkler.",
-    badge: "Profesyonel",
+    badges: ["profesyonel"],
     image: "/images/cami-4.png",
     features: ["Aşınmaz", "Canlı Renkler", "Büyük Hacim"],
     color: "#0097A7",
@@ -77,7 +77,7 @@ const CATEGORY_DETAILS: Record<string, Partial<CategoryOverride>> = {
   },
   "ozel-desen-axminster-cami-halisi": {
     description: "Sınırsız renk ve desen seçeneğiyle tamamen özelleştirilebilir Axminster dokuma.",
-    badge: "Özel Sipariş",
+    badges: ["ozel-siparis"],
     image: "/images/cami-hero.png",
     features: ["Sınırsız Renk", "Özel Tasarım", "Ücretsiz 3D Görsel"],
     color: "#0097A7",
@@ -139,7 +139,7 @@ export async function getCategories(): Promise<CategoryWithOverride[]> {
       ...cat,
       description: desc,
       longDescription: longDesc,
-      badge: override.badge ?? defaults.badge ?? "",
+      badges: override.badges ?? defaults.badges ?? [],
       image: override.image ?? defaults.image ?? "/images/cami-hero.png",
       features: override.features ?? defaults.features ?? [],
       color: override.color ?? defaults.color ?? "#0097A7",
@@ -174,7 +174,7 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
   const title = (formData.get("title") as string)?.trim();
   const description = (formData.get("description") as string)?.trim();
   const longDescription = (formData.get("longDescription") as string)?.trim();
-  const badge = (formData.get("badge") as string)?.trim();
+  const badgesRaw = (formData.get("badges") as string)?.trim();
   const image = (formData.get("image") as string)?.trim();
   const featuresRaw = (formData.get("features") as string)?.trim();
   const color = (formData.get("color") as string)?.trim();
@@ -185,6 +185,10 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
     ? featuresRaw.split(",").map((f) => f.trim()).filter(Boolean)
     : undefined;
 
+  const badges = badgesRaw
+    ? badgesRaw.split(",").map((b) => b.trim()).filter(Boolean)
+    : undefined;
+
   const prisma = await getPrisma();
   try {
     const setting = await prisma.setting.findUnique({ where: { key: "category_overrides" } });
@@ -193,7 +197,7 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
     const idx = overrides.findIndex((o) => o.slug === slug);
     const updated: CategoryOverride = {
       slug,
-      ...(badge ? { badge } : {}),
+      ...(badges ? { badges } : {}),
       ...(image ? { image } : {}),
       ...(features ? { features } : {}),
       ...(color ? { color } : {}),

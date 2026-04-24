@@ -144,3 +144,12 @@ model PageView {
   @@index([page])
   @@index([country])
 }
+
+// ── Kategori Rozetleri (Badges) ──────────────────────────────────
+model Badge {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String   // Admin iç adı
+  createdAt DateTime @default(now())
+}
+
