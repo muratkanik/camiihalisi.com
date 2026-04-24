@@ -207,8 +207,8 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
             </Link>
 
             {/* Desktop Menü */}
-            <nav className="hidden md:flex items-center gap-0.5" aria-label="Ana menü">
-              <Link href={`${prefix}/hakkimizda`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+            <nav className="hidden xl:flex items-center gap-0.5" aria-label="Ana menü">
+              <Link href={`${prefix}/hakkimizda`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("about")}
               </Link>
 
@@ -219,7 +219,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 onMouseLeave={closeCarpet}
               >
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
+                  className="flex items-center gap-1 px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
                   aria-expanded={carpetOpen}
                 >
                   {tMenu("carpetTitle")}
@@ -273,7 +273,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 onMouseLeave={closeUnderlay}
               >
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
+                  className="flex items-center gap-1 px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
                   aria-expanded={underlayOpen}
                 >
                   {tMenu("underlayTitle")}
@@ -315,19 +315,19 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 )}
               </div>
 
-              <Link href={`${prefix}/referanslar`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/referanslar`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("references")}
               </Link>
-              <Link href={`${prefix}/galeri`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/galeri`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("gallery")}
               </Link>
-              <Link href={`${prefix}/blog`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/blog`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("blog")}
               </Link>
-              <Link href={`${prefix}/teknik-ozellikler`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/teknik-ozellikler`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("technicalSpecs")}
               </Link>
-              <Link href={`${prefix}/iletisim`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/iletisim`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("contact")}
               </Link>
 
@@ -339,24 +339,24 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 href={WA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-2 px-3 rounded-xl transition-colors text-sm"
+                className="ml-1 2xl:ml-2 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-2 px-2.5 2xl:px-3 rounded-xl transition-colors text-sm"
                 aria-label="WhatsApp ile iletişim"
               >
                 <MessageCircle className="w-4 h-4" />
-                WhatsApp
+                <span className="hidden 2xl:inline">WhatsApp</span>
               </a>
 
               <button
                 type="button"
                 onClick={() => setTeklifOpen(true)}
-                className="btn btn-primary text-sm ml-1 !py-2 !px-3 whitespace-nowrap flex-shrink-0"
+                className="btn btn-primary text-sm ml-1 !py-2 !px-2.5 2xl:!px-3 whitespace-nowrap flex-shrink-0"
               >
                 {tNav("getQuote")}
               </button>
             </nav>
 
             {/* Mobil: Dil + WhatsApp + Hamburger */}
-            <div className="md:hidden flex items-center gap-2">
+            <div className="xl:hidden flex items-center gap-2">
               <LocaleSwitcher currentLocale={locale} />
               <a
                 href={WA_URL}
@@ -381,7 +381,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
 
         {/* Mobil Menü */}
         {mobileOpen && (
-          <div className="md:hidden bg-[#F0FDFE] border-t border-[#B2EBF2] max-h-[80vh] overflow-y-auto">
+          <div className="xl:hidden bg-[#F0FDFE] border-t border-[#B2EBF2] max-h-[80vh] overflow-y-auto">
             <div className="container-site py-3 flex flex-col gap-0.5">
 
               {/* Cami Halısı Accordion — İLK SIRADA */}
