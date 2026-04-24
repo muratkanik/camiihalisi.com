@@ -85,8 +85,24 @@ export default function KategoriEditFormClient({ cat }: Props) {
     }
   };
 
+  const [isPending, startTransition] = useState(false);
+
+  const actionWrapper = (formData: FormData) => {
+    startTransition(true);
+    saveCategoryAction(formData)
+      .then(() => {
+        alert("Kategori başarıyla kaydedildi!");
+      })
+      .catch((err) => {
+        alert("Hata oluştu: " + err);
+      })
+      .finally(() => {
+        startTransition(false);
+      });
+  };
+
   return (
-    <form action={saveCategoryAction} className="space-y-6">
+    <form action={actionWrapper} className="space-y-6">
       <input type="hidden" name="slug" value={cat.slug} />
       <input type="hidden" name="badges" value={selectedBadges.join(",")} />
 
@@ -188,10 +204,10 @@ export default function KategoriEditFormClient({ cat }: Props) {
       <div className="flex items-center gap-2 pb-2 mt-4">
         <button
           type="submit"
-          className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0097A7] text-white font-bold hover:bg-[#003B40] transition-all shadow-md"
+          disabled={isPending}
+          className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0097A7] text-white font-bold hover:bg-[#003B40] transition-all shadow-md disabled:opacity-50"
         >
-          <Save className="w-5 h-5" />
-          Kaydet &amp; SEO Hesapla
+          {isPending ? "⏳ Kaydediliyor..." : <><Save className="w-5 h-5" /> Kaydet &amp; SEO Hesapla</>}
         </button>
         <span className="text-xs text-slate-400 ml-auto font-mono bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
           {cat.slug}
