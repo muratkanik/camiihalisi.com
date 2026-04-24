@@ -1115,7 +1115,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-hero.png",
     "metaTitle": "Cami Halısı Siparişi Nasıl Verilir? | Asil Halı",
-    "metaDescription": "Asil Halı cami halısı siparişi ve adım adım sipariş süreci."
+    "metaDescription": "Cami halısı nasıl sipariş verilir? Asil Halı'da ölçü alma, model seçimi, üretim ve teslimat sürecini adım adım öğrenin. Türkiye geneli teslimat."
   },
   {
     "slug": "hangi-hali-turu-cami-icin-en-uygun",
@@ -1129,7 +1129,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-3.png",
     "metaTitle": "Cami İçin En Uygun Halı Türü Hangisi? | Asil Halı",
-    "metaDescription": "Akrilik, yün, polipropilen, polyamid — caminiz için doğru halı türü nasıl seçilir?"
+    "metaDescription": "Cami için en uygun halı türü hangisi? Akrilik, yün, polipropilen ve polyamid cami halılarının özelliklerini karşılaştırın, doğru seçimi yapın."
   },
   {
     "slug": "cami-halisi-ne-siklikla-degistirilmeli",
@@ -1143,7 +1143,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-4.png",
     "metaTitle": "Cami Halısı Ne Sıklıkla Değiştirilmeli? | Asil Halı",
-    "metaDescription": "Cami halısı ömrü, bakım ve değişim zamanını belirleyen faktörler."
+    "metaDescription": "Cami halısı kaç yılda bir değiştirilmeli? Kullanım yoğunluğuna göre halı ömrünü etkileyen faktörler ve değişim zamanını nasıl anlarsınız. Asil Halı."
   },
   {
     "slug": "teslimat-suresi-ne-kadar",
@@ -1157,7 +1157,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-5.png",
     "metaTitle": "Cami Halısı Teslimat Süresi | Asil Halı",
-    "metaDescription": "Cami halısı sipariş ve teslimat süreleri hakkında bilgiler."
+    "metaDescription": "Cami halısı siparişinde teslimat süresi ne kadar? Üretim, nakliye ve kurulum süreçleri hakkında bilgi. Türkiye genelinde 81 ile teslimat. Asil Halı."
   },
   {
     "slug": "ozel-desen-tasarim-mumkun-mu",
@@ -1171,7 +1171,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/ozel-cami-halisi.png",
     "metaTitle": "Özel Desen Cami Halısı Tasarımı | Asil Halı",
-    "metaDescription": "Caminize özel desen ve renk seçeneğiyle üretilen Axminster cami halıları."
+    "metaDescription": "Cami halısında özel desen ve renk tasarımı mümkün mü? Axminster ve özel baskı teknolojisiyle camiye özgü tasarım seçenekleri. Asil Halı üretimi."
   },
 
 
@@ -1188,7 +1188,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-3.png",
     "metaTitle": "Cami Halısı m² Fiyatı 2025 | Asil Halı",
-    "metaDescription": "Akrilik, yün, polipropilen cami halısı m² fiyatları. 2025 güncel fiyat rehberi."
+    "metaDescription": "Cami halısı m² fiyatı ne kadar? 2025 güncel akrilik, yün, polipropilen cami halısı fiyat rehberi. Bütçenize uygun seçenekler için teklif alın."
   },
   {
     "slug": "cami-halisi-altligi-sart-mi",
@@ -1202,7 +1202,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-4.png",
     "metaTitle": "Cami Halısı Altlığı Şart mı? | Asil Halı",
-    "metaDescription": "Cami halısı altlığı kullanımı, faydaları ve zemin koşullarına göre doğru altlık seçimi."
+    "metaDescription": "Cami halısı altlığı kullanmak şart mı? Zemin türüne göre keçe ve kauçuk altlık seçimi, konfor katkısı ve halı ömrüne etkisi. Uzman tavsiyeleri."
   },
   {
     "slug": "cami-halisi-antibakteriyel-olmali-mi",
@@ -1216,7 +1216,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-5.png",
     "metaTitle": "Cami Halısı Antibakteriyel Özellik | Asil Halı",
-    "metaDescription": "Cami halılarında antibakteriyel özellik neden önemlidir? Hangi malzemeler doğal antibakteriyel?"
+    "metaDescription": "Cami halısı antibakteriyel özellikte olmalı mı? Yün ve özel kaplı halılarda doğal antibakteriyel koruma, hijyen faydaları. Asil Halı uzman görüşü."
   },
   {
     "slug": "cami-halisi-renk-secimi-nasil-yapilir",
@@ -1230,7 +1230,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/gobekli-cami-halisi.png",
     "metaTitle": "Cami Halısı Renk Seçimi Nasıl Yapılır? | Asil Halı",
-    "metaDescription": "Cami halısı için doğru renk seçimi: mimari uyum, gün ışığı ve cemaat yoğunluğu kriterleri."
+    "metaDescription": "Cami halısı renk seçimi nasıl yapılır? Mimari uyum, gün ışığı ve cemaat yoğunluğuna göre doğru renk kombinasyonu rehberi. Asil Halı önerileri."
   },
   {
     "slug": "cami-halisi-saflimi-gobeklimi",
@@ -1244,7 +1244,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/gobekli-cami-halisi.png",
     "metaTitle": "Saflı mı Göbekli mi Cami Halısı? | Asil Halı",
-    "metaDescription": "Saflı ve göbekli cami halısı arasındaki fark, hangi cami için hangisi uygundur?"
+    "metaDescription": "Saflı mı göbekli mi cami halısı tercih edilmeli? Cami büyüklüğü ve cemaate göre desen seçimi rehberi. Fark, avantaj ve dezavantaj karşılaştırması."
   },
   {
     "slug": "cami-halisi-olcusu-nasil-alinir",
@@ -1258,7 +1258,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-4.png",
     "metaTitle": "Cami Halısı Ölçüsü Nasıl Alınır? | Asil Halı",
-    "metaDescription": "Cami halısı m² hesaplama rehberi. Mihrap, sütun ve çıkıntılar dahil doğru ölçüm nasıl yapılır?"
+    "metaDescription": "Cami halısı ölçüsü nasıl alınır? Mihrap, sütun ve çıkıntılar dahil doğru m² hesaplama yöntemi. Hatalı ölçümden kaynaklanan fire ve maliyet rehberi."
   },
   {
     "slug": "kucuk-mahalle-camisi-icin-hali",
@@ -1272,7 +1272,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-3.png",
     "metaTitle": "Küçük Mahalle Camisi İçin Cami Halısı | Asil Halı",
-    "metaDescription": "Küçük camilere uygun ekonomik cami halısı seçenekleri. Akrilik mi polipropilen mi?"
+    "metaDescription": "Küçük mahalle camisi için hangi cami halısı uygundur? Bütçe dostu akrilik ve polipropilen seçenekleri. Küçük alanlara özel ölçü ve desen tavsiyeleri."
   },
   {
     "slug": "cami-halisi-garantisi-ne-kadar",
@@ -1286,7 +1286,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-5.png",
     "metaTitle": "Cami Halısı Garantisi Ne Kadar? | Asil Halı",
-    "metaDescription": "Asil Halı cami halısı garanti süresi ve kapsamı. 5 yıl üretim garantisi ve 15–20 yıl kullanım ömrü."
+    "metaDescription": "Cami halısı garanti süresi ne kadar? Asil Halı'da 5 yıl üretim garantisi, 15–20 yıl kullanım ömrü. Garanti kapsamı ve şartları hakkında rehber."
   },
   {
     "slug": "cami-halisi-nakliyesi-nasil-yapilir",
@@ -1300,7 +1300,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-4.png",
     "metaTitle": "Cami Halısı Nakliye ve Montaj Hizmeti | Asil Halı",
-    "metaDescription": "Cami halısı nakliyesi ve profesyonel montaj hizmeti. Türkiye genelinde 81 ile teslimat ve kurulum."
+    "metaDescription": "Cami halısı nakliyesi ve kurulumu nasıl yapılır? Türkiye genelinde 81 ilde profesyonel montaj. Taşıma, serme ve düzeltme süreci. Asil Halı hizmeti."
   },
   {
     "slug": "cami-halisi-yun-mu-akrilik-mi-daha-iyi",
@@ -1314,7 +1314,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/gobekli-cami-halisi.png",
     "metaTitle": "Yün mü Akrilik mi Cami Halısı? Hangisi Daha İyi | Asil Halı",
-    "metaDescription": "Yün ve akrilik cami halısı karşılaştırması: ömür, fiyat, temizlik ve bakım avantajları."
+    "metaDescription": "Yün mü akrilik mi cami halısı için daha iyidir? Ömür, fiyat, temizlik ve bakım karşılaştırması. Bütçe ve kullanım yoğunluğuna göre doğru seçim rehberi."
   },
 
 
@@ -1332,7 +1332,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-3.png",
     "metaTitle": "Yanlış Teknik Seçim Cami Halısını Neden Yıpratır? | Asil Halı",
-    "metaDescription": "Doğru iplik, yoğunluk ve alt yapı seçiminin cami halısı ömrüne etkisi."
+    "metaDescription": "Yanlış teknik seçim cami halısını nasıl yıpratır? İplik türü, düğüm yoğunluğu ve alt yapı hatalarının uzun vadeli etkileri. Doğru seçim için rehber."
   },
   {
     "slug": "eksik-zemin-analizi-cami-halisini-nasil-etkiler",
@@ -1347,7 +1347,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-4.png",
     "metaTitle": "Zemin Analizi Olmadan Cami Halısı Döşemek | Asil Halı",
-    "metaDescription": "Eksik zemin analizi cami halısına nasıl zarar verir? Uzman ekip çözümleri."
+    "metaDescription": "Eksik zemin analizi cami halısını nasıl etkiler? Nem, eğim ve zemin yapısının halı ömrüne etkisi. Profesyonel zemin tespitinin önemi. Asil Halı."
   },
   {
     "slug": "kalitesiz-montaj-sureci-hali-omrunu-kisaltiyor",
@@ -1362,7 +1362,7 @@ export const BLOG_POSTS: BlogPost[] = [
     "author": "Asil Halı Uzmanları",
     "image": "/images/cami-5.png",
     "metaTitle": "Kalitesiz Montaj Cami Halısını Neden Yıpratır? | Asil Halı",
-    "metaDescription": "Profesyonel olmayan montaj işlemlerinin cami halısı ömrüne olumsuz etkileri."
+    "metaDescription": "Kalitesiz montaj cami halısının ömrünü nasıl kısaltır? Hatalı serme, yapıştırma ve kesim işlemlerinin uzun vadeli zararları. Profesyonel montajın önemi."
   }
 ];
 

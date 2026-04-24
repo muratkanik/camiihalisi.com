@@ -44,6 +44,10 @@ export async function generateMetadata({
     ],
     alternates: {
       canonical: `${SITE_URL}/cami-halisi/${sehir}`,
+      languages: {
+        "tr": `${SITE_URL}/cami-halisi/${sehir}`,
+        "x-default": `${SITE_URL}/cami-halisi/${sehir}`,
+      },
     },
     openGraph: {
       title,

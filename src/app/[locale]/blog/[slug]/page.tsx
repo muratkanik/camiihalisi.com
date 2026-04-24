@@ -50,12 +50,21 @@ export async function generateMetadata({
     title: metaTitle,
     description: metaDescription,
     authors: [{ name: post.author }],
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: {
+        "tr": `${SITE_URL}/blog/${slug}`,
+        "en": `${SITE_URL}/en/blog/${slug}`,
+        "ar": `${SITE_URL}/ar/blog/${slug}`,
+        "fr": `${SITE_URL}/fr/blog/${slug}`,
+        "x-default": `${SITE_URL}/blog/${slug}`,
+      },
+    },
     openGraph: {
       type: "article",
       title: metaTitle,
       description: metaDescription,
-      images: [{ url: `${SITE_URL}${post.image}` }],
+      images: [{ url: `${SITE_URL}${post.image}`, width: 1200, height: 630 }],
       publishedTime: post.publishedAt,
     },
   };

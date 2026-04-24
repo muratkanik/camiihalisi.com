@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter, usePathname } from "@/i18n/routing";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
 const LOCALES = [
@@ -19,7 +19,8 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const pathname = usePathname();
+  const nativePath = usePathname();
+  const searchParams = useSearchParams();
 
   const current = LOCALES.find((l) => l.code === currentLocale) ?? LOCALES[0];
 
@@ -33,9 +34,29 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  function switchLocale(locale: string) {
+  function switchLocale(newLocale: string) {
     setOpen(false);
-    router.replace(pathname, { locale });
+    
+    // Güvenilir URL değiştirme stratejisi (dinamik sayfa parametresi hatalarını önler)
+    let newPath = nativePath || '/';
+    const nonDefaultLocales = ['en', 'ar', 'fr'];
+    
+    // Mevcut locale prefix'ini kaldır
+    for (const loc of nonDefaultLocales) {
+      if (newPath === `/${loc}` || newPath.startsWith(`/${loc}/`)) {
+        newPath = newPath.replace(`/${loc}`, '');
+        if (newPath === '') newPath = '/';
+        break;
+      }
+    }
+    
+    // Yeni locale prefix'ini ekle (TR varsayılan, prefix yok)
+    if (newLocale !== 'tr') {
+      newPath = newPath === '/' ? `/${newLocale}` : `/${newLocale}${newPath}`;
+    }
+    
+    const query = searchParams.toString() ? `?${searchParams.toString()}` : '';
+    router.replace(newPath + query);
   }
 
   return (
