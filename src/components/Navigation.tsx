@@ -137,35 +137,33 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
   return (
     <>
       {/* ── Üst Bilgi Bandı ── */}
-      <div className="main-site-cta relative z-[60] bg-[#003B40] text-[#E0F7FA] text-sm flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-2 md:py-1.5 gap-2 md:gap-0">
-        <span className="text-center md:text-left text-xs md:text-sm font-medium">
+      <div className="main-site-cta relative z-[60] bg-[#003B40] text-[#E0F7FA] text-sm flex items-center justify-between px-4 md:px-8 py-1.5 overflow-hidden">
+        <span className="whitespace-nowrap overflow-hidden text-ellipsis text-xs md:text-sm font-medium shrink min-w-0 mr-4">
           {tNav("mainSite")}{" "}
           <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-[#C9972B] transition-colors">
             {tNav("mainSiteLink")}
           </a>
         </span>
-        <div className="flex items-center gap-4 md:gap-6 w-full md:w-auto justify-between md:justify-end">
+        <div className="flex items-center gap-4 md:gap-6 flex-shrink-0">
           {/* Social & Contact Icons */}
           <div className="flex items-center gap-4">
-            <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center text-[#C9972B] hover:text-white transition-colors" title={tNav("whatsapp")}>
+            <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center text-[#1E3A8A] hover:text-[#C9972B] transition-colors" title={tNav("whatsapp")}>
               <MessageCircle className="w-4 h-4 md:w-[18px] md:h-[18px]" />
             </a>
-            <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="flex items-center text-[#C9972B] hover:text-white transition-colors" title={tNav("instagram")}>
+            <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="flex items-center text-[#1E3A8A] hover:text-[#C9972B] transition-colors" title={tNav("instagram")}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-[18px] md:h-[18px]"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
             </a>
-            <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="flex items-center text-[#C9972B] hover:text-white transition-colors" title={tNav("linkedin")}>
+            <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="flex items-center text-[#1E3A8A] hover:text-[#C9972B] transition-colors" title={tNav("linkedin")}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 md:w-[18px] md:h-[18px]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
             </a>
-            <a href={`tel:${PHONE_HREF}`} className="flex items-center text-[#C9972B] hover:text-white transition-colors" title="Telefon">
+            <a href={`tel:${PHONE_HREF}`} className="flex items-center text-[#1E3A8A] hover:text-[#C9972B] transition-colors" title="Telefon">
               <Phone className="w-4 h-4 md:w-[18px] md:h-[18px]" />
             </a>
           </div>
 
           {/* Actions */}
           <div className="flex items-center gap-3 border-l border-[#006880] pl-3 md:pl-4">
-            <div className="brightness-200 invert-[0.1] contrast-200">
-              <LocaleSwitcher currentLocale={locale} />
-            </div>
+            <LocaleSwitcher currentLocale={locale} />
             <button
               type="button"
               onClick={() => setTeklifOpen(true)}
@@ -224,23 +222,23 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
             </Link>
 
             {/* Desktop Menü */}
-            <nav className="hidden xl:flex items-center gap-0.5" aria-label="Ana menü">
-              <Link href={`${prefix}/hakkimizda`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+            <nav className="hidden xl:flex items-center gap-0.5 overflow-hidden" aria-label="Ana menü">
+              <Link href={`${prefix}/hakkimizda`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("about")}
               </Link>
 
               {/* Cami Halısı Mega Dropdown */}
               <div
-                className="relative"
+                className="relative flex-shrink-0"
                 onMouseEnter={openCarpet}
                 onMouseLeave={closeCarpet}
               >
                 <button
-                  className="flex items-center gap-1 px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
+                  className="whitespace-nowrap flex items-center gap-1 px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
                   aria-expanded={carpetOpen}
                 >
                   {tMenu("carpetTitle")}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${carpetOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${carpetOpen ? "rotate-180" : ""}`} />
                 </button>
                 {carpetOpen && (
                   <div
@@ -285,16 +283,16 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
 
               {/* Halı Altı Malzemeleri Dropdown */}
               <div
-                className="relative"
+                className="relative flex-shrink-0"
                 onMouseEnter={openUnderlay}
                 onMouseLeave={closeUnderlay}
               >
                 <button
-                  className="flex items-center gap-1 px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
+                  className="whitespace-nowrap flex items-center gap-1 px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
                   aria-expanded={underlayOpen}
                 >
                   {tMenu("underlayTitle")}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${underlayOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 ${underlayOpen ? "rotate-180" : ""}`} />
                 </button>
                 {underlayOpen && (
                   <div
@@ -332,19 +330,19 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 )}
               </div>
 
-              <Link href={`${prefix}/referanslar`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/referanslar`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("references")}
               </Link>
-              <Link href={`${prefix}/galeri`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/galeri`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("gallery")}
               </Link>
-              <Link href={`${prefix}/blog`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/blog`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("blog")}
               </Link>
-              <Link href={`${prefix}/teknik-ozellikler`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/teknik-ozellikler`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("technicalSpecs")}
               </Link>
-              <Link href={`${prefix}/iletisim`} className="px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/iletisim`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("contact")}
               </Link>
 

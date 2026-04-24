@@ -49,13 +49,17 @@ export async function loadLinkMap(): Promise<LinkMap> {
       const setting = await prisma.setting.findUnique({
         where: { key: "internal_links" },
       });
-      if (!setting) return {};
-      return JSON.parse(setting.value) as LinkMap;
+      // DB'de kayıt yoksa varsayılan haritayı kullan
+      if (!setting) return DEFAULT_LINK_MAP;
+      const parsed = JSON.parse(setting.value) as LinkMap;
+      // Boş haritaysa da varsayılana dön
+      if (Object.keys(parsed).length === 0) return DEFAULT_LINK_MAP;
+      return parsed;
     } finally {
       await prisma.$disconnect();
     }
   } catch {
-    return {};
+    return DEFAULT_LINK_MAP;
   }
 }
 

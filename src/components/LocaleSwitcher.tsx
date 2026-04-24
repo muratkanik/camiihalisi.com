@@ -42,7 +42,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-semibold text-[#0097A7] hover:bg-[#E0F7FA] transition-colors border border-[#B2EBF2]"
+        className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-semibold text-[#E0F7FA] hover:bg-white/10 transition-colors border border-[#006880]"
         aria-label="Dil seç"
         aria-expanded={open}
       >

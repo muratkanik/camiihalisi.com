@@ -52,3 +52,4 @@ master-content/
 # reports (local only)
 proje-raporu.md
 STRATEJI-VE-PLAN.md
+.env*.local
