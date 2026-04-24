@@ -23,6 +23,7 @@ export type CategoryWithOverride = {
   priority: "high" | "medium" | "low";
   image: string;
   description: string;
+  longDescription: string;
   badge: string;
   features: string[];
   color: string;
@@ -85,13 +86,26 @@ const CATEGORY_DETAILS: Record<string, Partial<CategoryOverride>> = {
   },
 };
 
+import fs from "fs";
+import path from "path";
+
+let trMessagesCache: any = null;
+
 export async function getCategories(): Promise<CategoryWithOverride[]> {
   const prisma = await getPrisma();
   let overrides: CategoryOverride[] = [];
+  let uiOverrides: any = {};
+
   try {
-    const setting = await prisma.setting.findUnique({ where: { key: "category_overrides" } });
+    const [setting, uiSetting] = await Promise.all([
+      prisma.setting.findUnique({ where: { key: "category_overrides" } }),
+      prisma.setting.findUnique({ where: { key: "ui_translation_overrides" } })
+    ]);
     if (setting) {
       overrides = JSON.parse(setting.value) as CategoryOverride[];
+    }
+    if (uiSetting) {
+      uiOverrides = JSON.parse(uiSetting.value);
     }
   } catch {
     // ignore
@@ -99,21 +113,41 @@ export async function getCategories(): Promise<CategoryWithOverride[]> {
     await prisma.$disconnect();
   }
 
+  if (!trMessagesCache) {
+    try {
+      const p = path.join(process.cwd(), "messages/tr.json");
+      trMessagesCache = JSON.parse(fs.readFileSync(p, "utf-8"));
+    } catch {
+      trMessagesCache = {};
+    }
+  }
+
   return CATEGORIES.map((cat) => {
     const defaults: Partial<CategoryOverride> = CATEGORY_DETAILS[cat.slug] ?? {};
     const override: Partial<CategoryOverride> = overrides.find((o) => o.slug === cat.slug) ?? {};
+
+    const nsKey = "categoryData." + cat.slug;
+    const catTrMessages = trMessagesCache[nsKey] || {};
+    const catUiOverrides = uiOverrides[nsKey]?.tr || {};
+
+    const resolveNs = (key: string) => catUiOverrides[key] ?? catTrMessages[key] ?? "";
+
+    const desc = resolveNs("description") || override.description || defaults.description || "";
+    const longDesc = resolveNs("longDescription") || "";
+
     return {
       ...cat,
-      description: override.description ?? defaults.description ?? "",
+      description: desc,
+      longDescription: longDesc,
       badge: override.badge ?? defaults.badge ?? "",
       image: override.image ?? defaults.image ?? "/images/cami-hero.png",
       features: override.features ?? defaults.features ?? [],
       color: override.color ?? defaults.color ?? "#0097A7",
       slug: override.slug ?? cat.slug,
-      title: override.title ?? cat.label,
-      metaDescription: override.metaDescription ?? defaults.metaDescription ?? "",
+      title: override.title ?? resolveNs("title") ?? cat.label,
+      metaDescription: override.metaDescription ?? resolveNs("metaDescription") ?? defaults.metaDescription ?? "",
       seoKeyword: override.seoKeyword ?? defaults.seoKeyword ?? cat.label,
-      hasOverride: Object.keys(override).length > 0,
+      hasOverride: Object.keys(override).length > 0 || Object.keys(catUiOverrides).length > 0,
     };
   });
 }
@@ -139,6 +173,7 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
   const slug = formData.get("slug") as string;
   const title = (formData.get("title") as string)?.trim();
   const description = (formData.get("description") as string)?.trim();
+  const longDescription = (formData.get("longDescription") as string)?.trim();
   const badge = (formData.get("badge") as string)?.trim();
   const image = (formData.get("image") as string)?.trim();
   const featuresRaw = (formData.get("features") as string)?.trim();
@@ -158,13 +193,10 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
     const idx = overrides.findIndex((o) => o.slug === slug);
     const updated: CategoryOverride = {
       slug,
-      ...(title ? { title } : {}),
-      ...(description ? { description } : {}),
       ...(badge ? { badge } : {}),
       ...(image ? { image } : {}),
       ...(features ? { features } : {}),
       ...(color ? { color } : {}),
-      ...(metaDescription ? { metaDescription } : {}),
       ...(seoKeyword ? { seoKeyword } : {}),
     };
 
@@ -180,13 +212,32 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
       create: { key: "category_overrides", value: JSON.stringify(overrides) },
     });
 
+    // ── Update ui_translation_overrides for texts ──
+    const uiSetting = await prisma.setting.findUnique({ where: { key: "ui_translation_overrides" } });
+    const uiOverrides = uiSetting ? JSON.parse(uiSetting.value) : {};
+    
+    const nsKey = "categoryData." + slug;
+    if (!uiOverrides[nsKey]) uiOverrides[nsKey] = {};
+    if (!uiOverrides[nsKey]["tr"]) uiOverrides[nsKey]["tr"] = {};
+    
+    if (title) uiOverrides[nsKey]["tr"]["title"] = title;
+    if (description) uiOverrides[nsKey]["tr"]["description"] = description;
+    if (longDescription) uiOverrides[nsKey]["tr"]["longDescription"] = longDescription;
+    if (metaDescription) uiOverrides[nsKey]["tr"]["metaDescription"] = metaDescription;
+
+    await prisma.setting.upsert({
+      where: { key: "ui_translation_overrides" },
+      update: { value: JSON.stringify(uiOverrides) },
+      create: { key: "ui_translation_overrides", value: JSON.stringify(uiOverrides) },
+    });
+
     // ── SEO Score ──────────────────────────────────────────────────────────
     const defaults = CATEGORY_DETAILS[slug] ?? {};
     const mergedOverride = overrides.find((o) => o.slug === slug) ?? {};
     const kw = seoKeyword || (mergedOverride as CategoryOverride).seoKeyword || defaults.seoKeyword || slug.replace(/-/g, " ");
-    const seoTitle = title || (mergedOverride as CategoryOverride).title || "";
-    const seoDesc = description || (mergedOverride as CategoryOverride).description || defaults.description || "";
-    const seoMeta = metaDescription || (mergedOverride as CategoryOverride).metaDescription || defaults.metaDescription || "";
+    const seoTitle = title || uiOverrides[nsKey]["tr"]["title"] || "";
+    const seoDesc = longDescription || description || uiOverrides[nsKey]["tr"]["description"] || defaults.description || "";
+    const seoMeta = metaDescription || uiOverrides[nsKey]["tr"]["metaDescription"] || defaults.metaDescription || "";
     const seoScore = scorePage({
       keyword: kw,
       title: seoTitle,

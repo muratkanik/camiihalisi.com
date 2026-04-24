@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { Save } from "lucide-react";
 import { saveCategoryAction } from "@/app/[locale]/admin/kategoriler/actions";
 import type { CategoryWithOverride } from "@/app/[locale]/admin/kategoriler/actions";
@@ -11,6 +12,36 @@ interface Props {
 
 export default function KategoriEditFormClient({ cat }: Props) {
   const cls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
+
+  const [desc, setDesc] = useState(cat.description || "");
+  const [longDesc, setLongDesc] = useState(cat.longDescription || "");
+  const [loadingAI, setLoadingAI] = useState<"desc" | "longDesc" | null>(null);
+
+  const handleExpand = async (field: "desc" | "longDesc") => {
+    setLoadingAI(field);
+    try {
+      const currentContent = field === "desc" ? desc : longDesc;
+      const res = await fetch("/api/ai/expand-content", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          keyword: cat.seoKeyword || cat.title,
+          currentContent,
+          targetWords: field === "desc" ? 100 : 400
+        }),
+      });
+      if (!res.ok) throw new Error("AI Hatası");
+      const data = await res.json();
+      if (data.addition) {
+        if (field === "desc") setDesc(prev => prev + " " + data.addition);
+        else setLongDesc(prev => prev + "\n\n" + data.addition);
+      }
+    } catch (err) {
+      alert("Yapay zeka üretimi sırasında hata oluştu.");
+    } finally {
+      setLoadingAI(null);
+    }
+  };
 
   return (
     <form action={saveCategoryAction} className="space-y-4">
@@ -27,8 +58,33 @@ export default function KategoriEditFormClient({ cat }: Props) {
       </div>
 
       <div>
-        <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5 uppercase tracking-wider">Açıklama (sayfa içeriği)</label>
-        <textarea name="description" defaultValue={cat.description} placeholder="Kategori açıklaması" rows={3} className={`${cls} resize-y`} />
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Kısa Açıklama (Hero Altı)</label>
+          <button
+            type="button"
+            onClick={() => handleExpand("desc")}
+            disabled={loadingAI !== null}
+            className="text-xs flex items-center gap-1 font-medium bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-2 py-1 rounded hover:opacity-90 disabled:opacity-50"
+          >
+            {loadingAI === "desc" ? "⏳ Üretiliyor..." : "✨ AI ile Genişlet"}
+          </button>
+        </div>
+        <textarea name="description" value={desc} onChange={e => setDesc(e.target.value)} placeholder="Kategori kısa açıklaması" rows={3} className={`${cls} resize-y`} />
+      </div>
+
+      <div>
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Uzun Açıklama (Sayfa Altı İçerik)</label>
+          <button
+            type="button"
+            onClick={() => handleExpand("longDesc")}
+            disabled={loadingAI !== null}
+            className="text-xs flex items-center gap-1 font-medium bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-2 py-1 rounded hover:opacity-90 disabled:opacity-50"
+          >
+            {loadingAI === "longDesc" ? "⏳ Üretiliyor..." : "✨ AI ile Genişlet"}
+          </button>
+        </div>
+        <textarea name="longDescription" value={longDesc} onChange={e => setLongDesc(e.target.value)} placeholder="SEO odaklı kapsamlı açıklama..." rows={6} className={`${cls} resize-y`} />
       </div>
 
       <div>
