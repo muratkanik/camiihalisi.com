@@ -137,7 +137,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
   return (
     <>
       {/* ── Üst Bilgi Bandı ── */}
-      <div className="main-site-cta relative z-[60] bg-[#003B40] text-[#E0F7FA] text-sm flex items-center justify-between px-4 md:px-8 py-1.5 overflow-hidden">
+      <div className="main-site-cta relative z-[60] bg-[#003B40] text-[#E0F7FA] text-sm flex items-center justify-between px-4 md:px-8 py-1.5">
         <span className="whitespace-nowrap overflow-hidden text-ellipsis text-xs md:text-sm font-medium shrink min-w-0 mr-4">
           {tNav("mainSite")}{" "}
           <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="font-bold text-white hover:text-[#C9972B] transition-colors">
