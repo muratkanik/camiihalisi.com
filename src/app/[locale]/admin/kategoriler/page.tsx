@@ -75,11 +75,11 @@ function CategoryRow({ cat, seoScore, isSubcategory = false }: {
                 Düzenlendi
               </span>
             )}
-            {cat.badge && (
-              <span className="text-xs bg-[#C9972B]/10 text-[#C9972B] px-2 py-0.5 rounded-full font-medium border border-[#C9972B]/20">
-                {cat.badge}
+            {cat.badges && cat.badges.length > 0 && cat.badges.map(b => (
+              <span key={b} className="text-xs bg-[#C9972B]/10 text-[#C9972B] px-2 py-0.5 rounded-full font-medium border border-[#C9972B]/20">
+                {b}
               </span>
-            )}
+            ))}
           </div>
           <div className="flex items-center gap-3 mt-0.5 flex-wrap">
             <p className="text-xs text-slate-400">/kategori/{cat.slug}</p>
