@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
 import { Menu, X, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -163,7 +163,9 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
 
           {/* Actions */}
           <div className="flex items-center gap-3 border-l border-[#006880] pl-3 md:pl-4">
-            <LocaleSwitcher currentLocale={locale} />
+            <Suspense fallback={<div className="w-[80px] h-8 bg-white/10 animate-pulse rounded-lg" />}>
+              <LocaleSwitcher currentLocale={locale} />
+            </Suspense>
             <button
               type="button"
               onClick={() => setTeklifOpen(true)}
