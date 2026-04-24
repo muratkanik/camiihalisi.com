@@ -106,7 +106,7 @@ function AutoTextarea({
       placeholder={placeholder}
       rows={2}
       className={`w-full text-sm leading-relaxed px-3 py-2 rounded-lg border transition-all duration-150
-        focus:outline-none focus:ring-2 focus:ring-[#006064]/40 resize-none overflow-hidden
+        focus:outline-none focus:ring-2 focus:ring-[#0097A7]/40 resize-none overflow-hidden
         ${changed
           ? "border-amber-300 bg-amber-50/60 dark:bg-amber-950/20 dark:border-amber-600/60"
           : "border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800"
@@ -325,7 +325,7 @@ export default function TranslationEditorClient({
 
       {/* ── Toast ── */}
       {toast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#006064] text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow-xl animate-in slide-in-from-top-2 duration-300">
+        <div className="fixed top-6 right-6 z-50 bg-[#0097A7] text-white text-sm font-medium px-4 py-2.5 rounded-xl shadow-xl animate-in slide-in-from-top-2 duration-300">
           {toast}
         </div>
       )}
@@ -372,7 +372,7 @@ export default function TranslationEditorClient({
                   onClick={() => { setSelectedNs(ns); setSearch(""); setFilter("all"); setSavedAt(null); }}
                   className={`w-full text-left px-3 py-2.5 rounded-lg transition-all flex items-center justify-between ${
                     active
-                      ? "bg-[#006064] text-white shadow-sm"
+                      ? "bg-[#0097A7] text-white shadow-sm"
                       : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                   }`}
                 >
@@ -425,7 +425,7 @@ export default function TranslationEditorClient({
                 placeholder="Anahtar veya metin ara..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#006064]/40 w-52"
+                className="pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-[#0097A7]/40 w-52"
               />
             </div>
 
@@ -441,7 +441,7 @@ export default function TranslationEditorClient({
                   onClick={() => setFilter(f.id)}
                   className={`px-3 py-1.5 font-medium transition-colors ${
                     filter === f.id
-                      ? "bg-[#006064] text-white"
+                      ? "bg-[#0097A7] text-white"
                       : "bg-white dark:bg-slate-800 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-700"
                   }`}
                 >
@@ -461,7 +461,7 @@ export default function TranslationEditorClient({
             <button
               onClick={() => handleSave()}
               disabled={saving || currentStats.modified === 0}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#006064] text-white hover:bg-[#00474b] disabled:opacity-50 transition-colors shrink-0"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#0097A7] text-white hover:bg-[#00474b] disabled:opacity-50 transition-colors shrink-0"
             >
               {saving ? <><Spinner /> Kaydediliyor...</> : "💾 Kaydet"}
             </button>
@@ -539,7 +539,7 @@ export default function TranslationEditorClient({
                                   <button
                                     onClick={() => handleCopyFromTr(l.key, key)}
                                     title="TR değerini kopyala"
-                                    className="text-[10px] text-slate-400 hover:text-[#006064] dark:hover:text-[#4DB6AC] transition-colors"
+                                    className="text-[10px] text-slate-400 hover:text-[#0097A7] dark:hover:text-[#4DB6AC] transition-colors"
                                   >
                                     ← TR
                                   </button>

@@ -278,7 +278,7 @@ export default async function SSSPage({
 
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#006064] py-16 px-4">
+        <section className="bg-[#0097A7] py-16 px-4">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6">
               <a href={`${prefix}/`} className="hover:text-white transition-colors">Ana Sayfa</a>
@@ -326,7 +326,7 @@ export default async function SSSPage({
                   className="scroll-mt-8"
                 >
                   <h2
-                    className="text-2xl font-bold text-[#006064] mb-2 flex items-center gap-3"
+                    className="text-2xl font-bold text-[#0097A7] mb-2 flex items-center gap-3"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     <span className="text-2xl">{kat.icon}</span>
@@ -341,8 +341,8 @@ export default async function SSSPage({
                           <h3 className="font-semibold text-[#1A1A1A] text-base leading-snug pr-4">
                             {item.soru}
                           </h3>
-                          <div className="w-6 h-6 rounded-full bg-[#006064]/10 flex items-center justify-center flex-shrink-0 mt-0.5 transition-transform group-open:rotate-180">
-                            <svg className="w-3 h-3 text-[#006064]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="w-6 h-6 rounded-full bg-[#0097A7]/10 flex items-center justify-center flex-shrink-0 mt-0.5 transition-transform group-open:rotate-180">
+                            <svg className="w-3 h-3 text-[#0097A7]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                             </svg>
                           </div>
@@ -352,7 +352,7 @@ export default async function SSSPage({
                           {item.link && (
                             <Link
                               href={`${prefix}${item.link.href}`}
-                              className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-[#006064] hover:text-[#C9972B] transition-colors"
+                              className="inline-flex items-center gap-1.5 mt-3 text-sm font-semibold text-[#0097A7] hover:text-[#C9972B] transition-colors"
                             >
                               {item.link.label}
                               <ChevronRight className="w-3.5 h-3.5" />
@@ -367,7 +367,7 @@ export default async function SSSPage({
             </div>
 
             {/* Cevap Bulamadın mı? */}
-            <div className="mt-16 max-w-4xl mx-auto bg-[#006064] rounded-3xl p-8 text-center text-white">
+            <div className="mt-16 max-w-4xl mx-auto bg-[#0097A7] rounded-3xl p-8 text-center text-white">
               <Search className="w-10 h-10 text-[#C9972B] mx-auto mb-4" />
               <h2
                 className="text-2xl font-bold mb-3"

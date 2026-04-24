@@ -22,7 +22,7 @@ interface Props {
 const DESEN_LABELS = ["Tümü", "Standart", "Saflı", "Göbekli", "Seccadeli", "Özel"] as const;
 
 const RENK_OPTIONS = [
-  { label: "Turkuaz", hex: "#006064", dark: true },
+  { label: "Turkuaz", hex: "#0097A7", dark: true },
   { label: "Lacivert", hex: "#1B2E5E", dark: true },
   { label: "Bordo", hex: "#8B1A1A", dark: true },
   { label: "Mavi", hex: "#1A4E8B", dark: true },
@@ -58,8 +58,8 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
               onClick={() => setActiveDesen(d)}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all border ${
                 activeDesen === d
-                  ? "bg-[#006064] text-white border-[#006064] shadow-sm"
-                  : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]/40 hover:text-[#006064]"
+                  ? "bg-[#0097A7] text-white border-[#0097A7] shadow-sm"
+                  : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#0097A7]/40 hover:text-[#0097A7]"
               }`}
             >
               {d}
@@ -120,7 +120,7 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
 
       {/* Sonuç Sayısı */}
       <p className="text-sm text-[#6B6355]">
-        <span className="font-bold text-[#006064]">{filtered.length}</span> ürün çeşidi gösteriliyor
+        <span className="font-bold text-[#0097A7]">{filtered.length}</span> ürün çeşidi gösteriliyor
         {activeDesen !== "Tümü" && <span> · Desen: <strong>{activeDesen}</strong></span>}
       </p>
 
@@ -171,8 +171,8 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
 
               {/* Info */}
               <div className="p-3">
-                <p className="text-xs font-bold text-[#006064] uppercase tracking-wide">{item.desen}</p>
-                <h3 className="text-sm font-semibold text-[#1A1A1A] mt-0.5 leading-snug group-hover:text-[#006064] transition-colors line-clamp-2">
+                <p className="text-xs font-bold text-[#0097A7] uppercase tracking-wide">{item.desen}</p>
+                <h3 className="text-sm font-semibold text-[#1A1A1A] mt-0.5 leading-snug group-hover:text-[#0097A7] transition-colors line-clamp-2">
                   {item.title}
                 </h3>
                 <div className="flex items-center gap-1 mt-2 text-xs text-[#C9972B] font-semibold">

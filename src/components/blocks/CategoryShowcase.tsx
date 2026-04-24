@@ -50,7 +50,7 @@ export default async function CategoryShowcase({ locale = "tr" }: Props) {
             <Link
               key={p.slug}
               href={`${prefix}/kategori/${p.slug}`}
-              className="group flex flex-col rounded-2xl overflow-hidden bg-white border border-[#B2EBF2] hover:border-[#006064] hover:shadow-lg transition-all"
+              className="group flex flex-col rounded-2xl overflow-hidden bg-white border border-[#B2EBF2] hover:border-[#0097A7] hover:shadow-lg transition-all"
             >
               <div className="relative aspect-square overflow-hidden bg-[#F0FDFE]">
                 <Image
@@ -72,7 +72,7 @@ export default async function CategoryShowcase({ locale = "tr" }: Props) {
         <div className="flex justify-center">
           <Link
             href={`${prefix}/kategori/akrilik-cami-halisi`}
-            className="inline-flex items-center gap-2 bg-[#006064] hover:bg-[#00494D] text-white font-bold px-8 py-3.5 rounded-full transition-all text-base shadow-md hover:shadow-lg"
+            className="inline-flex items-center gap-2 bg-[#0097A7] hover:bg-[#00494D] text-white font-bold px-8 py-3.5 rounded-full transition-all text-base shadow-md hover:shadow-lg"
           >
             {t("viewAll")}
             <ArrowRight className="w-4 h-4" />

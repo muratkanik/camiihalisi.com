@@ -61,7 +61,7 @@ export default async function BlogPreview({ locale }: BlogPreviewProps) {
           </div>
           <Link
             href={`${prefix}/blog`}
-            className="flex items-center gap-1.5 text-[#006064] font-semibold text-sm hover:text-[#C9972B] transition-colors flex-shrink-0"
+            className="flex items-center gap-1.5 text-[#0097A7] font-semibold text-sm hover:text-[#C9972B] transition-colors flex-shrink-0"
           >
             {t("allArticles")}
             <ArrowRight className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default async function BlogPreview({ locale }: BlogPreviewProps) {
 
               <div className="p-5 flex flex-col flex-1">
                 <h3
-                  className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#006064] transition-colors"
+                  className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#0097A7] transition-colors"
                   style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem" }}
                 >
                   {post.title}
@@ -105,7 +105,7 @@ export default async function BlogPreview({ locale }: BlogPreviewProps) {
                     <Clock className="w-3.5 h-3.5" aria-hidden="true" />
                     {post.readTime} {t("minRead")}
                   </div>
-                  <span className="text-xs text-[#006064] font-semibold group-hover:text-[#C9972B] transition-colors">
+                  <span className="text-xs text-[#0097A7] font-semibold group-hover:text-[#C9972B] transition-colors">
                     {t("read")}
                   </span>
                 </div>

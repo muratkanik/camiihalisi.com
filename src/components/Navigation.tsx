@@ -2,8 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Menu, X, ExternalLink, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
+import { useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher";
+import TeklifFormModal from "./TeklifFormModal";
 
 const MAIN_SITE_URL = "/api/r?to=https%3A%2F%2Fasilhali.com.tr%2F%23!cami-halisi%3Futm_source%3Dcamiihalisi%26utm_medium%3Dtopnav%26utm_campaign%3Dsite&from=nav&label=main-site&cat=outbound";
 const DEFAULT_WA_URL = "/api/r?to=https%3A%2F%2Fwa.me%2F905062259235%3Ftext%3DMerhaba%252C%2520cami%2520hal%25C4%25B1s%25C4%25B1%2520hakk%25C4%25B1nda%2520bilgi%2520almak%2520istiyorum.&from=nav&label=whatsapp&cat=whatsapp";
@@ -22,75 +24,78 @@ interface NavProps {
   t?: NavTranslations;
 }
 
-const CARPET_MENU = [
-  {
-    parent: "Akrilik Cami Halısı",
-    parentSlug: "akrilik-cami-halisi",
-    children: [
-      { label: "Saflı Akrilik Cami Halıları", slug: "safli-akrilik-cami-halisi" },
-      { label: "Göbekli Akrilik Cami Halıları", slug: "gobekli-akrilik-cami-halisi" },
-      { label: "Seccadeli Akrilik Cami Halıları", slug: "seccadeli-akrilik-cami-halisi" },
-    ],
-  },
-  {
-    parent: "Yün Cami Halısı",
-    parentSlug: "yun-cami-halisi",
-    children: [
-      { label: "Saflı Yün Cami Halıları", slug: "safli-yun-cami-halisi" },
-      { label: "Göbekli Yün Cami Halıları", slug: "gobekli-yun-cami-halisi" },
-      { label: "Seccadeli Yün Cami Halıları", slug: "seccadeli-yun-cami-halisi" },
-    ],
-  },
-  {
-    parent: "Polipropilen Cami Halısı",
-    parentSlug: "polipropilen-cami-halisi",
-    children: [
-      { label: "Saflı Polipropilen Cami Halıları", slug: "safli-polipropilen-cami-halisi" },
-      { label: "Göbekli Polipropilen Cami Halıları", slug: "gobekli-polipropilen-cami-halisi" },
-      { label: "Seccadeli Polipropilen Cami Halıları", slug: "seccadeli-polipropilen-cami-halisi" },
-    ],
-  },
-  {
-    parent: "Polyamid Cami Halısı",
-    parentSlug: "polyamid-cami-halisi",
-    children: [
-      { label: "Saflı Polyamid Cami Halıları", slug: "safli-polyamid-cami-halisi" },
-      { label: "Göbekli Polyamid Cami Halıları", slug: "gobekli-polyamid-cami-halisi" },
-      { label: "Seccadeli Polyamid Cami Halıları", slug: "seccadeli-polyamid-cami-halisi" },
-    ],
-  },
-  {
-    parent: "Özel Desen & Axminster",
-    parentSlug: "ozel-desen-axminster-cami-halisi",
-    children: [],
-  },
-];
-
-const UNDERLAY_MENU = [
-  {
-    parent: "Kauçuk Cami Halısı Altlıkları",
-    parentSlug: "kaucuk-cami-halisi-altligi",
-    children: [
-      { label: "TredMOR™ Berber Supreme", slug: "tredmor-berber-supreme" },
-    ],
-  },
-  {
-    parent: "Keçe Cami Halısı Altlıkları",
-    parentSlug: "kece-cami-halisi-altligi",
-    children: [
-      { label: "600 Cami Halısı Keçesi", slug: "600-cami-halisi-kecesi" },
-      { label: "1000 Cami Halısı Keçesi", slug: "1000-cami-halisi-kecesi" },
-      { label: "1200 Cami Halısı Keçesi", slug: "1200-cami-halisi-kecesi" },
-    ],
-  },
-];
-
 export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
+  const tMenu = useTranslations("menu");
+  const tNav = useTranslations("nav");
+
+  const CARPET_MENU = [
+    {
+      parent: tMenu("acrylic"),
+      parentSlug: "akrilik-cami-halisi",
+      children: [
+        { label: tMenu("acrylic_solid"), slug: "safli-akrilik-cami-halisi" },
+        { label: tMenu("acrylic_medallion"), slug: "gobekli-akrilik-cami-halisi" },
+        { label: tMenu("acrylic_prayer"), slug: "seccadeli-akrilik-cami-halisi" },
+      ],
+    },
+    {
+      parent: tMenu("wool"),
+      parentSlug: "yun-cami-halisi",
+      children: [
+        { label: tMenu("wool_solid"), slug: "safli-yun-cami-halisi" },
+        { label: tMenu("wool_medallion"), slug: "gobekli-yun-cami-halisi" },
+        { label: tMenu("wool_prayer"), slug: "seccadeli-yun-cami-halisi" },
+      ],
+    },
+    {
+      parent: tMenu("polypropylene"),
+      parentSlug: "polipropilen-cami-halisi",
+      children: [
+        { label: tMenu("polypropylene_solid"), slug: "safli-polipropilen-cami-halisi" },
+        { label: tMenu("polypropylene_medallion"), slug: "gobekli-polipropilen-cami-halisi" },
+        { label: tMenu("polypropylene_prayer"), slug: "seccadeli-polipropilen-cami-halisi" },
+      ],
+    },
+    {
+      parent: tMenu("polyamide"),
+      parentSlug: "polyamid-cami-halisi",
+      children: [
+        { label: tMenu("polyamide_solid"), slug: "safli-polyamid-cami-halisi" },
+        { label: tMenu("polyamide_medallion"), slug: "gobekli-polyamid-cami-halisi" },
+        { label: tMenu("polyamide_prayer"), slug: "seccadeli-polyamid-cami-halisi" },
+      ],
+    },
+    {
+      parent: tMenu("axminster"),
+      parentSlug: "ozel-desen-axminster-cami-halisi",
+      children: [],
+    },
+  ];
+
+  const UNDERLAY_MENU = [
+    {
+      parent: tMenu("underlay_rubber"),
+      parentSlug: "kaucuk-cami-halisi-altligi",
+      children: [
+        { label: tMenu("underlay_rubber_tredmor"), slug: "tredmor-berber-supreme" },
+      ],
+    },
+    {
+      parent: tMenu("underlay_felt"),
+      parentSlug: "kece-cami-halisi-altligi",
+      children: [
+        { label: tMenu("underlay_felt_600"), slug: "600-cami-halisi-kecesi" },
+        { label: tMenu("underlay_felt_1000"), slug: "1000-cami-halisi-kecesi" },
+        { label: tMenu("underlay_felt_1200"), slug: "1200-cami-halisi-kecesi" },
+      ],
+    },
+  ];
   const WA_URL = waUrl ?? DEFAULT_WA_URL;
   const PHONE = phone ?? "+90 532 346 79 39";
   const PHONE_HREF = PHONE.replace(/\s/g, "");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [teklifOpen, setTeklifOpen] = useState(false);
   const [carpetOpen, setCarpetOpen] = useState(false);
   const [underlayOpen, setUnderlayOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
@@ -107,11 +112,11 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
   const TOP_NAV = [
-    { href: `${prefix}/hakkimizda`, label: t?.about ?? "Hakkımızda" },
-    { href: `${prefix}/referanslar`, label: t?.references ?? "Referanslar" },
-    { href: `${prefix}/blog`, label: t?.blog ?? "Blog" },
-    { href: `${prefix}/teknik-ozellikler`, label: t?.technicalSpecs ?? "Teknik Özellikler" },
-    { href: `${prefix}/iletisim`, label: t?.contact ?? "İletişim" },
+    { href: `${prefix}/hakkimizda`, label: tNav("about") },
+    { href: `${prefix}/referanslar`, label: tNav("references") },
+    { href: `${prefix}/blog`, label: tNav("blog") },
+    { href: `${prefix}/teknik-ozellikler`, label: tNav("technicalSpecs") },
+    { href: `${prefix}/iletisim`, label: tNav("contact") },
   ];
 
   const openCarpet = () => {
@@ -134,20 +139,20 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
       {/* ── Üst Bilgi Bandı ── */}
       <div className="main-site-cta text-sm flex items-center justify-between px-4 md:px-8">
         <span>
-          {t?.mainSite ?? "Asil Halı A.Ş. resmi sitesi:"}{" "}
+          {tNav("mainSite")}{" "}
           <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer">
-            {t?.mainSiteLink ?? "asilhali.com.tr →"}
+            {tNav("mainSiteLink")}
           </a>
         </span>
         <div className="hidden md:flex items-center gap-4">
           <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:underline">
-            <MessageCircle className="w-3.5 h-3.5" /> {t?.whatsapp ?? "WhatsApp"}
+            <MessageCircle className="w-3.5 h-3.5" /> {tNav("whatsapp")}
           </a>
           <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="hover:underline">
-            {t?.instagram ?? "Instagram"}
+            {tNav("instagram")}
           </a>
           <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="hover:underline">
-            {t?.linkedin ?? "LinkedIn"}
+            {tNav("linkedin")}
           </a>
           <a href={`tel:${PHONE_HREF}`} className="flex items-center gap-1 hover:underline">
             <Phone className="w-3.5 h-3.5" /> {PHONE}
@@ -165,35 +170,46 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
       >
         <div className="container-site">
           <div className="flex items-center justify-between h-16 md:h-18">
-            {/* Logo */}
-            <Link href={`${prefix}/`} className="flex items-center gap-2.5 flex-shrink-0 group">
-              {/* Icon: sekizgen İslami motif */}
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="transition-transform duration-300 group-hover:scale-105">
-                {/* Dış sekizgen */}
-                <path d="M20 2L25.5 8H33.5V16L40 20L33.5 24V32H25.5L20 38L14.5 32H6.5V24L0 20L6.5 16V8H14.5Z" fill="#006064"/>
-                {/* İç sekizgen - altın */}
-                <path d="M20 9L23.8 13H29.2V18.2L33 20L29.2 21.8V27H23.8L20 31L16.2 27H10.8V21.8L7 20L10.8 18.2V13H16.2Z" fill="#C9972B"/>
-                {/* Merkez boşluk */}
-                <circle cx="20" cy="20" r="5.5" fill="#006064"/>
-                {/* Merkez nokta */}
-                <circle cx="20" cy="20" r="2.5" fill="#F0FDFE"/>
+            {/* Logo — Yeni Tasarım */}
+            <Link href={`${prefix}/`} className="flex-shrink-0 group flex flex-col items-center leading-none transition-opacity duration-200 hover:opacity-85">
+              {/* Üst süsleme — İslami motif */}
+              <svg width="148" height="14" viewBox="0 0 148 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                {/* Sol yatay çizgi */}
+                <line x1="2" y1="10" x2="52" y2="10" stroke="#C9972B" strokeWidth="0.75" strokeLinecap="round"/>
+                {/* Sol küçük lale */}
+                <path d="M57 13 C57 10 55.5 8.5 55.5 7 C55.5 5.5 57 4.5 57 4.5 C57 4.5 58.5 5.5 58.5 7 C58.5 8.5 57 10 57 13Z" fill="#C9972B"/>
+                <circle cx="57" cy="3.5" r="1.2" fill="#C9972B"/>
+                {/* Merkez büyük lale */}
+                <path d="M74 13 C74 9 71.5 7 71.5 5 C71.5 3 74 1.5 74 1.5 C74 1.5 76.5 3 76.5 5 C76.5 7 74 9 74 13Z" fill="#C9972B"/>
+                <circle cx="74" cy="0.8" r="1.5" fill="#C9972B"/>
+                {/* Sağ küçük lale */}
+                <path d="M91 13 C91 10 89.5 8.5 89.5 7 C89.5 5.5 91 4.5 91 4.5 C91 4.5 92.5 5.5 92.5 7 C92.5 8.5 91 10 91 13Z" fill="#C9972B"/>
+                <circle cx="91" cy="3.5" r="1.2" fill="#C9972B"/>
+                {/* Sağ yatay çizgi */}
+                <line x1="96" y1="10" x2="146" y2="10" stroke="#C9972B" strokeWidth="0.75" strokeLinecap="round"/>
               </svg>
 
-              {/* Metin */}
-              <div className="flex flex-col leading-none gap-0.5">
-                <span className="text-[#006064] font-bold text-xl tracking-tight leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                  CAMİİ HALISI
-                </span>
-                <span className="text-[11px] font-semibold tracking-wider" style={{ color: "#C9972B" }}>
-                  by <span className="font-bold">Asil Halı</span>
-                </span>
-              </div>
+              {/* Ana başlık */}
+              <span
+                className="text-[#0097A7] font-bold tracking-[0.12em] leading-none mt-0.5"
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.35rem", letterSpacing: "0.12em" }}
+              >
+                CAMİİ HALISI
+              </span>
+
+              {/* Alt tagline */}
+              <span
+                className="text-[9.5px] font-medium tracking-widest mt-0.5 select-none"
+                style={{ color: "#C9972B", fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.13em" }}
+              >
+                {tNav("logoTagline")}
+              </span>
             </Link>
 
             {/* Desktop Menü */}
             <nav className="hidden md:flex items-center gap-0.5" aria-label="Ana menü">
-              <Link href={`${prefix}/hakkimizda`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                Hakkımızda
+              <Link href={`${prefix}/hakkimizda`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+                {tNav("about")}
               </Link>
 
               {/* Cami Halısı Mega Dropdown */}
@@ -203,10 +219,10 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 onMouseLeave={closeCarpet}
               >
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors"
+                  className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
                   aria-expanded={carpetOpen}
                 >
-                  Cami Halısı
+                  {tMenu("carpetTitle")}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${carpetOpen ? "rotate-180" : ""}`} />
                 </button>
                 {carpetOpen && (
@@ -221,7 +237,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                           <div key={group.parentSlug} className="p-2">
                             <Link
                               href={`${prefix}/kategori/${group.parentSlug}`}
-                              className="block text-sm font-bold text-[#006064] hover:text-[#C9972B] transition-colors mb-1.5"
+                              className="block text-sm font-bold text-[#0097A7] hover:text-[#C9972B] transition-colors mb-1.5"
                               onClick={() => setCarpetOpen(false)}
                             >
                               {group.parent}
@@ -230,7 +246,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                               <Link
                                 key={child.slug}
                                 href={`${prefix}/kategori/${child.slug}`}
-                                className="flex items-center gap-1 py-1 text-xs text-[#6B6355] hover:text-[#006064] transition-colors"
+                                className="flex items-center gap-1 py-1 text-xs text-[#6B6355] hover:text-[#0097A7] transition-colors"
                                 onClick={() => setCarpetOpen(false)}
                               >
                                 <ChevronRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
@@ -242,7 +258,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                       </div>
                       <div className="border-t border-[#E0F7FA] px-6 py-3 bg-[#F0FDFE]">
                         <Link href={`${prefix}/kategori/akrilik-cami-halisi`} className="text-xs text-[#C9972B] font-semibold hover:underline" onClick={() => setCarpetOpen(false)}>
-                          → Tüm Cami Halısı Ürünleri
+                          → {tMenu("viewAll")}
                         </Link>
                       </div>
                     </div>
@@ -257,10 +273,10 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 onMouseLeave={closeUnderlay}
               >
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors"
+                  className="flex items-center gap-1 px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors"
                   aria-expanded={underlayOpen}
                 >
-                  Halı Altlığı
+                  {tMenu("underlayTitle")}
                   <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${underlayOpen ? "rotate-180" : ""}`} />
                 </button>
                 {underlayOpen && (
@@ -275,7 +291,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                           <div key={group.parentSlug} className="mb-3">
                             <Link
                               href={`${prefix}/kategori/${group.parentSlug}`}
-                              className="block text-sm font-bold text-[#006064] hover:text-[#C9972B] transition-colors mb-1.5"
+                              className="block text-sm font-bold text-[#0097A7] hover:text-[#C9972B] transition-colors mb-1.5"
                               onClick={() => setUnderlayOpen(false)}
                             >
                               {group.parent}
@@ -284,7 +300,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                               <Link
                                 key={child.slug}
                                 href={`${prefix}/kategori/${child.slug}`}
-                                className="flex items-center gap-1 py-1 text-xs text-[#6B6355] hover:text-[#006064] transition-colors"
+                                className="flex items-center gap-1 py-1 text-xs text-[#6B6355] hover:text-[#0097A7] transition-colors"
                                 onClick={() => setUnderlayOpen(false)}
                               >
                                 <ChevronRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
@@ -299,20 +315,20 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 )}
               </div>
 
-              <Link href={`${prefix}/referanslar`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                {t?.references ?? "Referanslar"}
+              <Link href={`${prefix}/referanslar`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+                {tNav("references")}
               </Link>
-              <Link href={`${prefix}/galeri`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                {t?.gallery ?? "Galeri"}
+              <Link href={`${prefix}/galeri`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+                {tNav("gallery")}
               </Link>
-              <Link href={`${prefix}/blog`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                {t?.blog ?? "Blog"}
+              <Link href={`${prefix}/blog`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+                {tNav("blog")}
               </Link>
-              <Link href={`${prefix}/teknik-ozellikler`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                {t?.technicalSpecs ?? "Teknik"}
+              <Link href={`${prefix}/teknik-ozellikler`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+                {tNav("technicalSpecs")}
               </Link>
-              <Link href={`${prefix}/iletisim`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#006064] transition-colors">
-                {t?.contact ?? "İletişim"}
+              <Link href={`${prefix}/iletisim`} className="px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+                {tNav("contact")}
               </Link>
 
               {/* Dil Seçici */}
@@ -330,15 +346,13 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 WhatsApp
               </a>
 
-              <a
-                href={MAIN_SITE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-primary text-sm ml-1 !py-2 !px-3"
+              <button
+                type="button"
+                onClick={() => setTeklifOpen(true)}
+                className="btn btn-primary text-sm ml-1 !py-2 !px-3 whitespace-nowrap flex-shrink-0"
               >
-                {t?.getQuote ?? "Teklif Al"}
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+                {tNav("getQuote")}
+              </button>
             </nav>
 
             {/* Mobil: Dil + WhatsApp + Hamburger */}
@@ -359,7 +373,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 className="p-2 rounded-lg hover:bg-[#E0F7FA] transition-colors"
                 aria-label="Menüyü aç"
               >
-                {mobileOpen ? <X className="w-5 h-5 text-[#006064]" /> : <Menu className="w-5 h-5 text-[#006064]" />}
+                {mobileOpen ? <X className="w-5 h-5 text-[#0097A7]" /> : <Menu className="w-5 h-5 text-[#0097A7]" />}
               </button>
             </div>
           </div>
@@ -373,10 +387,10 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
               {/* Cami Halısı Accordion — İLK SIRADA */}
               <div>
                 <button
-                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
+                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                   onClick={() => setMobileExpanded(mobileExpanded === "carpet" ? null : "carpet")}
                 >
-                  Cami Halısı
+                  {tMenu("carpetTitle")}
                   <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded === "carpet" ? "rotate-180" : ""}`} />
                 </button>
                 {mobileExpanded === "carpet" && (
@@ -385,7 +399,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                       <div key={group.parentSlug} className="mb-2">
                         <Link
                           href={`${prefix}/kategori/${group.parentSlug}`}
-                          className="block px-4 py-2 text-sm font-semibold text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
+                          className="block px-4 py-2 text-sm font-semibold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                           onClick={() => setMobileOpen(false)}
                         >
                           {group.parent}
@@ -394,7 +408,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                           <Link
                             key={child.slug}
                             href={`${prefix}/kategori/${child.slug}`}
-                            className="flex items-center gap-1 pl-8 pr-4 py-1.5 text-xs text-[#6B6355] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
+                            className="flex items-center gap-1 pl-8 pr-4 py-1.5 text-xs text-[#6B6355] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                             onClick={() => setMobileOpen(false)}
                           >
                             <ChevronRight className="w-3 h-3 text-[#C9972B]" />
@@ -410,10 +424,10 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
               {/* Halı Altı Accordion */}
               <div>
                 <button
-                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
+                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                   onClick={() => setMobileExpanded(mobileExpanded === "underlay" ? null : "underlay")}
                 >
-                  Halı Altlığı
+                  {tMenu("underlayTitle")}
                   <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded === "underlay" ? "rotate-180" : ""}`} />
                 </button>
                 {mobileExpanded === "underlay" && (
@@ -422,7 +436,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                       <div key={group.parentSlug} className="mb-2">
                         <Link
                           href={`${prefix}/kategori/${group.parentSlug}`}
-                          className="block px-4 py-2 text-sm font-semibold text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
+                          className="block px-4 py-2 text-sm font-semibold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                           onClick={() => setMobileOpen(false)}
                         >
                           {group.parent}
@@ -431,7 +445,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                           <Link
                             key={child.slug}
                             href={`${prefix}/kategori/${child.slug}`}
-                            className="flex items-center gap-1 pl-8 pr-4 py-1.5 text-xs text-[#6B6355] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg"
+                            className="flex items-center gap-1 pl-8 pr-4 py-1.5 text-xs text-[#6B6355] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                             onClick={() => setMobileOpen(false)}
                           >
                             <ChevronRight className="w-3 h-3 text-[#C9972B]" />
@@ -444,23 +458,23 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 )}
               </div>
 
-              <Link href={`${prefix}/hakkimizda`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                Hakkımızda
+              <Link href={`${prefix}/hakkimizda`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+                {tNav("about")}
               </Link>
-              <Link href={`${prefix}/referanslar`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                {t?.references ?? "Referanslar"}
+              <Link href={`${prefix}/referanslar`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+                {tNav("references")}
               </Link>
-              <Link href={`${prefix}/galeri`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                {t?.gallery ?? "Galeri"}
+              <Link href={`${prefix}/galeri`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+                {tNav("gallery")}
               </Link>
-              <Link href={`${prefix}/blog`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                {t?.blog ?? "Blog"}
+              <Link href={`${prefix}/blog`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+                {tNav("blog")}
               </Link>
-              <Link href={`${prefix}/teknik-ozellikler`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                Teknik Özellikler
+              <Link href={`${prefix}/teknik-ozellikler`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+                {tNav("technicalSpecs")}
               </Link>
-              <Link href={`${prefix}/iletisim`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
-                {t?.contact ?? "İletişim"}
+              <Link href={`${prefix}/iletisim`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+                {tNav("contact")}
               </Link>
 
               {/* Sosyal linkler mobil */}
@@ -473,19 +487,20 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 </a>
               </div>
 
-              <a
-                href={MAIN_SITE_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={() => { setMobileOpen(false); setTeklifOpen(true); }}
                 className="btn btn-primary text-sm mx-0 mb-2"
               >
-                {t?.getQuote ?? "Asil Halı'ya Git — Teklif Al"}
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
+                {tNav("getQuote")}
+              </button>
             </div>
           </div>
         )}
       </header>
+
+      {/* Teklif Al Modal */}
+      <TeklifFormModal open={teklifOpen} onClose={() => setTeklifOpen(false)} />
     </>
   );
 }

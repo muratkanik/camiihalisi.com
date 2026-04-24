@@ -219,7 +219,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
           type="button"
           onClick={handleSeoFix}
           disabled={fixing || translating}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#006064] text-white text-xs font-bold hover:bg-[#003B40] transition-colors disabled:opacity-50"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0097A7] text-white text-xs font-bold hover:bg-[#003B40] transition-colors disabled:opacity-50"
         >
           {fixing ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
           {fixing ? "Analiz ediliyor..." : "🤖 AI ile SEO Düzelt"}
@@ -411,7 +411,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
         {seoKeywords && (
           <div className="flex flex-wrap gap-1 mt-1.5">
             {seoKeywords.split(",").map((k) => k.trim()).filter(Boolean).map((kw, i) => (
-              <span key={i} className={`text-xs px-2 py-0.5 rounded-full ${i === 0 ? "bg-[#006064] text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}>
+              <span key={i} className={`text-xs px-2 py-0.5 rounded-full ${i === 0 ? "bg-[#0097A7] text-white" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}>
                 {i === 0 && "★ "}{kw}
               </span>
             ))}
@@ -450,7 +450,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
                 name="status"
                 value={s}
                 defaultChecked={(post.status ?? "published") === s}
-                className="accent-[#006064]"
+                className="accent-[#0097A7]"
               />
               <span className={`text-sm font-semibold px-2 py-0.5 rounded-full ${
                 s === "published"
@@ -491,7 +491,7 @@ function SaveButton() {
     <button
       type="submit"
       disabled={pending}
-      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0097A7] text-white font-bold text-sm hover:bg-[#003B40] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
     >
       {pending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
       {pending ? "Kaydediliyor..." : "Kaydet & SEO Hesapla"}

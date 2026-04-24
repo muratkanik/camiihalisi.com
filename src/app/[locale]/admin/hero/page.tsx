@@ -1,12 +1,17 @@
-import { getHeroSlides, removeHeroSlideAction, toggleHeroSlideAction, initDefaultSlidesAction } from "./actions";
-import { Image as ImageIcon, Eye, EyeOff, Trash2, RefreshCw, Plus } from "lucide-react";
+import { getHeroSlides, removeHeroSlideAction, toggleHeroSlideAction, initDefaultSlidesAction, getHeroOverlayOpacity, saveHeroOverlayOpacityAction } from "./actions";
+import { Image as ImageIcon, Eye, EyeOff, Trash2, RefreshCw, Plus, Sliders } from "lucide-react";
 import HeroAddFormClient from "@/components/admin/HeroAddFormClient";
+import HeroOverlayClient from "@/components/admin/HeroOverlayClient";
 
 export const dynamic = "force-dynamic";
 
 export default async function HeroAdminPage() {
-  const slides = await getHeroSlides();
+  const [slides, overlayOpacity] = await Promise.all([
+    getHeroSlides(),
+    getHeroOverlayOpacity(),
+  ]);
   const activeCount = slides.filter((s) => s.isActive).length;
+  const previewImages = slides.filter((s) => s.isActive).slice(0, 6).map((s) => s.imageUrl);
 
   return (
     <div>
@@ -31,6 +36,22 @@ export default async function HeroAdminPage() {
             Varsayılanları Yükle
           </button>
         </form>
+      </div>
+
+      {/* Overlay Transparency Ayarı */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 mb-8">
+        <h2 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1 flex items-center gap-2">
+          <Sliders className="w-4 h-4" />
+          Görsel Şeffaflık Ayarı
+        </h2>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-5">
+          Hero slayt görsellerinin üzerindeki beyaz overlay yoğunluğunu ayarlayın. Slider hareket ettikçe önizleme anında güncellenir.
+        </p>
+        <HeroOverlayClient
+          initialOpacity={overlayOpacity}
+          saveAction={saveHeroOverlayOpacityAction}
+          previewImages={previewImages.length > 0 ? previewImages : ["/images/cami-hero.png"]}
+        />
       </div>
 
       {/* Yeni Slayt Ekle */}

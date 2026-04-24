@@ -310,14 +310,25 @@ export function getNextTarget(existingSlugs: string[]): CalendarEntry | null {
   return sorted.find((e) => !existingSlugs.includes(e.slug)) ?? null;
 }
 
-/** SEO skoru düşük en kritik entry'yi döner (iyileştirme hedefi) */
+export const SEO_IMPROVE_THRESHOLD = 80; // Bu puanın altındaki makaleler iyileştirilir
+
+/** SEO skoru < threshold olan en kritik entry'yi döner */
 export function getLowScoreTarget(
   scoreMap: Record<string, number>,
-  existingSlugs: string[]
+  existingSlugs: string[],
+  threshold = SEO_IMPROVE_THRESHOLD
 ): CalendarEntry | null {
   const covered = CONTENT_CALENDAR.filter((e) => existingSlugs.includes(e.slug));
   if (covered.length === 0) return null;
-  // En düşük SEO skoru olanı seç
+  // Threshold altındaki makaleleri önceliğe göre sırala
+  const belowThreshold = covered
+    .filter((e) => (scoreMap[e.slug] ?? 0) < threshold)
+    .sort((a, b) => {
+      const scoreDiff = (scoreMap[a.slug] ?? 0) - (scoreMap[b.slug] ?? 0);
+      return scoreDiff !== 0 ? scoreDiff : a.priority - b.priority;
+    });
+  if (belowThreshold.length > 0) return belowThreshold[0];
+  // Hepsi threshold üzerindeyse en düşük skorluyu döndür
   return covered.reduce((worst, entry) => {
     const s = scoreMap[entry.slug] ?? 0;
     const ws = scoreMap[worst.slug] ?? 0;

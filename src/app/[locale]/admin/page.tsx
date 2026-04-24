@@ -77,7 +77,7 @@ export default async function AdminDashboard() {
             href={link.href}
             className={`rounded-2xl border p-5 hover:shadow-md transition-all group flex items-start gap-4 ${
               (link as any).highlight
-                ? "bg-gradient-to-br from-[#003B40] to-[#006064] border-[#006064] text-white"
+                ? "bg-gradient-to-br from-[#003B40] to-[#0097A7] border-[#0097A7] text-white"
                 : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-[#C9972B]/30"
             }`}
           >

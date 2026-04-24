@@ -43,11 +43,11 @@
   --background:         #F0FDFE;   /* Çok açık turkuaz-beyaz */
   --foreground:         #1A1A1A;   /* Koyu Metin — HER ZAMAN okunaklı */
 
-  /* ── Ana Renk: Turkuaz ── */
-  --primary:            #006064;
+  /* ── Ana Renk: Derin Turkuaz (yeni palet) ── */
+  --primary:            #0097A7;
   --primary-foreground: #F0FDFE;
-  --primary-light:      #0097A7;
-  --primary-dark:       #003B40;   /* Çok Koyu Turkuaz */
+  --primary-light:      #26C6DA;   /* Canlı Turkuaz */
+  --primary-dark:       #006880;   /* Koyu Turkuaz */
 
   /* ── Vurgu: Altın Varak ── */
   --secondary:          #C9972B;
@@ -63,7 +63,7 @@
 
   /* ── Vurgu (açık yeşil ton) ── */
   --accent:             #B2EBF2;   /* Açık Turkuaz */
-  --accent-foreground:  #006064;
+  --accent-foreground:  #0097A7;
 
   /* ── Sınır & Ring ── */
   --border:             #B2EBF2;
@@ -72,8 +72,8 @@
 
   /* ── Özel ── */
   --gold-gradient: linear-gradient(135deg, #C9972B 0%, #E4B84A 50%, #9E7520 100%);
-  --teal-gradient: linear-gradient(135deg, #006064 0%, #0097A7 100%);
-  --hero-overlay: linear-gradient(to top, rgba(0,59,64,0.92) 0%, rgba(0,59,64,0.55) 50%, rgba(0,0,0,0.2) 100%);
+  --teal-gradient: linear-gradient(135deg, #0097A7 0%, #26C6DA 100%);
+  --hero-overlay: linear-gradient(to top, rgba(0,104,128,0.92) 0%, rgba(0,104,128,0.55) 50%, rgba(0,0,0,0.2) 100%);
 }
 
 /* ─── Temel Stiller ─────────────────────────────────────────── */

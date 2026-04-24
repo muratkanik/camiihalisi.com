@@ -18,7 +18,7 @@ const TYPE_LABEL: Record<string, string> = {
   "home-office": "Temsilci", depo: "Depo", yurtdisi: "Uluslararası",
 };
 const TYPE_COLOR: Record<string, string> = {
-  merkez: "bg-[#006064] text-white", fabrika: "bg-slate-700 text-white",
+  merkez: "bg-[#0097A7] text-white", fabrika: "bg-slate-700 text-white",
   ofis: "bg-blue-700 text-white", "home-office": "bg-emerald-700 text-white",
   depo: "bg-slate-500 text-white", yurtdisi: "bg-purple-700 text-white",
 };
@@ -84,7 +84,7 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
   return (
     <main id="main-content">
       {/* ── Hero ── */}
-      <section className="bg-[#006064] py-20 relative overflow-hidden">
+      <section className="bg-[#0097A7] py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")`,
         }} />
@@ -122,37 +122,37 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
             <div className="bg-white rounded-2xl border border-[#B2EBF2] p-5 sm:p-8 shadow-sm">
               {submitted ? (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 rounded-full bg-[#006064]/10 flex items-center justify-center mx-auto mb-4">
-                    <Send className="w-7 h-7 text-[#006064]" />
+                  <div className="w-16 h-16 rounded-full bg-[#0097A7]/10 flex items-center justify-center mx-auto mb-4">
+                    <Send className="w-7 h-7 text-[#0097A7]" />
                   </div>
-                  <h2 className="text-2xl font-bold text-[#006064] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{t("successTitle")}</h2>
+                  <h2 className="text-2xl font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{t("successTitle")}</h2>
                   <p className="text-[#6B6355]">{t("successText")}{" "}
-                    <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="text-[#006064] font-semibold underline">{settings.phone}</a>
+                    <a href={`tel:${settings.phone.replace(/\s/g, "")}`} className="text-[#0097A7] font-semibold underline">{settings.phone}</a>
                   </p>
                 </div>
               ) : (
                 <>
-                  <h2 className="text-2xl font-bold text-[#006064] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                  <h2 className="text-2xl font-bold text-[#0097A7] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                     {t("formTitle")}
                   </h2>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 xs:grid-cols-3 sm:grid-cols-3 gap-2">
                       {([["teklif", "typeQuote"], ["kesif", "typeVisit"], ["bilgi", "typeInfo"]] as const).map(([val, key]) => (
                         <button key={val} type="button" onClick={() => setForm({ ...form, type: val })}
-                          className={`py-2.5 rounded-xl text-xs sm:text-sm font-medium border transition-all ${form.type === val ? "bg-[#006064] text-white border-[#006064]" : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]/40"}`}>
+                          className={`py-2.5 rounded-xl text-xs sm:text-sm font-medium border transition-all ${form.type === val ? "bg-[#0097A7] text-white border-[#0097A7]" : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#0097A7]/40"}`}>
                           {t(key)}
                         </button>
                       ))}
                     </div>
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t("placeholderName")} required className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
-                      <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder={t("placeholderPhone")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
+                      <input type="text" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder={t("placeholderName")} required className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#0097A7] focus:ring-2 focus:ring-[#0097A7]/10 transition-all" />
+                      <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder={t("placeholderPhone")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#0097A7] focus:ring-2 focus:ring-[#0097A7]/10 transition-all" />
                     </div>
                     <div className="grid sm:grid-cols-2 gap-4">
-                      <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={t("placeholderEmail")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
-                      <input type="text" value={form.mosque} onChange={(e) => setForm({ ...form, mosque: e.target.value })} placeholder={t("placeholderMosque")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all" />
+                      <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder={t("placeholderEmail")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#0097A7] focus:ring-2 focus:ring-[#0097A7]/10 transition-all" />
+                      <input type="text" value={form.mosque} onChange={(e) => setForm({ ...form, mosque: e.target.value })} placeholder={t("placeholderMosque")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#0097A7] focus:ring-2 focus:ring-[#0097A7]/10 transition-all" />
                     </div>
-                    <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required placeholder={t("placeholderMessage")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#006064] focus:ring-2 focus:ring-[#006064]/10 transition-all resize-none" />
+                    <textarea rows={4} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} required placeholder={t("placeholderMessage")} className="w-full px-4 py-2.5 rounded-xl border border-[#B2EBF2] bg-[#F0FDFE] text-sm focus:outline-none focus:border-[#0097A7] focus:ring-2 focus:ring-[#0097A7]/10 transition-all resize-none" />
                     {submitError && (
                       <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
                         ⚠ {submitError}
@@ -191,8 +191,8 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
               {/* Email card */}
               <a href={`mailto:${settings.email}`}
                 className="flex items-center gap-4 p-5 bg-white rounded-2xl border border-[#B2EBF2] hover:border-[#C9972B]/40 transition-all">
-                <div className="w-11 h-11 rounded-xl bg-[#006064]/10 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-[#006064]" />
+                <div className="w-11 h-11 rounded-xl bg-[#0097A7]/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 text-[#0097A7]" />
                 </div>
                 <div>
                   <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-0.5">{t("email")}</div>
@@ -223,7 +223,7 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
                 {Object.entries(byRegion).map(([region, regionOffices]) => (
                   <div key={region} className="rounded-2xl border border-[#B2EBF2] overflow-hidden shadow-sm">
                     {/* Region header */}
-                    <div className="bg-[#006064] px-6 py-4 flex items-center gap-3">
+                    <div className="bg-[#0097A7] px-6 py-4 flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-[#C9972B]/20 border border-[#C9972B]/40 flex items-center justify-center flex-shrink-0">
                         <MapPin className="w-4 h-4 text-[#E4B84A]" />
                       </div>
@@ -263,8 +263,8 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
                                 <div className="space-y-1.5 mb-2.5">
                                   {office.phones.map((p, i) => (
                                     <a key={i} href={`tel:${p.number.replace(/\s/g, "")}`}
-                                      className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#006064] transition-colors">
-                                      <Phone className="w-3 h-3 text-[#006064] flex-shrink-0" />
+                                      className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#0097A7] transition-colors">
+                                      <Phone className="w-3 h-3 text-[#0097A7] flex-shrink-0" />
                                       <span className="text-[#6B6355]">{p.label}:</span>
                                       <span className="font-medium">{p.number}</span>
                                     </a>
@@ -272,8 +272,8 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
                                 </div>
                               )}
                               {office.email && (
-                                <a href={`mailto:${office.email}`} className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#006064] transition-colors mb-1.5">
-                                  <Mail className="w-3 h-3 text-[#006064] flex-shrink-0" />
+                                <a href={`mailto:${office.email}`} className="flex items-center gap-2 text-xs text-[#1A1A1A] hover:text-[#0097A7] transition-colors mb-1.5">
+                                  <Mail className="w-3 h-3 text-[#0097A7] flex-shrink-0" />
                                   <span>{office.email}</span>
                                 </a>
                               )}
@@ -291,7 +291,7 @@ export default function IletisimClient({ settings, offices, prefix }: Props) {
                               )}
                               {office.mapsUrl && (
                                 <a href={office.mapsUrl} target="_blank" rel="noopener"
-                                  className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#006064] hover:text-[#C9972B] transition-colors">
+                                  className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-[#0097A7] hover:text-[#C9972B] transition-colors">
                                   <MapPin className="w-3 h-3" /> {t("directions")} →
                                 </a>
                               )}

@@ -74,7 +74,7 @@ export default async function KarsilastirmaHubPage({
       <Navigation locale={locale} />
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-gradient-to-br from-[#006064] to-[#003B40] py-16 px-4">
+        <section className="bg-gradient-to-br from-[#0097A7] to-[#003B40] py-16 px-4">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6">
               <a href={`${prefix}/`} className="hover:text-white">Ana Sayfa</a>
@@ -121,14 +121,14 @@ export default async function KarsilastirmaHubPage({
                     {/* vs badge */}
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="bg-white/90 backdrop-blur-sm rounded-2xl px-5 py-2 flex items-center gap-3 shadow-lg border border-white">
-                        <span className="font-extrabold text-[#006064] text-sm">{c.a}</span>
+                        <span className="font-extrabold text-[#0097A7] text-sm">{c.a}</span>
                         <span className="text-[#C9972B] font-black text-sm">VS</span>
-                        <span className="font-extrabold text-[#006064] text-sm">{c.b}</span>
+                        <span className="font-extrabold text-[#0097A7] text-sm">{c.b}</span>
                       </div>
                     </div>
                   </div>
                   <div className="p-5">
-                    <h2 className="font-bold text-[#1A1A1A] text-base mb-2 group-hover:text-[#006064] transition-colors">{c.title}</h2>
+                    <h2 className="font-bold text-[#1A1A1A] text-base mb-2 group-hover:text-[#0097A7] transition-colors">{c.title}</h2>
                     <p className="text-sm text-[#6B6355] leading-relaxed mb-3">{c.desc}</p>
                     <div className="flex items-center gap-1 text-sm font-semibold text-[#C9972B]">
                       Detaylı Karşılaştır <ArrowRight className="w-3.5 h-3.5" />

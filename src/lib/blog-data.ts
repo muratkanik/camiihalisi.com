@@ -1,3 +1,5 @@
+export type BlogStatus = "published" | "draft";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -12,6 +14,8 @@ export interface BlogPost {
   author: string;
   metaTitle: string;
   metaDescription: string;
+  status?: BlogStatus; // varsayılan: "published"
+  seoScore?: number;
 }
 
 export const BLOG_CATEGORIES = ["Tümü", "Rehber", "Teknik", "Bakım", "Proje", "Malzeme", "SSS", "Faydalı Bilgiler"];

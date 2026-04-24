@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 
-const IMAGES = [
+const FALLBACK_IMAGES = [
   { src: "/images/cami-hero.png",   alt: "Cami iç mekanı — turkuaz halı" },
   { src: "/images/hd-foto-01.jpg",  alt: "HD Cami Fotoğrafı" },
   { src: "/images/hd-foto-02.jpg",  alt: "HD Cami Fotoğrafı" },
@@ -22,19 +22,39 @@ const IMAGES = [
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dhero%26utm_campaign%3Dsite&from=hero&label=fiyat-teklifi&cat=outbound";
 
+interface HeroSlide {
+  id: string;
+  imageUrl: string;
+  alt: string;
+  isActive: boolean;
+  order: number;
+}
+
 interface HeroContent {
   title?: string;
   subtitle?: string;
 }
 
-export default function HeroSection({ content }: { content?: HeroContent }) {
+interface HeroProps {
+  content?: HeroContent;
+  slides?: HeroSlide[];
+  /** Beyaz overlay yoğunluğu: 0 (şeffaf) – 100 (opak). Varsayılan: 80 */
+  overlayOpacity?: number;
+}
+
+export default function HeroSection({ content, slides, overlayOpacity = 80 }: HeroProps) {
   const h = useTranslations("hero");
+
+  const IMAGES = slides
+    ? slides.map((s) => ({ src: s.imageUrl, alt: s.alt }))
+    : FALLBACK_IMAGES;
+
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
     const t = setInterval(() => setIdx((p) => (p + 1) % IMAGES.length), 6000);
     return () => clearInterval(t);
-  }, []);
+  }, [IMAGES.length]);
 
   return (
     <section className="relative w-full h-[85vh] sm:h-[92vh] min-h-[560px] max-h-[900px] overflow-hidden">
@@ -60,8 +80,15 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* ── Gradient overlay — mobilde tam, masaüstünde yalnız sol ── */}
-      <div className="absolute inset-0 z-10 bg-white/80 md:bg-gradient-to-r md:from-white/92 md:via-white/60 md:to-transparent" />
+      {/* ── Overlay — opacity DB'den ayarlanabilir ── */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background: `rgba(255,255,255,${overlayOpacity / 100})`,
+        }}
+      />
+      {/* Desktop'ta sol ağırlıklı gradient efekti — overlay üstüne eklenir */}
+      <div className="hidden md:block absolute inset-0 z-10 bg-gradient-to-r from-white/30 via-transparent to-transparent pointer-events-none" />
       <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-[#003B40]/70 to-transparent" />
 
       {/* ── İçerik ── */}
@@ -100,7 +127,7 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
               </a>
               <a
                 href="#kategoriler"
-                className="text-sm font-semibold text-[#006064] hover:text-[#C9972B] transition-colors underline underline-offset-4"
+                className="text-sm font-semibold text-[#0097A7] hover:text-[#C9972B] transition-colors underline underline-offset-4"
               >
                 {h("browseCatalog")}
               </a>
@@ -110,8 +137,8 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
             <ul className="space-y-2.5">
               {[h("check1"), h("check2"), h("check3")].map((item) => (
                 <li key={item} className="flex items-center gap-3 text-sm text-[#0D1B1E] font-medium">
-                  <span className="w-5 h-5 rounded-full bg-[#006064]/15 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3 h-3 text-[#006064]" strokeWidth={3} />
+                  <span className="w-5 h-5 rounded-full bg-[#0097A7]/15 flex items-center justify-center flex-shrink-0">
+                    <Check className="w-3 h-3 text-[#0097A7]" strokeWidth={3} />
                   </span>
                   {item}
                 </li>
@@ -124,19 +151,19 @@ export default function HeroSection({ content }: { content?: HeroContent }) {
       {/* ── Floating etiketler — sadece tablet+ ── */}
       <div className="hidden md:block absolute right-16 top-[22%] z-20">
         <div className="bg-white/85 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-[#B2EBF2]">
-          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">{h("badge1Title")}</p>
+          <p className="text-xs font-bold text-[#0097A7] uppercase tracking-wider">{h("badge1Title")}</p>
           <p className="text-[10px] text-[#5A6A6D]">{h("badge1Desc")}</p>
         </div>
       </div>
       <div className="hidden md:block absolute right-16 top-[46%] z-20">
         <div className="bg-white/85 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-[#B2EBF2]">
-          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">{h("badge2Title")}</p>
+          <p className="text-xs font-bold text-[#0097A7] uppercase tracking-wider">{h("badge2Title")}</p>
           <p className="text-[10px] text-[#5A6A6D]">{h("badge2Desc")}</p>
         </div>
       </div>
       <div className="hidden md:block absolute right-16 bottom-[20%] z-20">
         <div className="bg-white/85 backdrop-blur-md rounded-xl px-4 py-2.5 shadow-lg border border-[#B2EBF2]">
-          <p className="text-xs font-bold text-[#006064] uppercase tracking-wider">{h("badge3Title")}</p>
+          <p className="text-xs font-bold text-[#0097A7] uppercase tracking-wider">{h("badge3Title")}</p>
           <p className="text-[10px] text-[#5A6A6D]">{h("badge3Desc")}</p>
         </div>
       </div>

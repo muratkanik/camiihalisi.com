@@ -147,7 +147,7 @@ export default function BlogTranslationsWidget({ slug, sourceTR }: Props) {
   };
 
   const inputCls =
-    "w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#006064] focus:border-[#006064] resize-y";
+    "w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-[#0097A7] focus:border-[#0097A7] resize-y";
 
   return (
     <div className="mt-4 border border-purple-200 dark:border-purple-800 rounded-xl overflow-hidden">
@@ -281,7 +281,7 @@ export default function BlogTranslationsWidget({ slug, sourceTR }: Props) {
                       <button
                         onClick={() => handleSave(locale.key)}
                         disabled={isSaving}
-                        className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-semibold bg-[#006064] text-white hover:bg-[#00474b] disabled:opacity-50 transition-colors"
+                        className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg text-xs font-semibold bg-[#0097A7] text-white hover:bg-[#00474b] disabled:opacity-50 transition-colors"
                       >
                         {isSaving ? "Kaydediliyor..." : "💾 Kaydet"}
                       </button>

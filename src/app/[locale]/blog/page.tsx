@@ -94,7 +94,7 @@ export default async function BlogListePage({
 
       <main id="main-content">
         {/* ── Başlık Bandı ── */}
-        <section className="bg-[#006064] py-16 relative overflow-hidden">
+        <section className="bg-[#0097A7] py-16 relative overflow-hidden">
           <div
             className="absolute inset-0 opacity-10 pointer-events-none"
             style={{
@@ -135,7 +135,7 @@ export default async function BlogListePage({
                   key={cat}
                   className={`px-4 py-2 rounded-full text-sm font-medium border ${
                     cat === "Tümü"
-                      ? "bg-[#006064] text-white border-[#006064]"
+                      ? "bg-[#0097A7] text-white border-[#0097A7]"
                       : "bg-white text-[#6B6355] border-[#B2EBF2]"
                   }`}
                 >
@@ -172,7 +172,7 @@ export default async function BlogListePage({
 
                     <div className="p-5 flex flex-col flex-1">
                       <h2
-                        className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#006064] transition-colors"
+                        className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#0097A7] transition-colors"
                         style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem" }}
                       >
                         {displayTitle}
@@ -197,7 +197,7 @@ export default async function BlogListePage({
                           <Clock className="w-3.5 h-3.5" />
                           {post.readTime}
                         </div>
-                        <span className="flex items-center gap-1 text-xs text-[#006064] font-semibold group-hover:text-[#C9972B] transition-colors">
+                        <span className="flex items-center gap-1 text-xs text-[#0097A7] font-semibold group-hover:text-[#C9972B] transition-colors">
                           {t("read")}
                           <ArrowRight className="w-3 h-3" />
                         </span>

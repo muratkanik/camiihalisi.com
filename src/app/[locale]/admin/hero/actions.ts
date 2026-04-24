@@ -143,3 +143,35 @@ export async function initDefaultSlidesAction(): Promise<void> {
     await prisma.$disconnect();
   }
 }
+
+export async function getHeroOverlayOpacity(): Promise<number> {
+  const prisma = await getPrisma();
+  try {
+    const setting = await prisma.setting.findUnique({ where: { key: "hero_overlay_opacity" } });
+    if (!setting) return 80;
+    const val = parseFloat(setting.value);
+    return isNaN(val) ? 80 : Math.min(100, Math.max(0, val));
+  } catch {
+    return 80;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+export async function saveHeroOverlayOpacityAction(formData: FormData): Promise<{ ok: boolean }> {
+  "use server";
+  const raw = formData.get("opacity") as string;
+  const val = Math.min(100, Math.max(0, parseFloat(raw) || 80));
+  const prisma = await getPrisma();
+  try {
+    await prisma.setting.upsert({
+      where: { key: "hero_overlay_opacity" },
+      update: { value: String(val) },
+      create: { key: "hero_overlay_opacity", value: String(val) },
+    });
+    revalidatePath("/", "layout");
+    return { ok: true };
+  } finally {
+    await prisma.$disconnect();
+  }
+}

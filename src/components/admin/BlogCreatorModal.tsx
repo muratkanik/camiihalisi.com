@@ -203,7 +203,7 @@ export default function BlogCreatorModal() {
       {/* Trigger Button */}
       <button
         onClick={handleOpenFresh}
-        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-[#006064] text-white font-bold text-sm hover:from-purple-700 hover:to-[#00474b] transition-all shadow-md hover:shadow-lg"
+        className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-[#0097A7] text-white font-bold text-sm hover:from-purple-700 hover:to-[#00474b] transition-all shadow-md hover:shadow-lg"
       >
         <Sparkles className="w-4 h-4" />
         AI ile Yarat
@@ -262,7 +262,7 @@ export default function BlogCreatorModal() {
                 <button
                   onClick={handleStart}
                   disabled={!title.trim()}
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-[#006064] text-white font-bold text-sm hover:from-purple-700 hover:to-[#00474b] disabled:opacity-40 transition-all"
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-[#0097A7] text-white font-bold text-sm hover:from-purple-700 hover:to-[#00474b] disabled:opacity-40 transition-all"
                 >
                   <Sparkles className="w-4 h-4" />
                   Üretimi Başlat
@@ -314,7 +314,7 @@ export default function BlogCreatorModal() {
                 <div className="flex gap-2">
                   <a
                     href={`/admin/blog`}
-                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#006064] text-white text-xs font-bold hover:bg-[#00474b] transition-colors"
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0097A7] text-white text-xs font-bold hover:bg-[#00474b] transition-colors"
                   >
                     ✏️ Düzenle
                   </a>

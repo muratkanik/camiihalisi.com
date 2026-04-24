@@ -42,7 +42,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-semibold text-[#006064] hover:bg-[#E0F7FA] transition-colors border border-[#B2EBF2]"
+        className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-sm font-semibold text-[#0097A7] hover:bg-[#E0F7FA] transition-colors border border-[#B2EBF2]"
         aria-label="Dil seç"
         aria-expanded={open}
       >
@@ -59,7 +59,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
               onClick={() => switchLocale(locale.code)}
               className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm hover:bg-[#E0F7FA] transition-colors text-left ${
                 locale.code === currentLocale
-                  ? "font-bold text-[#006064] bg-[#F0FDFE]"
+                  ? "font-bold text-[#0097A7] bg-[#F0FDFE]"
                   : "text-[#1A1A1A]"
               }`}
             >

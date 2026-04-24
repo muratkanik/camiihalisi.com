@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
-import HeroSection from "@/components/blocks/HeroSection";
+import HeroSectionWrapper from "@/components/blocks/HeroSectionWrapper";
 import { getSettings } from "@/lib/settings";
 import ProblemSection, { type ProblemItem } from "@/components/blocks/ProblemSection";
 import CategoryShowcase from "@/components/blocks/CategoryShowcase";
@@ -239,7 +239,7 @@ export default async function HomePage({
 
       <main id="main-content">
         {/* 1. Hero — full-width slider with overlay */}
-        <HeroSection content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
+        <HeroSectionWrapper content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
 
         {/* 2. Problem — Neden Erken Yıpranır? (blog'dan) */}
         <ProblemSection items={problemItems} sectionTitle={tProblem("sectionTitle")} locale={locale} />

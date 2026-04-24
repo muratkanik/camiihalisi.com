@@ -4,58 +4,87 @@ import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight, X, ZoomIn, MessageCircle } from "lucide-react";
 import Image from "next/image";
 
-/* ── Tüm görsel havuzu ──────────────────────────────── */
+/* ── Tüm görsel havuzu — SEO uyumlu alt text ve açıklamalar ── */
 const HD_PHOTOS = [
-  { src: "/images/hd-foto-00.jpg", caption: "Cami İç Mekanı" },
-  { src: "/images/hd-foto-01.jpg", caption: "Cami Halısı Projesi" },
-  { src: "/images/hd-foto-02.jpg", caption: "Namaz Alanı" },
-  { src: "/images/hd-foto-03.jpg", caption: "Cami Halısı Detay" },
-  { src: "/images/hd-foto-04.jpg", caption: "İç Mekan Görünümü" },
-  { src: "/images/hd-foto-05.jpg", caption: "Halı Deseni" },
-  { src: "/images/hd-foto-06.jpg", caption: "Cami Projesi" },
-  { src: "/images/hd-foto-07.jpg", caption: "Saf Düzeni" },
-  { src: "/images/hd-foto-08.jpg", caption: "Cami Halısı" },
-  { src: "/images/hd-foto-09.jpg", caption: "İbadet Alanı" },
-  { src: "/images/hd-foto-10.jpg", caption: "Cami İç Mekanı" },
-  { src: "/images/hd-foto-11.jpg", caption: "Halı Projesi" },
-  { src: "/images/hd-foto-12.jpg", caption: "Cami Halısı Detay" },
-  { src: "/images/hd-foto-13.jpg", caption: "Namaz Halısı" },
-  { src: "/images/hd-foto-14.jpg", caption: "Cami Projesi" },
-  { src: "/images/hd-foto-15.jpg", caption: "İç Mekan" },
-  { src: "/images/hd-foto-16.jpg", caption: "Halı Deseni" },
-  { src: "/images/hd-foto-17.jpg", caption: "Cami Halısı" },
-  { src: "/images/hd-foto-18.jpg", caption: "Saf Çizgileri" },
-  { src: "/images/hd-foto-19.jpg", caption: "Namaz Alanı" },
-  { src: "/images/hd-foto-20.jpg", caption: "Cami İç Mekanı" },
-  { src: "/images/hd-foto-22.jpg", caption: "Halı Projesi" },
-  { src: "/images/hd-foto-23.jpg", caption: "Cami Halısı Detay" },
-  { src: "/images/hd-foto-24.jpg", caption: "İbadet Mekanı" },
-  { src: "/images/hd-foto-25.jpg", caption: "Cami Projesi" },
-  { src: "/images/hd-foto-26.jpg", caption: "İç Mekan" },
-  { src: "/images/hd-foto-28.jpg", caption: "Halı Deseni" },
-  { src: "/images/panorama-cami.jpg", caption: "Panoramik Cami Görünümü" },
+  { src: "/images/hd-foto-00.jpg", caption: "Asil Halı cami halısı — Kayseri üretim saflı cami halısı döşeme projesi" },
+  { src: "/images/hd-foto-01.jpg", caption: "Türkiye cami halısı projesi — Asil Halı A.Ş. tamamlanan cami döşemesi" },
+  { src: "/images/hd-foto-02.jpg", caption: "Namaz alanı cami halısı — saflı akrilik cami halısı uygulaması" },
+  { src: "/images/hd-foto-03.jpg", caption: "Cami halısı desen detayı — yün cami halısı motif ve saf çizgileri" },
+  { src: "/images/hd-foto-04.jpg", caption: "Cami iç mekan cami halısı döşemesi — Asil Halı referans proje" },
+  { src: "/images/hd-foto-05.jpg", caption: "Cami halısı geometrik desen — polipropilen cami halısı koleksiyonu" },
+  { src: "/images/hd-foto-06.jpg", caption: "Cami halısı uygulama projesi — tüm Türkiye geneli üretim ve montaj" },
+  { src: "/images/hd-foto-07.jpg", caption: "Saflı cami halısı saf düzeni — 50+ yıllık Asil Halı kalitesi" },
+  { src: "/images/hd-foto-08.jpg", caption: "Cami halısı fotoğrafı — polyamid cami halısı uzun ömürlü kullanım" },
+  { src: "/images/hd-foto-09.jpg", caption: "İbadet alanı cami halısı — camiihalisi.com Asil Halı özel üretim" },
+  { src: "/images/hd-foto-10.jpg", caption: "Büyük cami halısı döşeme — Asil Halı A.Ş. Kayseri cami halısı üreticisi" },
+  { src: "/images/hd-foto-11.jpg", caption: "Cami halısı proje fotoğrafı — akrilik saflı cami halısı uygulaması" },
+  { src: "/images/hd-foto-12.jpg", caption: "Cami halısı yakın plan — Asil Halı desen ve renk seçenekleri" },
+  { src: "/images/hd-foto-13.jpg", caption: "Namaz halısı ve cami halısı — saflı yün cami halısı referans proje" },
+  { src: "/images/hd-foto-14.jpg", caption: "Cami halısı projesi tamamlandı — özel baskı cami halısı Asil Halı" },
+  { src: "/images/hd-foto-15.jpg", caption: "Cami iç mekan halı döşemesi — göbekli cami halısı uygulaması" },
+  { src: "/images/hd-foto-16.jpg", caption: "Cami halısı desen koleksiyonu — Asil Halı cami halısı Kayseri" },
+  { src: "/images/hd-foto-17.jpg", caption: "Cami halısı uygulama fotoğrafı — Asil Halı A.Ş. referans cami" },
+  { src: "/images/hd-foto-18.jpg", caption: "Saflı cami halısı saf düzeni — seccadeli cami halısı alternatif" },
+  { src: "/images/hd-foto-19.jpg", caption: "Namaz alanı cami halısı döşeme — polipropilen saflı cami halısı" },
+  { src: "/images/hd-foto-20.jpg", caption: "Büyük cami cami halısı projesi — Asil Halı profesyonel montaj" },
+  { src: "/images/hd-foto-22.jpg", caption: "Cami halısı tamamlanan proje — Asil Halı kalite ve dayanıklılık" },
+  { src: "/images/hd-foto-23.jpg", caption: "Cami halısı desen detayı — özel renk ve motif seçenekleri Asil Halı" },
+  { src: "/images/hd-foto-24.jpg", caption: "İbadet mekanı cami halısı — camiihalisi.com özel teklif ve üretim" },
+  { src: "/images/hd-foto-25.jpg", caption: "Cami halısı projesi — Türkiye geneli cami halısı teslimat ve montaj" },
+  { src: "/images/hd-foto-26.jpg", caption: "Cami iç mekan halısı — saflı ve göbekli cami halısı modelleri" },
+  { src: "/images/hd-foto-28.jpg", caption: "Cami halısı desen ve motif — Asil Halı Kayseri cami halısı koleksiyonu" },
+  { src: "/images/panorama-cami.jpg", caption: "Panoramik cami görünümü ve cami halısı döşemesi — Asil Halı A.Ş. referans" },
 ];
 
-const KATALOG_IMAGES = Array.from({ length: 31 }, (_, i) => ({
-  src: `/images/cami-katalog-${String(i + 1).padStart(2, "0")}.png`,
-  caption: `Koleksiyon ${i + 1}`,
-}));
+const KATALOG_IMAGES = [
+  { src: "/images/cami-katalog-01.png", caption: "Akrilik cami halısı koleksiyonu — Asil Halı saflı akrilik model" },
+  { src: "/images/cami-katalog-02.png", caption: "Saflı akrilik cami halısı — düz saf çizgili model, çeşitli renk" },
+  { src: "/images/cami-katalog-03.png", caption: "Göbekli akrilik cami halısı — merkezi motifli seccade deseni" },
+  { src: "/images/cami-katalog-04.png", caption: "Seccadeli akrilik cami halısı — bireysel namaz bölümlü model" },
+  { src: "/images/cami-katalog-05.png", caption: "Yün cami halısı koleksiyonu — doğal yün saflı ve göbekli modeller" },
+  { src: "/images/cami-katalog-06.png", caption: "Saflı yün cami halısı — doğal yün saf çizgili uzun ömürlü model" },
+  { src: "/images/cami-katalog-07.png", caption: "Göbekli yün cami halısı — yün göbek desenli cami halısı Asil Halı" },
+  { src: "/images/cami-katalog-08.png", caption: "Seccadeli yün cami halısı — yün seccade bölümlü özel tasarım" },
+  { src: "/images/cami-katalog-09.png", caption: "Polipropilen cami halısı — dayanıklı sentetik cami halısı modelleri" },
+  { src: "/images/cami-katalog-10.png", caption: "Saflı polipropilen cami halısı — ekonomik ve uzun ömürlü saf model" },
+  { src: "/images/cami-katalog-11.png", caption: "Göbekli polipropilen cami halısı — polipropilen göbek desenli model" },
+  { src: "/images/cami-katalog-12.png", caption: "Seccadeli polipropilen cami halısı — polipropilen seccadeli koleksiyon" },
+  { src: "/images/cami-katalog-13.png", caption: "Polyamid cami halısı — yüksek dayanımlı polyamid cami halısı serisi" },
+  { src: "/images/cami-katalog-14.png", caption: "Saflı polyamid cami halısı — nylon polyamid saf çizgili model" },
+  { src: "/images/cami-katalog-15.png", caption: "Göbekli polyamid cami halısı — polyamid göbek motifli lüks model" },
+  { src: "/images/cami-katalog-16.png", caption: "Seccadeli polyamid cami halısı — polyamid seccade bölümlü tasarım" },
+  { src: "/images/cami-katalog-17.png", caption: "Özel desen Axminster cami halısı — el tezgahı kalitesinde özel üretim" },
+  { src: "/images/cami-katalog-18.png", caption: "Keçe cami halısı altlığı — cami halısı altı keçe ses yalıtımı" },
+  { src: "/images/cami-katalog-19.png", caption: "Cami halısı koleksiyon modeli 19 — Asil Halı yeni sezon desen" },
+  { src: "/images/cami-katalog-20.png", caption: "Cami halısı koleksiyon modeli 20 — saflı cami halısı renk seçenekleri" },
+  { src: "/images/cami-katalog-21.png", caption: "Cami halısı koleksiyon modeli 21 — özel boyut ve renk üretim" },
+  { src: "/images/cami-katalog-22.png", caption: "Cami halısı koleksiyon modeli 22 — Asil Halı Kayseri özel desen" },
+  { src: "/images/cami-katalog-23.png", caption: "Cami halısı koleksiyon modeli 23 — göbekli ve saflı kombinasyon" },
+  { src: "/images/cami-katalog-24.png", caption: "Cami halısı koleksiyon modeli 24 — cami halısı İslami motif desen" },
+  { src: "/images/cami-katalog-25.png", caption: "Cami halısı koleksiyon modeli 25 — özel renk teslim hızlı üretim" },
+  { src: "/images/cami-katalog-26.png", caption: "Cami halısı koleksiyon modeli 26 — Asil Halı referans desen kataloğu" },
+  { src: "/images/cami-katalog-27.png", caption: "Cami halısı koleksiyon modeli 27 — cami halısı modern ve klasik desen" },
+  { src: "/images/cami-katalog-28.png", caption: "Cami halısı koleksiyon modeli 28 — turkuaz ve koyu tonda özel desen" },
+  { src: "/images/cami-katalog-29.png", caption: "Cami halısı koleksiyon modeli 29 — akrilik cami halısı yeni koleksiyon" },
+  { src: "/images/cami-katalog-30.png", caption: "Cami halısı koleksiyon modeli 30 — Asil Halı sezon sonu koleksiyon" },
+  { src: "/images/cami-katalog-31.png", caption: "Cami halısı koleksiyon modeli 31 — Asil Halı özel sipariş desen" },
+];
 
 const ORIGINAL_IMAGES = [
-  { src: "/images/cami-hero.png", caption: "Cami Halısı Hero" },
-  { src: "/images/cami-1.png", caption: "Cami Halısı 1" },
-  { src: "/images/cami-2.png", caption: "Cami Halısı 2" },
-  { src: "/images/cami-3.png", caption: "Cami Halısı 3" },
-  { src: "/images/cami-4.png", caption: "Cami Halısı 4" },
-  { src: "/images/cami-5.png", caption: "Cami Halısı 5" },
-  { src: "/images/cami-6.png", caption: "Cami Halısı 6" },
-  { src: "/images/cami-7.png", caption: "Cami Halısı 7" },
-  { src: "/images/cami-8.png", caption: "Cami Halısı 8" },
+  { src: "/images/cami-hero.png",  caption: "Cami halısı ana görsel — Asil Halı A.Ş. saflı cami halısı döşeme" },
+  { src: "/images/cami-1.png",     caption: "Cami halısı fotoğrafı — büyük cami özel ölçü halı uygulaması" },
+  { src: "/images/cami-2.png",     caption: "Saflı cami halısı görsel — saf çizgili turkuaz tonda cami halısı" },
+  { src: "/images/cami-3.png",     caption: "Göbekli cami halısı görsel — merkezi desenli büyük cami halısı" },
+  { src: "/images/cami-4.png",     caption: "Cami halısı iç mekan — Asil Halı proje referans fotoğrafı" },
+  { src: "/images/cami-5.png",     caption: "Cami halısı ayrıntı — yüksek kalite yün veya akrilik desen" },
+  { src: "/images/cami-6.png",     caption: "Cami namaz alanı halısı — saflı cami halısı montaj sonrası" },
+  { src: "/images/cami-7.png",     caption: "Cami halısı koleksiyon — Asil Halı Kayseri cami halısı üreticisi" },
+  { src: "/images/cami-8.png",     caption: "Cami halısı detay görsel — dokunuş kalitesi ve renk fastliği" },
 ];
 
 const REFERANS_IMAGES = [
-  { src: "/images/referans-bilecik.jpg", caption: "Bilecik Cami Projesi" },
-  { src: "/images/referans-esentepe.jpg", caption: "Esentepe Cami Projesi" },
+  { src: "/images/referans-bilecik.jpg",  caption: "Bilecik cami halısı projesi — Asil Halı A.Ş. tamamlanan referans uygulama" },
+  { src: "/images/referans-esentepe.jpg", caption: "Esentepe cami halısı projesi — saflı akrilik cami halısı döşeme referansı" },
 ];
 
 /* ── Tüm görselleri tek havuzda topla (lightbox navigasyonu için) ── */
@@ -198,7 +227,7 @@ function GridItem({
 }) {
   return (
     <div
-      className={`relative group overflow-hidden rounded-xl cursor-pointer bg-[#006064]/20 ${heightClass}`}
+      className={`relative group overflow-hidden rounded-xl cursor-pointer bg-[#0097A7]/20 ${heightClass}`}
       onClick={onOpen}
     >
       <Image
@@ -213,7 +242,7 @@ function GridItem({
         <ZoomIn className="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" />
       </div>
       {/* Caption strip at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#003B40]/80 to-transparent px-3 py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#006880]/80 to-transparent px-3 py-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
         <p className="text-white text-xs font-medium truncate">{caption}</p>
       </div>
     </div>
@@ -350,7 +379,7 @@ export default function GalleryGrid() {
       <section className="py-8 bg-[#F0FDFE] border-t border-[#B2EBF2]">
         <div className="container-site text-center">
           <p className="text-[#6B6355] text-sm mb-4">
-            Tüm <strong className="text-[#006064]">{ALL_IMAGES.length} görsel</strong>i birden görüntülemek için:
+            Tüm <strong className="text-[#0097A7]">{ALL_IMAGES.length} görsel</strong>i birden görüntülemek için:
           </p>
           <button
             onClick={() => openLightbox(ALL_IMAGES, 0)}
@@ -362,7 +391,7 @@ export default function GalleryGrid() {
       </section>
 
       {/* ── WhatsApp CTA ── */}
-      <section className="section bg-[#003B40]">
+      <section className="section bg-[#006880]">
         <div className="container-site text-center">
           <h2
             className="text-3xl md:text-4xl font-bold text-white mb-4"
@@ -374,7 +403,7 @@ export default function GalleryGrid() {
             Beğendiğiniz deseni caminize uyarlayabiliriz. Ücretsiz ölçüm ve teklif için ulaşın.
           </p>
           <a
-            href="/api/r?to=https%3A%2F%2Fwa.me%2F905323467939%3Ftext%3DMerhaba%252C%2520galeriden%2520bir%2520desen%2520be%25C4%259Fendim%252C%2520bilgi%2520almak%2520istiyorum.&from=%2Fgaleri&label=whatsapp&cat=whatsapp"
+            href="/api/r?to=https%3A%2F%2Fwa.me%2F905062259235%3Ftext%3DMerhaba%252C%2520galeriden%2520bir%2520desen%2520be%25C4%259Fendim%252C%2520bilgi%2520almak%2520istiyorum.&from=%2Fgaleri&label=whatsapp&cat=whatsapp"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-4 px-8 rounded-xl transition-all hover:scale-105 text-lg shadow-2xl"

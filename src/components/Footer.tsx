@@ -8,9 +8,10 @@ interface FooterProps {
 }
 
 export default async function Footer({ locale }: FooterProps) {
-  const [settings, t] = await Promise.all([
+  const [settings, t, tNav] = await Promise.all([
     getSettings(),
     getTranslations({ locale, namespace: "footer" }),
+    getTranslations({ locale, namespace: "nav" }),
   ]);
 
   const MAIN_SITE_URL = buildTrackedMainSiteUrl(settings, "footer", "main-site");
@@ -50,20 +51,23 @@ export default async function Footer({ locale }: FooterProps) {
 
           {/* Sütun 1: Marka */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M20 2L25.5 8H33.5V16L40 20L33.5 24V32H25.5L20 38L14.5 32H6.5V24L0 20L6.5 16V8H14.5Z" fill="#0097A7"/>
-                <path d="M20 9L23.8 13H29.2V18.2L33 20L29.2 21.8V27H23.8L20 31L16.2 27H10.8V21.8L7 20L10.8 18.2V13H16.2Z" fill="#C9972B"/>
-                <circle cx="20" cy="20" r="5.5" fill="#006064"/>
-                <circle cx="20" cy="20" r="2.5" fill="#F0FDFE"/>
+            {/* Footer Logo */}
+            <div className="flex flex-col items-start mb-4">
+              <svg width="148" height="14" viewBox="0 0 148 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <line x1="2" y1="10" x2="52" y2="10" stroke="#C9972B" strokeWidth="0.75" strokeLinecap="round"/>
+                <path d="M57 13 C57 10 55.5 8.5 55.5 7 C55.5 5.5 57 4.5 57 4.5 C57 4.5 58.5 5.5 58.5 7 C58.5 8.5 57 10 57 13Z" fill="#C9972B"/>
+                <circle cx="57" cy="3.5" r="1.2" fill="#C9972B"/>
+                <path d="M74 13 C74 9 71.5 7 71.5 5 C71.5 3 74 1.5 74 1.5 C74 1.5 76.5 3 76.5 5 C76.5 7 74 9 74 13Z" fill="#C9972B"/>
+                <circle cx="74" cy="0.8" r="1.5" fill="#C9972B"/>
+                <path d="M91 13 C91 10 89.5 8.5 89.5 7 C89.5 5.5 91 4.5 91 4.5 C91 4.5 92.5 5.5 92.5 7 C92.5 8.5 91 10 91 13Z" fill="#C9972B"/>
+                <circle cx="91" cy="3.5" r="1.2" fill="#C9972B"/>
+                <line x1="96" y1="10" x2="146" y2="10" stroke="#C9972B" strokeWidth="0.75" strokeLinecap="round"/>
               </svg>
-              <div>
-                <div className="font-bold text-white text-lg leading-none" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                  CAMİİ HALISI
-                </div>
-                <div className="text-[11px] font-semibold" style={{ color: "#C9972B" }}>
-                  by <span className="font-bold">Asil Halı</span>
-                </div>
+              <div className="font-bold text-white text-xl leading-none mt-1 tracking-[0.12em]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                CAMİİ HALISI
+              </div>
+              <div className="text-[9px] font-medium tracking-widest mt-0.5" style={{ color: "#C9972B", fontFamily: "'Cormorant Garamond', serif" }}>
+                {tNav("logoTagline")}
               </div>
             </div>
             <p className="text-sm text-[#F0FDFE]/70 leading-relaxed mb-4">

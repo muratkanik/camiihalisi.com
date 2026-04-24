@@ -195,7 +195,7 @@ export default async function BlogDetayPage({
                     })}
                   </div>
                   <div className="text-sm text-[#6B6355]">
-                    Yazan: <span className="font-medium text-[#006064]">{post.author}</span>
+                    Yazan: <span className="font-medium text-[#0097A7]">{post.author}</span>
                   </div>
                 </div>
 
@@ -211,7 +211,7 @@ export default async function BlogDetayPage({
                       return (
                         <h2
                           key={i}
-                          className="text-2xl font-bold text-[#006064] mt-10 mb-3 pt-6 border-t border-[#E0F7FA]"
+                          className="text-2xl font-bold text-[#0097A7] mt-10 mb-3 pt-6 border-t border-[#E0F7FA]"
                           style={{ fontFamily: "'Cormorant Garamond', serif" }}
                         >
                           {para.replace("## ", "")}
@@ -222,7 +222,7 @@ export default async function BlogDetayPage({
                       return (
                         <h3
                           key={i}
-                          className="text-xl font-bold text-[#006064] mt-6 mb-2"
+                          className="text-xl font-bold text-[#0097A7] mt-6 mb-2"
                           style={{ fontFamily: "'Cormorant Garamond', serif" }}
                         >
                           {para.replace("### ", "")}
@@ -251,7 +251,7 @@ export default async function BlogDetayPage({
                               {rows.map((row, j) => {
                                 const cells = row.split("|").filter(Boolean).map((c) => c.trim());
                                 return (
-                                  <tr key={j} className={j === 0 ? "bg-[#006064] text-white font-semibold" : j % 2 === 0 ? "bg-[#F0FDFE]" : "bg-white"}>
+                                  <tr key={j} className={j === 0 ? "bg-[#0097A7] text-white font-semibold" : j % 2 === 0 ? "bg-[#F0FDFE]" : "bg-white"}>
                                     {cells.map((cell, k) => (
                                       <td key={k} className="px-4 py-3 border-b border-[#E0F7FA]">{cell}</td>
                                     ))}
@@ -266,7 +266,7 @@ export default async function BlogDetayPage({
                     if (para.startsWith("```")) {
                       const code = para.replace(/```[\w]*\n?/, "").replace(/```$/, "");
                       return (
-                        <pre key={i} className="bg-[#006064] text-[#E4B84A] rounded-xl p-5 my-4 text-sm overflow-x-auto">
+                        <pre key={i} className="bg-[#0097A7] text-[#E4B84A] rounded-xl p-5 my-4 text-sm overflow-x-auto">
                           <code>{code}</code>
                         </pre>
                       );
@@ -311,7 +311,7 @@ export default async function BlogDetayPage({
                 <div className="mt-8">
                   <Link
                     href={`${prefix}/blog`}
-                    className="inline-flex items-center gap-2 text-sm text-[#006064] font-medium hover:text-[#C9972B] transition-colors"
+                    className="inline-flex items-center gap-2 text-sm text-[#0097A7] font-medium hover:text-[#C9972B] transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     Tüm Makaleler
@@ -322,7 +322,7 @@ export default async function BlogDetayPage({
               {/* Sağ: Sidebar */}
               <aside className="space-y-6">
                 {/* CTA Kartı */}
-                <div className="bg-[#006064] rounded-2xl p-6 text-white sticky top-24">
+                <div className="bg-[#0097A7] rounded-2xl p-6 text-white sticky top-24">
                   <h3
                     className="text-xl font-bold text-white mb-2"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
@@ -345,7 +345,7 @@ export default async function BlogDetayPage({
                 {/* İlgili Makaleler */}
                 <div className="bg-white rounded-2xl border border-[#B2EBF2] p-5">
                   <h3
-                    className="font-bold text-[#006064] mb-4"
+                    className="font-bold text-[#0097A7] mb-4"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     İlgili Makaleler
@@ -368,7 +368,7 @@ export default async function BlogDetayPage({
                         </div>
                         <div className="flex-1 min-w-0">
                           <p
-                            className="text-sm font-medium text-[#1A1A1A] leading-snug group-hover:text-[#006064] transition-colors line-clamp-2"
+                            className="text-sm font-medium text-[#1A1A1A] leading-snug group-hover:text-[#0097A7] transition-colors line-clamp-2"
                             style={{ fontFamily: "'Cormorant Garamond', serif" }}
                           >
                             {rel.title}
@@ -383,7 +383,7 @@ export default async function BlogDetayPage({
                 {/* Ürün Kategorileri */}
                 <div className="bg-[#F0FDFE] rounded-2xl border border-[#B2EBF2] p-5">
                   <h3
-                    className="font-bold text-[#006064] mb-4"
+                    className="font-bold text-[#0097A7] mb-4"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
                     Ürün Kategorileri
@@ -398,7 +398,7 @@ export default async function BlogDetayPage({
                       <Link
                         key={cat.slug}
                         href={`${prefix}/kategori/${cat.slug}`}
-                        className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#B2EBF2] hover:border-[#C9972B]/40 text-sm font-medium text-[#1A1A1A] hover:text-[#006064] transition-all"
+                        className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#B2EBF2] hover:border-[#C9972B]/40 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] transition-all"
                       >
                         {cat.label}
                         <ChevronRight className="w-3.5 h-3.5 text-[#C9972B]" />

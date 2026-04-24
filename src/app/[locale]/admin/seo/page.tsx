@@ -192,7 +192,7 @@ export default function SeoAnalysisPage() {
                 />
               </div>
               <button type="submit" disabled={loading || !keyword.trim()}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-[#0097A7] text-white font-bold text-sm hover:bg-[#003B40] disabled:opacity-50 disabled:cursor-not-allowed transition-all">
                 {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Analiz ediliyor...</> : <><Sparkles className="w-4 h-4" /> Analiz Et</>}
               </button>
             </div>
@@ -200,7 +200,7 @@ export default function SeoAnalysisPage() {
           <div className="flex flex-wrap gap-2">
             {QUICK_KEYWORDS.map((kw) => (
               <button key={kw} type="button" onClick={() => setKeyword(kw)}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${keyword === kw ? "bg-[#006064] text-white border-[#006064]" : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"}`}>
+                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${keyword === kw ? "bg-[#0097A7] text-white border-[#0097A7]" : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"}`}>
                 {kw}
               </button>
             ))}
@@ -303,7 +303,7 @@ export default function SeoAnalysisPage() {
           )}
 
           {/* ── Blog Üretici ── */}
-          <div className="bg-gradient-to-br from-[#006064] to-[#003B40] rounded-2xl p-6 text-white">
+          <div className="bg-gradient-to-br from-[#0097A7] to-[#003B40] rounded-2xl p-6 text-white">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-[#C9972B] flex items-center justify-center flex-shrink-0">
                 <PenLine className="w-5 h-5 text-[#003B40]" />

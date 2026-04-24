@@ -92,7 +92,7 @@ export default async function CityKeywordPage({
 
       <main id="main-content">
         {/* ── Hero ── */}
-        <section className="bg-[#006064] py-20 relative overflow-hidden">
+        <section className="bg-[#0097A7] py-20 relative overflow-hidden">
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -171,7 +171,7 @@ export default async function CityKeywordPage({
                     "10.000+ referans cami",
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2.5">
-                      <Check className="w-4 h-4 text-[#006064] mt-0.5 flex-shrink-0" />
+                      <Check className="w-4 h-4 text-[#0097A7] mt-0.5 flex-shrink-0" />
                       <span className="text-sm text-[#4A4035]">{item}</span>
                     </div>
                   ))}
@@ -200,7 +200,7 @@ export default async function CityKeywordPage({
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                   <Link href={`${prefix}/cami-halisi/${sehir}`}
-                    className="block text-center py-3 text-sm text-[#6B6355] hover:text-[#006064] transition-colors">
+                    className="block text-center py-3 text-sm text-[#6B6355] hover:text-[#0097A7] transition-colors">
                     ← {city.name} ana sayfasına dön
                   </Link>
                 </div>

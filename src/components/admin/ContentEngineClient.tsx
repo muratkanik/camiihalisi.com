@@ -53,7 +53,7 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
   return (
     <div className="space-y-6">
       {/* Manuel Tetikleme Kartı */}
-      <div className="bg-gradient-to-br from-[#006064] to-[#003B40] rounded-2xl p-6 text-white">
+      <div className="bg-gradient-to-br from-[#0097A7] to-[#003B40] rounded-2xl p-6 text-white">
         <div className="flex items-start gap-4">
           <div className="w-10 h-10 rounded-xl bg-[#C9972B] flex items-center justify-center flex-shrink-0">
             <Zap className="w-5 h-5 text-[#003B40]" />

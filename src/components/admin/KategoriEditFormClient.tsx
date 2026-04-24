@@ -23,7 +23,7 @@ export default function KategoriEditFormClient({ cat }: Props) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Field label="SEO Anahtar Kelime" name="seoKeyword" defaultValue={cat.seoKeyword} placeholder="akrilik cami halısı" cls={cls} />
-        <Field label="Renk (hex)" name="color" defaultValue={cat.color} placeholder="#006064" cls={cls} />
+        <Field label="Renk (hex)" name="color" defaultValue={cat.color} placeholder="#0097A7" cls={cls} />
       </div>
 
       <div>
@@ -50,7 +50,7 @@ export default function KategoriEditFormClient({ cat }: Props) {
       <div className="flex items-center gap-2 pb-2">
         <button
           type="submit"
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] text-white font-bold text-sm hover:bg-[#003B40] transition-all"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0097A7] text-white font-bold text-sm hover:bg-[#003B40] transition-all"
         >
           <Save className="w-4 h-4" />
           Kaydet &amp; SEO Hesapla

@@ -40,7 +40,7 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Akrilik vs Yün Cami Halısı: Hangisi Daha İyi?",
     metaTitle: "Akrilik vs Yün Cami Halısı Karşılaştırması 2025 | Asil Halı",
     metaDesc: "Akrilik mi yün mü cami halısı? Fiyat, ömür, bakım, desen, yangın güvenliği — tüm kriterlerde tarafsız karşılaştırma. Uzman tavsiyeleri ile.",
-    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#006064" },
+    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#0097A7" },
     b: { isim: "Yün", slug: "yun-cami-halisi", image: "/images/cami-katalog-05.png", renk: "#0097A7" },
     ozet: "Akrilik ve yün, Türkiye'deki camilerde en yaygın kullanılan iki halı türüdür. Akrilik; ekonomik fiyatı, canlı renkleri ve kolay bakımıyla geniş kitlelere hitap ederken, yün; doğal yapısı, uzun ömrü ve ısı yalıtımıyla prestijli projelerin tercihi olmaya devam etmektedir.",
     kriterler: [
@@ -73,7 +73,7 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Polipropilen vs Polyamid Cami Halısı: Detaylı Karşılaştırma",
     metaTitle: "Polipropilen vs Polyamid Cami Halısı 2025 | Asil Halı",
     metaDesc: "Polipropilen mi polyamid mi? Leke tutmazlık, aşınma direnci, renk kalıcılığı — tüm kriterlerde uzman karşılaştırması. Caminiz için doğru seçim.",
-    a: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#006064" },
+    a: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#0097A7" },
     b: { isim: "Polyamid", slug: "polyamid-cami-halisi", image: "/images/cami-katalog-13.png", renk: "#003B40" },
     ozet: "Polipropilen ve polyamid, modern cami projelerinin iki önemli sentetik lif seçeneğidir. Polipropilen su ve leke direnciyle, polyamid ise üstün aşınma direnci ve renk kalıcılığıyla öne çıkar.",
     kriterler: [
@@ -102,7 +102,7 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Akrilik vs Polipropilen Cami Halısı Karşılaştırması",
     metaTitle: "Akrilik vs Polipropilen Cami Halısı | Asil Halı",
     metaDesc: "Akrilik mi polipropilen mi? Renk, konfor, su direnci, fiyat — cami halısı seçiminde iki popüler seçeneğin kapsamlı karşılaştırması.",
-    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#006064" },
+    a: { isim: "Akrilik", slug: "akrilik-cami-halisi", image: "/images/cami-katalog-01.png", renk: "#0097A7" },
     b: { isim: "Polipropilen", slug: "polipropilen-cami-halisi", image: "/images/cami-katalog-09.png", renk: "#0097A7" },
     ozet: "Akrilik ve polipropilen, orta bütçeli cami projelerinin iki favorisidir. Akrilik daha parlak renk ve yumuşak dokusuyla öne çıkarken, polipropilen su ve leke direnciyle pratik bir seçenek sunar.",
     kriterler: [
@@ -158,7 +158,7 @@ const COMPARISONS: Record<string, ComparisonData> = {
     title: "Saflı vs Göbekli vs Seccadeli Cami Halısı Desenleri",
     metaTitle: "Saflı, Göbekli, Seccadeli Cami Halısı Desen Karşılaştırması | Asil Halı",
     metaDesc: "Saflı mı göbekli mi seccadeli mi? Üç temel cami halısı deseninin detaylı karşılaştırması. Hangi desen caminize uygun? Asil Halı uzmanları anlatıyor.",
-    a: { isim: "Saflı", slug: "safli-akrilik-cami-halisi", image: "/images/cami-katalog-02.png", renk: "#006064" },
+    a: { isim: "Saflı", slug: "safli-akrilik-cami-halisi", image: "/images/cami-katalog-02.png", renk: "#0097A7" },
     b: { isim: "Göbekli", slug: "gobekli-akrilik-cami-halisi", image: "/images/cami-katalog-03.png", renk: "#0097A7" },
     ozet: "Saflı, göbekli ve seccadeli; Türkiye'deki camilerde en yaygın üç desen türüdür. Her biri farklı ihtiyaçlara ve cami mimarilerine hitap eder.",
     kriterler: [
@@ -260,7 +260,7 @@ export default async function KarsilastirmaPage({
       <Navigation locale={locale} />
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-gradient-to-br from-[#006064] to-[#003B40] py-14 px-4">
+        <section className="bg-gradient-to-br from-[#0097A7] to-[#003B40] py-14 px-4">
           <div className="container-site">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6 flex-wrap">
               <a href={`${prefix}/`} className="hover:text-white">Ana Sayfa</a>
@@ -301,13 +301,13 @@ export default async function KarsilastirmaPage({
         {/* Karşılaştırma Tablosu */}
         <section className="section bg-[#F0FDFE]">
           <div className="container-site max-w-4xl">
-            <h2 className="text-2xl font-bold text-[#006064] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <h2 className="text-2xl font-bold text-[#0097A7] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               Kriter Bazlı Karşılaştırma
             </h2>
 
             <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden mb-10">
               {/* Header */}
-              <div className="grid grid-cols-3 bg-[#006064] text-white text-sm font-bold">
+              <div className="grid grid-cols-3 bg-[#0097A7] text-white text-sm font-bold">
                 <div className="px-4 py-3">Kriter</div>
                 <div className="px-4 py-3 border-l border-white/10">{c.a.isim}</div>
                 <div className="px-4 py-3 border-l border-white/10">{c.b.isim}</div>
@@ -337,7 +337,7 @@ export default async function KarsilastirmaPage({
             </div>
 
             {/* Sonuç */}
-            <div className="bg-[#006064] rounded-2xl p-8 text-white mb-10">
+            <div className="bg-[#0097A7] rounded-2xl p-8 text-white mb-10">
               <h2 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 Sonuç: {verdictScore ? `${verdictScore.winner} Kazanıyor` : "Berabere — İkisi de Güçlü"}
               </h2>
@@ -370,7 +370,7 @@ export default async function KarsilastirmaPage({
             {/* SSS */}
             {c.sss.length > 0 && (
               <div>
-                <h2 className="text-2xl font-bold text-[#006064] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <h2 className="text-2xl font-bold text-[#0097A7] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                   Sık Sorulan Sorular
                 </h2>
                 <div className="space-y-4">

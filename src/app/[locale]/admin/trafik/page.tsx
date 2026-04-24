@@ -45,7 +45,7 @@ function StatCard({ label, value, sub }: { label: string; value: number; sub?: s
   return (
     <div className="bg-white rounded-2xl border border-[#B2EBF2] p-5 flex flex-col gap-1">
       <span className="text-xs text-[#6B6355] uppercase tracking-widest font-semibold">{label}</span>
-      <span className="text-3xl font-bold text-[#006064]">{value.toLocaleString("tr-TR")}</span>
+      <span className="text-3xl font-bold text-[#0097A7]">{value.toLocaleString("tr-TR")}</span>
       {sub && <span className="text-xs text-[#6B6355]">{sub}</span>}
     </div>
   );
@@ -53,7 +53,7 @@ function StatCard({ label, value, sub }: { label: string; value: number; sub?: s
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-sm font-bold text-[#006064] uppercase tracking-widest mb-3 mt-6 flex items-center gap-2">
+    <h2 className="text-sm font-bold text-[#0097A7] uppercase tracking-widest mb-3 mt-6 flex items-center gap-2">
       {children}
     </h2>
   );
@@ -92,8 +92,8 @@ export default function TrafikPage() {
               onClick={() => setPeriod(p.key)}
               className={`px-4 py-1.5 rounded-lg text-sm font-semibold border transition-all ${
                 period === p.key
-                  ? "bg-[#006064] text-white border-[#006064]"
-                  : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#006064]"
+                  ? "bg-[#0097A7] text-white border-[#0097A7]"
+                  : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#0097A7]"
               }`}
             >
               {p.label}
@@ -142,7 +142,7 @@ export default function TrafikPage() {
                 <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                      <tr className="bg-[#F0FDFE] text-[#0097A7] text-xs font-semibold">
                         <th className="text-left px-4 py-2.5">Ülke</th>
                         <th className="text-right px-4 py-2.5">Tıklama</th>
                       </tr>
@@ -153,7 +153,7 @@ export default function TrafikPage() {
                           <td className="px-4 py-2.5 font-medium">
                             <span className="mr-2">{r.flag}</span>{r.name}
                           </td>
-                          <td className="px-4 py-2.5 text-right font-bold text-[#006064]">{r.count}</td>
+                          <td className="px-4 py-2.5 text-right font-bold text-[#0097A7]">{r.count}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -170,7 +170,7 @@ export default function TrafikPage() {
                 <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                      <tr className="bg-[#F0FDFE] text-[#0097A7] text-xs font-semibold">
                         <th className="text-left px-4 py-2.5">Şehir</th>
                         <th className="text-right px-4 py-2.5">Tıklama</th>
                       </tr>
@@ -179,7 +179,7 @@ export default function TrafikPage() {
                       {data.byCity.map((r) => (
                         <tr key={r.city} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
                           <td className="px-4 py-2.5 font-medium">{r.city}</td>
-                          <td className="px-4 py-2.5 text-right font-bold text-[#006064]">{r.count}</td>
+                          <td className="px-4 py-2.5 text-right font-bold text-[#0097A7]">{r.count}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -201,7 +201,7 @@ export default function TrafikPage() {
                     <span className="text-sm capitalize">
                       {DEVICE_ICON[r.device] ?? "❓"} {r.device}
                     </span>
-                    <span className="font-bold text-[#006064]">{r.count}</span>
+                    <span className="font-bold text-[#0097A7]">{r.count}</span>
                   </div>
                 ))}
               </div>
@@ -217,7 +217,7 @@ export default function TrafikPage() {
                     <span className="text-sm capitalize">
                       {BROWSER_ICON[r.browser] ?? "⬜"} {r.browser}
                     </span>
-                    <span className="font-bold text-[#006064]">{r.count}</span>
+                    <span className="font-bold text-[#0097A7]">{r.count}</span>
                   </div>
                 ))}
               </div>
@@ -231,7 +231,7 @@ export default function TrafikPage() {
                 ) : data.byRef.map((r) => (
                   <div key={r.domain} className="flex items-center justify-between">
                     <span className="text-sm truncate max-w-[150px]">{r.domain}</span>
-                    <span className="font-bold text-[#006064]">{r.count}</span>
+                    <span className="font-bold text-[#0097A7]">{r.count}</span>
                   </div>
                 ))}
               </div>
@@ -248,7 +248,7 @@ export default function TrafikPage() {
                 <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                      <tr className="bg-[#F0FDFE] text-[#0097A7] text-xs font-semibold">
                         <th className="text-left px-4 py-2.5">Etiket</th>
                         <th className="text-right px-4 py-2.5">Tıklama</th>
                       </tr>
@@ -257,7 +257,7 @@ export default function TrafikPage() {
                       {data.byLabel.map((r) => (
                         <tr key={r.label} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
                           <td className="px-4 py-2.5 font-mono text-xs">{r.label || "(etiket yok)"}</td>
-                          <td className="px-4 py-2.5 text-right font-bold text-[#006064]">{r.count}</td>
+                          <td className="px-4 py-2.5 text-right font-bold text-[#0097A7]">{r.count}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -274,7 +274,7 @@ export default function TrafikPage() {
                 <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="bg-[#F0FDFE] text-[#006064] text-xs font-semibold">
+                      <tr className="bg-[#F0FDFE] text-[#0097A7] text-xs font-semibold">
                         <th className="text-left px-4 py-2.5">Sayfa</th>
                         <th className="text-left px-4 py-2.5">Etiket</th>
                         <th className="text-right px-4 py-2.5">Adet</th>
@@ -285,7 +285,7 @@ export default function TrafikPage() {
                         <tr key={i} className="border-t border-[#F0FDFE] hover:bg-[#F0FDFE]/50">
                           <td className="px-4 py-2 text-xs font-mono truncate max-w-[150px]">{r.fromPage}</td>
                           <td className="px-4 py-2 text-xs text-[#6B6355] truncate max-w-[120px]">{r.label}</td>
-                          <td className="px-4 py-2 text-right font-bold text-[#006064]">{r.count}</td>
+                          <td className="px-4 py-2 text-right font-bold text-[#0097A7]">{r.count}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -300,7 +300,7 @@ export default function TrafikPage() {
           <div className="bg-white rounded-2xl border border-[#B2EBF2] overflow-x-auto">
             <table className="w-full text-xs">
               <thead>
-                <tr className="bg-[#F0FDFE] text-[#006064] font-semibold">
+                <tr className="bg-[#F0FDFE] text-[#0097A7] font-semibold">
                   <th className="text-left px-3 py-2.5">Zaman</th>
                   <th className="text-left px-3 py-2.5">Sayfa</th>
                   <th className="text-left px-3 py-2.5">Etiket</th>

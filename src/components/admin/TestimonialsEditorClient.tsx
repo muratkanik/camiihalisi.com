@@ -134,7 +134,7 @@ export default function TestimonialsEditorClient({ initialTestimonials }: Props)
         <button
           type="button"
           onClick={addItem}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 text-sm font-medium hover:border-[#006064] hover:text-[#006064] transition-all"
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 text-sm font-medium hover:border-[#0097A7] hover:text-[#0097A7] transition-all"
         >
           <Plus className="w-4 h-4" />
           Yeni Yorum Ekle
@@ -144,7 +144,7 @@ export default function TestimonialsEditorClient({ initialTestimonials }: Props)
           type="button"
           onClick={handleSave}
           disabled={saving}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#006064] hover:bg-[#00494D] text-white text-sm font-bold transition-all disabled:opacity-50"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0097A7] hover:bg-[#00494D] text-white text-sm font-bold transition-all disabled:opacity-50"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : saved ? <CheckCircle2 className="w-4 h-4" /> : <Save className="w-4 h-4" />}
           {saving ? "Kaydediliyor..." : saved ? "Kaydedildi!" : "Yorumları Kaydet"}

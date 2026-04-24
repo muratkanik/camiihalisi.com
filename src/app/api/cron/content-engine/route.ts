@@ -15,7 +15,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { BLOG_POSTS } from "@/lib/blog-data";
-import { CONTENT_CALENDAR, getNextTarget, getLowScoreTarget } from "@/lib/content-calendar";
+import { CONTENT_CALENDAR, getNextTarget, getLowScoreTarget, SEO_IMPROVE_THRESHOLD } from "@/lib/content-calendar";
 
 const SITE_ORIGIN = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -92,14 +92,21 @@ export async function GET(req: NextRequest) {
     const calendarSlugs = CONTENT_CALENDAR.map((e) => e.slug);
 
     // ── 2. Hedef keyword seç ──────────────────────────────────────────────────
-    // Önce: kapsanmamış yeni keyword
-    // Sonra: düşük SEO skorlu makale iyileştirme
-    let target = getNextTarget(allSlugs);
-    let mode: "new" | "improve" = "new";
+    // Her zaman SEO skoru < 80 olan makaleler önce iyileştirilir.
+    // Sonra kapsanmamış yeni keyword eklenir.
+    const coveredSlugs = calendarSlugs.filter((s) => allSlugs.includes(s));
+    const scores = await loadSeoScores(prisma, coveredSlugs);
 
+    // SEO < 80 olan var mı?
+    const improvTarget = getLowScoreTarget(scores, allSlugs);
+    const hasLowScore = !!improvTarget && (scores[improvTarget.slug] ?? 0) < SEO_IMPROVE_THRESHOLD;
+
+    let target = hasLowScore ? improvTarget : getNextTarget(allSlugs);
+    let mode: "new" | "improve" = hasLowScore ? "improve" : "new";
+
+    // Yeni keyword de yoksa en düşük skorluyu iyileştir
     if (!target) {
-      const scores = await loadSeoScores(prisma, calendarSlugs.filter((s) => allSlugs.includes(s)));
-      target = getLowScoreTarget(scores, allSlugs);
+      target = improvTarget;
       mode = "improve";
     }
 

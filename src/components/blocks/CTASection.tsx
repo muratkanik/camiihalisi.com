@@ -1,4 +1,7 @@
-import { ExternalLink, Phone, ArrowRight } from "lucide-react";
+import { Phone } from "lucide-react";
+import { getTranslations } from "next-intl/server";
+import { getSettings } from "@/lib/settings";
+import TeklifAlButton from "@/components/TeklifAlButton";
 
 const MAIN_SITE_URL =
   "/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcta%26utm_campaign%3Dsite&from=cta&label=fiyat-teklifi&cat=outbound";
@@ -9,17 +12,21 @@ interface CTASectionProps {
   variant?: "green" | "cream";
 }
 
-export default function CTASection({
-  title = "Caminiz İçin En İyi Halıyı Seçelim",
-  subtitle = "50 yılı aşkın tecrübemizle, caminizin ihtiyacına özel halı çözümü sunuyoruz. Ücretsiz keşif ve fiyat teklifi için hemen iletişime geçin.",
+export default async function CTASection({
+  title,
+  subtitle,
   variant = "green",
 }: CTASectionProps) {
+  const [t, settings] = await Promise.all([getTranslations("cta"), getSettings()]);
   const isGreen = variant === "green";
+
+  const displayTitle = title ?? (isGreen ? t("greenTitle") : t("creamTitle"));
+  const displaySubtitle = subtitle ?? (isGreen ? t("greenSubtitle") : t("creamSubtitle"));
 
   return (
     <section
       className={`section relative overflow-hidden ${
-        isGreen ? "bg-[#006064]" : "bg-[#F0FDFE]"
+        isGreen ? "bg-[#0097A7]" : "bg-[#F0FDFE]"
       }`}
     >
       {/* Geometrik arkaplan motifi */}
@@ -39,7 +46,7 @@ export default function CTASection({
           <div className="arabesque-divider mb-8">
             <span
               className={`text-sm font-semibold tracking-widest uppercase ${
-                isGreen ? "text-[#C9972B]" : "text-[#006064]"
+                isGreen ? "text-[#C9972B]" : "text-[#0097A7]"
               }`}
             >
               ☽ Asil Halı A.Ş. ☾
@@ -49,11 +56,11 @@ export default function CTASection({
           {/* Başlık */}
           <h2
             className={`text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight ${
-              isGreen ? "text-white" : "text-[#006064]"
+              isGreen ? "text-white" : "text-[#0097A7]"
             }`}
             style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
-            {title}
+            {displayTitle}
           </h2>
 
           {/* Açıklama */}
@@ -62,28 +69,24 @@ export default function CTASection({
               isGreen ? "text-[#F0FDFE]/80" : "text-[#6B6355]"
             }`}
           >
-            {subtitle}
+            {displaySubtitle}
           </p>
 
           {/* Butonlar */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <TeklifAlButton
+              label={t("getQuoteBtn")}
+              className="text-base !px-8 !py-3.5"
+              variant="gold"
+            />
             <a
-              href={MAIN_SITE_URL}
-              target="_blank"
-              rel="noopener"
-              className="btn btn-gold text-base !px-8 !py-3.5"
-            >
-              Fiyat Teklifi Al — asilhali.com.tr
-              <ExternalLink className="w-4 h-4" />
-            </a>
-            <a
-              href="tel:+905323467939"
+              href={`tel:${settings.phone.replace(/\s/g, "")}`}
               className={`btn text-base !px-8 !py-3.5 ${
                 isGreen ? "btn-outline" : "btn-outline-dark"
               }`}
             >
               <Phone className="w-4 h-4" />
-              Hemen Arayın
+              {t("callNow")}
             </a>
           </div>
 
@@ -93,7 +96,7 @@ export default function CTASection({
               isGreen ? "text-[#F0FDFE]/50" : "text-[#6B6355]/70"
             }`}
           >
-            Ücretsiz keşif · Ücretsiz kargo · Montaj dahil seçenekler mevcut
+            {t("trustNote")}
           </p>
         </div>
       </div>

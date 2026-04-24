@@ -61,7 +61,7 @@ export default async function TrustSection({ testimonials }: TrustSectionProps) 
                   { n: "81", l: t("statCities") },
                 ].map((s) => (
                   <div key={s.l} className="text-center bg-white rounded-xl py-3 px-2 border border-[#B2EBF2]">
-                    <div className="text-xl font-extrabold text-[#006064]">{s.n}</div>
+                    <div className="text-xl font-extrabold text-[#0097A7]">{s.n}</div>
                     <div className="text-xs text-[#5A6A6D] mt-0.5">{s.l}</div>
                   </div>
                 ))}
@@ -91,7 +91,7 @@ export default async function TrustSection({ testimonials }: TrustSectionProps) 
                   &ldquo;{item.quote}&rdquo;
                 </p>
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[#006064]/15 flex items-center justify-center flex-shrink-0 text-[#006064] font-bold text-sm">
+                  <div className="w-10 h-10 rounded-full bg-[#0097A7]/15 flex items-center justify-center flex-shrink-0 text-[#0097A7] font-bold text-sm">
                     {item.name[0]}
                   </div>
                   <div>

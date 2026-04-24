@@ -81,7 +81,7 @@ export default async function ReferanslarPage({
 
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#006064] py-20 relative overflow-hidden">
+        <section className="bg-[#0097A7] py-20 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")` }} />
           <div className="container-site relative z-10">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6" aria-label="Breadcrumb">
@@ -123,10 +123,10 @@ export default async function ReferanslarPage({
             <div className="grid md:grid-cols-3 gap-6 mb-16">
               {NOTABLE_PROJECTS.map((p) => (
                 <div key={p.name} className="bg-white rounded-2xl border border-[#B2EBF2] p-6 hover:shadow-md transition-shadow">
-                  <div className="w-10 h-10 rounded-xl bg-[#006064]/10 flex items-center justify-center mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-[#0097A7]/10 flex items-center justify-center mb-4">
                     <Star className="w-5 h-5 text-[#C9972B]" />
                   </div>
-                  <h3 className="font-bold text-[#006064] text-lg mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{p.name}</h3>
+                  <h3 className="font-bold text-[#0097A7] text-lg mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>{p.name}</h3>
                   <div className="space-y-1.5 text-sm text-[#6B6355]">
                     <div className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#C9972B]" />{p.location}</div>
                     <div>Kapsam: {p.scope}</div>
@@ -146,8 +146,8 @@ export default async function ReferanslarPage({
               {REFERENCES.map((ref) => (
                 <div key={ref.il} className="bg-white rounded-xl border border-[#B2EBF2] p-4 hover:border-[#C9972B]/40 transition-colors">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-bold text-[#006064]">{ref.il}</h3>
-                    <span className="text-xs bg-[#006064]/10 text-[#006064] px-2 py-0.5 rounded-full font-semibold">{ref.adet}+</span>
+                    <h3 className="font-bold text-[#0097A7]">{ref.il}</h3>
+                    <span className="text-xs bg-[#0097A7]/10 text-[#0097A7] px-2 py-0.5 rounded-full font-semibold">{ref.adet}+</span>
                   </div>
                   <div className="text-xs text-[#C9972B] font-medium mb-2">{ref.tip}</div>
                   <ul className="space-y-0.5">

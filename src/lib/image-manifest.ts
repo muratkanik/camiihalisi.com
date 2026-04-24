@@ -70,4 +70,11 @@ export const STATIC_IMAGES: string[] = [
   "/images/panorama-cami.jpg",
   "/images/referans-bilecik.jpg",
   "/images/referans-esentepe.jpg",
+  // S101 Desen Renk Varyantları
+  "/images/s101-acik-cini.webp",
+  "/images/s101-bej.webp",
+  "/images/s101-bordo.webp",
+  "/images/s101-hardal.webp",
+  "/images/s101-koyu-cini.webp",
+  "/images/s101-turkuaz.webp",
 ];

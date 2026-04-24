@@ -135,7 +135,7 @@ export default async function IntlMosqueCarpetPage({
       <Navigation locale={locale} />
       <main id="main-content">
         {/* Hero */}
-        <section className="bg-[#006064] py-16 md:py-24 relative overflow-hidden">
+        <section className="bg-[#0097A7] py-16 md:py-24 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23C9972B' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")` }} />
           <div className="container-site relative z-10">
             <nav className="flex items-center gap-2 text-sm text-white/50 mb-6" aria-label="Breadcrumb">
@@ -200,7 +200,7 @@ export default async function IntlMosqueCarpetPage({
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
               {carpetTypes.map((carpet) => (
                 <Link key={carpet.slug} href={`${prefix}/kategori/${carpet.slug}`} className="group bg-white rounded-xl border border-[#B2EBF2] p-5 hover:border-[#C9972B]/40 hover:shadow-md transition-all">
-                  <h3 className="font-bold text-[#006064] mb-2 group-hover:text-[#C9972B] transition-colors">{carpet.name}</h3>
+                  <h3 className="font-bold text-[#0097A7] mb-2 group-hover:text-[#C9972B] transition-colors">{carpet.name}</h3>
                   <p className="text-sm text-[#6B6355]">{carpet.desc}</p>
                 </Link>
               ))}
@@ -208,14 +208,14 @@ export default async function IntlMosqueCarpetPage({
 
             {/* Advantages */}
             <div className="bg-white rounded-2xl border border-[#B2EBF2] p-8">
-              <h2 className="text-2xl font-bold text-[#006064] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <h2 className="text-2xl font-bold text-[#0097A7] mb-6" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 {isAr ? "لماذا أصيل هالي؟" : "Why Asil Hali for Your Mosque?"}
               </h2>
               <div className="grid sm:grid-cols-2 gap-3">
                 {advantages.map((adv) => (
                   <div key={adv} className="flex items-start gap-3">
-                    <div className="w-5 h-5 rounded-full bg-[#006064]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <Check className="w-3 h-3 text-[#006064]" />
+                    <div className="w-5 h-5 rounded-full bg-[#0097A7]/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-[#0097A7]" />
                     </div>
                     <span className="text-sm text-[#1A1A1A]">{adv}</span>
                   </div>

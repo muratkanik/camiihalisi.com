@@ -35,7 +35,7 @@ export default async function SehirlerPage({
   return (
     <div className="min-h-screen bg-[#F0FDFE]">
       {/* Header */}
-      <div className="bg-[#006064] text-white px-6 py-4 flex items-center justify-between">
+      <div className="bg-[#0097A7] text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Link href={`/admin`} className="text-white/60 hover:text-white text-sm transition-colors">← Admin</Link>
           <span className="text-white/40">/</span>
@@ -92,7 +92,7 @@ export default async function SehirlerPage({
             <div className="flex-1 min-w-48">
               <label className="block text-xs font-semibold text-[#6B6355] mb-1.5 uppercase tracking-wide">Şehir</label>
               <select name="citySlug" required
-                className="w-full px-3 py-2.5 text-sm border border-[#B2EBF2] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#006064]/20">
+                className="w-full px-3 py-2.5 text-sm border border-[#B2EBF2] rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#0097A7]/20">
                 <option value="">Şehir seçin...</option>
                 <optgroup label="İller">
                   {iller.map((c) => <option key={c.slug} value={c.slug}>{c.name}</option>)}
@@ -109,11 +109,11 @@ export default async function SehirlerPage({
                 name="keyword"
                 required
                 placeholder="örn: Plastik Cami Halısı"
-                className="w-full px-3 py-2.5 text-sm border border-[#B2EBF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#006064]/20"
+                className="w-full px-3 py-2.5 text-sm border border-[#B2EBF2] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0097A7]/20"
               />
             </div>
             <button type="submit"
-              className="flex items-center gap-2 bg-[#006064] hover:bg-[#0097A7] text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">
+              className="flex items-center gap-2 bg-[#0097A7] hover:bg-[#0097A7] text-white font-semibold px-5 py-2.5 rounded-lg transition-colors text-sm">
               <Plus className="w-4 h-4" />
               Ekle
             </button>
@@ -147,7 +147,7 @@ export default async function SehirlerPage({
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="font-semibold text-[#1A1A1A] text-sm">{city?.name ?? kw.citySlug}</span>
                         <span className="text-[#6B6355]">→</span>
-                        <span className="text-[#006064] font-medium text-sm">{kw.keyword}</span>
+                        <span className="text-[#0097A7] font-medium text-sm">{kw.keyword}</span>
                         {!kw.isActive && <span className="text-xs bg-red-100 text-red-600 px-1.5 py-0.5 rounded">Pasif</span>}
                       </div>
                       <div className="flex items-center gap-2 mt-1">
@@ -164,7 +164,7 @@ export default async function SehirlerPage({
                         <input type="hidden" name="isActive" value={String(kw.isActive)} />
                         <button type="submit"
                           title={kw.isActive ? "Pasif yap" : "Aktif et"}
-                          className="p-1.5 rounded-lg hover:bg-[#F0FDFE] text-[#6B6355] hover:text-[#006064] transition-colors">
+                          className="p-1.5 rounded-lg hover:bg-[#F0FDFE] text-[#6B6355] hover:text-[#0097A7] transition-colors">
                           {kw.isActive ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
                         </button>
                       </form>
@@ -198,7 +198,7 @@ export default async function SehirlerPage({
                   <div key={c.slug}
                     className={`text-xs px-2.5 py-1.5 rounded-lg border flex items-center gap-1.5 ${
                       c.type === "il"
-                        ? "border-[#006064]/20 bg-[#006064]/5 text-[#006064]"
+                        ? "border-[#0097A7]/20 bg-[#0097A7]/5 text-[#0097A7]"
                         : "border-[#B2EBF2] bg-[#F0FDFE] text-[#6B6355]"
                     }`}>
                     <span className="flex-1 truncate">{c.name}</span>

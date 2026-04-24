@@ -9,7 +9,7 @@ const CATEGORIES = [
     description: "Parlak renkleri, yumuşak dokusu ve ekonomik fiyatıyla en çok tercih edilen halı türü.",
     badge: "En Çok Satan",
     image: "/images/cami-3.png",   // turkuaz saflı akrilik
-    color: "#006064",
+    color: "#0097A7",
     features: ["Solmaz Renk", "Yumuşak Doku", "Ekonomik"],
     subcategories: [
       { label: "Saflı Akrilik", slug: "safli-akrilik-cami-halisi" },
@@ -37,7 +37,7 @@ const CATEGORIES = [
     description: "Neme ve lekeye karşı üstün direnciyle yüksek trafik alanları için üretilmiş.",
     badge: "Dayanıklı",
     image: "/images/gobekli-cami-halisi.png",
-    color: "#006064",
+    color: "#0097A7",
     features: ["Kolay Temizlik", "Leke Tutmaz", "Yüksek Trafik"],
     subcategories: [
       { label: "Saflı Polipropilen", slug: "safli-polipropilen-cami-halisi" },
@@ -134,7 +134,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
                       <Link
                         key={sub.slug}
                         href={`${prefix}/kategori/${sub.slug}`}
-                        className="flex items-center gap-1.5 py-1.5 px-2 text-xs font-medium text-[#1A1A1A] hover:text-[#006064] hover:bg-[#F0FDFE] rounded-lg transition-colors"
+                        className="flex items-center gap-1.5 py-1.5 px-2 text-xs font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#F0FDFE] rounded-lg transition-colors"
                       >
                         <ChevronRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
                         {sub.label}
@@ -146,7 +146,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
                 {/* Ana kategori CTA */}
                 <Link
                   href={`${prefix}/kategori/${cat.slug}`}
-                  className="flex items-center gap-1 text-[#006064] font-semibold text-sm hover:gap-2 transition-all mt-auto"
+                  className="flex items-center gap-1 text-[#0097A7] font-semibold text-sm hover:gap-2 transition-all mt-auto"
                 >
                   Tüm {cat.title} Modelleri
                   <ArrowRight className="w-4 h-4" />
@@ -157,7 +157,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
         </div>
 
         {/* Axminster Özel Sipariş */}
-        <div className="bg-gradient-to-r from-[#006064] to-[#0097A7] rounded-2xl overflow-hidden">
+        <div className="bg-gradient-to-r from-[#0097A7] to-[#0097A7] rounded-2xl overflow-hidden">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-64 relative h-48 md:h-auto flex-shrink-0">
               <Image src={SPECIAL.image} alt={SPECIAL.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 256px" />
@@ -186,7 +186,7 @@ export default function CategoryGrid({ locale }: CategoryGridProps) {
         <div className="mt-6 bg-white border border-[#B2EBF2] rounded-2xl p-6">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div>
-              <h3 className="font-bold text-[#006064] text-lg mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <h3 className="font-bold text-[#0097A7] text-lg mb-1" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 Halı Altı Malzemeleri
               </h3>
               <p className="text-sm text-[#6B6355]">
