@@ -86,17 +86,17 @@ export default function HeroOverlayClient({ initialOpacity, saveAction, previewI
       )}
 
       {/* Slider Kontrolü */}
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+      <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div className="flex items-center justify-between mb-3">
+          <label className="text-sm font-bold text-slate-900 dark:text-slate-100">
             Beyaz Overlay Yoğunluğu
           </label>
-          <span className="text-sm font-bold text-[#0097A7] tabular-nums w-12 text-right">
+          <span className="text-sm font-bold text-[#0097A7] dark:text-[#26C6DA] tabular-nums w-12 text-right">
             %{opacity}
           </span>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-xs text-slate-400 w-14">Şeffaf</span>
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 w-14">Şeffaf</span>
           <input
             type="range"
             min={0}
@@ -104,11 +104,11 @@ export default function HeroOverlayClient({ initialOpacity, saveAction, previewI
             step={1}
             value={opacity}
             onChange={(e) => { setOpacity(Number(e.target.value)); setSaved(false); }}
-            className="flex-1 h-2 rounded-full appearance-none cursor-pointer accent-[#0097A7]"
+            className="flex-1 h-2.5 rounded-full appearance-none cursor-pointer accent-[#0097A7] bg-slate-200 dark:bg-slate-700"
           />
-          <span className="text-xs text-slate-400 w-12 text-right">Opak</span>
+          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 w-12 text-right">Opak</span>
         </div>
-        <div className="flex justify-between text-[10px] text-slate-300 dark:text-slate-600 mt-1 px-14">
+        <div className="flex justify-between text-[10px] font-medium text-slate-600 dark:text-slate-400 mt-2 px-14">
           <span>0%</span>
           <span>25%</span>
           <span>50%</span>
@@ -122,9 +122,9 @@ export default function HeroOverlayClient({ initialOpacity, saveAction, previewI
         type="button"
         onClick={handleSave}
         disabled={isPending}
-        className={`w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-bold transition-all ${
+        className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold transition-all shadow-sm ${
           saved
-            ? "bg-emerald-500 text-white"
+            ? "bg-emerald-500 hover:bg-emerald-600 text-white"
             : "bg-[#0097A7] hover:bg-[#007a87] text-white disabled:opacity-60"
         }`}
       >
@@ -137,7 +137,7 @@ export default function HeroOverlayClient({ initialOpacity, saveAction, previewI
         )}
       </button>
 
-      <p className="text-xs text-slate-400 text-center">
+      <p className="text-xs font-medium text-slate-600 dark:text-slate-400 text-center">
         Değişiklik anında sitede geçerli olur. Önerilen aralık: %60–%85
       </p>
     </div>
