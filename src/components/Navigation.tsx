@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { Menu, X, ChevronDown, ChevronRight, MessageCircle, Phone } from "lucide-react";
+import { Menu, X, ChevronDown, ChevronRight, MessageCircle, Phone, Instagram, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "./LocaleSwitcher";
 import TeklifFormModal from "./TeklifFormModal";
@@ -137,26 +137,43 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
   return (
     <>
       {/* ── Üst Bilgi Bandı ── */}
-      <div className="main-site-cta text-sm flex items-center justify-between px-4 md:px-8">
-        <span>
+      <div className="main-site-cta text-sm flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-2 md:py-1 gap-2 md:gap-0">
+        <span className="text-center md:text-left text-xs md:text-sm text-[#0097A7]/80">
           {tNav("mainSite")}{" "}
-          <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer">
+          <a href={MAIN_SITE_URL} target="_blank" rel="noopener noreferrer" className="font-semibold text-[#0097A7] hover:underline">
             {tNav("mainSiteLink")}
           </a>
         </span>
-        <div className="hidden md:flex items-center gap-4">
-          <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:underline">
-            <MessageCircle className="w-3.5 h-3.5" /> {tNav("whatsapp")}
+        <div className="flex items-center gap-4 md:gap-5 w-full md:w-auto justify-between md:justify-end">
+          {/* Social Icons */}
+          <div className="flex items-center gap-3.5">
+            <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center text-[#25D366] hover:opacity-80 transition-opacity" title={tNav("whatsapp")}>
+              <MessageCircle className="w-4 h-4 md:w-[18px] md:h-[18px]" />
+            </a>
+            <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="flex items-center text-[#E1306C] hover:opacity-80 transition-opacity" title={tNav("instagram")}>
+              <Instagram className="w-4 h-4 md:w-[18px] md:h-[18px]" />
+            </a>
+            <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="flex items-center text-[#0A66C2] hover:opacity-80 transition-opacity" title={tNav("linkedin")}>
+              <Linkedin className="w-4 h-4 md:w-[18px] md:h-[18px]" />
+            </a>
+          </div>
+          
+          {/* Phone */}
+          <a href={`tel:${PHONE_HREF}`} className="hidden md:flex items-center gap-1.5 text-[#0097A7] font-semibold hover:opacity-80 transition-opacity" title="Telefon">
+            <Phone className="w-4 h-4 text-[#C9972B]" /> {PHONE}
           </a>
-          <a href="https://www.instagram.com/mosquecarpets" target="_blank" rel="noopener noreferrer" className="hover:underline">
-            {tNav("instagram")}
-          </a>
-          <a href="https://www.linkedin.com/company/asil-hali" target="_blank" rel="noopener noreferrer" className="hover:underline">
-            {tNav("linkedin")}
-          </a>
-          <a href={`tel:${PHONE_HREF}`} className="flex items-center gap-1 hover:underline">
-            <Phone className="w-3.5 h-3.5" /> {PHONE}
-          </a>
+
+          {/* Actions */}
+          <div className="flex items-center gap-3 border-l border-[#B2EBF2] pl-3 md:pl-4">
+            <LocaleSwitcher currentLocale={locale} />
+            <button
+              type="button"
+              onClick={() => setTeklifOpen(true)}
+              className="btn btn-primary text-xs !py-1.5 !px-3 whitespace-nowrap"
+            >
+              {tNav("getQuote")}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -331,43 +348,10 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 {tNav("contact")}
               </Link>
 
-              {/* Dil Seçici */}
-              <LocaleSwitcher currentLocale={locale} />
-
-              {/* WhatsApp CTA */}
-              <a
-                href={WA_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="ml-1 2xl:ml-2 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-2 px-2.5 2xl:px-3 rounded-xl transition-colors text-sm"
-                aria-label="WhatsApp ile iletişim"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span className="hidden 2xl:inline">WhatsApp</span>
-              </a>
-
-              <button
-                type="button"
-                onClick={() => setTeklifOpen(true)}
-                className="btn btn-primary text-sm ml-1 !py-2 !px-2.5 2xl:!px-3 whitespace-nowrap flex-shrink-0"
-              >
-                {tNav("getQuote")}
-              </button>
             </nav>
 
-            {/* Mobil: Dil + WhatsApp + Hamburger */}
+            {/* Mobil: Hamburger */}
             <div className="xl:hidden flex items-center gap-2">
-              <LocaleSwitcher currentLocale={locale} />
-              <a
-                href={WA_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 bg-[#25D366] text-white text-xs font-bold py-2 px-3 rounded-xl"
-                aria-label="WhatsApp"
-              >
-                <MessageCircle className="w-4 h-4" />
-                WhatsApp
-              </a>
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="p-2 rounded-lg hover:bg-[#E0F7FA] transition-colors"
@@ -486,14 +470,6 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                   LinkedIn
                 </a>
               </div>
-
-              <button
-                type="button"
-                onClick={() => { setMobileOpen(false); setTeklifOpen(true); }}
-                className="btn btn-primary text-sm mx-0 mb-2"
-              >
-                {tNav("getQuote")}
-              </button>
             </div>
           </div>
         )}
