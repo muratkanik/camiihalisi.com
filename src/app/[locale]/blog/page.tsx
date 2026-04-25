@@ -8,6 +8,9 @@ import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import { BLOG_POSTS, BLOG_CATEGORIES, loadDynamicBlogPosts, type BlogPost } from "@/lib/blog-data";
+import NewBadge from "@/components/NewBadge";
+
+export const dynamic = "force-dynamic"; // Dinamik yazılar her request'te güncel gelsin
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -184,10 +187,8 @@ export default async function BlogListePage({
                       <span className="absolute top-3 left-3 badge badge-gold text-xs">
                         {post.category}
                       </span>
-                      {post.isNew && (
-                        <span className="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide shadow-lg animate-pulse">
-                          Yeni
-                        </span>
+                      {post.createdAt && (
+                        <NewBadge createdAt={post.createdAt} durationMs={4 * 60 * 1000} />
                       )}
                     </div>
 

@@ -17,6 +17,7 @@ export interface BlogPost {
   status?: BlogStatus; // varsayılan: "published"
   seoScore?: number;
   isNew?: boolean; // AI tarafından oluşturulan yazılarda geçici "Yeni" etiketi
+  createdAt?: string; // Tam ISO timestamp — "Yeni" badge süresi hesabı için (UTC)
 }
 
 /** DB'deki `dynamic_blog_posts` ayarından yazıları yükler. Hata durumunda boş dizi döner. */

@@ -4,6 +4,7 @@ import { BLOG_CATEGORIES } from "@/lib/blog-data";
 import SeoScoreBadge from "@/components/admin/SeoScoreBadge";
 import BlogEditFormClient from "@/components/admin/BlogEditFormClient";
 import BlogCreatorModal from "@/components/admin/BlogCreatorModal";
+import NewBadge from "@/components/NewBadge";
 import { SeoScoreResult } from "@/lib/seo-scorer";
 
 export const dynamic = "force-dynamic";
@@ -83,10 +84,10 @@ function BlogPostRow({ post, seoScore }: { post: BlogPostWithOverride; seoScore:
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-semibold text-slate-800 dark:text-white text-sm line-clamp-1">{post.title}</span>
-            {post.isNew && (
-              <span className="text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 px-2 py-0.5 rounded-full font-bold flex-shrink-0 animate-pulse">✨ Yeni</span>
+            {post.createdAt && (
+              <NewBadge createdAt={post.createdAt} durationMs={4 * 60 * 1000} variant="inline" />
             )}
-            {post.hasOverride && !post.isNew && (
+            {post.hasOverride && (
               <span className="text-xs bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 px-2 py-0.5 rounded-full font-medium flex-shrink-0">Düzenlendi</span>
             )}
           </div>

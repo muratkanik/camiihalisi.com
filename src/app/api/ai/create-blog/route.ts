@@ -194,7 +194,8 @@ export async function POST(req: NextRequest) {
           category: String(blogData.category ?? "Rehber"),
           readTime: String(blogData.readTime ?? "5 dk"),
           author: "Asil Halı Uzmanları",
-          publishedAt: new Date().toISOString().slice(0, 10),
+          publishedAt: getIstanbulDateString(),
+          createdAt: new Date().toISOString(), // UTC — "Yeni" badge süresi için
           seoKeyword: String(blogData.seoKeyword ?? kw),
           status: "published",
           isNew: true,
@@ -280,6 +281,13 @@ export async function POST(req: NextRequest) {
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Istanbul (UTC+3) tarihini YYYY-MM-DD formatında döner */
+function getIstanbulDateString(): string {
+  const now = new Date();
+  const istanbulTime = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+  return istanbulTime.toISOString().slice(0, 10);
 }
 
 function buildPrompt(title: string, keyword: string): string {
