@@ -7,7 +7,7 @@ import { Clock, ArrowRight, ChevronRight } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
-import { BLOG_POSTS, BLOG_CATEGORIES, loadDynamicBlogPosts, type BlogPost } from "@/lib/blog-data";
+import { BLOG_POSTS, BLOG_CATEGORIES, loadDynamicBlogPosts, loadBlogOverrides, applyBlogOverrides, type BlogPost } from "@/lib/blog-data";
 import NewBadge from "@/components/NewBadge";
 
 export const dynamic = "force-dynamic"; // Dinamik yazılar her request'te güncel gelsin
@@ -82,11 +82,12 @@ export default async function BlogListePage({
   setRequestLocale(locale);
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
-  const [t, blogT, translations, dynamicPosts] = await Promise.all([
+  const [t, blogT, translations, dynamicPosts, overrides] = await Promise.all([
     getTranslations("blog"),
     getTranslations("common"),
     loadBlogTranslations(locale),
     loadDynamicBlogPosts(),
+    loadBlogOverrides(),
   ]);
 
   const breadcrumbLD = {
@@ -98,8 +99,9 @@ export default async function BlogListePage({
     ],
   };
 
-  // Statik + dinamik yazıları birleştir (dinamik önce, sonra statik)
-  const staticPublished = BLOG_POSTS.filter((p) => (p.status ?? "published") === "published");
+  // Statik + dinamik yazıları birleştir — override'lar statik listenin üzerine uygulanır
+  const staticWithOverrides = applyBlogOverrides([...BLOG_POSTS], overrides);
+  const staticPublished = staticWithOverrides.filter((p) => (p.status ?? "published") === "published");
   const dynamicPublished = dynamicPosts.filter(
     (p) => (p.status ?? "published") === "published" && !staticPublished.some((s) => s.slug === p.slug)
   );

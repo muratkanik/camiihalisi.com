@@ -20,6 +20,43 @@ export interface BlogPost {
   createdAt?: string; // Tam ISO timestamp — "Yeni" badge süresi hesabı için (UTC)
 }
 
+/** DB'deki `blog_overrides` ayarından override'ları yükler. Hata durumunda boş dizi döner. */
+export async function loadBlogOverrides(): Promise<Partial<BlogPost>[]> {
+  try {
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+    const row = await prisma.setting
+      .findUnique({ where: { key: "blog_overrides" } })
+      .finally(() => prisma.$disconnect());
+    if (!row) return [];
+    const val = JSON.parse(row.value);
+    return Array.isArray(val) ? val : [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Statik BLOG_POSTS listesine DB override'larını uygular.
+ * Yalnızca var olan alanları override eder (title, excerpt, status, vb.)
+ */
+export function applyBlogOverrides(
+  posts: BlogPost[],
+  overrides: Partial<BlogPost>[]
+): BlogPost[] {
+  return posts.map((post) => {
+    const ov = overrides.find((o) => o.slug === post.slug);
+    if (!ov) return post;
+    // Boş string olan alanları atla (sıfırlama girişimlerini önle)
+    const clean: Partial<BlogPost> = {};
+    for (const key of Object.keys(ov) as (keyof BlogPost)[]) {
+      const val = ov[key];
+      if (val !== undefined && val !== "") (clean as Record<string, unknown>)[key] = val;
+    }
+    return { ...post, ...clean };
+  });
+}
+
 /** DB'deki `dynamic_blog_posts` ayarından yazıları yükler. Hata durumunda boş dizi döner. */
 export async function loadDynamicBlogPosts(): Promise<BlogPost[]> {
   try {
