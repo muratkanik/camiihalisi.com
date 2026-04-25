@@ -129,7 +129,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const [messages, settings] = await Promise.all([getMessages(), getSettings()]);
-  const gaId = settings.googleAnalyticsId?.trim();
+  const gaId = settings.googleAnalyticsId?.trim() || "G-JC88Y0R2BL";
 
   const isRTL = locale === "ar";
 
