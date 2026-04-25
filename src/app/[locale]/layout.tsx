@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import Script from "next/script";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import { getSettings } from "@/lib/settings";
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -126,7 +128,8 @@ export default async function LocaleLayout({
   }
 
   setRequestLocale(locale);
-  const messages = await getMessages();
+  const [messages, settings] = await Promise.all([getMessages(), getSettings()]);
+  const gaId = settings.googleAnalyticsId?.trim();
 
   const isRTL = locale === "ar";
 
@@ -217,6 +220,24 @@ export default async function LocaleLayout({
           {children}
           <WhatsAppButton />
         </NextIntlClientProvider>
+
+        {/* Google Analytics — sadece GA ID ayarlıysa yüklenir */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}');
+              `}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

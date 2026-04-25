@@ -15,6 +15,7 @@ export interface SiteSettings {
   facebookUrl: string;
   mainSiteUrl: string;
   whatsappMessage: string;
+  googleAnalyticsId: string; // GA4 Measurement ID, örn: G-XXXXXXXXXX
 }
 
 export const DEFAULTS: SiteSettings = {
@@ -31,6 +32,7 @@ export const DEFAULTS: SiteSettings = {
   mainSiteUrl: "https://asilhali.com.tr/#!cami-halisi",
   whatsappMessage:
     "Merhaba%2C%20cami%20hal%C4%B1s%C4%B1%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.",
+  googleAnalyticsId: "G-ML8L2DXF4Q",
 };
 
 // Key mapping: DB key → SiteSettings field
@@ -46,6 +48,7 @@ const KEY_MAP: Record<string, keyof SiteSettings> = {
   facebook_url: "facebookUrl",
   main_site_url: "mainSiteUrl",
   whatsapp_message: "whatsappMessage",
+  google_analytics_id: "googleAnalyticsId",
 };
 
 export const ALL_SETTING_KEYS = Object.keys(KEY_MAP);

@@ -101,6 +101,17 @@ export default async function AyarlarPage() {
           />
         </Section>
 
+        {/* Analytics */}
+        <Section title="📊 Analytics & İzleme">
+          <Field
+            label="Google Analytics Measurement ID"
+            name="google_analytics_id"
+            defaultValue={s.googleAnalyticsId}
+            placeholder="G-XXXXXXXXXX"
+            hint="Google Analytics 4 Measurement ID. Tüm sayfalara otomatik eklenir. Boş bırakırsanız Analytics devre dışı kalır."
+          />
+        </Section>
+
         {/* Save */}
         <div className="flex items-center justify-between pt-2">
           <p className="text-xs text-slate-400">
