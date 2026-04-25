@@ -24,9 +24,10 @@ export interface BlogOverride {
   readTime?: string;
   seoKeyword?: string;
   status?: "published" | "draft";
+  isNew?: boolean;
 }
 
-export type BlogPostWithOverride = BlogPost & { hasOverride: boolean; seoKeyword?: string; status?: "published" | "draft" };
+export type BlogPostWithOverride = BlogPost & { hasOverride: boolean; seoKeyword?: string; status?: "published" | "draft"; isNew?: boolean };
 
 export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
   const prisma = await getPrisma();

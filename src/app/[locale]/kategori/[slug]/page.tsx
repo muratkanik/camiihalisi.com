@@ -313,6 +313,13 @@ export async function generateMetadata({
     description: t("metaDescription"),
     alternates: {
       canonical: `${SITE_URL}/kategori/${slug}`,
+      languages: {
+        "tr": `${SITE_URL}/kategori/${slug}`,
+        "en": `${SITE_URL}/en/kategori/${slug}`,
+        "ar": `${SITE_URL}/ar/kategori/${slug}`,
+        "fr": `${SITE_URL}/fr/kategori/${slug}`,
+        "x-default": `${SITE_URL}/kategori/${slug}`,
+      },
     },
     openGraph: {
       title: t("metaTitle"),
@@ -324,7 +331,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return Object.keys(CATEGORIES).flatMap((slug) =>
-    ["tr"].map((locale) => ({ locale, slug }))
+    ["tr", "en", "ar", "fr", "de"].map((locale) => ({ locale, slug }))
   );
 }
 
@@ -341,6 +348,8 @@ export default async function KategoriPage({
   
   const t = await getTranslations({ locale, namespace: `categoryData.${slug}` });
   const tPage = await getTranslations({ locale, namespace: "categoryPage" });
+  const tNames = await getTranslations({ locale, namespace: "categoryNames" });
+  const tNav = await getTranslations({ locale, namespace: "nav" });
 
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
@@ -426,9 +435,9 @@ export default async function KategoriPage({
           <div className="relative z-20 container-site pb-12 w-full">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-2 text-sm text-white/60 mb-4" aria-label="Breadcrumb">
-              <Link href={`${prefix}/`} className="hover:text-white transition-colors">Ana Sayfa</Link>
+              <Link href={`${prefix}/`} className="hover:text-white transition-colors">{tNav("home")}</Link>
               <ChevronRight className="w-3.5 h-3.5" />
-              <span className="text-white/60">Ürünler</span>
+              <span className="text-white/60">{tNav("products")}</span>
               <ChevronRight className="w-3.5 h-3.5" />
               <span className="text-[#E4B84A]">{t("shortTitle")}</span>
             </nav>
@@ -457,10 +466,10 @@ export default async function KategoriPage({
                   className="text-2xl font-bold text-[#0097A7] mb-2"
                   style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >
-                  {t("title")} Çeşitleri
+                  {tPage("varieties", { title: t("title") })}
                 </h2>
                 <p className="text-sm text-[#6B6355]">
-                  Desen ve renk tercihine göre filtreleyin, detaylara ulaşın.
+                  {tPage("varietiesSubtitle")}
                 </p>
               </div>
               <CategoryFiltersClient prefix={prefix} items={CATALOG_DATA[slug]!} />
@@ -476,10 +485,10 @@ export default async function KategoriPage({
                 className="text-2xl font-bold text-[#0097A7] mb-2"
                 style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
-                S101 Desen — Renk Seçenekleri
+                {tPage("s101Title")}
               </h2>
               <p className="text-sm text-[#6B6355] mb-8">
-                Aynı deseni farklı renk tonlarıyla görüntüleyin. Tüm renkler özel sipariş olarak üretilir.
+                {tPage("s101Desc")}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                 {S101_GALLERY.map(({ src, label }) => (
@@ -509,7 +518,7 @@ export default async function KategoriPage({
               <div className="lg:col-span-2 space-y-10">
                 {/* Uzun Açıklama */}
                 <div>
-                  <h2 className="section-title mb-4">{t("title")} Hakkında</h2>
+                  <h2 className="section-title mb-4">{tPage("aboutTitle", { title: t("title") })}</h2>
                   <div className="gold-line mb-6" />
                   <div className="prose prose-sm max-w-none text-[#6B6355] leading-relaxed space-y-4">
                     {t("longDescription").trim().split("\n\n").map((para, i) => (
@@ -524,7 +533,7 @@ export default async function KategoriPage({
                     className="text-2xl font-bold text-[#0097A7] mb-5"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
-                    Avantajlar ve Özellikler
+                    {tPage("advantages")}
                   </h2>
                   <div className="grid sm:grid-cols-2 gap-3">
                     {(t.raw("advantages") as string[]).map((adv, i) => (
@@ -544,7 +553,7 @@ export default async function KategoriPage({
                     className="text-2xl font-bold text-[#0097A7] mb-5"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
-                    Kullanım Alanları
+                    {tPage("useCases")}
                   </h2>
                   <ul className="space-y-2.5">
                     {(t.raw("useCases") as string[]).map((uc, i) => (
@@ -569,7 +578,7 @@ export default async function KategoriPage({
                       className="font-bold text-[#0097A7] text-lg"
                       style={{ fontFamily: "'Cormorant Garamond', serif" }}
                     >
-                      Teknik Özellikler
+                      {tPage("specs")}
                     </h3>
                   </div>
                   <div className="divide-y divide-[#E0F7FA]">
@@ -588,10 +597,10 @@ export default async function KategoriPage({
                     className="text-xl font-bold text-white mb-2"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
-                    Fiyat Teklifi Alın
+                    {tPage("getQuote")}
                   </h3>
                   <p className="text-sm text-white/70 mb-5 leading-relaxed">
-                    Caminizin ölçülerine göre ücretsiz fiyat teklifi ve danışmanlık hizmeti.
+                    {tPage("getQuoteDesc")}
                   </p>
                   <a
                     href={kategoriTrackedUrl(slug)}
@@ -599,14 +608,14 @@ export default async function KategoriPage({
                     rel="noopener"
                     className="btn btn-gold w-full justify-center text-sm"
                   >
-                    Teklif Al — asilhali.com.tr
+                    {tPage("quoteBtn")}
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                   <a
                     href="tel:+905323467939"
                     className="btn btn-outline w-full justify-center text-sm mt-3"
                   >
-                    Hemen Arayın
+                    {tPage("callBtn")}
                   </a>
                 </div>
 
@@ -616,7 +625,7 @@ export default async function KategoriPage({
                     className="font-bold text-[#0097A7] mb-4"
                     style={{ fontFamily: "'Cormorant Garamond', serif" }}
                   >
-                    Diğer Kategoriler
+                    {tPage("otherCategories")}
                   </h3>
                   <div className="space-y-2">
                     {cat.relatedSlugs.map((rel) => (
@@ -625,7 +634,7 @@ export default async function KategoriPage({
                         href={`${prefix}/kategori/${rel}`}
                         className="flex items-center justify-between px-4 py-2.5 bg-white rounded-xl border border-[#B2EBF2] hover:border-[#C9972B]/40 hover:shadow-sm transition-all text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7]"
                       >
-                        {CATEGORY_NAMES[rel]}
+                        {tNames(rel)}
                         <ArrowRight className="w-3.5 h-3.5 text-[#C9972B]" />
                       </Link>
                     ))}
@@ -637,13 +646,13 @@ export default async function KategoriPage({
         </section>
 
         {/* SSS */}
-        <FAQSection faqs={(t.raw("faqs") as {question: string, answer: string}[])} title={`${t("title")} — Sık Sorulan Sorular`} />
+        <FAQSection faqs={(t.raw("faqs") as {question: string, answer: string}[])} title={tPage("faqTitle", { title: t("title") })} />
 
         {/* CTA */}
         <CTASection
           variant="green"
-          title={`${t("title")} Siparişi İçin Hemen İletişime Geçin`}
-          subtitle="Asil Halı uzmanları caminizin ölçülerine ve ihtiyaçlarına göre en uygun çözümü sunmak için hazır."
+          title={tPage("ctaTitle", { title: t("title") })}
+          subtitle={tPage("ctaSubtitle")}
         />
       </main>
 

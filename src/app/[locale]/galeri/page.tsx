@@ -12,6 +12,17 @@ export const metadata: Metadata = {
   title: "Cami Halısı Galerisi | Asil Halı Fotoğraflar ve Desen Kataloğu",
   description:
     "Asil Halı A.Ş. cami halısı galeri sayfası. Akrilik, yün, polipropilen ve polyamid cami halısı fotoğrafları, desen kataloğu ve tamamlanan referans projeler. Teklif almak için iletişime geçin.",
+  alternates: {
+    canonical: `${SITE_URL}/galeri`,
+    languages: {
+      "tr": `${SITE_URL}/galeri`,
+      "en": `${SITE_URL}/en/galeri`,
+      "ar": `${SITE_URL}/ar/galeri`,
+      "fr": `${SITE_URL}/fr/galeri`,
+      "de": `${SITE_URL}/de/galeri`,
+      "x-default": `${SITE_URL}/galeri`,
+    },
+  },
   openGraph: {
     title: "Cami Halısı Galerisi — Asil Halı A.Ş.",
     description: "Türkiye genelinde tamamlanan cami halısı projeleri ve koleksiyon desenleri. Asil Halı A.Ş. 50+ yıllık üretim kalitesi.",

@@ -14,7 +14,17 @@ export const metadata: Metadata = {
   title: "Referanslar | 10.000+ Cami Halısı Projemiz – Asil Halı",
   description:
     "Asil Halı'nın Türkiye genelinde tamamladığı 10.000+ cami halısı referans projeleri. İl il tamamlanan camiler, büyük belediye ve vakıf projeleri.",
-  alternates: { canonical: `${SITE_URL}/referanslar` },
+  alternates: {
+    canonical: `${SITE_URL}/referanslar`,
+    languages: {
+      "tr": `${SITE_URL}/referanslar`,
+      "en": `${SITE_URL}/en/referanslar`,
+      "ar": `${SITE_URL}/ar/referanslar`,
+      "fr": `${SITE_URL}/fr/referanslar`,
+      "de": `${SITE_URL}/de/referanslar`,
+      "x-default": `${SITE_URL}/referanslar`,
+    },
+  },
 };
 
 const REFERENCES = [

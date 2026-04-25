@@ -20,6 +20,7 @@ export async function generateMetadata({
     en: "Mosque Carpet | Turkey's Leading Mosque Carpet Expert – Asil Hali",
     ar: "سجادة مسجد | خبير سجاد المساجد الرائد في تركيا – أصيل هالي",
     fr: "Tapis de Mosquée | Expert en Tapis de Mosquée en Turquie – Asil Hali",
+    de: "Moscheeteppich | Türkeis führender Moscheeteppich-Experte – Asil Hali",
   };
 
   const descriptions: Record<string, string> = {
@@ -27,6 +28,7 @@ export async function generateMetadata({
     en: "Turkey's leading mosque carpet manufacturer Asil Hali. Acrylic, wool, polypropylene and polyamide mosque carpets. 50+ years experience, 10,000+ mosque references.",
     ar: "أصيل هالي — الشركة الرائدة في تصنيع سجاد المساجد في تركيا. سجاد أكريليك وصوف وبولي بروبيلين وبولي أميد.",
     fr: "Asil Hali, fabricant leader de tapis de mosquée en Turquie. Tapis acrylique, laine, polypropylène et polyamide. 50+ ans d'expérience.",
+    de: "Asil Hali — führender Moscheeteppich-Hersteller der Türkei. Acryl-, Woll-, Polypropylen- und Polyamid-Moscheeteppiche. 50+ Jahre Erfahrung.",
   };
 
   const alternates: Record<string, string> = {
@@ -34,6 +36,7 @@ export async function generateMetadata({
     en: `${SITE_URL}/en`,
     ar: `${SITE_URL}/ar`,
     fr: `${SITE_URL}/fr`,
+    de: `${SITE_URL}/de`,
   };
 
   return {
@@ -72,9 +75,9 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "website",
-      locale: locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "fr_FR",
-      alternateLocale: ["tr_TR", "en_US", "ar_SA", "fr_FR"].filter(
-        (l) => l !== (locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : "fr_FR")
+      locale: locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : "fr_FR",
+      alternateLocale: ["tr_TR", "en_US", "ar_SA", "fr_FR", "de_DE"].filter(
+        (l) => l !== (locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : "fr_FR")
       ),
       url: alternates[locale] || SITE_URL,
       siteName: "Camii Halısı | Asil Halı",
@@ -143,6 +146,7 @@ export default async function LocaleLayout({
         <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en`} />
         <link rel="alternate" hrefLang="ar" href={`${SITE_URL}/ar`} />
         <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr`} />
+        <link rel="alternate" hrefLang="de" href={`${SITE_URL}/de`} />
         <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
 
         {/* Organization JSON-LD */}

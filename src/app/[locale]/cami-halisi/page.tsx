@@ -12,7 +12,14 @@ export const metadata: Metadata = {
   title: "Türkiye Geneli Cami Halısı | İl ve İlçe Bazında Hizmet – Asil Halı",
   description:
     "Türkiye'nin 81 ilinde ve tüm ilçelerinde cami halısı tedariki, üretim ve teslimat. Şehrinize en yakın Asil Halı hizmetleri.",
-  alternates: { canonical: `${SITE_URL}/cami-halisi` },
+  alternates: {
+    canonical: `${SITE_URL}/cami-halisi`,
+    languages: {
+      "tr": `${SITE_URL}/cami-halisi`,
+      "de": `${SITE_URL}/de/cami-halisi`,
+      "x-default": `${SITE_URL}/cami-halisi`,
+    },
+  },
 };
 
 const PROVINCES = ALL_CITIES.filter((c) => c.type === "il");

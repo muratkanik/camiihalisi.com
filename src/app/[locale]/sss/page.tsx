@@ -12,7 +12,17 @@ export const metadata: Metadata = {
   title: "Cami Halısı Hakkında Sık Sorulan Sorular | Asil Halı Uzman Rehberi",
   description:
     "Cami halısı seçimi, fiyatları, bakımı ve özellikleri hakkında 50+ soru ve uzman cevabı. Akrilik mi yün mü? Kaç yıl dayanır? Nasıl temizlenir? Asil Halı A.Ş.",
-  alternates: { canonical: `${SITE_URL}/sss` },
+  alternates: {
+    canonical: `${SITE_URL}/sss`,
+    languages: {
+      "tr": `${SITE_URL}/sss`,
+      "en": `${SITE_URL}/en/sss`,
+      "ar": `${SITE_URL}/ar/sss`,
+      "fr": `${SITE_URL}/fr/sss`,
+      "de": `${SITE_URL}/de/sss`,
+      "x-default": `${SITE_URL}/sss`,
+    },
+  },
   openGraph: {
     title: "Cami Halısı SSS | Asil Halı Uzman Rehberi",
     description: "Cami halısı hakkında merak ettiğiniz her şey — 50+ soru, uzman cevapları.",

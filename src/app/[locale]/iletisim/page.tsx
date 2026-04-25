@@ -9,9 +9,22 @@ import { DEFAULTS as SETTINGS_DEFAULTS } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 
+const SITE_URL = "https://camiihalisi.com";
+
 export const metadata: Metadata = {
   title: "İletişim | Asil Halı Cami Halısı",
   description: "Asil Halı ile iletişime geçin. Kayseri merkez, İstanbul ofis ve Türkiye genelinde temsilciliklerimizle hizmetinizdeyiz.",
+  alternates: {
+    canonical: `${SITE_URL}/iletisim`,
+    languages: {
+      "tr": `${SITE_URL}/iletisim`,
+      "en": `${SITE_URL}/en/iletisim`,
+      "ar": `${SITE_URL}/ar/iletisim`,
+      "fr": `${SITE_URL}/fr/iletisim`,
+      "de": `${SITE_URL}/de/iletisim`,
+      "x-default": `${SITE_URL}/iletisim`,
+    },
+  },
 };
 
 async function getContactData() {

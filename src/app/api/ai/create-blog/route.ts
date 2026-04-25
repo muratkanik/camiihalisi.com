@@ -224,13 +224,21 @@ export async function POST(req: NextRequest) {
           });
 
           // Also save a blog_override for the static-post flow
+          // NOTE: blog_overrides is an ARRAY (not an object) — consistent with actions.ts
           const overridesRow = await prisma.setting.findUnique({
             where: { key: "blog_overrides" },
           });
-          const overrides: Record<string, unknown> = overridesRow
-            ? JSON.parse(overridesRow.value)
-            : {};
-          overrides[slug] = overrideEntry;
+          let overrides: Record<string, unknown>[] = [];
+          if (overridesRow) {
+            const parsed = JSON.parse(overridesRow.value);
+            overrides = Array.isArray(parsed) ? parsed : [];
+          }
+          const oIdx = overrides.findIndex((o) => (o as { slug?: string }).slug === slug);
+          if (oIdx >= 0) {
+            overrides[oIdx] = overrideEntry;
+          } else {
+            overrides.push(overrideEntry);
+          }
           await prisma.setting.upsert({
             where: { key: "blog_overrides" },
             create: { key: "blog_overrides", value: JSON.stringify(overrides) },

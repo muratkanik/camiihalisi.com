@@ -13,7 +13,17 @@ export const metadata: Metadata = {
   title: "Cami Halısı Karşılaştırma Rehberi | Hangi Tür Sizin İçin? – Asil Halı",
   description:
     "Akrilik vs Yün, Polipropilen vs Polyamid — cami halısı türlerini detaylı karşılaştırın. 40 yıllık uzman deneyimiyle doğru seçim rehberi. Asil Halı A.Ş.",
-  alternates: { canonical: `${SITE_URL}/karsilastirma` },
+  alternates: {
+    canonical: `${SITE_URL}/karsilastirma`,
+    languages: {
+      "tr": `${SITE_URL}/karsilastirma`,
+      "en": `${SITE_URL}/en/karsilastirma`,
+      "ar": `${SITE_URL}/ar/karsilastirma`,
+      "fr": `${SITE_URL}/fr/karsilastirma`,
+      "de": `${SITE_URL}/de/karsilastirma`,
+      "x-default": `${SITE_URL}/karsilastirma`,
+    },
+  },
 };
 
 const COMPARISONS = [

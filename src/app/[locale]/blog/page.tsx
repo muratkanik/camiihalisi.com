@@ -7,7 +7,7 @@ import { Clock, ArrowRight, ChevronRight } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
-import { BLOG_POSTS, BLOG_CATEGORIES } from "@/lib/blog-data";
+import { BLOG_POSTS, BLOG_CATEGORIES, loadDynamicBlogPosts, type BlogPost } from "@/lib/blog-data";
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -22,18 +22,28 @@ export async function generateMetadata({
     en: "Mosque Carpet Articles | Guides, Maintenance and Technical Info – Asil Hali",
     ar: "مقالات سجاجيد المساجد | أدلة ونصائح صيانة – أصيل هالي",
     fr: "Articles sur les Tapis de Mosquée | Guides et Conseils – Asil Hali",
+    de: "Moscheeteppich Ratgeber | Pflege, Auswahl und Technik – Asil Hali",
   };
   const descs: Record<string, string> = {
     tr: "Cami halısı hakkında kapsamlı makaleler: seçim rehberi, bakım ipuçları, malzeme karşılaştırmaları.",
     en: "Comprehensive articles about mosque carpets: selection guide, maintenance tips, material comparisons.",
     ar: "مقالات شاملة حول سجاجيد المساجد: دليل الاختيار، نصائح الصيانة، مقارنات المواد.",
     fr: "Articles complets sur les tapis de mosquée: guide de sélection, conseils d'entretien, comparaisons de matériaux.",
+    de: "Umfassende Ratgeber zu Moscheeteppichen: Auswahl, Pflege und Materialvergleiche.",
   };
   return {
     title: titles[locale] ?? titles.tr,
     description: descs[locale] ?? descs.tr,
     alternates: {
       canonical: locale === "tr" ? `${SITE_URL}/blog` : `${SITE_URL}/${locale}/blog`,
+      languages: {
+        "tr": `${SITE_URL}/blog`,
+        "en": `${SITE_URL}/en/blog`,
+        "ar": `${SITE_URL}/ar/blog`,
+        "fr": `${SITE_URL}/fr/blog`,
+        "de": `${SITE_URL}/de/blog`,
+        "x-default": `${SITE_URL}/blog`,
+      },
     },
   };
 }
@@ -69,10 +79,11 @@ export default async function BlogListePage({
   setRequestLocale(locale);
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
-  const [t, blogT, translations] = await Promise.all([
+  const [t, blogT, translations, dynamicPosts] = await Promise.all([
     getTranslations("blog"),
     getTranslations("common"),
     loadBlogTranslations(locale),
+    loadDynamicBlogPosts(),
   ]);
 
   const breadcrumbLD = {
@@ -84,7 +95,12 @@ export default async function BlogListePage({
     ],
   };
 
-  const publishedPosts = BLOG_POSTS.filter((p) => (p.status ?? "published") === "published");
+  // Statik + dinamik yazıları birleştir (dinamik önce, sonra statik)
+  const staticPublished = BLOG_POSTS.filter((p) => (p.status ?? "published") === "published");
+  const dynamicPublished = dynamicPosts.filter(
+    (p) => (p.status ?? "published") === "published" && !staticPublished.some((s) => s.slug === p.slug)
+  );
+  const publishedPosts: BlogPost[] = [...dynamicPublished, ...staticPublished];
 
   return (
     <>
@@ -168,6 +184,11 @@ export default async function BlogListePage({
                       <span className="absolute top-3 left-3 badge badge-gold text-xs">
                         {post.category}
                       </span>
+                      {post.isNew && (
+                        <span className="absolute top-3 right-3 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide shadow-lg animate-pulse">
+                          Yeni
+                        </span>
+                      )}
                     </div>
 
                     <div className="p-5 flex flex-col flex-1">

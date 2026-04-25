@@ -16,6 +16,23 @@ export interface BlogPost {
   metaDescription: string;
   status?: BlogStatus; // varsayılan: "published"
   seoScore?: number;
+  isNew?: boolean; // AI tarafından oluşturulan yazılarda geçici "Yeni" etiketi
+}
+
+/** DB'deki `dynamic_blog_posts` ayarından yazıları yükler. Hata durumunda boş dizi döner. */
+export async function loadDynamicBlogPosts(): Promise<BlogPost[]> {
+  try {
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+    const row = await prisma.setting
+      .findUnique({ where: { key: "dynamic_blog_posts" } })
+      .finally(() => prisma.$disconnect());
+    if (!row) return [];
+    const posts = JSON.parse(row.value) as BlogPost[];
+    return Array.isArray(posts) ? posts : [];
+  } catch {
+    return [];
+  }
 }
 
 export const BLOG_CATEGORIES = ["Tümü", "Rehber", "Teknik", "Bakım", "Proje", "Malzeme", "SSS", "Faydalı Bilgiler"];

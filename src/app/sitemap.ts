@@ -27,15 +27,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL,                                lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
+    { url: `${SITE_URL}/en`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${SITE_URL}/ar`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${SITE_URL}/fr`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${SITE_URL}/de`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
     { url: `${SITE_URL}/cami-halisi`,               lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/blog`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
+    { url: `${SITE_URL}/en/blog`,                   lastModified: now, changeFrequency: "weekly",  priority: 0.7 },
     { url: `${SITE_URL}/sss`,                       lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/en/sss`,                    lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/karsilastirma`,             lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE_URL}/en/karsilastirma`,          lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/teknik-ozellikler`,         lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE_URL}/en/teknik-ozellikler`,      lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/referanslar`,               lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/iletisim`,                  lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE_URL}/galeri`,                    lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/hakkimizda`,                lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/en/hakkimizda`,             lastModified: now, changeFrequency: "monthly", priority: 0.5 },
   ];
 
   // Karşılaştırma sayfaları

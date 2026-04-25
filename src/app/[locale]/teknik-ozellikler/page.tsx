@@ -13,7 +13,17 @@ export const metadata: Metadata = {
   title: "Teknik Özellikler | Cami Halısı Standartları ve Sertifikalar – Asil Halı",
   description:
     "Cami halısı teknik özellikleri, yangın sınıfı standartları, renk haslığı testleri, Bfl-s1 belgesi ve EN 13501-1 normu. Asil Halı teknik dökümanları.",
-  alternates: { canonical: `${SITE_URL}/teknik-ozellikler` },
+  alternates: {
+    canonical: `${SITE_URL}/teknik-ozellikler`,
+    languages: {
+      "tr": `${SITE_URL}/teknik-ozellikler`,
+      "en": `${SITE_URL}/en/teknik-ozellikler`,
+      "ar": `${SITE_URL}/ar/teknik-ozellikler`,
+      "fr": `${SITE_URL}/fr/teknik-ozellikler`,
+      "de": `${SITE_URL}/de/teknik-ozellikler`,
+      "x-default": `${SITE_URL}/teknik-ozellikler`,
+    },
+  },
 };
 
 const SPECS_TABLE = [

@@ -15,7 +15,17 @@ export const metadata: Metadata = {
   title: "Hakkımızda | Asil Halı A.Ş. – 1940'tan Bu Yana Cami Halısı Ustası",
   description:
     "Asil Halı A.Ş., 1940'tan bu yana Kayseri'de cami halısı üretmektedir. 80+ yıl tecrübe, 10.000+ cami referansı. Tarihimiz, değerlerimiz ve misyonumuz hakkında bilgi alın.",
-  alternates: { canonical: `${SITE_URL}/hakkimizda` },
+  alternates: {
+    canonical: `${SITE_URL}/hakkimizda`,
+    languages: {
+      "tr": `${SITE_URL}/hakkimizda`,
+      "en": `${SITE_URL}/en/hakkimizda`,
+      "ar": `${SITE_URL}/ar/hakkimizda`,
+      "fr": `${SITE_URL}/fr/hakkimizda`,
+      "de": `${SITE_URL}/de/hakkimizda`,
+      "x-default": `${SITE_URL}/hakkimizda`,
+    },
+  },
 };
 
 const MILESTONES = [

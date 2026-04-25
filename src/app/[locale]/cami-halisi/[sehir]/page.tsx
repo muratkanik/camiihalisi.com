@@ -46,6 +46,7 @@ export async function generateMetadata({
       canonical: `${SITE_URL}/cami-halisi/${sehir}`,
       languages: {
         "tr": `${SITE_URL}/cami-halisi/${sehir}`,
+        "de": `${SITE_URL}/de/cami-halisi/${sehir}`,
         "x-default": `${SITE_URL}/cami-halisi/${sehir}`,
       },
     },

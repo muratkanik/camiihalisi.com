@@ -36,6 +36,14 @@ export async function generateMetadata({
         : "Turkey's leading mosque carpet manufacturer. Custom size, acrylic, wool, polypropylene mosque carpets. Nationwide delivery.",
     alternates: {
       canonical: locale === "tr" ? SITE_URL : `${SITE_URL}/${locale}`,
+      languages: {
+        "tr": SITE_URL,
+        "en": `${SITE_URL}/en`,
+        "ar": `${SITE_URL}/ar`,
+        "fr": `${SITE_URL}/fr`,
+        "de": `${SITE_URL}/de`,
+        "x-default": SITE_URL,
+      },
     },
   };
 }
@@ -198,7 +206,7 @@ export default async function HomePage({
     name: "camiihalisi.com",
     description: "Türkiye'nin cami halısı portal sitesi",
     publisher: { "@id": `${SITE_URL}/#organization` },
-    inLanguage: ["tr", "en", "ar", "fr"],
+    inLanguage: ["tr", "en", "ar", "fr", "de"],
     potentialAction: {
       "@type": "SearchAction",
       target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/sss?q={search_term_string}` },

@@ -8,10 +8,18 @@ import { Clock, ChevronRight, ArrowLeft, Tag } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
-import { getBlogPost, getRelatedPosts, BLOG_POSTS } from "@/lib/blog-data";
+import { getBlogPost, getRelatedPosts, loadDynamicBlogPosts, BLOG_POSTS, type BlogPost } from "@/lib/blog-data";
 import { loadLinkMap, applyLinks } from "@/lib/internal-links";
 
 const SITE_URL = "https://camiihalisi.com";
+
+/** Statik veya dinamik (DB) yazıyı slug'a göre bulur */
+async function resolvePost(slug: string): Promise<BlogPost | undefined> {
+  const staticPost = getBlogPost(slug);
+  if (staticPost) return staticPost;
+  const dynamic = await loadDynamicBlogPosts();
+  return dynamic.find((p) => p.slug === slug);
+}
 
 export async function generateMetadata({
   params,
@@ -19,7 +27,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const post = getBlogPost(slug);
+  const post = await resolvePost(slug);
   if (!post) return { title: "Makale bulunamadı" };
 
   let metaTitle = post.metaTitle;
@@ -57,6 +65,7 @@ export async function generateMetadata({
         "en": `${SITE_URL}/en/blog/${slug}`,
         "ar": `${SITE_URL}/ar/blog/${slug}`,
         "fr": `${SITE_URL}/fr/blog/${slug}`,
+        "de": `${SITE_URL}/de/blog/${slug}`,
         "x-default": `${SITE_URL}/blog/${slug}`,
       },
     },
@@ -72,7 +81,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return BLOG_POSTS.flatMap((post) =>
-    ["tr", "en", "ar", "fr"].map((locale) => ({ locale, slug: post.slug }))
+    ["tr", "en", "ar", "fr", "de"].map((locale) => ({ locale, slug: post.slug }))
   );
 }
 
@@ -87,7 +96,7 @@ export default async function BlogDetayPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const post = getBlogPost(slug);
+  const post = await resolvePost(slug);
   if (!post) notFound();
 
   // Load locale-specific translations if not Turkish

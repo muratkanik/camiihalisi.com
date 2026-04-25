@@ -7,6 +7,7 @@ import { ChevronDown } from "lucide-react";
 const LOCALES = [
   { code: "tr", label: "Türkçe", flag: "🇹🇷", short: "TR" },
   { code: "en", label: "English", flag: "🇬🇧", short: "EN" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪", short: "DE" },
   { code: "ar", label: "العربية", flag: "🇸🇦", short: "AR" },
   { code: "fr", label: "Français", flag: "🇫🇷", short: "FR" },
 ];
@@ -39,7 +40,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
     
     // Güvenilir URL değiştirme stratejisi (dinamik sayfa parametresi hatalarını önler)
     let newPath = nativePath || '/';
-    const nonDefaultLocales = ['en', 'ar', 'fr'];
+    const nonDefaultLocales = ['en', 'ar', 'fr', 'de'];
     
     // Mevcut locale prefix'ini kaldır
     for (const loc of nonDefaultLocales) {

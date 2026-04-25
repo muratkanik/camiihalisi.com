@@ -208,7 +208,17 @@ export async function generateMetadata({
   return {
     title: c.metaTitle,
     description: c.metaDesc,
-    alternates: { canonical: `${SITE_URL}/karsilastirma/${slug}` },
+    alternates: {
+      canonical: `${SITE_URL}/karsilastirma/${slug}`,
+      languages: {
+        "tr": `${SITE_URL}/karsilastirma/${slug}`,
+        "en": `${SITE_URL}/en/karsilastirma/${slug}`,
+        "ar": `${SITE_URL}/ar/karsilastirma/${slug}`,
+        "fr": `${SITE_URL}/fr/karsilastirma/${slug}`,
+        "de": `${SITE_URL}/de/karsilastirma/${slug}`,
+        "x-default": `${SITE_URL}/karsilastirma/${slug}`,
+      },
+    },
     openGraph: {
       title: c.metaTitle,
       description: c.metaDesc,
@@ -219,7 +229,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return Object.keys(COMPARISONS).flatMap((slug) =>
-    ["tr"].map((locale) => ({ locale, slug }))
+    ["tr", "en", "ar", "fr", "de"].map((locale) => ({ locale, slug }))
   );
 }
 

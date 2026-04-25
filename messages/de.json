@@ -1,0 +1,2104 @@
+{
+  "nav": {
+    "mainSite": "Offizielle Website von Asil Halı A.Ş.:",
+    "mainSiteLink": "asilhali.com.tr →",
+    "whatsapp": "WhatsApp",
+    "instagram": "Instagram",
+    "linkedin": "LinkedIn",
+    "products": "Produkte",
+    "carpets": "Moscheeteppiche",
+    "underlay": "Teppichunterlage",
+    "gallery": "Galerie",
+    "blog": "Blog",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "references": "Referenzen",
+    "technicalSpecs": "Technik",
+    "getQuote": "Angebot",
+    "whatsappChat": "WhatsApp schreiben",
+    "home": "Startseite",
+    "logoTagline": "— Seit 1940 Asil Halı —"
+  },
+  "hero": {
+    "badge": "50+ Yıl Tecrübe",
+    "title": "Cami Halısında Türkiye'nin Güvenilir Adresi",
+    "subtitle": "Türkiye'nin köklü halı ustalarından, ibadethanenize özel üretim. Binlerce cami referansı, Türkiye geneli teslimat.",
+    "questionTitle": "Cami Halısı mı Arıyorsunuz?",
+    "questionSubtitle": "Ucuz Bir Çözüm mü, Uzun Yıllar Sorunsuz Kullanacağınız Güvenilir Bir Sistem mi?",
+    "cta": "Teklif Al",
+    "catalog": "Katalog İncele",
+    "browseCatalog": "Modelleri İncele →",
+    "whatsapp": "WhatsApp'tan Yaz",
+    "check1": "İhtiyaçlarınıza Özel Çözüm",
+    "check2": "Uzman Satış Danışmanları",
+    "check3": "Ücretsiz ve Hızlı Teklif",
+    "badge1Title": "Uzun Ömür",
+    "badge1Desc": "15-20 yıl kullanım ömrü",
+    "badge2Title": "Yüksek Konfor",
+    "badge2Desc": "Namaz konforunu artırır",
+    "badge3Title": "Profesyonel Uygulama",
+    "badge3Desc": "Uzman ekip montajı",
+    "statYears": "Yıl Tecrübe",
+    "statMosques": "Referans Cami",
+    "statCities": "Şehir Teslimat"
+  },
+  "categories": {
+    "title": "Cami Halısı Kategorileri",
+    "subtitle": "İhtiyacınıza uygun cami halısını keşfedin",
+    "showcaseTitle": "Hangi Cami Halısı Sizin İçin Uygun?",
+    "viewAll": "Tüm Halı Modellerini Gör",
+    "acrylic": "Saflı Turkuaz Akrilik",
+    "wool": "Büyük Cami Desenli",
+    "polypropylene": "Göbekli Cami Halısı",
+    "polyamide": "Polyamid Cami Halısı",
+    "special": "Özel Desen Axminster",
+    "underlay": "Halı Altlığı",
+    "seeAll": "Tümünü Gör",
+    "details": "Detaylar"
+  },
+  "features": {
+    "badge": "Neden Asil Halı?",
+    "mainTitle": "Camiye Layık Kaliteyi Nasıl Sağlıyoruz?",
+    "mainSubtitle": "İbadethane, sıradan bir mekan değildir. Her halımız bu bilinçle tasarlanır, dokunur ve teslim edilir.",
+    "title": "Neden Asil Halı?",
+    "subtitle": "50 yılı aşkın tecrübeyle cami halısında lider",
+    "quality": "İbadete Layık Kalite",
+    "qualityDesc": "Her iplik, her düğüm; camiye yaraşır bir kaliteyle işlenir. ISO sertifikalı üretim süreçleri.",
+    "customSize": "Özel Ölçü Üretim",
+    "customSizeDesc": "Caminin metre kare ölçüsüne göre birebir üretim. Sütun aralarından mihrap önüne kadar tam uyum.",
+    "customDesign": "Özel Desen Tasarımı",
+    "customDesignDesc": "Geleneksel İslami motifler veya modern geometrik desenler. Caminin mimarisine özel tasarım.",
+    "delivery": "Türkiye Geneli Teslimat",
+    "deliveryDesc": "81 ile kapıya teslim. Büyük ölçekli camiler için özel lojistik ve kurulum hizmeti.",
+    "experience": "50+ Yıl Tecrübe",
+    "experienceDesc": "Asil Halı, 50 yılı aşkın deneyimiyle Türkiye'nin köklü cami halısı üreticilerinden biridir.",
+    "afterSales": "Satış Sonrası Destek",
+    "afterSalesDesc": "Garanti kapsamı, bakım önerileri ve onarım hizmetiyle uzun süreli müşteri ilişkisi.",
+    "references": "10.000+ Referans",
+    "referencesDesc": "Türkiye'nin dört bir yanında on binlerce camide döşenmiş, kanıtlanmış kalite.",
+    "fastProduction": "Hızlı Üretim Süreci",
+    "fastProductionDesc": "Siparişten teslimata kadar hızlı ve şeffaf süreç takibi. Acil projeler için öncelikli üretim."
+  },
+  "cta": {
+    "title": "Ücretsiz Teklif Alın",
+    "subtitle": "Caminizin ölçülerine ve ihtiyaçlarınıza göre özel fiyat teklifi alın.",
+    "button": "Hemen Teklif Al",
+    "whatsapp": "WhatsApp'tan Yaz",
+    "phone": "Telefon",
+    "or": "veya",
+    "callNow": "Hemen Arayın",
+    "getQuoteBtn": "Fiyat Teklifi Al — asilhali.com.tr",
+    "trustNote": "Ücretsiz keşif · Ücretsiz kargo · Montaj dahil seçenekler mevcut",
+    "greenTitle": "Caminiz İçin En İyi Halıyı Seçelim",
+    "greenSubtitle": "50 yılı aşkın tecrübemizle, caminizin mimarisine ve bütçesine özel halı çözümü sunuyoruz. Türkiye'nin dört bir yanına teslimat ve montaj.",
+    "creamTitle": "Fiyat Teklifi Almak İster misiniz?",
+    "creamSubtitle": "Asil Halı uzmanları caminizin ihtiyacını değerlendirerek size en uygun halı çözümünü ve fiyat teklifini sunar. Ücretsiz keşif ve danışmanlık hizmeti."
+  },
+  "stats": {
+    "experience": "Yıl Tecrübe",
+    "mosques": "Cami Referansı",
+    "cities": "İl Teslimat",
+    "satisfaction": "Müşteri Memnuniyeti",
+    "domestic": "Yerli Üretim"
+  },
+  "faq": {
+    "title": "Sık Sorulan Sorular",
+    "subtitle": "Cami halısı hakkında merak ettikleriniz",
+    "contactNote": "Yanıt bulamadığınız sorunuz mu var?",
+    "contactLink": "Bize ulaşın →",
+    "d1q": "Cami halısı siparişi nasıl verebilirim?",
+    "d1a": "Asil Halı'nın resmi web sitesi asilhali.com.tr üzerinden veya telefon ile iletişime geçerek sipariş verebilirsiniz. Teknik ekibimiz caminizin ölçümünü alarak size özel fiyat teklifi hazırlar.",
+    "d2q": "Cami halısı ölçümü nasıl alınır?",
+    "d2a": "Cami alanının uzunluk ve genişlik ölçüleri alınır, sütun ve mihrap gibi özel alanlar ayrıca hesaplanır. Uzman ekibimiz yerinde keşif yaparak kesin ölçüm alabilir veya mimari planlardan hesaplama yapabilir.",
+    "d3q": "Hangi halı türü cami için en uygundur?",
+    "d3a": "Cami büyüklüğüne, bütçeye ve kullanım yoğunluğuna göre değişir. Küçük mahalle camileri için akrilik tercih edilirken büyük camilerde yün veya polyamid tercih edilir. Ücretsiz danışmanlığımızdan yararlanabilirsiniz.",
+    "d4q": "Cami halısı ne sıklıkla değiştirilmelidir?",
+    "d4a": "Kaliteli bir cami halısı 15-20 yıl kullanılabilir. Düzenli temizlik ve profesyonel bakım ömrü uzatır.",
+    "d5q": "Teslimat süresi ne kadar?",
+    "d5a": "Standart siparişlerde 3-6 hafta, acil siparişlerde 2-3 hafta içinde teslimat sağlanır. Üretim sürecini şeffaf biçimde takip edebilirsiniz.",
+    "d6q": "Özel desen tasarımı mümkün müdür?",
+    "d6a": "Evet. Caminizin mimarisine, rengine veya bulunduğu bölgenin geleneğine uygun özel desen tasarımı yapılabilir. Tasarım süreci ücretsizdir ve onayınız alındıktan sonra üretime geçilir."
+  },
+  "trust": {
+    "title": "Müşterilerimiz Ne Diyor?",
+    "subtitle": "Türkiye'nin dört bir yanından cami yöneticileri ve imamlar deneyimlerini paylaşıyor",
+    "mainTitle": "30 Yıldır Güven ve Kaliteyle Hizmet Ediyoruz",
+    "mainSubtitle": "Cami halısı seçimini şansa bırakmayın, şimdi uzmanlarımızla iletişime geçin.",
+    "statYears": "Yıl Tecrübe",
+    "statMosques": "Cami",
+    "statCities": "Şehir",
+    "cta": "İletişime Geç",
+    "t1name": "Mehmet Bey",
+    "t1loc": "Ankara — Camii Derneği",
+    "t1quote": "Doğru halıyı seçmek sayesinde yıllardır sorunsuz bir şekilde kullanıyoruz. Destek ve profesyonelliklerinden dolayı Allah razı olsun.",
+    "t2name": "Hasan Efendi",
+    "t2loc": "İstanbul — Camii Vakfı",
+    "t2quote": "10 yıl önce döşettik, hâlâ ilk günkü gibi duruyor. Rengi solmadı, deformasyona uğramadı. Asil Halı'yı herkese tavsiye ederiz."
+  },
+  "blog": {
+    "badge": "Bilgi Merkezi",
+    "sectionTitle": "Cami Halısı Rehberleri",
+    "read": "Oku →",
+    "title": "Blog & Makaleler",
+    "subtitle": "Cami halısı hakkında rehber, bakım ipuçları ve teknik bilgiler",
+    "readMore": "Devamını Oku",
+    "allArticles": "Tüm Makaleler",
+    "minRead": "dk okuma",
+    "fp1title": "Cami Halısı Nasıl Seçilir? Kapsamlı Rehber",
+    "fp1excerpt": "Cami halısı seçerken dikkat edilmesi gereken kriterler: malzeme, desen, ölçü ve bütçe planlaması. Uzman önerileriyle doğru seçimi yapın.",
+    "fp1cat": "Rehber",
+    "fp2title": "Akrilik mi Yün mü? Cami Halısı Karşılaştırması",
+    "fp2excerpt": "İki popüler cami halısı türünün avantaj ve dezavantajları, fiyat-performans analizi ve hangi cami için hangisi uygun.",
+    "fp2cat": "Karşılaştırma",
+    "fp3title": "Cami Halısı Temizliği ve Bakımı: Pratik Öneriler",
+    "fp3excerpt": "Cami halınızın ömrünü uzatmak için yapılması gerekenler. Profesyonel temizlik önerileri ve günlük bakım ipuçları.",
+    "fp3cat": "Bakım",
+    "categories": {
+      "all": "Tümü",
+      "guide": "Rehber",
+      "technical": "Teknik",
+      "maintenance": "Bakım",
+      "project": "Proje",
+      "material": "Malzeme",
+      "faq": "SSS"
+    }
+  },
+  "footer": {
+    "description": "Türkiye'nin köklü cami halısı üreticisi. 50+ yıl tecrübe, 10.000+ cami referansı.",
+    "infoPortal": "Türkiye'nin köklü cami halısı üreticisi Asil Halı A.Ş.'nin bilgi ve içerik portalı. İbadete özel halı çözümleri hakkında kapsamlı rehberler.",
+    "products": "Ürünler",
+    "carpetMenu": "Cami Halısı",
+    "pl_acrylic": "Akrilik Cami Halısı",
+    "pl_acrylicSolid": "↳ Saflı Akrilik",
+    "pl_acrylicMedallion": "↳ Göbekli Akrilik",
+    "pl_wool": "Yün Cami Halısı",
+    "pl_polypropylene": "Polipropilen Cami Halısı",
+    "pl_polyamide": "Polyamid Cami Halısı",
+    "pl_axminster": "Özel Desen Axminster",
+    "pl_underlay": "Halı Altı Malzemeleri",
+    "company": "Kurumsal",
+    "contact": "İletişim",
+    "rights": "Tüm hakları saklıdır.",
+    "about": "Hakkımızda",
+    "references": "Referanslar",
+    "gallery": "Galeri",
+    "technicalSpecs": "Teknik Özellikler",
+    "blog": "Blog",
+    "contactUs": "İletişim",
+    "address": "Adres",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "followUs": "Sosyal Medya",
+    "officialSite": "Resmi Alış Veriş Sitesi",
+    "siteTagline": "Fiyat teklifi, sipariş ve katalog için ana sitemizi ziyaret edin",
+    "whatsappBtn": "WhatsApp ile Yazın",
+    "quoteBtn": "Teklif Al — asilhali.com.tr",
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsOfUse": "Kullanım Şartları",
+    "copyrightNote": "Bu site bir bilgi portalıdır. Alış veriş için:",
+    "quran": "Mescitler Allah'ındır, o hâlde Allah ile birlikte kimseye kulluk etmeyin.",
+    "quranRef": "— Cin Suresi, 18. Ayet"
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "Teklif almak veya bilgi edinmek için bize ulaşın",
+    "name": "Ad Soyad",
+    "email": "E-posta",
+    "phone": "Telefon",
+    "message": "Mesajınız",
+    "mosqueName": "Cami Adı",
+    "city": "Şehir",
+    "area": "Alan (m²)",
+    "send": "Gönder",
+    "sending": "Gönderiliyor...",
+    "success": "Mesajınız iletildi. En kısa sürede dönüş yapacağız.",
+    "error": "Bir hata oluştu. Lütfen tekrar deneyin.",
+    "heroTitle": "İletişime Geçin",
+    "heroSubtitle": "Türkiye genelinde ofis ve temsilciliklerimizle, New York şubemizle hizmetinizdeyiz.",
+    "directContact": "Direkt İletişim",
+    "reachUs": "Hemen Ulaşın",
+    "reachUsSubtitle": "Kayseri merkez fabrikamız, İstanbul ofisimiz ve Türkiye genelindeki bölge temsilcilerimizle hizmetinizdeyiz.",
+    "whatsappBtn": "WhatsApp ile Yazın",
+    "whatsappSub": "Hızlı yanıt",
+    "officialSite": "Resmi Alışveriş & Katalog",
+    "officialSiteSub": "Fiyat teklifi ve sipariş için",
+    "formTitle": "Teklif / Danışmanlık Formu",
+    "typeQuote": "Fiyat Teklifi",
+    "typeVisit": "Ücretsiz Keşif",
+    "typeInfo": "Bilgi Talebi",
+    "placeholderName": "Adınız Soyadınız",
+    "placeholderPhone": "Telefon",
+    "placeholderEmail": "E-posta",
+    "placeholderMosque": "Cami / Kurum Adı",
+    "placeholderMessage": "Caminizin metrekaresi, istediğiniz halı türü veya sorularınız...",
+    "successTitle": "Mesajınız İletildi!",
+    "successText": "En kısa sürede iletişime geçeceğiz. Acil durumlar için bizi arayın.",
+    "locationsTitle": "Türkiye ve Dünya Genelinde",
+    "locationsBadge": "Lokasyonlarımız",
+    "directions": "Yol Tarifi Al",
+    "whatsappWrite": "WhatsApp ile Yaz",
+    "locationCount": "lokasyon"
+  },
+  "problem": {
+    "sectionTitle": "Birçok Camide Halılar Neden Erken Yıpranır?"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "subtitle": "50 yılı aşkın tecrübeyle Türkiye'nin cami halısı uzmanı"
+  },
+  "gallery": {
+    "title": "Galeri",
+    "subtitle": "Projelerimizden örnekler"
+  },
+  "references": {
+    "title": "Referanslarımız",
+    "subtitle": "Türkiye genelinde hizmet verdiğimiz camilerden örnekler"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "notFound": "Sayfa bulunamadı",
+    "backHome": "Ana Sayfaya Dön",
+    "learnMore": "Daha Fazla",
+    "viewAll": "Tümünü Gör",
+    "close": "Kapat",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "yes": "Evet",
+    "no": "Hayır"
+  },
+  "menu": {
+    "carpetTitle": "Moscheeteppiche",
+    "underlayTitle": "Teppichunterlagen",
+    "viewAll": "Alle anzeigen",
+    "acrylic_solid": "Acryl – Reihen",
+    "acrylic_medallion": "Acryl – Medaillon",
+    "acrylic_prayer": "Acryl – Gebetsnische",
+    "wool_solid": "Wolle – Reihen",
+    "wool_medallion": "Wolle – Medaillon",
+    "wool_prayer": "Wolle – Gebetsnische",
+    "polypropylene_solid": "Polypropylen – Reihen",
+    "polypropylene_medallion": "Polypropylen – Medaillon",
+    "polypropylene_prayer": "Polypropylen – Gebetsnische",
+    "polyamide_solid": "Polyamid – Reihen",
+    "polyamide_medallion": "Polyamid – Medaillon",
+    "polyamide_prayer": "Polyamid – Gebetsnische",
+    "axminster": "Axminster nach Maß",
+    "underlay_rubber": "Gummi-Unterlage",
+    "underlay_felt": "Filz-Unterlage"
+  },
+  "quote": {
+    "openButton": "Angebot anfordern",
+    "title": "Angebot anfordern",
+    "nameLabel": "Vollständiger Name",
+    "namePlaceholder": "Vor- und Nachname",
+    "phoneLabel": "Telefon",
+    "phonePlaceholder": "+90 5XX XXX XX XX",
+    "emailLabel": "E-Mail (optional)",
+    "emailPlaceholder": "ihre@email.de",
+    "messageLabel": "Ihre Nachricht",
+    "messagePlaceholder": "Abmessungen der Moschee, bevorzugtes Modell, Fragen...",
+    "submitButton": "Angebot senden",
+    "sending": "Wird gesendet…",
+    "successTitle": "Vielen Dank!",
+    "successMessage": "Wir werden uns so schnell wie möglich bei Ihnen melden.",
+    "successClose": "Schließen",
+    "required": "Pflichtfeld",
+    "nameRequired": "Name ist erforderlich.",
+    "phoneRequired": "Telefon ist erforderlich.",
+    "phoneInvalid": "Bitte eine gültige Telefonnummer eingeben.",
+    "emailInvalid": "Bitte eine gültige E-Mail-Adresse eingeben.",
+    "messageRequired": "Nachricht ist erforderlich."
+  },
+  "categoryData": {
+    "akrilik-cami-halisi": {
+      "title": "Acryl-Moscheeteppich",
+      "shortTitle": "Acryl-Teppich",
+      "metaTitle": "Acryl-Moscheeteppich | Preise, Varianten und Eigenschaften – Asil Hali",
+      "metaDescription": "Acryl-Moscheeteppich Preise, Varianten und Eigenschaften. Lichtechte Farben, weiches Gewebe, wirtschaftlicher Preis. Sondermaßanfertigung, Lieferung in der Türkei. Asil Halı A.Ş.",
+      "description": "Mit leuchtenden Farben, weicher Textur und wirtschaftlichem Preis der meistgewählte Moscheeteppich in der Türkei.",
+      "longDescription": "\nDer Acryl-Moscheeteppich bietet das beste Preis-Leistungs-Verhältnis unter den Kunstfasern und wird in der Mehrheit der Moscheen in der Türkei verwendet. Dank hoher UV-Beständigkeit bleiben die lebhaften Farben über viele Jahre hinweg ohne Verblassen erhalten. Er wird mit speziellen Musterdesigns gefertigt, die zur Atmosphäre der Moschee passen.\n\nDie poröse Struktur der Acrylfasern absorbiert Feuchtigkeit, die in der Moscheeumgebung entstehen kann, und verdunstet sie, was einen hygienischen Untergrund gewährleistet. Die für die tägliche Gemeindefrequenz ausgelegten Acryl-Teppiche können bei regelmäßiger Pflege 15–20 Jahre problemlos genutzt werden.\n\nDie Acrylserie von Asil Halı wird mit speziellen Zuschnittoptionen angeboten, die alle Moscheen-Bereiche abdecken – von der Gebetsnische bis zu den Reihenabständen, von Treppen bis zu Korridorrändern.\n    ",
+      "badge": "Meistverkauft",
+      "advantages": [
+        "UV-beständige Farben, die jahrelang nicht verblassen",
+        "Weiches und komfortables Gewebe – ideal für lange Gebetssitzungen",
+        "Feuchtigkeitsabsorbierende und schnell trocknende Struktur",
+        "Wirtschaftliches Preis-Leistungs-Verhältnis",
+        "Individuelle Muster- und Farboptionen",
+        "Einfache Reinigung und Pflege",
+        "Nutzungsdauer von 15–20 Jahren",
+        "Brandschutz-zertifiziert"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Acryl (100%)"
+        },
+        {
+          "label": "Webmethode",
+          "value": "Maschinenweberei"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.800–2.400 g/m²"
+        },
+        {
+          "label": "Knotendichte",
+          "value": "180.000–350.000 Knoten/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "5 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Kleine und mittelgroße Stadtteilmoscheen",
+        "Gemeinde- und Stiftungsmoscheen",
+        "Schul- und Universitäts-Gebetsräume",
+        "Gebetsräume in Einkaufszentren und Büros",
+        "Gebetsräume in Wohnheimen und Studentenunterkünften"
+      ],
+      "faqs": [
+        {
+          "question": "Wie lange hält ein Acryl-Moscheeteppich?",
+          "answer": "Ein hochwertiger Acryl-Moscheeteppich kann bei regelmäßiger Reinigung und Pflege 15–20 Jahre problemlos genutzt werden. Asil Halı-Produkte haben 5 Jahre Garantie."
+        },
+        {
+          "question": "Ist Acryl- oder Wollteppich besser?",
+          "answer": "Das hängt vom Budget und der Nutzungsintensität ab. Acryl ist wirtschaftlicher und pflegeleichter; Wolle ist natürlicher und langlebiger. Beide sind für Moscheen geeignet."
+        },
+        {
+          "question": "Kann ich ein individuelles Muster anfertigen lassen?",
+          "answer": "Ja. Ein individuelles Musterdesign, das zur Architektur Ihrer Moschee oder regionalen Tradition passt, wird kostenlos erstellt und nach Ihrer Genehmigung in Produktion gegeben."
+        },
+        {
+          "question": "Gibt es eine Mindestbestellmenge?",
+          "answer": "Es gibt keine Mindestbestellmenge. Sie können 10 m² für einen kleinen Gebetsraum oder 5.000 m² für eine große Moschee bestellen."
+        }
+      ]
+    },
+    "yun-cami-halisi": {
+      "title": "Woll-Moscheeteppich",
+      "shortTitle": "Woll-Teppich",
+      "metaTitle": "Woll-Moscheeteppich | Preise, Varianten und Eigenschaften – Asil Hali",
+      "metaDescription": "Woll-Moscheeteppich mit natürlicher Wärme und langer Haltbarkeit. Feuchtigkeitsregulierend, antistatisch, naturfreundlich. Asil Halı A.Ş. – Türkei.",
+      "description": "Mit natürlicher Wärme, einzigartiger Textur und langer Haltbarkeit die Premium-Wahl für Moscheen, die das Beste verdienen.",
+      "longDescription": "\nWolle ist das älteste und natürlichste Teppichmaterial der Menschheitsgeschichte. Woll-Moscheeteppiche bieten durch ihre natürliche Struktur ein komfortables Raumklima: Sie nehmen Feuchtigkeit auf, geben sie ab und regulieren die Luftfeuchtigkeit auf natürliche Weise.\n\nDank der natürlichen Flamm- und Schmutzabweisungseigenschaften der Wolle ist kein Einsatz von Chemikalien erforderlich. Antistatische Eigenschaften verhindern Staubansammlung, und die natürliche Struktur bietet auch für Allergiker eine gesunde Umgebung.\n\nWoll-Teppiche der Asil Halı-Kollektion werden mit handverlesenen Qualitätswollgarnen mit Farbechtheits-Garantie hergestellt. Ihre robuste Struktur ermöglicht eine Nutzungsdauer von 25–30 Jahren.\n    ",
+      "badge": "Premium",
+      "advantages": [
+        "Natürliche Feuchtigkeitsregulierung – gesundes Raumklima",
+        "Hervorragende Schalldämmung",
+        "Antistatisch – kein Staubmagnet",
+        "Natürliche Flammschutz-Eigenschaften",
+        "Allergiker-freundliche natürliche Struktur",
+        "Tiefe, lebendige Farben dank natürlicher Farbaufnahme",
+        "Nutzungsdauer von 25–30 Jahren",
+        "Umweltfreundlich und biologisch abbaubar"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "100% Naturwolle"
+        },
+        {
+          "label": "Webmethode",
+          "value": "Maschinenweberei"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "8–12 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.200–3.000 g/m²"
+        },
+        {
+          "label": "Knotendichte",
+          "value": "250.000–500.000 Knoten/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Historische und denkmalgeschützte Moscheen",
+        "Repräsentative Freitagsmoscheen",
+        "Staatliche Moscheen und Pilgerortschaften",
+        "Moscheen mit Premium-Budget",
+        "Moscheen, die Langlebigkeit und Natürlichkeit priorisieren"
+      ],
+      "faqs": [
+        {
+          "question": "Wie lange hält ein Woll-Moscheeteppich?",
+          "answer": "Woll-Teppiche halten bei regelmäßiger Pflege 25–30 Jahre und mehr. Asil Halı-Produkte haben 10 Jahre Garantie."
+        },
+        {
+          "question": "Ist Wolle teurer als Acryl?",
+          "answer": "Ja, Wolle hat höhere Anschaffungskosten, bietet jedoch eine längere Lebensdauer und natürliche Eigenschaften. Auf Gesamtkostenbasis über die Lebensdauer ist sie oft wirtschaftlicher."
+        },
+        {
+          "question": "Ist Wolle für stark frequentierte Moscheen geeignet?",
+          "answer": "Ja. Woll-Teppiche sind für intensive Nutzung geeignet. Ihre natürliche Elastizität ermöglicht eine schnelle Erholung."
+        },
+        {
+          "question": "Wie reinige ich einen Woll-Teppich?",
+          "answer": "Regelmäßiges Staubsaugen, jährliche Tiefenreinigung durch Fachleute und sofortiges Behandeln von Flecken sind ausreichend. Es gibt keine besonderen Anforderungen."
+        }
+      ]
+    },
+    "polipropilen-cami-halisi": {
+      "title": "Polypropylen-Moscheeteppich",
+      "shortTitle": "PP-Teppich",
+      "metaTitle": "Polypropylen-Moscheeteppich | Preise, Varianten und Eigenschaften – Asil Hali",
+      "metaDescription": "Polypropylen-Moscheeteppich – hohe Feuchtigkeitsbeständigkeit, einfache Reinigung, langlebig. Wirtschaftliche Lösung für belebte Moscheen. Asil Halı A.Ş.",
+      "description": "Mit außergewöhnlicher Feuchtigkeitsbeständigkeit, einfacher Reinigung und langer Haltbarkeit die wirtschaftlichste Langzeit-Wahl.",
+      "longDescription": "\nPolypropylen (PP) ist die Kunstfaser mit der stärksten Feuchtigkeitsbeständigkeit. Dieser Teppich ist besonders für Moscheen geeignet, in denen häufige Ablutionen stattfinden oder in Regionen mit hoher Luftfeuchtigkeit.\n\nDank seiner dichten Faserstruktur werden Schmutz und Flüssigkeiten nicht in die Faser aufgenommen. Daher sind einfache Reinigungen sehr effektiv. Auch nach Jahrzehnten des Einsatzes verbleicht die Farbe nicht.\n\nDie Polypropylen-Serie von Asil Halı wird in verschiedenen Muster- und Farboptionen angeboten. Sie erfordert minimalen Wartungsaufwand und bietet maximalen Schutz.\n    ",
+      "badge": "Langlebig",
+      "advantages": [
+        "Höchste Feuchtigkeitsbeständigkeit – ideal für Wudu-Bereiche",
+        "Sehr einfache Reinigung",
+        "Beständig gegen Flecken und Schmutz",
+        "Bewahrt die Farbe jahrzehntelang",
+        "Antimikrobielle Eigenschaften",
+        "Widerstandsfähig gegen Motten und Insekten",
+        "Wirtschaftliche Preisklasse",
+        "Nutzungsdauer von 20–25 Jahren"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polypropylen (100%)"
+        },
+        {
+          "label": "Webmethode",
+          "value": "Maschinenweberei"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "5–9 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.600–2.200 g/m²"
+        },
+        {
+          "label": "Knotendichte",
+          "value": "160.000–300.000 Knoten/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "7 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Moscheen mit Wudu-Bereichen in unmittelbarer Nähe",
+        "Moscheen in feuchten Klimazonen",
+        "Moscheen mit eingeschränktem Budget",
+        "Außen- und überdachte Gebetsräume",
+        "Gebetsräume mit häufiger Reinigung"
+      ],
+      "faqs": [
+        {
+          "question": "Wie wasserbeständig ist Polypropylen?",
+          "answer": "Polypropylen ist die feuchtigkeitsresistenteste synthetische Faser. Wasser wird nicht aufgenommen und die Oberfläche trocknet schnell."
+        },
+        {
+          "question": "Ist PP-Teppich weniger komfortabel als Acryl?",
+          "answer": "Polypropylen kann etwas weniger weich sein als Acryl, bietet aber dafür überlegene Haltbarkeit und Feuchtigkeitsbeständigkeit. Im praktischen Einsatz ist der Unterschied kaum spürbar."
+        },
+        {
+          "question": "Welcher Teppich ist besser geeignet – PP oder Polyamid?",
+          "answer": "Polypropylen ist wirtschaftlicher und feuchtigkeitsbeständiger; Polyamid ist verschleißfester. Für intensiv genutzte Moscheen wird Polyamid empfohlen."
+        },
+        {
+          "question": "Kann man PP-Teppich nass waschen?",
+          "answer": "Ja. Dank seiner feuchtigkeitsbeständigen Struktur kann PP-Teppich problemlos nass gereinigt werden und trocknet schnell."
+        }
+      ]
+    },
+    "polyamid-cami-halisi": {
+      "title": "Polyamid-Moscheeteppich",
+      "shortTitle": "Polyamid-Teppich",
+      "metaTitle": "Polyamid-Moscheeteppich | Preise, Varianten und Eigenschaften – Asil Hali",
+      "metaDescription": "Polyamid-Moscheeteppich – höchste Abriebfestigkeit, professionelle Qualität. Die bevorzugte Wahl für staatliche Ausschreibungen. Asil Halı A.Ş.",
+      "description": "Mit der höchsten Abriebfestigkeit unter synthetischen Fasern die professionelle Wahl für Hochfrequenz-Moscheen und öffentliche Ausschreibungen.",
+      "longDescription": "\nPolyamid (Nylon) ist die synthetische Faser mit der höchsten Abriebfestigkeit. In Moscheen mit besonders hoher Gemeindefrequenz – Freitagsgebete mit Tausenden von Gläubigen, täglicher intensiver Einsatz – ist Polyamid die dauerhafteste Wahl.\n\nDie federnde Eigenschaft der Polyamidfaser verhindert dauerhaftes Niederknicken des Flors unter Druckbelastung. Der Teppich behält seine ursprüngliche Form auch über Jahrzehnte hinweg.\n\nDie Polyamid-Serie von Asil Halı wird bevorzugt in staatlichen Ausschreibungen und Großprojekten eingesetzt. Alle technischen Spezifikationen entsprechen internationalen Standards.\n    ",
+      "badge": "Professionell",
+      "advantages": [
+        "Höchste Abriebfestigkeit unter synthetischen Fasern",
+        "Erholt sich nach Druckbelastung – behält die Form",
+        "Beständig gegen intensive tägliche Nutzung",
+        "Hervorragendes Farbhaftvermögen",
+        "Leicht zu reinigen",
+        "Erfüllt internationale Qualitätsstandards",
+        "Bevorzugte Wahl für öffentliche Ausschreibungen",
+        "Nutzungsdauer von 25+ Jahren"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polyamid / Nylon (100%)"
+        },
+        {
+          "label": "Webmethode",
+          "value": "Maschinenweberei"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.000–2.800 g/m²"
+        },
+        {
+          "label": "Knotendichte",
+          "value": "200.000–400.000 Knoten/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Freitagsmoscheen mit hoher Gemeindefrequenz",
+        "Staatliche und kommunale Moscheen-Projekte",
+        "Öffentliche Ausschreibungen",
+        "Pilgerstätten und religiöse Tourismusstandorte",
+        "Repräsentationsmoscheen mit hohem Ansehen"
+      ],
+      "faqs": [
+        {
+          "question": "Worin unterscheidet sich Polyamid von Acryl?",
+          "answer": "Polyamid hat eine höhere Abriebfestigkeit und bessere elastische Rückstellung, ist aber teurer als Acryl. Es ist besonders für Hochfrequenz-Moscheen geeignet."
+        },
+        {
+          "question": "Wird Polyamid in öffentlichen Ausschreibungen bevorzugt?",
+          "answer": "Ja. Aufgrund seiner technischen Überlegenheit und langen Lebensdauer wird Polyamid häufig in staatlichen Moscheen-Ausschreibungen spezifiziert."
+        },
+        {
+          "question": "Wie unterscheidet sich Polyamid von Polypropylen?",
+          "answer": "Polyamid ist abriebfester und elastischer; Polypropylen ist feuchtigkeitsbeständiger. Beide haben Stärken in unterschiedlichen Bereichen."
+        },
+        {
+          "question": "Gibt es eine Garantie?",
+          "answer": "Asil Halı Polyamid-Produkte kommen mit 10 Jahren Garantie. Materialfehler und Produktionsmängel sind vollständig abgedeckt."
+        }
+      ]
+    },
+    "safli-akrilik-cami-halisi": {
+      "title": "Reihenmuster Acryl-Moscheeteppich",
+      "shortTitle": "Reihen-Acryl",
+      "metaTitle": "Reihenmuster Acryl-Moscheeteppich | Preise und Eigenschaften – Asil Hali",
+      "metaDescription": "Reihenmuster Acryl-Moscheeteppich – erleichtert das Ausrichten der Gebetsreihen, praktisch und wirtschaftlich. Asil Halı A.Ş.",
+      "description": "Mit parallelen Linien, die das Ausrichten der Gebetsreihen erleichtern – die praktischste und meistgewählte Lösung für Moscheen.",
+      "longDescription": "\nDas Reihenmuster bei Moscheeteppichen bezeichnet Teppiche, bei denen das Muster die Gebetsreihen gleichmäßig aufteilt. Gläubige richten sich mit der Mitte des Gebetsbereichs aus und beten in geordneten Reihen.\n\nDie Reihenmuster Acryl-Kollektion von Asil Halı vereint wirtschaftliche Preise mit hoher Qualität. Verschiedene Zeilenhöhen (60 cm, 65 cm, 70 cm) sind verfügbar, um unterschiedlichen Moscheegrundrisssen gerecht zu werden.\n\nDas Acrylgewebe bietet eine weiche Oberfläche für lange Gebete und ist gleichzeitig einfach zu reinigen und zu pflegen.\n    ",
+      "badge": "Beliebt",
+      "advantages": [
+        "Erleichtert das ordentliche Ausrichten der Gebetsreihen",
+        "Verschiedene Reihenabstand-Optionen (60–70 cm)",
+        "Weiche und komfortable Acrylstruktur",
+        "Wirtschaftlicher Preis",
+        "Einfache Reinigung und Pflege",
+        "Farb- und Mustervielfalt",
+        "Nutzungsdauer von 15–20 Jahren",
+        "Maßgeschneiderte Produktion"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Acryl (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Reihenmuster"
+        },
+        {
+          "label": "Reihenabstand",
+          "value": "60 / 65 / 70 cm (wählbar)"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.800–2.400 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "5 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Alle Moscheen-Typen und -größen",
+        "Moscheen, die ordentliche Gebetsreihen priorisieren",
+        "Renovierungsprojekte",
+        "Moscheen mit eingeschränktem Budget",
+        "Gebetsräume und Mescids"
+      ],
+      "faqs": [
+        {
+          "question": "Was ist der Unterschied zwischen Reihenmuster und Medaillonmuster?",
+          "answer": "Beim Reihenmuster teilen parallele Linien den Raum in Gebetsreihen auf; beim Medaillonmuster befinden sich zentrale Ornamente in der Mitte. Das Reihenmuster ist praktischer, das Medaillonmuster ästhetisch repräsentativer."
+        },
+        {
+          "question": "Welcher Reihenabstand soll ich wählen?",
+          "answer": "Für Erwachsene sind 65–70 cm empfohlen, für Schule und Jugendräume können 60 cm ausreichend sein. Kontaktieren Sie uns für eine Beratung."
+        },
+        {
+          "question": "Kann das Muster individuell angepasst werden?",
+          "answer": "Ja. Farbe, Muster und Reihenabstand können nach Ihren Wünschen individuell gestaltet werden."
+        },
+        {
+          "question": "Ist Reihenmuster-Acryl eine günstigere Option?",
+          "answer": "Im Vergleich zu Medaillonmuster und Gebetsteppich-Mustern ist Reihenmuster-Acryl eine der wirtschaftlichsten Optionen."
+        }
+      ]
+    },
+    "gobekli-akrilik-cami-halisi": {
+      "title": "Medaillon Acryl-Moscheeteppich",
+      "shortTitle": "Medaillon-Acryl",
+      "metaTitle": "Medaillon Acryl-Moscheeteppich | Spezialdesign – Asil Hali",
+      "metaDescription": "Medaillon Acryl-Moscheeteppich mit zentralem Ornament – ästhetisch und repräsentativ. Spezialdesign-Optionen. Asil Halı A.Ş.",
+      "description": "Mit zentralen Ornament-Motiven eine ästhetische und repräsentative Wahl, die jedem Gebetsraum Würde verleiht.",
+      "longDescription": "\nBeim Medaillonmuster befindet sich in der Mitte des Teppichs ein großes, zentrales Ornament und ringsum ergänzende Motive. Dieses Muster verleiht der Moschee ein prachtvolles Aussehen.\n\nDie Medaillon Acryl-Kollektion von Asil Halı zeigt islamische Kunstmotive im Einklang mit der Moscheearchitektur. Das zentrale Ornament wird besonders in Moscheen mit einer Kuppel eindrucksvoll zur Geltung gebracht.\n\nDie Acrylstruktur bietet wirtschaftliche Preise und komfortables Gebet. Farbe und Muster können individuell angepasst werden.\n    ",
+      "badge": "Spezialdesign",
+      "advantages": [
+        "Majestätisches Erscheinungsbild mit zentralem Ornament",
+        "Kompatibel mit islamischen Kunstmotiven",
+        "Betont die Moscheearchitektur",
+        "Komfortable Acrylstruktur",
+        "Individuelle Design-Optionen",
+        "Wirtschaftlicher Preis",
+        "Passende Farbanpassung an das Moscheen-Interieur",
+        "Maßgeschneiderte Produktion für jeden Grundriss"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Acryl (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Medaillonmuster"
+        },
+        {
+          "label": "Mittelornament",
+          "value": "Individuell"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.800–2.400 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "5 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Repräsentative Stadtmoscheen",
+        "Freitagsmoscheen mit großem Gebetsraum",
+        "Renovierte historische Moscheen",
+        "Moscheen, bei denen Ästhetik im Vordergrund steht",
+        "Große Veranstaltungsräume und Gebetssäle"
+      ],
+      "faqs": [
+        {
+          "question": "Passt das Medaillonmuster zu jeder Moschee?",
+          "answer": "Das Medaillonmuster passt besonders zu kuppelförmigen Moscheen. Beim Entwurf wird die Architektur der Moschee berücksichtigt."
+        },
+        {
+          "question": "Kann das Mittelornament individuell gestaltet werden?",
+          "answer": "Ja. Das Mittelornament, die Bordüre und alle Details können entsprechend Ihren Wünschen und der Moscheearchitektur individuell gestaltet werden."
+        },
+        {
+          "question": "Ist Medaillonmuster teurer als Reihenmuster?",
+          "answer": "Aufgrund der aufwendigeren Muster-Komplexität kann es etwas teurer sein, aber die Preisdifferenz ist minimal. Kontaktieren Sie uns für ein genaues Angebot."
+        },
+        {
+          "question": "Kann ich ein Muster sehen, bevor ich bestelle?",
+          "answer": "Ja. Vor der Produktion erhalten Sie eine digitale Visualisierung und können nach Belieben Änderungen vornehmen."
+        }
+      ]
+    },
+    "seccadeli-akrilik-cami-halisi": {
+      "title": "Gebetsteppich-Muster Acryl-Moscheeteppich",
+      "shortTitle": "Gebetsteppich-Acryl",
+      "metaTitle": "Gebetsteppich-Muster Acryl-Moscheeteppich | Praktische Lösung – Asil Hali",
+      "metaDescription": "Gebetsteppich-Muster Acryl-Moscheeteppich – jeder Gläubige hat einen eigenen Gebetsbereich. Praktisch und hygienisch. Asil Halı A.Ş.",
+      "description": "Für jeden Gläubigen ein eigener Gebetsbereich – die praktischste und hygienischste Lösung für Moscheen.",
+      "longDescription": "\nDas Gebetsteppich-Muster ist ein Teppichtyp, bei dem einzelne Gebetsbereiche (Seccade) nebeneinander angeordnet sind und jeder Gläubige seinen eigenen klar abgegrenzten Platz hat. Es kombiniert die Praktikabilität von Einzelgebetsteppichen mit der Einheitlichkeit eines Wandteppichs.\n\nDie Seccadeli Acryl-Kollektion von Asil Halı bietet Moscheen eine hygienische und ordentliche Lösung. Gebetsorientierung und Raumnutzung werden maximiert.\n\nDie weiche Acrylstruktur bietet Komfort für lange Gebete. Verschiedene Seccade-Größen und Farben stehen zur Auswahl.\n    ",
+      "badge": "Praktische Lösung",
+      "advantages": [
+        "Jeder Gläubige hat einen eigenen Gebetsbereich",
+        "Klare Ausrichtung und ordentliches Erscheinungsbild",
+        "Hygienefreundliche Strukturierung",
+        "Maximale Raumnutzung",
+        "Komfortable Acrylstruktur",
+        "Wirtschaftlicher Preis",
+        "Individuell wählbare Seccade-Größen",
+        "Einfache Reinigung"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Acryl (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Gebetsteppich-Muster"
+        },
+        {
+          "label": "Seccade-Größe",
+          "value": "60×110 cm / 65×115 cm (wählbar)"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.800–2.400 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "5 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Neue Moscheen mit modernem Interieur",
+        "Moscheen, die Hygiene priorisieren",
+        "Gebetsräume in Schulen und öffentlichen Gebäuden",
+        "Moscheen, die maximale Raumnutzung anstreben",
+        "Mescids und kleine Gebetsräume"
+      ],
+      "faqs": [
+        {
+          "question": "Was ist der Unterschied zwischen Gebetsteppich-Muster und Reihenmuster?",
+          "answer": "Beim Gebetsteppich-Muster ist jeder Platz individuell abgegrenzt; beim Reihenmuster werden die Plätze durch parallele Linien geteilt. Das Gebetsteppich-Muster ist hygienischer und ordentlicher."
+        },
+        {
+          "question": "Kann die Seccade-Größe individuell angepasst werden?",
+          "answer": "Ja. Die Seccade-Abmessungen können entsprechend dem Moscheen-Grundriss individuell angepasst werden."
+        },
+        {
+          "question": "Wie unterscheidet sich das Gebetsteppich-Muster von Einzelgebetsteppichen?",
+          "answer": "Das Muster-Teppich deckt den gesamten Moscheen-Boden einheitlich ab. Im Gegensatz zu Einzelgebetsteppichen gibt es keine Ausreißer oder unordentliches Erscheinungsbild."
+        },
+        {
+          "question": "Für welche Moscheen-Größen ist es geeignet?",
+          "answer": "Es ist für alle Größen geeignet, von kleinen Mescids bis zu großen Freitagsmoscheen. Eine Produktionsanpassung ist ohne Einschränkungen möglich."
+        }
+      ]
+    },
+    "safli-yun-cami-halisi": {
+      "title": "Reihenmuster Woll-Moscheeteppich",
+      "shortTitle": "Reihen-Wolle",
+      "metaTitle": "Reihenmuster Woll-Moscheeteppich | Premium-Qualität – Asil Hali",
+      "metaDescription": "Reihenmuster Woll-Moscheeteppich – natürliche Komfort, geordnete Gebetsreihen, Premium-Qualität. Asil Halı A.Ş.",
+      "description": "Premium-Woll-Komfort kombiniert mit geordneten Gebetsreihen – für Moscheen, die das Beste verdienen.",
+      "longDescription": "\nDer Reihenmuster Woll-Moscheeteppich kombiniert die praktische Funktion des Reihenmusters mit den natürlichen Vorteilen der Wolle. Er bietet geordnete Gebetsreihen und natürlichen Komfort in einem.\n\nDie Asil Halı Premium-Woll-Kollektion wird mit hochwertigen Naturwollgarnen gefertigt. Die natürliche Feuchtigkeitsregulierung der Wolle sorgt für ein gesundes Gebetsklima.\n\nMit einer Lebensdauer von 25–30 Jahren ist es eine langfristig wirtschaftliche Investition.\n    ",
+      "badge": "Premium",
+      "advantages": [
+        "Natürliche Woll-Komforteigenschaften",
+        "Geordnete Gebetsreihen",
+        "Feuchtigkeitsregulierung und gesundes Raumklima",
+        "Antistatisch",
+        "Nutzungsdauer von 25–30 Jahren",
+        "Umweltfreundliches Naturmaterial",
+        "Tiefe und lebendige Farben",
+        "Brandschutz-zertifiziert"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "100% Naturwolle"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Reihenmuster"
+        },
+        {
+          "label": "Reihenabstand",
+          "value": "60 / 65 / 70 cm"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "8–12 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.200–3.000 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Premium-Stadtmoscheen",
+        "Historische Moscheen",
+        "Staatliche und Stiftungsmoscheen",
+        "Moscheen mit hochwertigem Budget",
+        "Repräsentative Freitagsmoscheen"
+      ],
+      "faqs": [
+        {
+          "question": "Was unterscheidet Reihen-Wolle von Reihen-Acryl?",
+          "answer": "Beide haben Reihenmuster-Funktionalität. Der Unterschied liegt im Material: Wolle bietet natürlichen Komfort und längere Lebensdauer, Acryl ist wirtschaftlicher."
+        },
+        {
+          "question": "Ist Wolle für stark frequentierte Moscheen geeignet?",
+          "answer": "Ja. Woll-Teppiche sind sehr widerstandsfähig. Die natürliche Elastizität der Faser erholt sich nach Druckbelastung schnell."
+        },
+        {
+          "question": "Wie pflege ich einen Woll-Teppich?",
+          "answer": "Regelmäßiges Staubsaugen und jährliche professionelle Reinigung genügen. Flecken sofort behandeln."
+        },
+        {
+          "question": "Was ist der Preisunterschied zu Acryl?",
+          "answer": "Woll-Teppiche sind teurer in der Anschaffung, haben aber längere Lebensdauer. Langfristig ist die Kostendifferenz minimal."
+        }
+      ]
+    },
+    "gobekli-yun-cami-halisi": {
+      "title": "Medaillon Woll-Moscheeteppich",
+      "shortTitle": "Medaillon-Wolle",
+      "metaTitle": "Medaillon Woll-Moscheeteppich | Luxus-Kollektion – Asil Hali",
+      "metaDescription": "Medaillon Woll-Moscheeteppich – natürliche Eleganz und prachtvolle Ästhetik. Luxus-Kollektion. Asil Halı A.Ş.",
+      "description": "Die Luxus-Kollektion: Natürliche Wollqualität verbindet sich mit prächtigen Medaillon-Motiven für ein unvergessliches Gebetserlebnis.",
+      "longDescription": "\nDer Medaillon Woll-Moscheeteppich ist die Spitze des Handwerks – er kombiniert das prächtige Medaillonmuster mit der höchsten natürlichen Qualität. Er ist die bevorzugte Wahl für repräsentative Moscheen.\n\nDie Luxus-Woll-Kollektion von Asil Halı wird mit Spezialgarnen in tiefen, satten Farben gewebt. Das zentrale Ornament und die ergänzenden Motive verschmelzen harmonisch mit der Moscheearchitektur.\n\nDie Lebensdauer von 25–30 Jahren macht diesen Teppich zu einer der werthaltigsten Investitionen für Moscheen.\n    ",
+      "badge": "Luxus-Kollektion",
+      "advantages": [
+        "Kombination aus natürlicher Qualität und prachtvoller Ästhetik",
+        "Medaillon-Motive, die die Moscheearchitektur betonen",
+        "Tiefe und lebendige natürliche Farben",
+        "Feuchtigkeitsregulierung und natürlicher Komfort",
+        "Antistatisch und hypoallergen",
+        "Nutzungsdauer von 25–30 Jahren",
+        "100% natürliches Material",
+        "Umweltfreundlich und biologisch abbaubar"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "100% Naturwolle"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Medaillonmuster"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "8–12 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.500–3.500 g/m²"
+        },
+        {
+          "label": "Knotendichte",
+          "value": "300.000–600.000 Knoten/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Repräsentative Stadtmoscheen mit hohem Budget",
+        "Historische und denkmalgeschützte Moscheen",
+        "Staatliche Flaggschiff-Moscheen",
+        "Pilgerstätten",
+        "Moscheen, bei denen höchste Ästhetik und Qualität gefordert werden"
+      ],
+      "faqs": [
+        {
+          "question": "Ist Medaillon-Wolle das teuerste Produkt?",
+          "answer": "Ja, es ist eines der Produkte mit dem höchsten Preis. Dafür bietet es die höchste Qualität, längste Lebensdauer und schönste Ästhetik."
+        },
+        {
+          "question": "Für welche Moscheengröße ist es geeignet?",
+          "answer": "Es ist für alle Größen geeignet. Das Medaillonmuster kann maßstabsgetreu an jeden Grundriss angepasst werden."
+        },
+        {
+          "question": "Kann das Muster individuell gestaltet werden?",
+          "answer": "Ja. Alle Details – zentrales Ornament, Bordüre, Farben – können individuell an die Architektur der Moschee angepasst werden."
+        },
+        {
+          "question": "Gibt es eine Garantie?",
+          "answer": "Asil Halı Woll-Produkte kommen mit 10 Jahren Garantie. Material- und Produktionsfehler sind vollständig abgedeckt."
+        }
+      ]
+    },
+    "seccadeli-yun-cami-halisi": {
+      "title": "Gebetsteppich-Muster Woll-Moscheeteppich",
+      "shortTitle": "Gebetsteppich-Wolle",
+      "metaTitle": "Gebetsteppich-Muster Woll-Moscheeteppich | Komfort & Ästhetik – Asil Hali",
+      "metaDescription": "Gebetsteppich-Muster Woll-Moscheeteppich – individueller Gebetsbereich mit natürlichem Wollkomfort. Asil Halı A.Ş.",
+      "description": "Individueller Gebetsbereich mit natürlichem Wollkomfort – für Moscheen, die Hygiene und Qualität vereinen.",
+      "longDescription": "\nDer Gebetsteppich-Muster Woll-Moscheeteppich kombiniert die praktische Funktion individueller Gebetsbereiche mit dem Luxus des Naturmaterials Wolle. Jeder Gläubige hat seinen eigenen definierten Platz.\n\nDie natürliche Temperaturregulierung der Wolle hält den Teppich im Sommer kühl und im Winter warm. Antistatische Eigenschaften verhindern Staubansammlung und sorgen für ein hygienisches Umfeld.\n\nMit einer Lebensdauer von 25–30 Jahren bietet dieser Teppich langfristigen Wert.\n    ",
+      "badge": "Komfort & Ästhetik",
+      "advantages": [
+        "Natürlicher Wollkomfort für lange Gebete",
+        "Individuell abgegrenzte Gebetsbereiche",
+        "Natürliche Temperaturregulierung",
+        "Antistatisch und hypoallergen",
+        "Feuchtigkeitsregulierung",
+        "Langlebigkeit von 25–30 Jahren",
+        "Umweltfreundliches Naturmaterial",
+        "Prachtvolle Gebetsteppich-Motive"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "100% Naturwolle"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Gebetsteppich-Muster"
+        },
+        {
+          "label": "Seccade-Größe",
+          "value": "60×110 cm / 65×115 cm"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "8–12 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.200–3.000 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Premium-Moscheen mit Fokus auf Hygiene",
+        "Repräsentative Stadtmoscheen",
+        "Staatliche Moscheen-Projekte",
+        "Moscheen mit moderner Innenarchitektur",
+        "Moscheen mit hohem Qualitätsanspruch"
+      ],
+      "faqs": [
+        {
+          "question": "Was ist der Vorteil von Gebetsteppich-Muster gegenüber Reihenmuster bei Wolle?",
+          "answer": "Das Gebetsteppich-Muster bietet individuell abgegrenzte Plätze und ein hygienischeres Umfeld. Das Reihenmuster ist praktischer für dicht gedrängte Gruppen."
+        },
+        {
+          "question": "Kann die Seccade-Größe angepasst werden?",
+          "answer": "Ja, die Abmessungen können maßgeschneidert an den Moscheen-Grundriss angepasst werden."
+        },
+        {
+          "question": "Ist Woll-Gebetsteppich teurer als Acryl-Gebetsteppich?",
+          "answer": "Ja, Wolle ist teurer in der Anschaffung, bietet aber längere Lebensdauer und höheren Komfort."
+        },
+        {
+          "question": "Gibt es eine Garantie?",
+          "answer": "10 Jahre Garantie auf alle Woll-Produkte von Asil Halı."
+        }
+      ]
+    },
+    "safli-polipropilen-cami-halisi": {
+      "title": "Reihenmuster Polypropylen-Moscheeteppich",
+      "shortTitle": "Reihen-PP",
+      "metaTitle": "Reihenmuster Polypropylen-Moscheeteppich | Langlebig – Asil Hali",
+      "metaDescription": "Reihenmuster PP-Moscheeteppich – hohe Feuchtigkeitsbeständigkeit, geordnete Gebetsreihen, wirtschaftlich. Asil Halı A.Ş.",
+      "description": "Geordnete Gebetsreihen kombiniert mit der überlegenen Feuchtigkeitsbeständigkeit von Polypropylen.",
+      "longDescription": "\nDer Reihenmuster PP-Teppich ist die bevorzugte Wahl für Moscheen in Gegenden mit hoher Luftfeuchtigkeit oder mit Wudu-Bereichen in unmittelbarer Nähe. Die feuchtigkeitsresistente Polypropylen-Struktur verhindert Feuchteschäden.\n\nGeordnete Gebetsreihen und einfache Reinigung machen diesen Teppich zu einer praktischen Alltagslösung. Die Farbe bleibt über Jahrzehnte stabil.\n    ",
+      "badge": "Langlebig",
+      "advantages": [
+        "Höchste Feuchtigkeitsbeständigkeit",
+        "Geordnete Gebetsreihen",
+        "Fleckenbeständig",
+        "Jahrzehnte stabile Farbe",
+        "Antimikrobiell",
+        "Wirtschaftlicher Preis",
+        "Nutzungsdauer von 20–25 Jahren",
+        "Einfache Reinigung"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polypropylen (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Reihenmuster"
+        },
+        {
+          "label": "Reihenabstand",
+          "value": "60 / 65 / 70 cm"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "5–9 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.600–2.200 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "7 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Moscheen in feuchten Klimazonen",
+        "Moscheen mit Wudu-Bereichen in der Nähe",
+        "Außen- und überdachte Gebetsräume",
+        "Budget-orientierte Moscheen",
+        "Gebetsräume mit häufiger Nassreinigung"
+      ],
+      "faqs": [
+        {
+          "question": "Warum PP statt Acryl bei feuchtem Klima?",
+          "answer": "Polypropylen absorbiert keine Feuchtigkeit und trocknet schnell. In feuchten Umgebungen oder bei Wudu-Nähe ist es die sicherere Wahl."
+        },
+        {
+          "question": "Ist PP weniger komfortabel?",
+          "answer": "Leicht weniger weich als Acryl, aber im praktischen Einsatz kaum spürbar. Dafür deutlich feuchtigkeitsresistenter."
+        },
+        {
+          "question": "Kann man PP nass reinigen?",
+          "answer": "Ja, PP kann problemlos nass gereinigt werden und trocknet schnell ohne Schäden."
+        },
+        {
+          "question": "Wie lange hält es?",
+          "answer": "20–25 Jahre bei normaler Nutzung und regelmäßiger Pflege."
+        }
+      ]
+    },
+    "gobekli-polipropilen-cami-halisi": {
+      "title": "Medaillon Polypropylen-Moscheeteppich",
+      "shortTitle": "Medaillon-PP",
+      "metaTitle": "Medaillon PP-Moscheeteppich | Praktisch & Ästhetisch – Asil Hali",
+      "metaDescription": "Medaillon PP-Moscheeteppich – ästhetisches Design mit praktischer Feuchtigkeitsbeständigkeit. Asil Halı A.Ş.",
+      "description": "Prachtvolles Medaillon-Design kombiniert mit der Feuchtigkeitsbeständigkeit von Polypropylen – praktisch und ästhetisch in einem.",
+      "longDescription": "\nDer Medaillon PP-Teppich verbindet die repräsentative Ästhetik des Medaillonmusters mit den praktischen Vorteilen von Polypropylen. Ideal für Moscheen, die sowohl Ästhetik als auch Funktionalität wünschen.\n\nDie stabile Farbgebung und die feuchtigkeitsresistente Struktur machen diesen Teppich zu einer langfristigen Investition.\n    ",
+      "badge": "Praktisch & Ästhetisch",
+      "advantages": [
+        "Medaillon-Ästhetik mit PP-Funktionalität",
+        "Feuchtigkeitsbeständig",
+        "Stabile Farben",
+        "Fleckenbeständig",
+        "Wirtschaftlicher Preis",
+        "Individuell gestaltbar",
+        "Nutzungsdauer von 20–25 Jahren",
+        "Einfache Reinigung"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polypropylen (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Medaillonmuster"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "5–9 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.600–2.200 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "7 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Stadtmoscheen mit mittlerem Budget",
+        "Moscheen in feuchten Regionen",
+        "Neu gebaute Moscheen",
+        "Moscheen die Ästhetik und Funktion vereinen wollen",
+        "Renovierungsprojekte"
+      ],
+      "faqs": [
+        {
+          "question": "Warum Medaillon PP statt Medaillon Acryl?",
+          "answer": "Wenn Ihre Moschee in einer feuchten Region liegt oder Wudu-Bereiche in der Nähe hat, ist PP die bessere Wahl. Sonst ist Acryl etwas weicher und komfortabler."
+        },
+        {
+          "question": "Kann das Design individuell angepasst werden?",
+          "answer": "Ja, alle Details des Medaillonmusters können individuell gestaltet werden."
+        },
+        {
+          "question": "Wie lange hält ein Medaillon PP-Teppich?",
+          "answer": "Bei normaler Nutzung und regelmäßiger Pflege 20–25 Jahre."
+        },
+        {
+          "question": "Ist es in staatlichen Ausschreibungen verfügbar?",
+          "answer": "Ja, Asil Halı-Produkte entsprechen allen technischen Anforderungen staatlicher Ausschreibungen."
+        }
+      ]
+    },
+    "seccadeli-polipropilen-cami-halisi": {
+      "title": "Gebetsteppich-Muster Polypropylen-Moscheeteppich",
+      "shortTitle": "Gebetsteppich-PP",
+      "metaTitle": "Gebetsteppich-Muster PP-Moscheeteppich | Einfache Pflege – Asil Hali",
+      "metaDescription": "Gebetsteppich-Muster PP-Moscheeteppich – individuelle Gebetsbereiche mit einfacher Pflege. Asil Halı A.Ş.",
+      "description": "Individuelle Gebetsbereiche mit pflegeleichtem Polypropylen – hygienisch und praktisch.",
+      "longDescription": "\nDer Gebetsteppich-Muster PP-Teppich bietet individuelle Gebetsbereiche mit der pflegeleichten und feuchtigkeitsbeständigen PP-Struktur. Eine ideale Wahl für Moscheen, die Hygiene und einfache Wartung kombinieren möchten.\n    ",
+      "badge": "Einfache Pflege",
+      "advantages": [
+        "Individuelle Gebetsbereiche",
+        "Sehr einfache Reinigung",
+        "Feuchtigkeitsbeständig",
+        "Fleckenbeständig",
+        "Antimikrobiell",
+        "Wirtschaftlicher Preis",
+        "Nutzungsdauer von 20–25 Jahren",
+        "Individuell wählbare Größen"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polypropylen (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Gebetsteppich-Muster"
+        },
+        {
+          "label": "Seccade-Größe",
+          "value": "60×110 cm / 65×115 cm"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "5–9 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.600–2.200 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "7 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Moscheen mit Reinigungshäufigkeit",
+        "Gebetsräume in öffentlichen Einrichtungen",
+        "Schulen und Kindergärten mit Gebetsraum",
+        "Moscheen in feuchtem Klima",
+        "Budget-orientierte Moscheen"
+      ],
+      "faqs": [
+        {
+          "question": "Wie oft muss PP-Teppich gereinigt werden?",
+          "answer": "Aufgrund der feuchtigkeitsresistenten Struktur ist PP einfach zu reinigen. Wöchentliches Staubsaugen und monatliche Nassreinigung genügen."
+        },
+        {
+          "question": "Ist PP hygienischer als Acryl?",
+          "answer": "Da PP keine Feuchtigkeit absorbiert, wachsen weniger Bakterien. In dieser Hinsicht ist PP hygienefreundlicher."
+        },
+        {
+          "question": "Kann die Seccade-Größe individuell angepasst werden?",
+          "answer": "Ja, maßgeschneiderte Produktion ist möglich."
+        },
+        {
+          "question": "Wie lange hält es?",
+          "answer": "20–25 Jahre bei normaler Nutzung."
+        }
+      ]
+    },
+    "safli-polyamid-cami-halisi": {
+      "title": "Reihenmuster Polyamid-Moscheeteppich",
+      "shortTitle": "Reihen-Polyamid",
+      "metaTitle": "Reihenmuster Polyamid-Moscheeteppich | Professionell – Asil Hali",
+      "metaDescription": "Reihenmuster Polyamid-Moscheeteppich – höchste Abriebfestigkeit, geordnete Gebetsreihen. Professionelle Qualität. Asil Halı A.Ş.",
+      "description": "Professionelle Qualität mit geordneten Gebetsreihen – die stärkste Langzeit-Wahl für Hochfrequenz-Moscheen.",
+      "longDescription": "\nDer Reihenmuster Polyamid-Teppich kombiniert die beste Abriebfestigkeit unter synthetischen Fasern mit der praktischen Funktion des Reihenmusters. Für Freitagsmoscheen mit Tausenden von Gläubigen ist er die langlebigste Wahl.\n\nDie elastische Struktur der Polyamidfaser erholt sich nach Druckbelastung und behält das Erscheinungsbild über Jahrzehnte hinweg.\n    ",
+      "badge": "Professionell",
+      "advantages": [
+        "Höchste Abriebfestigkeit",
+        "Geordnete Gebetsreihen",
+        "Elastische Erholung nach Druck",
+        "25+ Jahre Nutzungsdauer",
+        "Hervorragendes Farbhaftvermögen",
+        "Leicht zu reinigen",
+        "Bevorzugt in Ausschreibungen",
+        "Internationale Qualitätsstandards"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polyamid / Nylon (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Reihenmuster"
+        },
+        {
+          "label": "Reihenabstand",
+          "value": "60 / 65 / 70 cm"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.000–2.800 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Freitagsmoscheen mit Tausenden von Gläubigen",
+        "Staatliche und öffentliche Großprojekte",
+        "Ausschreibungen",
+        "Repräsentative Moscheen",
+        "Pilgerstätten und religiöse Tourismusstandorte"
+      ],
+      "faqs": [
+        {
+          "question": "Warum Polyamid statt Acryl für Hochfrequenz-Moscheen?",
+          "answer": "Polyamid hat überlegene Abriebfestigkeit. Bei intensiver täglicher Nutzung mit Tausenden von Gläubigen hält Polyamid deutlich länger als Acryl."
+        },
+        {
+          "question": "Wird es in staatlichen Ausschreibungen spezifiziert?",
+          "answer": "Ja, aufgrund seiner technischen Überlegenheit wird Polyamid häufig in staatlichen Ausschreibungen gefordert."
+        },
+        {
+          "question": "Wie lange hält es?",
+          "answer": "25+ Jahre bei intensiver Nutzung. Mit 10 Jahren Garantie ausgestattet."
+        },
+        {
+          "question": "Kann der Reihenabstand angepasst werden?",
+          "answer": "Ja, 60, 65 und 70 cm sowie andere Maße sind auf Anfrage möglich."
+        }
+      ]
+    },
+    "gobekli-polyamid-cami-halisi": {
+      "title": "Medaillon Polyamid-Moscheeteppich",
+      "shortTitle": "Medaillon-Polyamid",
+      "metaTitle": "Medaillon Polyamid-Moscheeteppich | Ausschreibungs-Favorit – Asil Hali",
+      "metaDescription": "Medaillon Polyamid-Moscheeteppich – prachtvolles Design mit professioneller Haltbarkeit. Bevorzugt in Ausschreibungen. Asil Halı A.Ş.",
+      "description": "Prachtvolles Medaillon-Design mit maximaler Haltbarkeit – der Favorit öffentlicher Ausschreibungen.",
+      "longDescription": "\nDer Medaillon Polyamid-Teppich ist die Kombination aus höchster Ästhetik und maximaler Haltbarkeit. Er wird bevorzugt in staatlichen Ausschreibungen für repräsentative Moscheen spezifiziert.\n\nDas prachtvolle Medaillonmuster betont die Moscheearchitektur, während die Polyamidstruktur eine Nutzungsdauer von 25+ Jahren gewährleistet.\n    ",
+      "badge": "Ausschreibungs-Favorit",
+      "advantages": [
+        "Prachtvolles Medaillon-Design",
+        "Maximale Abriebfestigkeit",
+        "25+ Jahre Nutzungsdauer",
+        "Bevorzugt in staatlichen Ausschreibungen",
+        "Elastische Erholung nach Druck",
+        "Hervorragendes Farbhaftvermögen",
+        "Individuelle Design-Optionen",
+        "Internationale Qualitätszertifikate"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polyamid / Nylon (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Medaillonmuster"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.000–2.800 g/m²"
+        },
+        {
+          "label": "Knotendichte",
+          "value": "200.000–400.000 Knoten/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Staatliche und kommunale Ausschreibungen",
+        "Repräsentative Stadtmoscheen",
+        "Freitagsmoscheen",
+        "Pilgerstätten",
+        "Historische Moscheen-Renovierungen"
+      ],
+      "faqs": [
+        {
+          "question": "Warum wird Medaillon-Polyamid in Ausschreibungen bevorzugt?",
+          "answer": "Es bietet die Kombination aus ästhetischem Anspruch und technischer Haltbarkeit, die staatliche Ausschreibungen erfordern."
+        },
+        {
+          "question": "Kann das Design individuell angepasst werden?",
+          "answer": "Ja, alle Musterdetails können individuell gestaltet werden."
+        },
+        {
+          "question": "Wie lange hält es?",
+          "answer": "25+ Jahre bei intensiver Nutzung, mit 10 Jahren Garantie."
+        },
+        {
+          "question": "Entspricht es internationalen Normen?",
+          "answer": "Ja, alle Asil Halı Polyamid-Produkte entsprechen EN 13501-1 und anderen internationalen Standards."
+        }
+      ]
+    },
+    "seccadeli-polyamid-cami-halisi": {
+      "title": "Gebetsteppich-Muster Polyamid-Moscheeteppich",
+      "shortTitle": "Gebetsteppich-Polyamid",
+      "metaTitle": "Gebetsteppich-Muster Polyamid-Moscheeteppich | Langlebig – Asil Hali",
+      "metaDescription": "Gebetsteppich-Muster Polyamid-Moscheeteppich – individuelle Gebetsbereiche mit maximaler Haltbarkeit. Asil Halı A.Ş.",
+      "description": "Individuelle Gebetsbereiche mit der Haltbarkeit von Polyamid – für Moscheen mit höchsten Qualitätsansprüchen.",
+      "longDescription": "\nDer Gebetsteppich-Muster Polyamid-Teppich bietet individuelle Gebetsbereiche mit der maximalen Haltbarkeit von Polyamid. Eine Investition, die sich über Jahrzehnte auszahlt.\n\nDie elastische Polyamidstruktur erholt sich nach intensiver Nutzung und bewahrt das Erscheinungsbild langfristig.\n    ",
+      "badge": "Langlebig",
+      "advantages": [
+        "Individuelle Gebetsbereiche",
+        "Maximale Abriebfestigkeit",
+        "Elastische Erholung nach Druck",
+        "25+ Jahre Nutzungsdauer",
+        "Hygienische Strukturierung",
+        "Hervorragendes Farbhaftvermögen",
+        "Leicht zu reinigen",
+        "10 Jahre Garantie"
+      ],
+      "specs": [
+        {
+          "label": "Fasertyp",
+          "value": "Polyamid / Nylon (100%)"
+        },
+        {
+          "label": "Mustertyp",
+          "value": "Gebetsteppich-Muster"
+        },
+        {
+          "label": "Seccade-Größe",
+          "value": "60×110 cm / 65×115 cm"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.000–2.800 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Hochfrequenz-Moscheen mit Fokus auf Hygiene",
+        "Staatliche Projektmoscheen",
+        "Repräsentative Moscheen",
+        "Pilgerstätten",
+        "Moscheen mit höchsten Qualitätsansprüchen"
+      ],
+      "faqs": [
+        {
+          "question": "Was ist der Vorteil von Polyamid gegenüber Acryl beim Gebetsteppich-Muster?",
+          "answer": "Polyamid ist abriebfester und elastischer. Bei intensiver Nutzung hält Polyamid deutlich länger als Acryl."
+        },
+        {
+          "question": "Kann die Seccade-Größe angepasst werden?",
+          "answer": "Ja, maßgeschneiderte Produktion ist möglich."
+        },
+        {
+          "question": "Wie lange hält es?",
+          "answer": "25+ Jahre, mit 10 Jahren Garantie."
+        },
+        {
+          "question": "Ist es in Ausschreibungen spezifiziert?",
+          "answer": "Ja, Polyamid wird in staatlichen Ausschreibungen aufgrund seiner technischen Überlegenheit bevorzugt."
+        }
+      ]
+    },
+    "ozel-desen-axminster-cami-halisi": {
+      "title": "Spezialdesign Axminster-Moscheeteppich",
+      "shortTitle": "Axminster-Design",
+      "metaTitle": "Spezialdesign Axminster-Moscheeteppich | Sonderanfertigung – Asil Hali",
+      "metaDescription": "Axminster-Moscheeteppich in Spezialdesign – einzigartiges Muster und Farbe, luxuriöses Aussehen. Sonderanfertigung. Asil Halı A.Ş.",
+      "description": "Einzigartiges Design und Luxus-Ästhetik nach Maß – für Moscheen, die eine wahrhaft individuelle Note verlangen.",
+      "longDescription": "\nDie Axminster-Webtechnik ist die Methode, die die komplexesten und farbenreichsten Muster ermöglicht. Mit Axminster können Sie Ihren Wunsch nach einem völlig einzigartigen Teppich verwirklichen.\n\nAsil Halı's Axminster-Kollektion wird vollständig nach Ihren Spezifikationen gefertigt: eigene Muster, beliebige Farben, Logos oder architektonische Elemente Ihrer Moschee können in den Teppich eingearbeitet werden.\n\nDie Axminster-Qualität ist langlebig und repräsentativ. Sie ist die erste Wahl für die exklusivsten Moscheen-Projekte der Welt.\n    ",
+      "badge": "Sonderanfertigung",
+      "advantages": [
+        "Völlig individuelles Design – einzigartiger Teppich",
+        "Unbegrenzte Farb- und Musteroptionen mit Axminster-Technik",
+        "Moscheen-Logo oder -Emblem im Teppich integrierbar",
+        "Anpassung an Architektur und Kuppeldesign",
+        "Luxuriöses und repräsentatives Erscheinungsbild",
+        "Langlebige professionelle Qualität",
+        "Weltweiter Exportstandard",
+        "3D-Visualisierung vor Produktion"
+      ],
+      "specs": [
+        {
+          "label": "Webtechnik",
+          "value": "Axminster"
+        },
+        {
+          "label": "Fasertyp",
+          "value": "Wolle / Acryl / Polyamid (wählbar)"
+        },
+        {
+          "label": "Farbanzahl",
+          "value": "Bis zu 16 Farben"
+        },
+        {
+          "label": "Floorhöhe",
+          "value": "8–12 mm"
+        },
+        {
+          "label": "Gewicht",
+          "value": "2.500–4.000 g/m²"
+        },
+        {
+          "label": "Brandklasse",
+          "value": "Bfl-s1 (EN 13501-1)"
+        },
+        {
+          "label": "Garantie",
+          "value": "10 Jahre"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Exklusive Repräsentationsmoscheen",
+        "Moscheen mit architektonischen Spezialdesigns",
+        "Staatliche Prestige-Projekte",
+        "Internationale Moscheen-Exporte",
+        "Historische Renovierungsprojekte mit Originaldesign"
+      ],
+      "faqs": [
+        {
+          "question": "Was macht Axminster besonders?",
+          "answer": "Axminster ermöglicht die komplexesten Muster mit bis zu 16 Farben. Es ist die Wahl für vollständig individuelle, einzigartige Teppiche."
+        },
+        {
+          "question": "Kann ich mein eigenes Design einreichen?",
+          "answer": "Ja. Sie können Zeichnungen, Fotos oder Konzepte einreichen. Unser Designteam erstellt eine digitale Visualisierung und setzt es nach Ihrer Genehmigung um."
+        },
+        {
+          "question": "Wie lange dauert die Produktion?",
+          "answer": "Bei Axminster-Spezialbestellungen beträgt die Produktionszeit in der Regel 6–12 Wochen, abhängig von Größe und Komplexität."
+        },
+        {
+          "question": "Für welche Moscheen-Größen ist es geeignet?",
+          "answer": "Axminster-Teppiche können für jede Größe gefertigt werden – von kleinen Mescids bis zu Mega-Moscheen."
+        }
+      ]
+    },
+    "kaucuk-cami-halisi-altligi": {
+      "title": "Gummi-Moscheeteppich-Unterlage",
+      "shortTitle": "Gummi-Unterlage",
+      "metaTitle": "Gummi-Moscheeteppich-Unterlage | Rutschfest & Schützend – Asil Hali",
+      "metaDescription": "Rutschfeste Gummi-Teppichunterlage für Moscheen – verlängert Teppich-Lebensdauer, verhindert Rutschen, schützt den Boden. Asil Halı A.Ş.",
+      "description": "Rutschfeste und schützende Gummi-Unterlage, die die Lebensdauer Ihres Moscheeteppichs verlängert und Sicherheit bietet.",
+      "longDescription": "\nDie Gummi-Teppichunterlage verhindert das Verrutschen des Teppichs, schützt den Boden darunter und verlängert die Lebensdauer des Teppichs. Sie ist eine unverzichtbare Ergänzung für alle Moscheen-Teppiche.\n\nDie hohe Dichte und Flexibilität der Gummi-Unterlage bietet Komfort beim Beten und verhindert Druckpunkte. Sie kann in beliebige Formen und Maße zugeschnitten werden.\n\nAsil Halı Gummi-Unterlagen sind hochwertig, langlebig und bieten zuverlässigen Rutschschutz.\n    ",
+      "badge": "Rutschfest & Schützend",
+      "advantages": [
+        "Zuverlässiger Rutschschutz",
+        "Schützt den Boden und verlängert Teppich-Lebensdauer",
+        "Zusätzlicher Bodenkomfort beim Beten",
+        "Feuchtigkeitsbeständig",
+        "Zuschneidbar in beliebige Formen",
+        "Langlebiges Material",
+        "Dämmt Bodengeräusche",
+        "Einfache Installation"
+      ],
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Naturkautschuk / Synthetischer Kautschuk"
+        },
+        {
+          "label": "Stärke",
+          "value": "3 mm / 5 mm / 8 mm (wählbar)"
+        },
+        {
+          "label": "Gewicht",
+          "value": "1.500–3.000 g/m²"
+        },
+        {
+          "label": "Feuchtigkeitsbeständigkeit",
+          "value": "Ja"
+        },
+        {
+          "label": "Rutschfestigkeit",
+          "value": "Klasse R9-R11"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Alle Moscheen-Teppiche als Unterlage",
+        "Geglättete Steinböden",
+        "Parkett- und Fliesenböden",
+        "Bereiche mit erhöhtem Rutschrisiko",
+        "Treppenläufer in Moscheen"
+      ],
+      "faqs": [
+        {
+          "question": "Muss ich eine Unterlage kaufen?",
+          "answer": "Eine Unterlage ist nicht zwingend erforderlich, wird aber dringend empfohlen. Sie verhindert Rutschen, schützt den Boden und verlängert die Teppich-Lebensdauer erheblich."
+        },
+        {
+          "question": "Kann die Unterlage in Sondermaße geschnitten werden?",
+          "answer": "Ja, sie kann in beliebige Maße und Formen zugeschnitten werden."
+        },
+        {
+          "question": "Ist sie für alle Teppich-Typen geeignet?",
+          "answer": "Ja, die Gummi-Unterlage ist mit allen Moscheeteppich-Typen kompatibel."
+        },
+        {
+          "question": "Wie installiere ich die Unterlage?",
+          "answer": "Einfach unter den Teppich legen. Keine Kleber oder spezielle Befestigung erforderlich."
+        }
+      ]
+    },
+    "tredmor-berber-supreme": {
+      "title": "TredMOR™ Berber Supreme",
+      "shortTitle": "TredMOR™",
+      "metaTitle": "TredMOR™ Berber Supreme Teppich-Unterlage | Premium – Asil Hali",
+      "metaDescription": "TredMOR™ Berber Supreme – Premium-Teppichunterlage mit überlegener Rutschfestigkeit und Komfort für Moscheen. Asil Halı A.Ş.",
+      "description": "Premium-Teppichunterlage der Marke TredMOR™ – überlegene Rutschfestigkeit, maximaler Komfort, professionelle Qualität.",
+      "longDescription": "\nTredMOR™ Berber Supreme ist eine Premium-Teppichunterlage, die speziell für hochfrequentierte Bereiche wie Moscheen entwickelt wurde. Die patentierte Berber-Faserstruktur bietet überlegene Rutschfestigkeit und gleichzeitig maximalen Gehkomfort.\n\nDas mehrschichtige Design dämpft Schritte und Kniegeräusche, was das Gebet angenehmer macht. Die feuchtigkeitsresistente Struktur verhindert Schimmelbildung.\n\nTredMOR™ ist ein international anerkanntes Premium-Produkt, das in repräsentativen Moscheen weltweit verwendet wird.\n    ",
+      "badge": "Premium-Unterlage",
+      "advantages": [
+        "Patentierte Berber-Faserstruktur für überlegene Rutschfestigkeit",
+        "Maximaler Komfort beim Beten und Niederknien",
+        "Dämpft Schritt- und Kniegeräusche",
+        "Feuchtigkeitsresistent – verhindert Schimmel",
+        "International anerkannte Premium-Qualität",
+        "Langlebig und widerstandsfähig",
+        "Professionelle Verarbeitung",
+        "Kompatibel mit allen Teppich-Typen"
+      ],
+      "specs": [
+        {
+          "label": "Marke",
+          "value": "TredMOR™"
+        },
+        {
+          "label": "Modell",
+          "value": "Berber Supreme"
+        },
+        {
+          "label": "Struktur",
+          "value": "Mehrschichtig Berber"
+        },
+        {
+          "label": "Stärke",
+          "value": "6–10 mm"
+        },
+        {
+          "label": "Feuchtigkeitsbeständigkeit",
+          "value": "Ja"
+        },
+        {
+          "label": "Rutschfestigkeit",
+          "value": "Premium R11"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei / International"
+        }
+      ],
+      "useCases": [
+        "Premium-Moscheen mit höchsten Qualitätsansprüchen",
+        "Repräsentative Stadtmoscheen",
+        "Staatliche Prestige-Projekte",
+        "Pilgerstätten",
+        "Internationale Moscheen-Exporte"
+      ],
+      "faqs": [
+        {
+          "question": "Was unterscheidet TredMOR™ von normalen Gummi-Unterlagen?",
+          "answer": "TredMOR™ hat eine patentierte Berber-Faserstruktur, die mehr Komfort und überlegene Rutschfestigkeit bietet als Standard-Gummiunterlagen."
+        },
+        {
+          "question": "Ist TredMOR™ teurer?",
+          "answer": "Als Premium-Produkt ist TredMOR™ teurer als Standardunterlagen, bietet aber deutlich höheren Komfort und längere Haltbarkeit."
+        },
+        {
+          "question": "Ist TredMOR™ feuchtigkeitsresistent?",
+          "answer": "Ja, die mehrschichtige Struktur ist feuchtigkeitsresistent und verhindert Schimmelbildung."
+        },
+        {
+          "question": "Für welche Teppich-Typen ist es geeignet?",
+          "answer": "TredMOR™ Berber Supreme ist mit allen Moscheeteppich-Typen kompatibel."
+        }
+      ]
+    },
+    "kece-cami-halisi-altligi": {
+      "title": "Filz-Moscheeteppich-Unterlage",
+      "shortTitle": "Filz-Unterlage",
+      "metaTitle": "Filz-Moscheeteppich-Unterlage | Wärme & Schallschutz – Asil Hali",
+      "metaDescription": "Filz-Teppichunterlage für Moscheen – Wärmedämmung, Schallschutz, verlängerte Teppich-Lebensdauer. Asil Halı A.Ş.",
+      "description": "Hochwertige Filz-Unterlage für Wärmedämmung, Schallschutz und verlängerte Teppich-Lebensdauer.",
+      "longDescription": "\nFilz-Teppichunterlagen bieten hervorragende Wärmedämmung und Schallschutz-Eigenschaften. In Moscheen reduzieren sie den Lärmpegel, halten den Boden warm und sorgen für ein komfortables Gebetsumfeld.\n\nDie Filzstruktur dämpft Druckpunkte und verteilt das Gewicht gleichmäßig, was die Lebensdauer des Teppichs erheblich verlängert. Sie ist umweltfreundlich und oft aus recycelten Materialien hergestellt.\n    ",
+      "badge": "Wärme & Schallschutz",
+      "advantages": [
+        "Hervorragende Wärmedämmung",
+        "Effektiver Schallschutz",
+        "Verlängert Teppich-Lebensdauer erheblich",
+        "Druckpunkte werden gedämpft",
+        "Umweltfreundlich",
+        "In verschiedenen Dichten erhältlich",
+        "Einfache Installation",
+        "Antistatisch"
+      ],
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Filz (Wolle / Polyester)"
+        },
+        {
+          "label": "Dichte",
+          "value": "600 / 1000 / 1200 g/m² (wählbar)"
+        },
+        {
+          "label": "Stärke",
+          "value": "3–10 mm"
+        },
+        {
+          "label": "Wärmedämmung",
+          "value": "Ja"
+        },
+        {
+          "label": "Schallschutz",
+          "value": "Ja"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Moscheen in kalten Klimazonen",
+        "Moscheen mit Schallschutz-Anforderungen",
+        "Ältere Moscheen mit kühlem Steinboden",
+        "Moscheen mit dünnen Teppichen",
+        "Neue Moscheen mit Fokus auf Komfort"
+      ],
+      "faqs": [
+        {
+          "question": "Wann soll ich Filz statt Gummi wählen?",
+          "answer": "Wenn Wärmedämmung und Schallschutz Priorität haben, ist Filz die bessere Wahl. Wenn Rutschfestigkeit im Vordergrund steht, ist Gummi besser."
+        },
+        {
+          "question": "Welche Dichte soll ich wählen?",
+          "answer": "600 g/m² für einfachen Komfort, 1000 g/m² für Standard, 1200 g/m² für maximale Dämmung und Komfort."
+        },
+        {
+          "question": "Kann Filz nass werden?",
+          "answer": "Filz sollte nicht dauerhaft nass werden. Für feuchte Bereiche ist Gummi-Unterlage besser geeignet."
+        },
+        {
+          "question": "Wie lang ist die Lebensdauer?",
+          "answer": "Filz-Unterlagen haben eine Nutzungsdauer von 10–15 Jahren bei normaler Nutzung."
+        }
+      ]
+    },
+    "600-cami-halisi-kecesi": {
+      "title": "600 g/m² Moscheeteppich-Filz",
+      "shortTitle": "600 g/m² Filz",
+      "metaTitle": "600 g/m² Moscheeteppich-Filz | Wirtschaftlich – Asil Hali",
+      "metaDescription": "600 g/m² Moscheeteppich-Filzunterlage – wirtschaftliche Lösung für Wärmedämmung und Komfort. Asil Halı A.Ş.",
+      "description": "Wirtschaftliche 600 g/m² Filzunterlage für grundlegende Wärmedämmung und Komfort.",
+      "longDescription": "\nDer 600 g/m² Filz ist die wirtschaftlichste Option in der Filz-Unterlagen-Reihe. Er bietet grundlegende Wärmedämmung und Komfort für Moscheen mit eingeschränktem Budget.\n\nAuch wenn er die geringste Dichte hat, bietet er immer noch merkbare Verbesserungen gegenüber keiner Unterlage: weniger Kalte-Fußgefühl, leichte Schalldämpfung und verlängerte Teppich-Lebensdauer.\n    ",
+      "badge": "Wirtschaftlich",
+      "advantages": [
+        "Wirtschaftlicher Einstiegspreis",
+        "Grundlegende Wärmedämmung",
+        "Leichte Schalldämpfung",
+        "Verlängert Teppich-Lebensdauer",
+        "Einfache Installation",
+        "Leicht und handlich",
+        "In beliebige Maße zuschneidbar",
+        "Umweltfreundlich"
+      ],
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Filz"
+        },
+        {
+          "label": "Dichte",
+          "value": "600 g/m²"
+        },
+        {
+          "label": "Stärke",
+          "value": "ca. 3–4 mm"
+        },
+        {
+          "label": "Wärmedämmung",
+          "value": "Grundlegend"
+        },
+        {
+          "label": "Schallschutz",
+          "value": "Leicht"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Moscheen mit eingeschränktem Budget",
+        "Mescids und kleine Gebetsräume",
+        "Temporäre Gebetsflächen",
+        "Ergänzungsunterlage",
+        "Wirtschaftliche Renovierungen"
+      ],
+      "faqs": [
+        {
+          "question": "Was ist der Unterschied zu 1000 g/m² Filz?",
+          "answer": "600 g/m² ist dünner und weniger dicht. Es bietet weniger Dämmung und Komfort, ist aber günstiger."
+        },
+        {
+          "question": "Für welche Teppich-Typen ist es geeignet?",
+          "answer": "Es ist mit allen Teppich-Typen kompatibel."
+        },
+        {
+          "question": "Wie installiere ich es?",
+          "answer": "Einfach unter den Teppich legen. Keine spezielle Befestigung erforderlich."
+        },
+        {
+          "question": "Wie lange hält es?",
+          "answer": "Ca. 8–10 Jahre bei normaler Nutzung."
+        }
+      ]
+    },
+    "1000-cami-halisi-kecesi": {
+      "title": "1000 g/m² Moscheeteppich-Filz",
+      "shortTitle": "1000 g/m² Filz",
+      "metaTitle": "1000 g/m² Moscheeteppich-Filz | Standardwahl – Asil Hali",
+      "metaDescription": "1000 g/m² Moscheeteppich-Filzunterlage – optimale Balance zwischen Komfort, Dämmung und Preis. Asil Halı A.Ş.",
+      "description": "Die Standardwahl: 1000 g/m² Filzunterlage bietet optimale Balance zwischen Komfort, Dämmung und Preis.",
+      "longDescription": "\nDer 1000 g/m² Filz ist die meistgewählte Standard-Unterlagenklasse für Moscheeteppiche. Er bietet eine ausgewogene Kombination aus Wärmedämmung, Schallschutz und Komfort zu einem fairen Preis.\n\nDie mittlere Dichte dämpft Druckpunkte effektiv und verlängert die Teppich-Lebensdauer erheblich. Empfohlen für die meisten Moscheen-Anwendungen.\n    ",
+      "badge": "Standardwahl",
+      "advantages": [
+        "Optimale Balance aus Komfort und Preis",
+        "Effektive Wärmedämmung",
+        "Guter Schallschutz",
+        "Verlängert Teppich-Lebensdauer deutlich",
+        "Druckpunkte werden effektiv gedämpft",
+        "Für die meisten Moscheen geeignet",
+        "Einfache Installation",
+        "Umweltfreundlich"
+      ],
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Filz"
+        },
+        {
+          "label": "Dichte",
+          "value": "1000 g/m²"
+        },
+        {
+          "label": "Stärke",
+          "value": "ca. 5–6 mm"
+        },
+        {
+          "label": "Wärmedämmung",
+          "value": "Gut"
+        },
+        {
+          "label": "Schallschutz",
+          "value": "Gut"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Stadtteilmoscheen",
+        "Mittelgroße Freitagsmoscheen",
+        "Staatliche Moscheen",
+        "Renovierungsprojekte",
+        "Moscheen mit mittlerem Budget"
+      ],
+      "faqs": [
+        {
+          "question": "Ist 1000 g/m² besser als 600 g/m²?",
+          "answer": "Ja, 1000 g/m² bietet deutlich mehr Komfort, Dämmung und Haltbarkeit. Für die meisten Moscheen ist 1000 g/m² die empfohlene Standardwahl."
+        },
+        {
+          "question": "Wann soll ich 1200 g/m² statt 1000 g/m² wählen?",
+          "answer": "Wenn Ihre Moschee in einer kalten Region liegt oder maximaler Schallschutz gewünscht ist, ist 1200 g/m² vorzuziehen."
+        },
+        {
+          "question": "Wie lange hält 1000 g/m² Filz?",
+          "answer": "Ca. 12–15 Jahre bei normaler Nutzung."
+        },
+        {
+          "question": "Kann es in Sondermaße geschnitten werden?",
+          "answer": "Ja, es kann in beliebige Maße zugeschnitten werden."
+        }
+      ]
+    },
+    "1200-cami-halisi-kecesi": {
+      "title": "1200 g/m² Moscheeteppich-Filz",
+      "shortTitle": "1200 g/m² Filz",
+      "metaTitle": "1200 g/m² Moscheeteppich-Filz | Premium-Dämmung – Asil Hali",
+      "metaDescription": "1200 g/m² Moscheeteppich-Filzunterlage – maximale Wärmedämmung und Schallschutz. Premium-Lösung. Asil Halı A.Ş.",
+      "description": "Premium 1200 g/m² Filzunterlage für maximale Wärmedämmung, Schallschutz und Teppich-Lebensdauer.",
+      "longDescription": "\nDer 1200 g/m² Filz ist die Premium-Unterlagenklasse mit maximaler Dichte. Er bietet die höchste Wärmedämmung, den besten Schallschutz und den größten Komfort beim Beten.\n\nDie hohe Dichte schützt den Teppich optimal vor Druckschäden und verlängert seine Lebensdauer am stärksten. Empfohlen für kalte Klimazonen und Moscheen mit höchsten Qualitätsansprüchen.\n    ",
+      "badge": "Premium-Dämmung",
+      "advantages": [
+        "Maximale Wärmedämmung",
+        "Bester Schallschutz",
+        "Höchster Komfort beim Beten",
+        "Maximaler Teppich-Schutz und Lebensdauer",
+        "Ideal für kalte Klimazonen",
+        "Premium-Qualitätsgefühl",
+        "Langlebige Struktur",
+        "Umweltfreundlich"
+      ],
+      "specs": [
+        {
+          "label": "Material",
+          "value": "Filz"
+        },
+        {
+          "label": "Dichte",
+          "value": "1200 g/m²"
+        },
+        {
+          "label": "Stärke",
+          "value": "ca. 7–10 mm"
+        },
+        {
+          "label": "Wärmedämmung",
+          "value": "Maximum"
+        },
+        {
+          "label": "Schallschutz",
+          "value": "Maximum"
+        },
+        {
+          "label": "Herstellungsort",
+          "value": "Türkei"
+        }
+      ],
+      "useCases": [
+        "Moscheen in kalten Klimazonen",
+        "Repräsentative Premium-Moscheen",
+        "Historische Moscheen mit Steinboden",
+        "Moscheen mit maximalen Qualitätsansprüchen",
+        "Staatliche Prestige-Projekte"
+      ],
+      "faqs": [
+        {
+          "question": "Für wen ist 1200 g/m² Filz am besten geeignet?",
+          "answer": "Für Moscheen in kalten Regionen, repräsentative Moscheen mit höchsten Qualitätsansprüchen und Moscheen, bei denen maximaler Schallschutz gewünscht ist."
+        },
+        {
+          "question": "Ist 1200 g/m² deutlich teurer als 1000 g/m²?",
+          "answer": "Der Preisunterschied ist moderat. Für Premium-Anforderungen ist die Mehrinvestition lohnenswert."
+        },
+        {
+          "question": "Wie lange hält 1200 g/m² Filz?",
+          "answer": "15–20 Jahre bei normaler Nutzung dank der hohen Dichte."
+        },
+        {
+          "question": "Kann es in Sondermaße geschnitten werden?",
+          "answer": "Ja, maßgeschneiderte Zuschnitte sind möglich."
+        }
+      ]
+    }
+  },
+  "categoryPage": {
+    "aboutTitle": "Über {title}",
+    "varieties": "{title} – Varianten",
+    "varietiesSubtitle": "Nach Muster und Farbe filtern, Details erkunden.",
+    "s101Title": "Muster S101 — Farboptionen",
+    "s101Desc": "Dasselbe Muster in verschiedenen Farbtönen betrachten. Alle Farben als Sonderanfertigung erhältlich.",
+    "advantages": "Vorteile & Eigenschaften",
+    "useCases": "Anwendungsbereiche",
+    "specs": "Technische Daten",
+    "getQuote": "Preisangebot einholen",
+    "getQuoteDesc": "Kostenloses Angebot und Beratung nach den Maßen Ihrer Moschee.",
+    "quoteBtn": "Angebot — asilhali.com.tr",
+    "callBtn": "Jetzt anrufen",
+    "otherCategories": "Andere Kategorien",
+    "faqTitle": "{title} — Häufige Fragen",
+    "ctaTitle": "Kontaktieren Sie uns für Ihre {title}-Bestellung",
+    "ctaSubtitle": "Asil Halı-Experten bieten Ihnen die beste Lösung für die Maße und Anforderungen Ihrer Moschee."
+  },
+  "categoryNames": {
+    "akrilik-cami-halisi": "Acryl-Moscheeteppich",
+    "yun-cami-halisi": "Woll-Moscheeteppich",
+    "polipropilen-cami-halisi": "Polypropylen-Moscheeteppich",
+    "polyamid-cami-halisi": "Polyamid-Moscheeteppich",
+    "safli-akrilik-cami-halisi": "Acryl-Reihen-Teppich",
+    "gobekli-akrilik-cami-halisi": "Acryl-Medaillon-Teppich",
+    "seccadeli-akrilik-cami-halisi": "Acryl-Gebetsnischen-Teppich",
+    "safli-yun-cami-halisi": "Woll-Reihen-Teppich",
+    "gobekli-yun-cami-halisi": "Woll-Medaillon-Teppich",
+    "seccadeli-yun-cami-halisi": "Woll-Gebetsnischen-Teppich",
+    "safli-polipropilen-cami-halisi": "Polypropylen-Reihen-Teppich",
+    "gobekli-polipropilen-cami-halisi": "Polypropylen-Medaillon-Teppich",
+    "seccadeli-polipropilen-cami-halisi": "Polypropylen-Gebetsnischen-Teppich",
+    "safli-polyamid-cami-halisi": "Polyamid-Reihen-Teppich",
+    "gobekli-polyamid-cami-halisi": "Polyamid-Medaillon-Teppich",
+    "seccadeli-polyamid-cami-halisi": "Polyamid-Gebetsnischen-Teppich",
+    "ozel-desen-axminster-cami-halisi": "Axminster nach Maß",
+    "kaucuk-cami-halisi-altligi": "Gummi-Teppichunterlage",
+    "tredmor-berber-supreme": "TredMOR™ Berber Supreme",
+    "kece-cami-halisi-altligi": "Filz-Teppichunterlage",
+    "600-cami-halisi-kecesi": "Filz 600 g/m²",
+    "1000-cami-halisi-kecesi": "Filz 1000 g/m²",
+    "1200-cami-halisi-kecesi": "Filz 1200 g/m²"
+  }
+}
