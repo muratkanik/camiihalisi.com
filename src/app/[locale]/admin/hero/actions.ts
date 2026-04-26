@@ -175,3 +175,26 @@ export async function saveHeroOverlayOpacityAction(formData: FormData): Promise<
     await prisma.$disconnect();
   }
 }
+
+export async function saveHeroTextsAction(formData: FormData): Promise<void> {
+  const title = (formData.get("hero_title") as string) ?? "";
+  const subtitle = (formData.get("hero_subtitle") as string) ?? "";
+  const prisma = await getPrisma();
+  try {
+    await Promise.all([
+      prisma.setting.upsert({
+        where: { key: "hero_title" },
+        update: { value: title },
+        create: { key: "hero_title", value: title },
+      }),
+      prisma.setting.upsert({
+        where: { key: "hero_subtitle" },
+        update: { value: subtitle },
+        create: { key: "hero_subtitle", value: subtitle },
+      }),
+    ]);
+    revalidatePath("/", "layout");
+  } finally {
+    await prisma.$disconnect();
+  }
+}

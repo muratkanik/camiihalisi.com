@@ -1,14 +1,16 @@
-import { getHeroSlides, removeHeroSlideAction, toggleHeroSlideAction, initDefaultSlidesAction, getHeroOverlayOpacity, saveHeroOverlayOpacityAction } from "./actions";
-import { Image as ImageIcon, Eye, EyeOff, Trash2, RefreshCw, Plus, Sliders } from "lucide-react";
+import { getHeroSlides, removeHeroSlideAction, toggleHeroSlideAction, initDefaultSlidesAction, getHeroOverlayOpacity, saveHeroOverlayOpacityAction, saveHeroTextsAction } from "./actions";
+import { Image as ImageIcon, Eye, EyeOff, Trash2, RefreshCw, Plus, Sliders, Type } from "lucide-react";
 import HeroAddFormClient from "@/components/admin/HeroAddFormClient";
 import HeroOverlayClient from "@/components/admin/HeroOverlayClient";
+import { getSettings } from "@/lib/settings";
 
 export const dynamic = "force-dynamic";
 
 export default async function HeroAdminPage() {
-  const [slides, overlayOpacity] = await Promise.all([
+  const [slides, overlayOpacity, settings] = await Promise.all([
     getHeroSlides(),
     getHeroOverlayOpacity(),
+    getSettings(),
   ]);
   const activeCount = slides.filter((s) => s.isActive).length;
   const previewImages = slides.filter((s) => s.isActive).slice(0, 6).map((s) => s.imageUrl);
@@ -35,6 +37,54 @@ export default async function HeroAdminPage() {
             <RefreshCw className="w-4 h-4" />
             Varsayılanları Yükle
           </button>
+        </form>
+      </div>
+
+      {/* Hero Metinleri */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 p-6 mb-8">
+        <h2 className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-widest mb-1 flex items-center gap-2">
+          <Type className="w-4 h-4" />
+          Hero Metinleri
+        </h2>
+        <p className="text-xs text-slate-500 dark:text-slate-400 mb-5">
+          Ana sayfanın hero bölümünde görünen başlık ve alt başlık metinleri.
+        </p>
+        <form action={saveHeroTextsAction} className="space-y-4">
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              Hero Başlığı
+            </label>
+            <input
+              type="text"
+              name="hero_title"
+              defaultValue={settings.heroTitle}
+              placeholder="Cami Halısında Türkiye'nin Güvenilir Adresi"
+              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              Hero Alt Başlığı
+            </label>
+            <textarea
+              name="hero_subtitle"
+              defaultValue={settings.heroSubtitle}
+              placeholder="Türkiye'nin köklü halı ustalarından..."
+              rows={3}
+              className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition resize-y"
+            />
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-white font-bold text-sm shadow hover:bg-primary/90 hover:scale-105 active:scale-95 transition-all"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Kaydet
+            </button>
+          </div>
         </form>
       </div>
 

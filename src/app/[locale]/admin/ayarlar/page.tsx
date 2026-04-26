@@ -14,29 +14,12 @@ export default async function AyarlarPage() {
           Site Ayarları
         </h1>
         <p className="mt-2 text-slate-500 dark:text-slate-400 text-sm">
-          Hero metinleri, iletişim bilgileri ve sosyal medya linklerini buradan güncelleyin.
-          Değişiklikler anında yayına girer.
+          İletişim bilgileri, sosyal medya linkleri ve analitik ayarları buradan güncelleyin.
+          Hero metinleri için <a href="../hero" className="text-primary underline underline-offset-2">Hero Slayt Yönetimi</a> sayfasını kullanın.
         </p>
       </div>
 
       <form action={saveSettingsAction} className="space-y-8">
-        {/* Hero */}
-        <Section title="🏠 Ana Sayfa Hero">
-          <Field
-            label="Hero Başlığı"
-            name="hero_title"
-            defaultValue={s.heroTitle}
-            placeholder="Cami Halısında Türkiye'nin Güvenilir Adresi"
-          />
-          <Field
-            label="Hero Alt Başlığı"
-            name="hero_subtitle"
-            defaultValue={s.heroSubtitle}
-            type="textarea"
-            placeholder="Türkiye'nin köklü halı ustalarından..."
-          />
-        </Section>
-
         {/* İletişim */}
         <Section title="📞 İletişim Bilgileri">
           <Field
