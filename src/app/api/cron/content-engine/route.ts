@@ -270,7 +270,10 @@ SADECE bu JSON formatında yanıt ver:
       };
       const row = await prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } });
       const existing = row ? JSON.parse(row.value) : [];
-      const deduped = existing.filter((p: { slug: string }) => p.slug !== slug);
+      const deduped = existing.filter(
+        (p: { slug: string; seoKeyword?: string }) =>
+          p.slug !== slug && (p.seoKeyword || "") !== (newPost.seoKeyword || "")
+      );
       deduped.push(newPost);
       await prisma.setting.upsert({
         where: { key: "dynamic_blog_posts" },
