@@ -73,12 +73,12 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
               <button
                 type="button"
                 onClick={handleRun}
-                disabled={running || !nextKeyword}
+                disabled={running}
                 className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#C9972B] text-[#003B40] font-bold text-sm hover:bg-[#E4B84A] disabled:opacity-50 transition-all"
               >
                 {running
                   ? <><Loader2 className="w-4 h-4 animate-spin" /> Üretiliyor... (~45 sn)</>
-                  : <><Zap className="w-4 h-4" /> Şimdi Üret</>}
+                  : <><Zap className="w-4 h-4" /> Şimdi Çalıştır (Üret veya İyileştir)</>}
               </button>
             )}
 
