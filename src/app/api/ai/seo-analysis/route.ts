@@ -23,37 +23,32 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Anahtar kelime gerekli" }, { status: 400 });
   }
 
-  const prompt = `Sen Türkçe cami halısı web sitesi (camiihalisi.com) için uzman bir SEO danışmanısın. Site Türkiye'de cami halısı, akrilik halı, yün halı, polipropilen halı, polyamid halı ve Axminster halı ürünleri satmaktadır.
+  const prompt = `Sen Türkçe cami halısı web sitesi (camiihalisi.com) için uzman bir SEO danışmanısın. Site Türkiye'de cami halısı, akrilik halı, yün halı, polipropilen halı, polyamid halı ve Axminster halı ürünleri satmaktadır. Ayrıca 50 yıllık tecrübe, 10.000+ referans, yanmazlık sertifikaları gibi güçlü özelliklere sahiptir.
 
 Anahtar kelime: "${keyword.trim()}"
 
-Bu anahtar kelime için kapsamlı bir rakip analizi ve SEO stratejisi oluştur. Yanıtını aşağıdaki başlıkları içerecek şekilde Türkçe olarak ver:
+Bu anahtar kelime için Google'da İLK 10'A GİRMEYİ hedefliyoruz. Kapsamlı bir rakip analizi ve SEO stratejisi oluştur. Yanıtını aşağıdaki başlıkları içerecek şekilde Türkçe olarak ver:
 
-## 1. Rakip Stratejileri
-Bu anahtar kelimede Google'da üst sıralarda yer alan sitelerin genellikle kullandığı içerik ve SEO stratejilerini açıkla. (3-5 madde)
+## 1. Rakip Stratejileri ve Arama Niyeti (Search Intent)
+Bu kelimede üst sırada çıkan rakipler ne tür içerikler sunuyor? (Bilgi mi, ürün mü, fiyat karşılaştırması mı?) Kullanıcı bu kelimeyi arattığında aslında neyi öğrenmek istiyor?
 
-## 2. İçerik Boşlukları ve Fırsatlar
-Rakiplerin yeterince ele almadığı ve camiihalisi.com'un öne çıkabileceği fırsatları listele. (3-5 madde)
+## 2. Teknik Terimler ve İçerik Boşlukları
+İçerikte KESİNLİKLE bulunması gereken sektörel terimleri listele (örneğin: m² gramajı, ilmek sıklığı, hav yüksekliği, antistatik, diz izi, saflı/göbekli/seccadeli vb.). Rakiplerin bahsetmediği ama bizim otorite kurabileceğimiz detaylar neler?
 
-## 3. Önerilen Sayfa Yapısı
-Bu anahtar kelime için ideal H1, H2, H3 başlık yapısını ve bölümleri listele.
+## 3. Önerilen Sayfa Yapısı (Semantik Kapsam)
+Bu anahtar kelime için ideal H1, H2, H3 başlık yapısını hiyerarşik olarak listele. Başlıklara LSI kelimeleri yedir.
 
-## 4. Semantik Anahtar Kelimeler
-Bu ana anahtar kelimeyle birlikte kullanılması gereken LSI/semantik kelimeler ve ilgili long-tail anahtar kelimeler. (10-15 kelime/ifade)
+## 4. Semantik Anahtar Kelimeler (LSI)
+Bu kelimeyle birlikte kullanılması zorunlu long-tail ve semantik kelimeler. (10-15 kelime/ifade)
 
-## 5. İç Bağlantı Önerileri
-Sitenin diğer sayfalarıyla kurulabilecek iç bağlantı stratejisi.
+## 5. Güven Sinyalleri (E-E-A-T) Entegrasyonu
+Asil Halı'nın tecrübesini (10.000+ cami) ve kalite belgelerini bu spesifik konuda nasıl öne çıkarabiliriz?
 
 ## 6. Önerilen Meta Başlık ve Meta Açıklama
 - **Meta Başlık** (55-65 karakter): ...
 - **Meta Açıklama** (130-160 karakter): ...
 
-## 7. Zorluk & Fırsat Değerlendirmesi
-- Rekabet Zorluğu: X/10
-- Fırsat Skoru: X/10
-- Kısa Yorum: ...
-
-Yanıtı markdown formatında, net ve uygulanabilir şekilde ver.`;
+Yanıtı markdown formatında, son derece teknik, sektöre özel ve doğrudan yazara talimat verecek şekilde ver.`;
 
   try {
     const response = await fetch("https://api.x.ai/v1/chat/completions", {

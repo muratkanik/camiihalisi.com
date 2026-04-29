@@ -60,7 +60,7 @@ async function loadSeoScores(
       const slug = row.key.replace("seo_score_blog_", "");
       try {
         const parsed = JSON.parse(row.value);
-        result[slug] = parsed.score ?? 0;
+        result[slug] = parsed.total ?? 0;
       } catch {
         result[slug] = 0;
       }
@@ -141,22 +141,22 @@ export async function GET(req: NextRequest) {
     }
 
     // ── 4. Blog Yazısı Üret ───────────────────────────────────────────────────
-    const blogPrompt = `Sen camiihalisi.com için uzman bir içerik yazarı ve SEO uzmanısın.
+    const blogPrompt = `Sen camiihalisi.com için uzman bir içerik yazarı ve SEO uzmanısın. Hedefimiz Google'da ilk 10'a girmek.
 
 Anahtar kelime: "${keyword}"
-Hedef kelime sayısı: ${targetWordCount}+
+Hedef kelime sayısı: 1500+
 Kategori: ${category}
 ${type === "sss" ? "NOT: Bu bir SSS (Sık Sorulan Sorular) yazısıdır. Başlık soru formatında olmalı." : ""}
 
 SEO Analizi:
 ${seoAnalysis.slice(0, 1500)}
 
-Google'da ilk sayfada yer alacak kapsamlı bir blog yazısı yaz:
-- ${targetWordCount}+ kelime
-- SEO uyumlu H2/H3 başlıklar
-- Anahtar kelime %0.8-2% yoğunlukta
-- Asil Halı uzmanlığını öne çıkar
-- Türkçe, profesyonel ton
+Şu katı kurallara uygun, Google'da ilk sayfada yer alacak çok kapsamlı bir makale yaz:
+1. **Uzunluk:** En az 1500 kelime olmalı.
+2. **Teknik Derinlik:** Akrilik, Yün, Polipropilen, Polyamid hammadde türlerinden, "m² gramaj ağırlığı"ndan (ör. 1450 gr/m² - 2500 gr/m²), hav yüksekliğinden ve ilmek sıklığından mutlaka bahset.
+3. **Semantik Kelimeler (LSI):** Saflı cami halısı, Göbekli cami halısı ve Seccadeli cami halısı terimlerini H2/H3 başlıklarında hiyerarşik olarak kullan.
+4. **E-E-A-T (Güven ve Otorite):** Yanmazlık (alev almazlık) belgeleri, antistatik yapı, diz izi yapmayan doku, kolay temizlenebilirlik, "50 yıllık tecrübe" ve "10.000+ cami referansı" gibi Asil Halı markasının güven sinyallerini metne doğal bir şekilde yedir.
+5. **SEO Optimizasyonu:** Anahtar kelimeyi ilk paragrafta, başlıklarda ve metin içinde (%1-2 yoğunlukta) dengeli şekilde kullan. Okunabilirliği yüksek, profesyonel ama anlaşılır bir Türkçe kullan.
 
 SADECE bu JSON formatında yanıt ver:
 {
@@ -164,7 +164,7 @@ SADECE bu JSON formatında yanıt ver:
   "metaTitle": "Meta başlık (55-65 karakter)",
   "metaDescription": "Meta açıklama (130-160 karakter)",
   "excerpt": "Özet (150-200 kelime)",
-  "content": "Tam içerik (H2/H3 başlıklarla, ${targetWordCount}+ kelime)",
+  "content": "Tam içerik (H2/H3 başlıklarla, en az 1500 kelime)",
   "tags": ["tag1","tag2","tag3","tag4","tag5"],
   "category": "${category}",
   "readTime": "X dk",
