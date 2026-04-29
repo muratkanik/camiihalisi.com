@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
 import { Save, Sparkles, Loader2, CheckCircle2, X, Languages, Check } from "lucide-react";
 import { saveBlogPostAction } from "@/app/[locale]/admin/blog/actions";
 import type { BlogPostWithOverride } from "@/app/[locale]/admin/blog/actions";
@@ -204,6 +205,17 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
     setTranslating(false);
   }
 
+  const router = useRouter();
+  const actionWrapper = async (formData: FormData) => {
+    try {
+      await saveBlogPostAction(formData);
+      alert("Makale başarıyla kaydedildi!");
+      router.refresh();
+    } catch (err) {
+      alert("Hata oluştu: " + err);
+    }
+  };
+
   const inputCls = "w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 focus:border-[#C9972B]";
 
   const hasSeoIssues = seoScore?.checks && Object.values(seoScore.checks).some((c) => c?.status !== "good");
@@ -211,7 +223,7 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
 
   return (
     <>
-    <form action={saveBlogPostAction} className="space-y-4">
+    <form action={actionWrapper} className="space-y-4">
       <input type="hidden" name="slug" value={post.slug} />
 
       {/* ── SEO Optimize Bar ── */}
