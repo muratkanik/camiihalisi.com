@@ -99,17 +99,15 @@ export async function GET(req: NextRequest) {
 
     // SEO < 80 olan var mı?
     const improvTarget = getLowScoreTarget(scores, allSlugs);
-    const hasLowScore = !!improvTarget && (scores[improvTarget.slug] ?? 0) < SEO_IMPROVE_THRESHOLD;
 
-    let target = hasLowScore ? improvTarget : getNextTarget(allSlugs);
-    let mode: "new" | "improve" = hasLowScore ? "improve" : "new";
+    // Yeni keyword (uncovered) var mı?
+    let nextUncovered = getNextTarget(allSlugs);
 
-    // Yeni keyword de yoksa en düşük skorluyu iyileştir
-    if (!target) {
-      target = improvTarget;
-      mode = "improve";
-    }
+    // Öncelik yeni içerikte. Eğer yeni içerik bittiyse (null ise), o zaman düşük skorluyu iyileştir.
+    let target = nextUncovered ? nextUncovered : improvTarget;
+    let mode: "new" | "improve" = nextUncovered ? "new" : "improve";
 
+    // İkisi de yoksa iptal et
     if (!target) {
       return NextResponse.json({
         ok: true,
