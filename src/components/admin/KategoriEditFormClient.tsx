@@ -5,6 +5,7 @@ import { Save, Sparkles } from "lucide-react";
 import { saveCategoryAction } from "@/app/[locale]/admin/kategoriler/actions";
 import type { CategoryWithOverride } from "@/app/[locale]/admin/kategoriler/actions";
 import ImagePickerField from "./ImagePickerField";
+import { useRouter } from "next/navigation";
 import { getBadges, BadgeWithTranslations } from "@/app/[locale]/admin/rozetler/actions";
 
 interface Props {
@@ -86,12 +87,14 @@ export default function KategoriEditFormClient({ cat }: Props) {
   };
 
   const [isPending, startTransition] = useState(false);
+  const router = useRouter();
 
   const actionWrapper = (formData: FormData) => {
     startTransition(true);
     saveCategoryAction(formData)
       .then(() => {
         alert("Kategori başarıyla kaydedildi!");
+        router.refresh();
       })
       .catch((err) => {
         alert("Hata oluştu: " + err);
