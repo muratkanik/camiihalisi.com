@@ -23,6 +23,7 @@ interface Props {
 const LOCALES: { key: LocaleKey; label: string; flag: string; dir: "ltr" | "rtl" }[] = [
   { key: "tr", label: "Türkçe",   flag: "🇹🇷", dir: "ltr" },
   { key: "en", label: "English",  flag: "🇬🇧", dir: "ltr" },
+  { key: "de", label: "Deutsch",  flag: "🇩🇪", dir: "ltr" },
   { key: "ar", label: "العربية",  flag: "🇸🇦", dir: "rtl" },
   { key: "fr", label: "Français", flag: "🇫🇷", dir: "ltr" },
 ];

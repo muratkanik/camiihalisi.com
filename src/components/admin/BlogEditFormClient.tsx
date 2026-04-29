@@ -23,6 +23,7 @@ interface SeoFix {
 
 const LOCALES = [
   { key: "en", label: "İngilizce", flag: "🇬🇧" },
+  { key: "de", label: "Almanca", flag: "🇩🇪" },
   { key: "ar", label: "Arapça", flag: "🇸🇦" },
   { key: "fr", label: "Fransızca", flag: "🇫🇷" },
 ] as const;

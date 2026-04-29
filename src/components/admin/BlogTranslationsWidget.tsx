@@ -21,6 +21,7 @@ interface Props {
 
 const LOCALES = [
   { key: "en", label: "English", flag: "🇬🇧" },
+  { key: "de", label: "Deutsch", flag: "🇩🇪" },
   { key: "ar", label: "العربية", flag: "🇸🇦" },
   { key: "fr", label: "Français", flag: "🇫🇷" },
 ] as const;
