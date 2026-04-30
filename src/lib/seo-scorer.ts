@@ -57,7 +57,7 @@ export function scorePage(input: SeoInput): SeoScoreResult {
   const { keyword, title, metaDescription, content } = input;
   const fullText = `${title} ${metaDescription} ${content}`;
   const wordCount = countWords(content);
-  const kw = keyword.toLowerCase();
+  const kw = keyword.toLowerCase().split(",")[0].trim();
 
   // ── 1. Title (0-20) ──────────────────────────────────────────────────
   const titleLen = title.length;
