@@ -57,7 +57,8 @@ export function scorePage(input: SeoInput): SeoScoreResult {
   const { keyword, title, metaDescription, content } = input;
   const fullText = `${title} ${metaDescription} ${content}`;
   const wordCount = countWords(content);
-  const kw = keyword.toLowerCase().split(",")[0].trim();
+  const allKeywords = keyword.toLowerCase().split(",").map(k => k.trim()).filter(Boolean);
+  const kw = allKeywords[0] || "";
 
   // ── 1. Title (0-20) ──────────────────────────────────────────────────
   const titleLen = title.length;
@@ -161,37 +162,53 @@ export function scorePage(input: SeoInput): SeoScoreResult {
   };
 
   // ── 5. Keyword in Meta (0-10) ─────────────────────────────────────────
-  const kwInMeta = metaDescription.toLowerCase().includes(kw);
-  const kwMetaScore = kwInMeta ? 10 : 0;
+  const metaLower = metaDescription.toLowerCase();
+  const kwInMeta = metaLower.includes(kw);
+  const otherKwsInMeta = allKeywords.slice(1).filter(k => metaLower.includes(k));
+  
+  let kwMetaScore = 0;
+  let kwMetaNote = "";
+  if (kwInMeta) {
+    kwMetaScore = 10;
+    kwMetaNote = `✓ Anahtar kelime meta açıklamada`;
+    if (otherKwsInMeta.length > 0) {
+      kwMetaNote += ` (+ ${otherKwsInMeta.length} ek kelime)`;
+    }
+  } else if (otherKwsInMeta.length > 0) {
+    kwMetaScore = 5;
+    kwMetaNote = `⚠ Ana kelime yok ama ek kelimeler var (${otherKwsInMeta.join(", ")})`;
+  } else {
+    kwMetaScore = 0;
+    kwMetaNote = `✗ Anahtar kelime "${kw}" meta açıklamada yok`;
+  }
+  
   const kwMetaCheck: SeoCheck = {
     score: kwMetaScore, max: 10,
-    status: kwInMeta ? "good" : "bad",
-    note: kwInMeta
-      ? `✓ Anahtar kelime meta açıklamada`
-      : `✗ Anahtar kelime "${kw}" meta açıklamada yok`,
+    status: kwMetaScore >= 10 ? "good" : kwMetaScore >= 5 ? "warn" : "bad",
+    note: kwMetaNote,
   };
 
   // ── 6. Keyword Density in Content (0-10) ─────────────────────────────
   let densityScore = 0;
   let densityNote = "";
   if (wordCount > 0) {
-    const freq = keywordFrequency(content, kw);
-    const density = (freq / wordCount) * 100;
-    if (density >= 0.8 && density <= 2.5) {
+    const totalFreq = allKeywords.reduce((sum, k) => sum + keywordFrequency(content, k), 0);
+    const density = (totalFreq / wordCount) * 100;
+    if (density >= 0.8 && density <= 3.5) {
       densityScore = 10;
-      densityNote = `✓ İdeal yoğunluk (${density.toFixed(1)}% — ${freq} kez)`;
+      densityNote = `✓ İdeal yoğunluk (${density.toFixed(1)}% — toplam ${totalFreq} kez)`;
     } else if (density >= 0.4 && density < 0.8) {
       densityScore = 6;
       densityNote = `⚠ Düşük yoğunluk (${density.toFixed(1)}%) — biraz daha ekle`;
-    } else if (density > 2.5 && density <= 4) {
+    } else if (density > 3.5 && density <= 5) {
       densityScore = 5;
       densityNote = `⚠ Yüksek yoğunluk (${density.toFixed(1)}%) — aşırıya kaçma`;
-    } else if (density > 4) {
+    } else if (density > 5) {
       densityScore = 1;
       densityNote = `✗ Aşırı doldurma (${density.toFixed(1)}%) — Google penalize eder`;
     } else {
       densityScore = 3;
-      densityNote = `✗ Anahtar kelime içerikte çok az (${freq} kez)`;
+      densityNote = `✗ Anahtar kelimeler içerikte çok az (toplam ${totalFreq} kez)`;
     }
   } else {
     densityNote = "✗ İçerik yok";

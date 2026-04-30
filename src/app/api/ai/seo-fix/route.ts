@@ -26,9 +26,14 @@ export async function POST(req: Request) {
   const wordCount = content?.trim().split(/\s+/).filter(Boolean).length ?? 0;
   const contentSnippet = content?.slice(-600) ?? "";
 
+  const allKeywords = keyword.split(",").map((k: string) => k.trim()).filter(Boolean);
+  const primaryKeyword = allKeywords[0] || "";
+  const secondaryKeywords = allKeywords.slice(1);
+
   const prompt = `Sen bir Türk cami halısı e-ticaret sitesi için SEO uzmanısın.
 
-Ana anahtar kelime: "${keyword}"
+Ana anahtar kelime: "${primaryKeyword}"
+${secondaryKeywords.length > 0 ? `Ek (İkincil) anahtar kelimeler: "${secondaryKeywords.join(", ")}"\n` : ""}
 Mevcut başlık: "${title}"
 Mevcut meta başlık: "${metaTitle || "(boş)"}"
 Mevcut meta açıklama: "${metaDescription}"
@@ -49,9 +54,9 @@ SADECE aşağıdaki JSON formatında yanıt ver. Sorun olmayan alanları dahil e
 
 Kurallar:
 - Tüm metinler Türkçe olsun
-- Başlık mutlaka "${keyword}" ile başlasın ve 45-65 karakter olsun
-- Meta açıklama 130-165 karakter olsun ve anahtar kelimeyi içersin
-- Yüksek anahtar kelime yoğunluğu sorununda, contentAddition'da kelimeyi çok az kullan
+- Başlık mutlaka "${primaryKeyword}" ile başlasın ve 45-65 karakter olsun
+- Meta açıklama 130-165 karakter olsun ve anahtar kelimeyi (varsa ek anahtar kelimeleri de) içersin
+- İçeriğe eklenecek yeni paragraflarda (contentAddition) tüm anahtar kelimeleri doğal ve okunaklı bir şekilde kullan
 - "Asil Halı" marka adını değiştirme
 - Doğal, bilgilendirici, ikna edici ton`;
 
