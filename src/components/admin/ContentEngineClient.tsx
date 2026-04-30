@@ -134,6 +134,7 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
               if (typeof parsed.progress === "number") {
                 setTermProgress(parsed.progress);
               }
+              addLine("✓ Harika! Yarattığınız içerik blog tarafına başarıyla eklendi. Görmek isterseniz alttaki butona tıklayabilirsiniz.", "success");
             }
           } catch {
             // ignore JSON parse errors
@@ -262,20 +263,36 @@ export default function ContentEngineClient({ nextKeyword, nextSlug, recentTasks
                 </span>
               </div>
               
-              {!termRunning && (
+              {!termRunning && termProgress === 100 && result?.slug ? (
+                <div className="flex gap-3">
+                  <a
+                    href={`/blog/${result.slug}`}
+                    target="_blank"
+                    rel="noopener"
+                    className="flex-1 py-2.5 rounded-lg font-bold text-sm bg-[#C9972B] text-[#003B40] hover:bg-[#E4B84A] transition-colors flex items-center justify-center gap-2"
+                  >
+                    Makaleyi Görüntüle <ExternalLink className="w-4 h-4" />
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setTerminalOpen(false);
+                      window.location.reload();
+                    }}
+                    className="flex-1 py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors"
+                  >
+                    Kapat ve Sayfayı Yenile
+                  </button>
+                </div>
+              ) : !termRunning ? (
                 <button
                   type="button"
-                  onClick={() => {
-                    setTerminalOpen(false);
-                    if (termProgress === 100) {
-                      window.location.reload();
-                    }
-                  }}
-                  className="w-full py-2.5 rounded-lg font-bold text-sm bg-[#C9972B] text-[#003B40] hover:bg-[#E4B84A] transition-colors"
+                  onClick={() => setTerminalOpen(false)}
+                  className="w-full py-2.5 rounded-lg font-bold text-sm bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors"
                 >
-                  {termProgress === 100 ? "İşlem Başarılı — Sayfayı Yenile" : "Kapat"}
+                  Kapat
                 </button>
-              )}
+              ) : null}
             </div>
           </div>
         </div>
