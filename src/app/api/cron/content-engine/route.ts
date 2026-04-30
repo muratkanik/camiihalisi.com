@@ -3,6 +3,7 @@ export const maxDuration = 300;
 import { NextRequest, NextResponse } from "next/server";
 import { BLOG_POSTS } from "@/lib/blog-data";
 import { CONTENT_CALENDAR, getNextTarget, getLowScoreTarget, SEO_IMPROVE_THRESHOLD } from "@/lib/content-calendar";
+import { scorePage, saveSeoScore } from "@/lib/seo-scorer";
 
 const SITE_ORIGIN = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -192,7 +193,6 @@ SADECE bu JSON formatında yanıt ver:
 
         let savedSlug: string;
         let isNew: boolean;
-        const { scorePage, saveSeoScore } = await import("@/lib/seo-scorer");
 
         if (mode === "improve") {
           const setting = await prisma.setting.findUnique({ where: { key: "blog_overrides" } });
@@ -256,8 +256,11 @@ SADECE bu JSON formatında yanıt ver:
             content: blogData.content || "", excerpt: blogData.excerpt || "",
           });
           await saveSeoScore(`blog_${savedSlug}`, score);
-          send({ type: "progress", message: "✓ SEO skorları hesaplandı.", progress: 70 });
-        } catch {}
+          send({ type: "progress", message: `✓ SEO skorları hesaplandı: ${score.total}`, progress: 70 });
+        } catch (seoErr: unknown) {
+          const msg = seoErr instanceof Error ? seoErr.message : String(seoErr);
+          send({ type: "progress", message: `⚠ SEO hesaplama hatası: ${msg}`, progress: 70 });
+        }
 
         const wordCount = (blogData.content ?? "").trim().split(/\s+/).length;
         await logTask(prisma, keyword, savedSlug, "completed", JSON.stringify({ mode, slug: savedSlug, isNew, wordCount, title: blogData.title, elapsed: Date.now() - startTime }));
