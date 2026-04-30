@@ -22,6 +22,7 @@ async function isAdminCookie(): Promise<boolean> {
 
 const LOCALE_NAMES: Record<string, string> = {
   en: "English",
+  de: "German",
   ar: "Arabic",
   fr: "French",
   tr: "Turkish",

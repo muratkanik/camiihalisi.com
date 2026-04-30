@@ -10,6 +10,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const LOCALE_NAMES: Record<string, string> = {
   en: "English",
+  de: "German",
   ar: "Arabic (Modern Standard Arabic, MSA)",
   fr: "French",
 };
