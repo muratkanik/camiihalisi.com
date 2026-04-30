@@ -58,6 +58,11 @@ async function getStatus() {
 
 export default async function IcerikMotoruPage() {
   const { calendar, covered, pending, next, recentTasks, dynamicPosts } = await getStatus();
+  
+  // To count all static and dynamic posts
+  const staticCount = BLOG_POSTS.length;
+  const aiCount = dynamicPosts.length;
+  const totalArticles = staticCount + aiCount;
 
   return (
     <div>
@@ -75,10 +80,10 @@ export default async function IcerikMotoruPage() {
       {/* İstatistik kartları */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {[
-          { label: "Toplam Hedef", value: calendar.length, color: "text-slate-700 dark:text-white" },
-          { label: "Tamamlanan", value: covered, color: "text-green-600 dark:text-green-400" },
-          { label: "Bekleyen", value: pending, color: "text-amber-600 dark:text-amber-400" },
-          { label: "AI Makale", value: dynamicPosts.length, color: "text-[#0097A7] dark:text-teal-400" },
+          { label: "Takvim Hedefi", value: calendar.length, color: "text-slate-700 dark:text-white" },
+          { label: "Toplam Makale", value: totalArticles, color: "text-green-600 dark:text-green-400" },
+          { label: "Bekleyen Hedef", value: pending, color: "text-amber-600 dark:text-amber-400" },
+          { label: "AI Üretimi", value: aiCount, color: "text-[#0097A7] dark:text-teal-400" },
         ].map((s) => (
           <div key={s.label} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5">
             <div className={`text-3xl font-extrabold ${s.color}`}>{s.value}</div>
