@@ -6,13 +6,14 @@ import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 
 type MessageTree = Record<string, unknown>;
 type FlatMap = Record<string, string>;
-type LocaleKey = "tr" | "en" | "ar" | "fr";
+type LocaleKey = "tr" | "en" | "de" | "ar" | "fr";
 type NsOverrides = Record<LocaleKey, FlatMap>;
 type AllOverrides = Record<string, NsOverrides>;
 
 interface Props {
   trMessages: MessageTree;
   enMessages: MessageTree;
+  deMessages: MessageTree;
   arMessages: MessageTree;
   frMessages: MessageTree;
   dbOverrides: Record<string, Record<string, Record<string, string>>>;
@@ -62,7 +63,7 @@ function flattenTree(obj: unknown, prefix = ""): FlatMap {
 }
 
 function buildEdits(
-  tr: MessageTree, en: MessageTree, ar: MessageTree, fr: MessageTree,
+  tr: MessageTree, en: MessageTree, de: MessageTree, ar: MessageTree, fr: MessageTree,
   db: Record<string, Record<string, Record<string, string>>>
 ): AllOverrides {
   const nsList = Array.from(new Set([...Object.keys(tr), ...Object.keys(en)]));
@@ -71,10 +72,11 @@ function buildEdits(
     const base: NsOverrides = {
       tr: flattenTree(tr[ns]),
       en: flattenTree(en[ns]),
+      de: flattenTree(de[ns]),
       ar: flattenTree(ar[ns]),
       fr: flattenTree(fr[ns]),
     };
-    for (const loc of ["tr","en","ar","fr"] as LocaleKey[])
+    for (const loc of ["tr","en","de","ar","fr"] as LocaleKey[])
       Object.assign(base[loc], db[ns]?.[loc] ?? {});
     result[ns] = base;
   }
@@ -131,7 +133,7 @@ function Spinner() {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function TranslationEditorClient({
-  trMessages, enMessages, arMessages, frMessages, dbOverrides,
+  trMessages, enMessages, deMessages, arMessages, frMessages, dbOverrides,
 }: Props) {
 
   // ── Derived file values (original JSON) ──
@@ -142,16 +144,17 @@ export default function TranslationEditorClient({
       r[ns] = {
         tr: flattenTree(trMessages[ns]),
         en: flattenTree(enMessages[ns]),
+        de: flattenTree(deMessages[ns]),
         ar: flattenTree(arMessages[ns]),
         fr: flattenTree(frMessages[ns]),
       };
     }
     return r;
-  }, [trMessages, enMessages, arMessages, frMessages]);
+  }, [trMessages, enMessages, deMessages, arMessages, frMessages]);
 
   // ── All editable values (file + DB overrides merged) ──
   const [edits, setEdits] = useState<AllOverrides>(() =>
-    buildEdits(trMessages, enMessages, arMessages, frMessages, dbOverrides)
+    buildEdits(trMessages, enMessages, deMessages, arMessages, frMessages, dbOverrides)
   );
 
   // ── Namespace list (only those that have keys) ──

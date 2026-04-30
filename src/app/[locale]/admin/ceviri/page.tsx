@@ -5,6 +5,7 @@ import TranslationEditorClient from "@/components/admin/TranslationEditorClient"
 async function getTranslationData() {
   const trMessages = (await import("../../../../../messages/tr.json")).default;
   const enMessages = (await import("../../../../../messages/en.json")).default;
+  const deMessages = (await import("../../../../../messages/de.json")).default;
   const arMessages = (await import("../../../../../messages/ar.json")).default;
   const frMessages = (await import("../../../../../messages/fr.json")).default;
 
@@ -18,7 +19,7 @@ async function getTranslationData() {
     await prisma.$disconnect();
   } catch { /* ignore */ }
 
-  return { trMessages, enMessages, arMessages, frMessages, dbOverrides };
+  return { trMessages, enMessages, deMessages, arMessages, frMessages, dbOverrides };
 }
 
 export default async function CeviriPage({ params }: { params: Promise<{ locale: string }> }) {
