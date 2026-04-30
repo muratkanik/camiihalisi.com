@@ -56,10 +56,17 @@ export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
     };
   });
 
-  // Dynamic (AI-generated) posts — mark as hasOverride: false (no reset option)
+  // Dynamic (AI-generated) posts can also have admin edits in blog_overrides.
   const dynamicWithOverrides = dynamicPosts
     .filter((dp) => !BLOG_POSTS.some((sp) => sp.slug === dp.slug))
-    .map((post) => ({ ...post, hasOverride: false }));
+    .map((post) => {
+      const override = overrides.find((o) => o.slug === post.slug) ?? {};
+      return {
+        ...post,
+        ...override,
+        hasOverride: Object.keys(override).length > 0,
+      };
+    });
 
   return [...staticWithOverrides, ...dynamicWithOverrides];
 }
@@ -67,7 +74,12 @@ export async function getBlogPosts(): Promise<BlogPostWithOverride[]> {
 export async function getBlogSeoScores(): Promise<Record<string, SeoScoreResult | null>> {
   const prisma = await getPrisma();
   try {
-    const slugs = BLOG_POSTS.map((p) => p.slug);
+    const dynamicSetting = await prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } });
+    const dynamicPosts: BlogPost[] = dynamicSetting ? JSON.parse(dynamicSetting.value) : [];
+    const slugs = Array.from(new Set([
+      ...BLOG_POSTS.map((p) => p.slug),
+      ...dynamicPosts.map((p) => p.slug).filter(Boolean),
+    ]));
     const keys = slugs.map((s) => `seo_score_blog_${s}`);
     const rows = await prisma.setting.findMany({ where: { key: { in: keys } } });
     const result: Record<string, SeoScoreResult | null> = {};

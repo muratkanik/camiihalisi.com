@@ -108,7 +108,6 @@ function BlogPostRow({ post, seoScore }: { post: BlogPostWithOverride; seoScore:
       {/* External link placed absolutely to avoid nesting interactive elements inside <summary> */}
       <a href={`/blog/${post.slug}`} target="_blank" rel="noopener"
          className="absolute right-12 top-4 p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10"
-         onClick={(e) => e.stopPropagation()}
          title="Blogu Görüntüle"
       >
         <ExternalLink className="w-3.5 h-3.5" />

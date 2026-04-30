@@ -249,6 +249,16 @@ export async function POST(req: NextRequest) {
           await prisma.$disconnect();
         }
 
+        const { scorePage, saveSeoScore } = await import("@/lib/seo-scorer");
+        const score = scorePage({
+          keyword: overrideEntry.seoKeyword || overrideEntry.tags[0] || "cami halısı",
+          title: overrideEntry.title,
+          metaDescription: overrideEntry.metaDescription,
+          content: overrideEntry.content,
+          excerpt: overrideEntry.excerpt,
+        });
+        await saveSeoScore(`blog_${slug}`, score);
+
         const wordCount = String(blogData.content ?? "")
           .trim()
           .split(/\s+/).length;
