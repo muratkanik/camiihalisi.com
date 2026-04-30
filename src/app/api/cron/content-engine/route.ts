@@ -1,18 +1,5 @@
-/**
- * GET /api/cron/content-engine
- *
- * Vercel Cron tarafından günde 1 kez çalıştırılır (vercel.json'da tanımlı).
- * Manuel tetikleme: admin paneli → İçerik Motoru.
- *
- * Adımlar:
- *  1. Mevcut blog slug'larını al (static + dynamic)
- *  2. İçerik takvimine bak → ilk kapsanmamış keyword'ü seç
- *     (Tümü kapsandıysa: en düşük SEO skorlu makaleyi iyileştir)
- *  3. Grok-3 ile SEO analizi yap (seo-analysis API'si)
- *  4. Grok-3 ile blog yazısı üret (generate-blog API'si)
- *  5. /api/admin/blog'a kaydet
- *  6. AiTask tablosuna log ekle
- */
+export const maxDuration = 300;
+
 import { NextRequest, NextResponse } from "next/server";
 import { BLOG_POSTS } from "@/lib/blog-data";
 import { CONTENT_CALENDAR, getNextTarget, getLowScoreTarget, SEO_IMPROVE_THRESHOLD } from "@/lib/content-calendar";
@@ -21,13 +8,10 @@ const SITE_ORIGIN = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-// ── Auth: CRON_SECRET env ya da admin cookie ─────────────────────────────────
 function isAuthorized(req: NextRequest): boolean {
-  // Vercel Cron: Authorization: Bearer <CRON_SECRET>
   const authHeader = req.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && authHeader === `Bearer ${cronSecret}`) return true;
-  // Admin cookie (manuel tetikleme)
   const adminToken = req.cookies.get("auth_token")?.value;
   return !!adminToken;
 }
@@ -37,7 +21,7 @@ async function getPrisma() {
   return new PrismaClient();
 }
 
-async function loadDynamicSlugs(prisma: Awaited<ReturnType<typeof getPrisma>>): Promise<string[]> {
+async function loadDynamicSlugs(prisma: any): Promise<string[]> {
   try {
     const row = await prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } });
     if (!row) return [];
@@ -48,10 +32,7 @@ async function loadDynamicSlugs(prisma: Awaited<ReturnType<typeof getPrisma>>): 
   }
 }
 
-async function loadSeoScores(
-  prisma: Awaited<ReturnType<typeof getPrisma>>,
-  slugs: string[]
-): Promise<Record<string, number>> {
+async function loadSeoScores(prisma: any, slugs: string[]): Promise<Record<string, number>> {
   try {
     const keys = slugs.map((s) => `seo_score_blog_${s}`);
     const rows = await prisma.setting.findMany({ where: { key: { in: keys } } });
@@ -71,6 +52,14 @@ async function loadSeoScores(
   }
 }
 
+async function logTask(prisma: any, keyword: string, slug: string, status: string, logs: string) {
+  try {
+    await prisma.aiTask.create({
+      data: { keyword, targetPageSlug: slug, status, logs },
+    });
+  } catch {}
+}
+
 export async function GET(req: NextRequest) {
   if (!isAuthorized(req)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -81,77 +70,70 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "XAI_API_KEY tanımlı değil" }, { status: 500 });
   }
 
-  const prisma = await getPrisma();
-  const startTime = Date.now();
-
-  try {
-    // ── 1. Mevcut sluglar ────────────────────────────────────────────────────
-    const staticSlugs = BLOG_POSTS.map((p) => p.slug);
-    const dynamicSlugs = await loadDynamicSlugs(prisma);
-    const allSlugs = [...staticSlugs, ...dynamicSlugs];
-    const calendarSlugs = CONTENT_CALENDAR.map((e) => e.slug);
-
-    // ── 2. Hedef keyword seç ──────────────────────────────────────────────────
-    // Her zaman SEO skoru < 80 olan makaleler önce iyileştirilir.
-    // Sonra kapsanmamış yeni keyword eklenir.
-    const coveredSlugs = calendarSlugs.filter((s) => allSlugs.includes(s));
-    const scores = await loadSeoScores(prisma, coveredSlugs);
-
-    // SEO < 80 olan var mı?
-    const improvTarget = getLowScoreTarget(scores, allSlugs);
-
-    // Yeni keyword (uncovered) var mı?
-    let nextUncovered = getNextTarget(allSlugs);
-
-    // Öncelik yeni içerikte. Eğer yeni içerik bittiyse (null ise), o zaman düşük skorluyu iyileştir.
-    let target = nextUncovered ? nextUncovered : improvTarget;
-    let mode: "new" | "improve" = nextUncovered ? "new" : "improve";
-
-    // İkisi de yoksa iptal et
-    if (!target) {
-      return NextResponse.json({
-        ok: true,
-        message: "İçerik takvimi tamamlandı, iyileştirilecek makale bulunamadı.",
-        elapsed: Date.now() - startTime,
-      });
-    }
-
-    const { keyword, slug: targetSlug, category, type, targetWordCount } = target;
-
-    // ── 3. SEO Analizi ────────────────────────────────────────────────────────
-    let seoAnalysis = "";
-    try {
-      const analysisRes = await fetch(`${SITE_ORIGIN}/api/ai/seo-analysis`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: req.headers.get("cookie") ?? "",
-          "x-cron-secret": process.env.CRON_SECRET ?? "",
-        },
-        body: JSON.stringify({ keyword }),
-      });
-      if (analysisRes.ok) {
-        const analysisText = await analysisRes.text();
-        try { seoAnalysis = JSON.parse(analysisText).analysis ?? ""; } catch { /* ignore */ }
+  const enc = new TextEncoder();
+  const stream = new ReadableStream({
+    async start(controller) {
+      function send(event: Record<string, unknown>) {
+        controller.enqueue(enc.encode(`data: ${JSON.stringify(event)}\n\n`));
       }
-    } catch {
-      // SEO analizi başarısız olsa da devam et
-    }
 
-    // ── 4. Blog Yazısı Üret ───────────────────────────────────────────────────
-    const blogPrompt = `Sen camiihalisi.com için uzman bir içerik yazarı ve SEO uzmanısın. Hedefimiz Google'da ilk 10'a girmek.
+      const prisma = await getPrisma();
+      const startTime = Date.now();
 
+      try {
+        send({ type: "progress", message: "▶ Makale veritabanı taranıyor...", progress: 5 });
+        const staticSlugs = BLOG_POSTS.map((p) => p.slug);
+        const dynamicSlugs = await loadDynamicSlugs(prisma);
+        const allSlugs = [...staticSlugs, ...dynamicSlugs];
+        const calendarSlugs = CONTENT_CALENDAR.map((e) => e.slug);
+
+        const coveredSlugs = calendarSlugs.filter((s) => allSlugs.includes(s));
+        const scores = await loadSeoScores(prisma, coveredSlugs);
+
+        const improvTarget = getLowScoreTarget(scores, allSlugs);
+        let nextUncovered = getNextTarget(allSlugs);
+
+        let target = nextUncovered ? nextUncovered : improvTarget;
+        let mode: "new" | "improve" = nextUncovered ? "new" : "improve";
+
+        if (!target) {
+          send({ type: "progress", message: "✓ İçerik takvimi tamamlandı, iyileştirilecek makale bulunamadı.", progress: 100 });
+          send({ type: "done", title: "Tamamlandı", wordCount: 0, progress: 100 });
+          controller.close();
+          return;
+        }
+
+        const { keyword, slug: targetSlug, category, type, targetWordCount } = target;
+        send({ type: "progress", message: `▶ Hedef seçildi: "${keyword}" (${mode === "new" ? "Yeni" : "İyileştirme"})`, progress: 10 });
+
+        let seoAnalysis = "";
+        try {
+          send({ type: "progress", message: "▶ SEO ve rakip analizi yapılıyor...", progress: 15 });
+          const analysisRes = await fetch(`${SITE_ORIGIN}/api/ai/seo-analysis`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Cookie: req.headers.get("cookie") ?? "",
+              "x-cron-secret": process.env.CRON_SECRET ?? "",
+            },
+            body: JSON.stringify({ keyword }),
+          });
+          if (analysisRes.ok) {
+            const analysisText = await analysisRes.text();
+            try { seoAnalysis = JSON.parse(analysisText).analysis ?? ""; } catch {}
+          }
+        } catch {}
+
+        const blogPrompt = `Sen camiihalisi.com için uzman bir içerik yazarı ve SEO uzmanısın. Hedefimiz Google'da ilk 10'a girmek.
 Anahtar kelime: "${keyword}"
 Hedef kelime sayısı: 1500+
 Kategori: ${category}
 ${type === "sss" ? "NOT: Bu bir SSS (Sık Sorulan Sorular) yazısıdır. Başlık soru formatında olmalı." : ""}
-
 SEO Analizi:
 ${seoAnalysis.slice(0, 1500)}
-
 Şu katı kurallara uygun, Google'da ilk sayfada yer alacak çok kapsamlı bir makale yaz:
 1. **Uzunluk:** En az 1500 kelime olmalı.
-2. **Teknik Derinlik:** Akrilik, Yün, Polipropilen, Polyamid hammadde türlerinden, "m² gramaj ağırlığı"ndan (ör. 1450 gr/m² - 2500 gr/m²), hav yüksekliğinden ve ilmek sıklığından mutlaka bahset.
+2. **Teknik Derinlik:** Akrilik, Yün, Polipropilen, Polyamid hammadde türlerinden, "m² gramaj ağırlığı"ndan, hav yüksekliğinden ve ilmek sıklığından mutlaka bahset.
 3. **Semantik Kelimeler (LSI):** Saflı cami halısı, Göbekli cami halısı ve Seccadeli cami halısı terimlerini H2/H3 başlıklarında hiyerarşik olarak kullan.
 4. **E-E-A-T (Güven ve Otorite):** Yanmazlık (alev almazlık) belgeleri, antistatik yapı, diz izi yapmayan doku, kolay temizlenebilirlik, "50 yıllık tecrübe" ve "10.000+ cami referansı" gibi Asil Halı markasının güven sinyallerini metne doğal bir şekilde yedir.
 5. **SEO Optimizasyonu:** Anahtar kelimeyi ilk paragrafta, başlıklarda ve metin içinde (%1-2 yoğunlukta) dengeli şekilde kullan. Okunabilirliği yüksek, profesyonel ama anlaşılır bir Türkçe kullan.
@@ -169,164 +151,209 @@ SADECE bu JSON formatında yanıt ver:
   "seoKeyword": "${keyword}"
 }`;
 
-    const grokRes = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${xaiKey}`,
-      },
-      body: JSON.stringify({
-        model: "grok-3",
-        messages: [
-          {
-            role: "system",
-            content: "Sen camiihalisi.com için blog içerikleri üreten uzman SEO içerik yazarısın. SADECE geçerli JSON döndürürsün.",
-          },
-          { role: "user", content: blogPrompt },
-        ],
-        temperature: 0.65,
-        max_tokens: 4500,
-      }),
-    });
+        send({ type: "progress", message: "▶ Grok-3 makaleyi yazıyor... (Bu işlem ~45sn sürebilir)", progress: 20 });
+        const grokRes = await fetch("https://api.x.ai/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${xaiKey}` },
+          body: JSON.stringify({
+            model: "grok-3",
+            messages: [
+              { role: "system", content: "Sen camiihalisi.com için blog içerikleri üreten uzman SEO içerik yazarısın. SADECE geçerli JSON döndürürsün." },
+              { role: "user", content: blogPrompt },
+            ],
+            temperature: 0.65,
+            max_tokens: 4500,
+          }),
+        });
 
-    if (!grokRes.ok) {
-      const errText = await grokRes.text();
-      await logTask(prisma, keyword, targetSlug, "failed", `Grok API hatası: ${grokRes.status} ${errText.slice(0, 200)}`);
-      return NextResponse.json({ error: `AI hatası: ${grokRes.status}`, detail: errText.slice(0, 300) }, { status: 500 });
+        if (!grokRes.ok) throw new Error(`AI hatası: ${grokRes.status}`);
+        
+        const grokData = await grokRes.json();
+        let raw = grokData.choices?.[0]?.message?.content ?? "";
+        const jsonMatch = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        if (jsonMatch) raw = jsonMatch[1];
+        const firstBrace = raw.indexOf("{");
+        const lastBrace = raw.lastIndexOf("}");
+        if (firstBrace !== -1 && lastBrace !== -1) raw = raw.slice(firstBrace, lastBrace + 1);
+
+        let blogData;
+        try {
+          blogData = JSON.parse(raw);
+        } catch {
+          throw new Error("AI geçersiz JSON döndürdü.");
+        }
+
+        send({ type: "progress", message: "✓ Makale üretildi. Veritabanına kaydediliyor...", progress: 60 });
+        
+        function slugify(text: string): string {
+          const trMap: Record<string, string> = { ç:"c",ğ:"g",ı:"i",İ:"i",ö:"o",ş:"s",ü:"u",Ç:"c",Ğ:"g",Ö:"o",Ş:"s",Ü:"u" };
+          return text.toLowerCase().replace(/[çğışöüÇĞİÖŞÜ]/g, (c) => trMap[c] ?? c).replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+        }
+
+        let savedSlug: string;
+        let isNew: boolean;
+        const { scorePage, saveSeoScore } = await import("@/lib/seo-scorer");
+
+        if (mode === "improve") {
+          const setting = await prisma.setting.findUnique({ where: { key: "blog_overrides" } });
+          const overrides = setting ? JSON.parse(setting.value) : [];
+          const idx = overrides.findIndex((o: { slug: string }) => o.slug === targetSlug);
+          const updated = {
+            slug: targetSlug, title: blogData.title, metaTitle: blogData.metaTitle,
+            metaDescription: blogData.metaDescription, excerpt: blogData.excerpt,
+            content: blogData.content, seoKeyword: blogData.seoKeyword,
+            ...(blogData.category ? { category: blogData.category } : {}),
+            ...(blogData.readTime ? { readTime: blogData.readTime } : {}),
+          };
+          if (idx >= 0) overrides[idx] = { ...overrides[idx], ...updated };
+          else overrides.push(updated);
+          await prisma.setting.upsert({
+            where: { key: "blog_overrides" },
+            update: { value: JSON.stringify(overrides) },
+            create: { key: "blog_overrides", value: JSON.stringify(overrides) },
+          });
+          savedSlug = targetSlug;
+          isNew = false;
+        } else {
+          const slug = targetSlug || slugify(blogData.title) || `ai-blog-${Date.now()}`;
+          const newPost = {
+            slug, title: blogData.title, metaTitle: blogData.metaTitle || blogData.title,
+            metaDescription: blogData.metaDescription || "", excerpt: blogData.excerpt || "",
+            content: blogData.content || "", category: blogData.category || category,
+            tags: blogData.tags || [keyword], readTime: blogData.readTime || "5 dk",
+            publishedAt: new Date().toISOString().split("T")[0], author: "Asil Halı Uzmanları",
+            image: "/images/cami-katalog-01.png", seoKeyword: blogData.seoKeyword || keyword,
+          };
+          const row = await prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } });
+          const existing = row ? JSON.parse(row.value) : [];
+          const deduped = existing.filter((p: { slug: string }) => p.slug !== slug);
+          deduped.unshift(newPost);
+          await prisma.setting.upsert({
+            where: { key: "dynamic_blog_posts" },
+            update: { value: JSON.stringify(deduped) },
+            create: { key: "dynamic_blog_posts", value: JSON.stringify(deduped) },
+          });
+          
+          // Add to blog_overrides too
+          const overRow = await prisma.setting.findUnique({ where: { key: "blog_overrides" } });
+          const overrides = overRow ? JSON.parse(overRow.value) : [];
+          const oIdx = overrides.findIndex((o: { slug: string }) => o.slug === slug);
+          if (oIdx >= 0) overrides[oIdx] = newPost; else overrides.push(newPost);
+          await prisma.setting.upsert({
+            where: { key: "blog_overrides" },
+            update: { value: JSON.stringify(overrides) },
+            create: { key: "blog_overrides", value: JSON.stringify(overrides) },
+          });
+
+          savedSlug = slug;
+          isNew = true;
+        }
+
+        try {
+          const score = scorePage({
+            keyword: blogData.seoKeyword || keyword,
+            title: blogData.title, metaDescription: blogData.metaDescription || "",
+            content: blogData.content || "", excerpt: blogData.excerpt || "",
+          });
+          await saveSeoScore(`blog_${savedSlug}`, score);
+          send({ type: "progress", message: "✓ SEO skorları hesaplandı.", progress: 70 });
+        } catch {}
+
+        const wordCount = (blogData.content ?? "").trim().split(/\s+/).length;
+        await logTask(prisma, keyword, savedSlug, "completed", JSON.stringify({ mode, slug: savedSlug, isNew, wordCount, title: blogData.title, elapsed: Date.now() - startTime }));
+
+        // Translations
+        send({ type: "progress", message: "▶ Çeviri işlemleri başlatılıyor...", progress: 75 });
+        const fieldsToTranslate = {
+          title: blogData.title, excerpt: blogData.excerpt, content: blogData.content,
+          metaTitle: blogData.metaTitle, metaDescription: blogData.metaDescription
+        };
+
+        const locales = [
+          { code: "en", name: "English" },
+          { code: "de", name: "German" },
+          { code: "ar", name: "Arabic (MSA)" },
+          { code: "fr", name: "French" }
+        ];
+
+        for (let i = 0; i < locales.length; i++) {
+          const loc = locales[i];
+          send({ type: "progress", message: `  ▶ ${loc.name} diline çevriliyor...`, progress: 75 + (i * 5) });
+          try {
+            const prompt = [
+              `You are a professional content translator for a Turkish mosque carpet company website.`,
+              `Translate the following JSON fields from Turkish to ${loc.name}.`,
+              ``,
+              `Rules:`,
+              `- Translate ALL text values to ${loc.name}`,
+              `- Keep JSON structure and keys exactly as-is`,
+              `- Preserve markdown formatting (## headings, ** bold, etc.)`,
+              `- Maintain SEO quality — keep keywords natural in the target language`,
+              `- For Arabic, use right-to-left appropriate phrasing`,
+              `- Keep brand name "Asil Halı" unchanged`,
+              `- Keep URLs, numbers, and technical terms unchanged`,
+              ``,
+              `Content to translate:`,
+              JSON.stringify(fieldsToTranslate, null, 2),
+            ].join("\n");
+
+            const tRes = await fetch("https://api.x.ai/v1/chat/completions", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Authorization: `Bearer ${xaiKey}` },
+              body: JSON.stringify({
+                model: "grok-3",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.2,
+                response_format: { type: "json_object" },
+              }),
+            });
+
+            if (tRes.ok) {
+              const tData = await tRes.json();
+              let tRaw = tData.choices?.[0]?.message?.content ?? "{}";
+              const tMatch = tRaw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+              if (tMatch) tRaw = tMatch[1];
+              const translation = JSON.parse(tRaw);
+
+              // Save to DB
+              const row = await prisma.setting.findUnique({ where: { key: "blog_translations" } });
+              const existing = row ? JSON.parse(row.value) : {};
+              if (!existing[savedSlug]) existing[savedSlug] = {};
+              existing[savedSlug][loc.code] = { ...(existing[savedSlug][loc.code] ?? {}), ...translation };
+              await prisma.setting.upsert({
+                where: { key: "blog_translations" },
+                create: { key: "blog_translations", value: JSON.stringify(existing) },
+                update: { value: JSON.stringify(existing) },
+              });
+              send({ type: "progress", message: `  ✓ ${loc.name} çevirisi tamamlandı.`, progress: 75 + (i * 5) + 4 });
+            } else {
+              send({ type: "progress", message: `  ✗ ${loc.name} çevirisi başarısız.`, progress: 75 + (i * 5) + 4 });
+            }
+          } catch (e) {
+            send({ type: "progress", message: `  ✗ ${loc.name} çevirisi sırasında hata.`, progress: 75 + (i * 5) + 4 });
+          }
+        }
+
+        send({ type: "progress", message: "🎉 Tüm işlemler başarıyla tamamlandı!", progress: 100 });
+        send({ type: "done", slug: savedSlug, title: blogData.title, wordCount, isNew, elapsed: Date.now() - startTime });
+
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        try { await logTask(prisma, "unknown", "unknown", "failed", `Unhandled error: ${msg}`); } catch {}
+        send({ type: "error", message: `Beklenmeyen hata: ${msg}` });
+      } finally {
+        await prisma.$disconnect();
+        controller.close();
+      }
     }
+  });
 
-    const grokData = await grokRes.json();
-    let raw = grokData.choices?.[0]?.message?.content ?? "";
-
-    // JSON temizle
-    const jsonMatch = raw.match(/```json\s*([\s\S]*?)\s*```/) || raw.match(/```\s*([\s\S]*?)\s*```/);
-    if (jsonMatch) raw = jsonMatch[1];
-    const firstBrace = raw.indexOf("{");
-    const lastBrace = raw.lastIndexOf("}");
-    if (firstBrace !== -1 && lastBrace !== -1) raw = raw.slice(firstBrace, lastBrace + 1);
-
-    let blogData;
-    try {
-      blogData = JSON.parse(raw);
-    } catch {
-      await logTask(prisma, keyword, targetSlug, "failed", `JSON parse hatası. Raw: ${raw.slice(0, 300)}`);
-      return NextResponse.json({ error: "AI geçersiz JSON döndürdü", raw: raw.slice(0, 500) }, { status: 500 });
-    }
-
-    // ── 5. Blog'u Doğrudan Kaydet (HTTP fetch yok — Vercel auth bypass sorunu) ─
-    function slugify(text: string): string {
-      const trMap: Record<string, string> = {
-        ç:"c",ğ:"g",ı:"i",İ:"i",ö:"o",ş:"s",ü:"u",Ç:"c",Ğ:"g",Ö:"o",Ş:"s",Ü:"u",
-      };
-      return text.toLowerCase()
-        .replace(/[çğışöüÇĞİÖŞÜ]/g, (c) => trMap[c] ?? c)
-        .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-    }
-
-    let savedSlug: string;
-    let isNew: boolean;
-
-    const { scorePage, saveSeoScore } = await import("@/lib/seo-scorer");
-
-    if (mode === "improve") {
-      // Mevcut postu güncelle (blog_overrides)
-      const setting = await prisma.setting.findUnique({ where: { key: "blog_overrides" } });
-      const overrides = setting ? JSON.parse(setting.value) : [];
-      const idx = overrides.findIndex((o: { slug: string }) => o.slug === targetSlug);
-      const updated = {
-        slug: targetSlug, title: blogData.title, metaTitle: blogData.metaTitle,
-        metaDescription: blogData.metaDescription, excerpt: blogData.excerpt,
-        content: blogData.content, seoKeyword: blogData.seoKeyword,
-        ...(blogData.category ? { category: blogData.category } : {}),
-        ...(blogData.readTime ? { readTime: blogData.readTime } : {}),
-      };
-      if (idx >= 0) overrides[idx] = { ...overrides[idx], ...updated };
-      else overrides.push(updated);
-      await prisma.setting.upsert({
-        where: { key: "blog_overrides" },
-        update: { value: JSON.stringify(overrides) },
-        create: { key: "blog_overrides", value: JSON.stringify(overrides) },
-      });
-      savedSlug = targetSlug;
-      isNew = false;
-    } else {
-      // Yeni dinamik blog yazısı oluştur
-      const slug = targetSlug || slugify(blogData.title) || `ai-blog-${Date.now()}`;
-      const newPost = {
-        slug, title: blogData.title,
-        metaTitle: blogData.metaTitle || blogData.title,
-        metaDescription: blogData.metaDescription || "",
-        excerpt: blogData.excerpt || "",
-        content: blogData.content || "",
-        category: blogData.category || category,
-        tags: blogData.tags || [keyword],
-        readTime: blogData.readTime || "5 dk",
-        publishedAt: new Date().toISOString().split("T")[0],
-        author: "Asil Halı Uzmanları",
-        image: "/images/cami-katalog-01.png",
-        seoKeyword: blogData.seoKeyword || keyword,
-      };
-      const row = await prisma.setting.findUnique({ where: { key: "dynamic_blog_posts" } });
-      const existing = row ? JSON.parse(row.value) : [];
-      const deduped = existing.filter(
-        (p: { slug: string; seoKeyword?: string }) =>
-          p.slug !== slug && (p.seoKeyword || "") !== (newPost.seoKeyword || "")
-      );
-      deduped.push(newPost);
-      await prisma.setting.upsert({
-        where: { key: "dynamic_blog_posts" },
-        update: { value: JSON.stringify(deduped) },
-        create: { key: "dynamic_blog_posts", value: JSON.stringify(deduped) },
-      });
-      savedSlug = slug;
-      isNew = true;
-    }
-
-    // SEO skoru kaydet
-    try {
-      const score = scorePage({
-        keyword: blogData.seoKeyword || keyword,
-        title: blogData.title, metaDescription: blogData.metaDescription || "",
-        content: blogData.content || "", excerpt: blogData.excerpt || "",
-      });
-      await saveSeoScore(`blog_${savedSlug}`, score);
-    } catch { /* ignore */ }
-
-    // ── 6. AiTask Log ─────────────────────────────────────────────────────────
-    const wordCount = (blogData.content ?? "").trim().split(/\s+/).length;
-    await logTask(
-      prisma, keyword, savedSlug, "completed",
-      JSON.stringify({ mode, slug: savedSlug, isNew, wordCount, title: blogData.title, elapsed: Date.now() - startTime })
-    );
-
-    return NextResponse.json({
-      ok: true, mode, keyword, slug: savedSlug, isNew,
-      title: blogData.title, wordCount, elapsed: Date.now() - startTime,
-    });
-
-  } catch (err: unknown) {
-    const msg = err instanceof Error ? err.message : String(err);
-    try {
-      await logTask(prisma, "unknown", "unknown", "failed", `Unhandled error: ${msg}`);
-    } catch { /* ignore */ }
-    return NextResponse.json({ error: "Beklenmeyen hata", detail: msg }, { status: 500 });
-  } finally {
-    await prisma.$disconnect();
-  }
-}
-
-async function logTask(
-  prisma: Awaited<ReturnType<typeof getPrisma>>,
-  keyword: string,
-  slug: string,
-  status: string,
-  logs: string
-) {
-  try {
-    await (prisma as any).aiTask.create({
-      data: { keyword, targetPageSlug: slug, status, logs },
-    });
-  } catch {
-    // ignore log errors
-  }
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache, no-transform",
+      Connection: "keep-alive",
+      "X-Accel-Buffering": "no",
+    },
+  });
 }
