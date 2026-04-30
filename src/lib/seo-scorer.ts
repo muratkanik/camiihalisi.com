@@ -152,7 +152,7 @@ export function scorePage(input: SeoInput): SeoScoreResult {
     kwTitleNote = `✓ Anahtar kelime başlıkta var (başa al: +5p)`;
   } else {
     kwTitleScore = 0;
-    kwTitleNote = `✗ Anahtar kelime "${keyword}" başlıkta yok`;
+    kwTitleNote = `✗ Anahtar kelime "${kw}" başlıkta yok`;
   }
   const kwTitleCheck: SeoCheck = {
     score: kwTitleScore, max: 15,
@@ -168,14 +168,14 @@ export function scorePage(input: SeoInput): SeoScoreResult {
     status: kwInMeta ? "good" : "bad",
     note: kwInMeta
       ? `✓ Anahtar kelime meta açıklamada`
-      : `✗ Anahtar kelime "${keyword}" meta açıklamada yok`,
+      : `✗ Anahtar kelime "${kw}" meta açıklamada yok`,
   };
 
   // ── 6. Keyword Density in Content (0-10) ─────────────────────────────
   let densityScore = 0;
   let densityNote = "";
   if (wordCount > 0) {
-    const freq = keywordFrequency(content, keyword);
+    const freq = keywordFrequency(content, kw);
     const density = (freq / wordCount) * 100;
     if (density >= 0.8 && density <= 2.5) {
       densityScore = 10;
