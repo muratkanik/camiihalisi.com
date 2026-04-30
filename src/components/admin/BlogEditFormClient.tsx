@@ -22,6 +22,44 @@ interface SeoFix {
   contentAddition?: string;
 }
 
+interface TerminalLine {
+  id: number;
+  text: string;
+  type: "info" | "progress" | "stream" | "success" | "error" | "system";
+}
+
+function TermLine({ line }: { line: TerminalLine }) {
+  const colors: Record<TerminalLine["type"], string> = {
+    info: "text-green-400",
+    progress: "text-cyan-400",
+    stream: "text-green-300 opacity-80",
+    success: "text-emerald-300 font-bold",
+    error: "text-red-400",
+    system: "text-slate-500",
+  };
+  const prefix: Record<TerminalLine["type"], string> = {
+    info: "▶ ",
+    progress: "  ",
+    stream: "  ",
+    success: "✓ ",
+    error: "✗ ",
+    system: "# ",
+  };
+  return (
+    <div className={`font-mono text-xs leading-6 ${colors[line.type]}`}>
+      <span className="opacity-60">{prefix[line.type]}</span>
+      {line.text}
+    </div>
+  );
+}
+
+interface SeoFix {
+  title?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  contentAddition?: string;
+}
+
 const LOCALES = [
   { key: "en", label: "İngilizce", flag: "🇬🇧" },
   { key: "de", label: "Almanca", flag: "🇩🇪" },
@@ -53,6 +91,25 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
   const [translating, setTranslating]   = useState(false);
   const [translateDone, setTranslateDone] = useState<string[]>([]);
   const [translateError, setTranslateError] = useState("");
+
+  // ── Auto-Translation Terminal State ──────────────────────────────────────────
+  const [terminalOpen, setTerminalOpen] = useState(false);
+  const [termLines, setTermLines] = useState<TerminalLine[]>([]);
+  const [termProgress, setTermProgress] = useState(0);
+  const [termRunning, setTermRunning] = useState(false);
+  const lineIdRef = useRef(0);
+  const termRef = useRef<HTMLDivElement>(null);
+
+  function addTermLine(text: string, type: TerminalLine["type"] = "info") {
+    lineIdRef.current += 1;
+    setTermLines((prev) => [...prev, { id: lineIdRef.current, text, type }]);
+  }
+
+  useEffect(() => {
+    if (termRef.current) {
+      termRef.current.scrollTop = termRef.current.scrollHeight;
+    }
+  }, [termLines]);
 
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -206,13 +263,72 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
   }
 
   const router = useRouter();
+  
   const actionWrapper = async (formData: FormData) => {
+    setTerminalOpen(true);
+    setTermRunning(true);
+    setTermProgress(0);
+    setTermLines([]);
+    lineIdRef.current = 0;
+
+    addTermLine(`camiihalisi.com — Makale & Çeviri Güncelleyici`, "system");
+    addTermLine(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`, "system");
+    addTermLine(`Makale veritabanına kaydediliyor...`, "info");
+    setTermProgress(10);
+
     try {
       await saveBlogPostAction(formData);
-      alert("Makale başarıyla kaydedildi!");
-      router.refresh();
+      addTermLine(`Makale başarıyla kaydedildi. SEO skorları güncellendi.`, "success");
+      setTermProgress(20);
+
+      addTermLine(``, "system");
+      addTermLine(`Yapay Zeka ile Çeviriler Başlatılıyor...`, "info");
+      
+      const langs = [
+        { key: "en", label: "İngilizce" },
+        { key: "de", label: "Almanca" },
+        { key: "ar", label: "Arapça" },
+        { key: "fr", label: "Fransızca" },
+      ] as const;
+
+      let progress = 20;
+      const step = 80 / langs.length;
+
+      for (const lang of langs) {
+        addTermLine(`${lang.label} diline çevriliyor...`, "progress");
+        try {
+          const res = await fetch("/api/admin/blog-translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              slug: post.slug,
+              targetLocale: lang.key,
+              fields: {
+                title: formData.get("title")?.toString() || "",
+                excerpt: formData.get("excerpt")?.toString() || "",
+                content: formData.get("content")?.toString() || "",
+                metaTitle: formData.get("metaTitle")?.toString() || formData.get("title")?.toString() || "",
+                metaDescription: formData.get("metaDescription")?.toString() || formData.get("excerpt")?.toString() || "",
+              },
+            }),
+          });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          addTermLine(`${lang.label} çevirisi başarıyla güncellendi.`, "success");
+        } catch (err: unknown) {
+          addTermLine(`${lang.label} çevirisi sırasında hata: ${err}`, "error");
+        }
+        progress += step;
+        setTermProgress(Math.floor(progress));
+      }
+
+      setTermProgress(100);
+      addTermLine(``, "system");
+      addTermLine(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`, "system");
+      addTermLine(`Tüm işlemler başarıyla tamamlandı!`, "success");
     } catch (err) {
-      alert("Hata oluştu: " + err);
+      addTermLine(`Kayıt sırasında hata oluştu: ${err}`, "error");
+    } finally {
+      setTermRunning(false);
     }
   };
 
@@ -502,6 +618,68 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
         metaDescription: post.metaDescription,
       }}
     />
+
+    {/* ── Auto-Translation Terminal Modal ── */}
+    {terminalOpen && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+        <div className="w-full max-w-2xl bg-[#0d1117] rounded-2xl shadow-2xl border border-[#30363d] overflow-hidden flex flex-col max-h-[90vh]">
+          <div className="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-[#30363d]">
+            <div className="flex gap-1.5">
+              <button onClick={() => !termRunning && setTerminalOpen(false)} disabled={termRunning} className={`w-3 h-3 rounded-full bg-[#ff5f57] ${termRunning ? "opacity-50 cursor-not-allowed" : "hover:brightness-90 transition-all"}`} title="Kapat" />
+              <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+              <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+            </div>
+            <div className="flex-1 text-center">
+              <span className="text-xs text-[#8b949e] font-mono">
+                Otomatik Çeviri Motoru
+              </span>
+            </div>
+          </div>
+
+          <div
+            ref={termRef}
+            className="flex-1 overflow-y-auto px-5 py-4 bg-[#0d1117] min-h-[260px] max-h-[400px]"
+          >
+            {termLines.map((line) => (
+              <TermLine key={line.id} line={line} />
+            ))}
+            {termRunning && (
+              <div className="font-mono text-xs text-green-400 flex items-center gap-1 mt-1">
+                <span className="animate-pulse">▋</span>
+              </div>
+            )}
+          </div>
+
+          <div className="px-5 pb-1 bg-[#0d1117]">
+            <div className="w-full h-1 bg-[#21262d] rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all duration-500 ${
+                  !termRunning ? "bg-emerald-400" : "bg-[#388bfd]"
+                }`}
+                style={{ width: `${termProgress}%` }}
+              />
+            </div>
+            <div className="text-right text-xs text-[#484f58] font-mono mt-0.5 mb-1">
+              {termProgress}%
+            </div>
+          </div>
+
+          {!termRunning && (
+            <div className="px-5 py-4 bg-[#0d1117] border-t border-[#30363d] flex justify-end">
+              <button
+                onClick={() => {
+                  setTerminalOpen(false);
+                  router.refresh();
+                }}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#0097A7] text-white text-xs font-bold hover:bg-[#00474b] transition-colors"
+              >
+                <CheckCircle2 className="w-3.5 h-3.5" /> Kapat ve Sayfayı Yenile
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+    )}
     </>
   );
 }
