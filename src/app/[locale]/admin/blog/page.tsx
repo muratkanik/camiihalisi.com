@@ -75,8 +75,8 @@ export default async function BlogAdminPage() {
 
 function BlogPostRow({ post, seoScore }: { post: BlogPostWithOverride; seoScore: SeoScoreResult | null }) {
   return (
-    <details className="group">
-      <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none">
+    <details className="group relative">
+      <summary className="flex items-center gap-4 px-6 py-4 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all list-none pr-16">
         <div className="w-14 h-10 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-800 flex-shrink-0 border border-slate-200 dark:border-slate-700">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
@@ -100,21 +100,24 @@ function BlogPostRow({ post, seoScore }: { post: BlogPostWithOverride; seoScore:
             <SeoScoreBadge score={seoScore} compact />
           </div>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <a href={`/blog/${post.slug}`} target="_blank" rel="noopener"
-            className="p-1.5 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all">
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+        <div className="flex items-center flex-shrink-0">
           <ChevronRight className="w-4 h-4 text-slate-400 transition-transform group-open:rotate-90" />
         </div>
       </summary>
 
+      {/* External link placed absolutely to avoid nesting interactive elements inside <summary> */}
+      <a href={`/blog/${post.slug}`} target="_blank" rel="noopener"
+         className="absolute right-12 top-4 p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-400 hover:text-slate-600 dark:hover:text-white transition-all z-10"
+         onClick={(e) => e.stopPropagation()}
+         title="Blogu Görüntüle"
+      >
+        <ExternalLink className="w-3.5 h-3.5" />
+      </a>
+
       {/* SEO Score full breakdown */}
-      {seoScore && (
-        <div className="px-6 pt-4 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
-          <SeoScoreBadge score={seoScore} />
-        </div>
-      )}
+      <div className="px-6 pt-4 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">
+        <SeoScoreBadge score={seoScore} />
+      </div>
 
       {/* Edit form — client component with AI expand */}
       <div className="px-6 pt-4 pb-2 bg-slate-50/50 dark:bg-slate-800/20 border-t border-slate-100 dark:border-slate-800">

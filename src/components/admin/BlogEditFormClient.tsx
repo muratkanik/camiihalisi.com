@@ -228,6 +228,16 @@ export default function BlogEditFormClient({ post, seoScore }: Props) {
 
       {/* ── SEO Optimize Bar ── */}
       <div className="flex flex-wrap items-center gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+        <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-bold ${
+          (seoScore?.total ?? 0) >= 80 
+            ? "border-emerald-200 bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:border-emerald-800 dark:text-emerald-400"
+            : (seoScore?.total ?? 0) >= 50
+            ? "border-amber-200 bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:border-amber-800 dark:text-amber-400"
+            : "border-red-200 bg-red-50 text-red-700 dark:bg-red-900/30 dark:border-red-800 dark:text-red-400"
+        }`}>
+          <span>SEO:</span>
+          <span className="text-sm">{seoScore?.total ?? 0}/100</span>
+        </div>
         <button
           type="button"
           onClick={handleSeoFix}
