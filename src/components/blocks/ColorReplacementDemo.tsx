@@ -77,7 +77,6 @@ export default function ColorReplacementDemo() {
   const [extractedColors, setExtractedColors] = useState<string[]>(MOTIFS[0].colors);
   const [selectedColorToReplace, setSelectedColorToReplace] = useState<string | null>(null);
   const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); 
-  const [tolerance, setTolerance] = useState<number>(35);
   const [appliedChanges, setAppliedChanges] = useState<{from: string, to: string}[]>([]);
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -149,7 +148,6 @@ export default function ColorReplacementDemo() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Aktif durumdaki resim verisini al
     const currentData = history[historyIndex];
     const newData = ctx.createImageData(currentData);
 
@@ -158,6 +156,8 @@ export default function ColorReplacementDemo() {
     
     const targetRgb = hexToRgb(newColorHex);
     const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
+
+    const tolerance = 35;
 
     for (let i = 0; i < currentData.data.length; i += 4) {
       const r = currentData.data[i];
@@ -278,60 +278,57 @@ export default function ColorReplacementDemo() {
       
       {/* ── Motif Seçici ── */}
       <div>
-        <h3 className="text-xl font-bold text-[#0097A7] mb-3" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+        <h3 className="text-lg font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
           1. Motif Seçin
         </h3>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex gap-3 overflow-x-auto pb-2">
           {MOTIFS.map(motif => (
             <button
               key={motif.id}
               onClick={() => setCurrentMotif(motif)}
-              className={`flex flex-col items-center gap-2 p-2 rounded-xl border transition-all ${
+              className={`flex-shrink-0 flex flex-col items-center gap-1 p-1.5 rounded-xl border transition-all ${
                 currentMotif.id === motif.id ? 'border-[#C9972B] bg-[#FFF9E6] shadow-md scale-105' : 'border-[#E0F7FA] hover:border-[#0097A7] hover:bg-[#F0FDFE]'
               }`}
             >
-              <div className="w-16 h-16 rounded-lg overflow-hidden relative">
+              <div className="w-14 h-14 rounded-lg overflow-hidden relative">
                 <img src={motif.src} alt={motif.name} className="object-cover w-full h-full" />
               </div>
-              <span className="text-xs font-semibold text-[#1A1A1A]">{motif.name}</span>
+              <span className="text-[10px] font-semibold text-[#1A1A1A]">{motif.name}</span>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-6">
         {/* Sol Taraf: Kanvas / Resim */}
-        <div className="lg:col-span-2">
-          <h3 className="text-xl font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-            2. Resim Üzerinden veya Listeden Renk Seçin
+        <div className="lg:col-span-2 flex flex-col">
+          <h3 className="text-lg font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            2. Resme Tıklayarak Renk Seçin
           </h3>
-          <p className="text-sm text-[#6B6355] mb-4">
-            Resmin üzerindeki bir noktaya <strong>tıklayarak</strong> değiştirmek istediğiniz rengi anında seçebilirsiniz.
-          </p>
-          <div className="bg-[#F0FDFE] rounded-xl overflow-hidden border border-[#E0F7FA] flex items-center justify-center min-h-[400px] relative cursor-crosshair">
+          <div className="bg-[#F0FDFE] rounded-xl overflow-hidden border border-[#E0F7FA] flex items-center justify-center relative cursor-crosshair flex-1 min-h-[300px]">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-10">
-                <div className="text-[#0097A7] font-semibold animate-pulse">Motif Yükleniyor...</div>
+                <div className="text-[#0097A7] font-semibold animate-pulse">Yükleniyor...</div>
               </div>
             )}
             <canvas 
               ref={canvasRef} 
               onClick={handleCanvasClick}
-              className="max-w-full h-auto drop-shadow-md" 
+              className="max-w-full max-h-[60vh] object-contain drop-shadow-md" 
             />
           </div>
         </div>
 
         {/* Sağ Taraf: Kontroller */}
-        <div className="space-y-8 mt-2 lg:mt-0">
+        <div className="flex flex-col gap-4 mt-2 lg:mt-0">
           <div>
-            <h3 className="text-lg font-bold text-[#1A1A1A] mb-2">Seçili Değiştirilecek Renk:</h3>
-            <div className="flex gap-3 flex-wrap">
+            <h3 className="text-base font-bold text-[#1A1A1A] mb-2">Seçili Değiştirilecek Renk:</h3>
+            <div className="flex gap-2 flex-wrap">
               {extractedColors.map(color => (
                 <button
                   key={color}
                   onClick={() => setSelectedColorToReplace(color)}
-                  className={`w-12 h-12 rounded-full border-4 transition-transform ${selectedColorToReplace === color ? 'border-[#C9972B] scale-110 shadow-lg' : 'border-white shadow-sm hover:scale-105'}`}
+                  className={`w-10 h-10 rounded-full border-4 transition-transform ${selectedColorToReplace === color ? 'border-[#C9972B] scale-110 shadow-lg' : 'border-white shadow-sm hover:scale-105'}`}
                   style={{ backgroundColor: color }}
                   title={color}
                 />
@@ -340,44 +337,27 @@ export default function ColorReplacementDemo() {
           </div>
 
           <div className={`transition-opacity duration-300 ${!selectedColorToReplace ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
-            <h3 className="text-xl font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <h3 className="text-lg font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               3. Yeni Rengi Belirle
             </h3>
-            <p className="text-sm text-[#6B6355] mb-4">Uygulamak istediğiniz yeni tonu seçin:</p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <input 
                 type="color" 
                 value={newColorHex} 
                 onChange={(e) => setNewColorHex(e.target.value)}
-                className="w-14 h-14 rounded cursor-pointer border-0 p-0"
+                className="w-12 h-12 rounded cursor-pointer border-0 p-0"
               />
               <div className="text-sm font-mono text-[#1A1A1A] bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
                 {newColorHex.toUpperCase()}
               </div>
             </div>
-
-            <div className="mt-6">
-              <label className="text-sm font-bold text-[#1A1A1A] flex justify-between">
-                <span>Renk Hassasiyeti (Tolerans)</span>
-                <span>{tolerance}</span>
-              </label>
-              <input
-                type="range"
-                min="5"
-                max="90"
-                value={tolerance}
-                onChange={(e) => setTolerance(Number(e.target.value))}
-                className="w-full mt-2 accent-[#0097A7]"
-              />
-              <p className="text-xs text-[#6B6355] mt-1">Değeri artırdıkça seçtiğiniz renge yakın olan diğer tonlar da değişime dahil olur.</p>
-            </div>
           </div>
 
-          <div className="pt-6 border-t border-[#E0F7FA] flex flex-col gap-3">
+          <div className="pt-4 border-t border-[#E0F7FA] flex flex-col gap-2">
             <button
               onClick={handleReplaceColor}
               disabled={!selectedColorToReplace}
-              className="btn bg-[#0097A7] text-white hover:bg-[#007A88] w-full py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn bg-[#0097A7] text-white hover:bg-[#007A88] w-full py-2 min-h-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Rengi Uygula
             </button>
@@ -386,7 +366,7 @@ export default function ColorReplacementDemo() {
               <button
                 onClick={handleUndo}
                 disabled={historyIndex <= 0}
-                className="flex-1 btn btn-outline py-3 flex items-center justify-center gap-2 disabled:opacity-50"
+                className="flex-1 btn btn-outline py-2 min-h-0 flex items-center justify-center gap-2 disabled:opacity-50 text-xs"
                 title="Geri Al"
               >
                 <Undo2 className="w-4 h-4" /> Geri Al
@@ -394,7 +374,7 @@ export default function ColorReplacementDemo() {
               <button
                 onClick={handleRedo}
                 disabled={historyIndex >= history.length - 1}
-                className="flex-1 btn btn-outline py-3 flex items-center justify-center gap-2 disabled:opacity-50"
+                className="flex-1 btn btn-outline py-2 min-h-0 flex items-center justify-center gap-2 disabled:opacity-50 text-xs"
                 title="İleri Al"
               >
                 <Redo2 className="w-4 h-4" /> İleri Al
@@ -404,49 +384,43 @@ export default function ColorReplacementDemo() {
             <button
               onClick={resetImage}
               disabled={historyIndex <= 0}
-              className="btn btn-ghost w-full py-2 text-red-500 hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
+              className="btn btn-ghost w-full py-1 min-h-0 text-red-500 hover:bg-red-50 hover:text-red-600 disabled:opacity-50 text-xs"
             >
-              Tüm Değişiklikleri Sıfırla
+              Tümünü Sıfırla
             </button>
           </div>
 
           {/* Paylaşım Alanı */}
-          <div className="pt-6 border-t border-[#E0F7FA]">
-            <h3 className="text-lg font-bold text-[#1A1A1A] mb-3">Tasarımını Paylaş</h3>
-            <div className="grid grid-cols-3 gap-3">
+          <div className="pt-4 border-t border-[#E0F7FA]">
+            <h3 className="text-base font-bold text-[#1A1A1A] mb-2">Paylaş & İndir</h3>
+            <div className="grid grid-cols-3 gap-2">
               <button 
                 onClick={handleDownload}
-                className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-[#E0F7FA] hover:bg-[#F0FDFE] hover:border-[#0097A7] transition-all"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl border border-[#E0F7FA] hover:bg-[#F0FDFE] hover:border-[#0097A7] transition-all"
                 title="Resmi İndir"
               >
-                <Download className="w-5 h-5 text-[#0097A7]" />
-                <span className="text-xs font-semibold text-[#1A1A1A]">İndir</span>
+                <Download className="w-4 h-4 text-[#0097A7]" />
+                <span className="text-[10px] font-semibold text-[#1A1A1A]">İndir</span>
               </button>
               
               <button 
                 onClick={handleWhatsAppShare}
-                className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-green-100 hover:bg-green-50 hover:border-green-500 transition-all"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl border border-green-100 hover:bg-green-50 hover:border-green-500 transition-all"
                 title="WhatsApp'ta Paylaş"
               >
-                <MessageCircle className="w-5 h-5 text-green-600" />
-                <span className="text-xs font-semibold text-green-700">WhatsApp</span>
+                <MessageCircle className="w-4 h-4 text-green-600" />
+                <span className="text-[10px] font-semibold text-green-700">WhatsApp</span>
               </button>
               
               <button 
                 onClick={handleNativeShare}
-                className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-blue-100 hover:bg-blue-50 hover:border-blue-500 transition-all"
+                className="flex flex-col items-center justify-center gap-1 p-2 rounded-xl border border-blue-100 hover:bg-blue-50 hover:border-blue-500 transition-all"
                 title="Diğer Seçenekler"
               >
-                <Share2 className="w-5 h-5 text-blue-600" />
-                <span className="text-xs font-semibold text-blue-700">Paylaş</span>
+                <Share2 className="w-4 h-4 text-blue-600" />
+                <span className="text-[10px] font-semibold text-blue-700">Paylaş</span>
               </button>
             </div>
-          </div>
-
-          <div className="bg-[#FFF9E6] p-4 rounded-xl border border-[#FFE082]">
-            <p className="text-xs text-[#8B6E23] leading-relaxed font-medium">
-              💡 <strong>İpucu:</strong> Farenizle (veya dokunarak) <strong>resmin üzerindeki herhangi bir alana tıklayıp</strong> oradaki rengi yakalayabilirsiniz. Algoritma tıkladığınız renge benzeyen (ton olarak) diğer alanları da bulup yeni rengi uygular.
-            </p>
           </div>
         </div>
       </div>
