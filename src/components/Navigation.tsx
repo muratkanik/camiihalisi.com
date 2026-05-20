@@ -224,8 +224,8 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
             </Link>
 
             {/* Desktop Menü */}
-            <nav className="hidden xl:flex items-center gap-0.5" aria-label="Ana menü">
-              <Link href={`${prefix}/hakkimizda`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+            <nav className="hidden lg:flex items-center gap-0.5" aria-label="Ana menü">
+              <Link href={`${prefix}/hakkimizda`} className="hidden 2xl:block whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("about")}
               </Link>
 
@@ -332,26 +332,26 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 )}
               </div>
 
-              <Link href={`${prefix}/referanslar`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/referanslar`} className="hidden xl:block whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("references")}
               </Link>
-              <Link href={`${prefix}/galeri`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/galeri`} className="hidden 2xl:block whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("gallery")}
               </Link>
-              <Link href={`${prefix}/blog`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/blog`} className="hidden 2xl:block whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("blog")}
               </Link>
-              <Link href={`${prefix}/teknik-ozellikler`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/teknik-ozellikler`} className="hidden xl:block whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("technicalSpecs")}
               </Link>
-              <Link href={`${prefix}/iletisim`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
+              <Link href={`${prefix}/iletisim`} className="hidden xl:block whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("contact")}
               </Link>
 
             </nav>
 
-            {/* Mobil: Hamburger */}
-            <div className="xl:hidden flex items-center gap-2">
+            {/* Mobil/Tablet Hamburger */}
+            <div className="2xl:hidden flex items-center gap-2">
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="p-2 rounded-lg hover:bg-[#E0F7FA] transition-colors"
@@ -363,13 +363,13 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
           </div>
         </div>
 
-        {/* Mobil Menü */}
+        {/* Mobil/Tablet Menü */}
         {mobileOpen && (
-          <div className="xl:hidden bg-[#F0FDFE] border-t border-[#B2EBF2] max-h-[80vh] overflow-y-auto">
+          <div className="2xl:hidden bg-[#F0FDFE] border-t border-[#B2EBF2] max-h-[80vh] overflow-y-auto">
             <div className="container-site py-3 flex flex-col gap-0.5">
 
               {/* Cami Halısı Accordion — İLK SIRADA */}
-              <div>
+              <div className="block lg:hidden">
                 <button
                   className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                   onClick={() => setMobileExpanded(mobileExpanded === "carpet" ? null : "carpet")}
@@ -406,7 +406,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
               </div>
 
               {/* Halı Altı Accordion */}
-              <div>
+              <div className="block lg:hidden">
                 <button
                   className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                   onClick={() => setMobileExpanded(mobileExpanded === "underlay" ? null : "underlay")}
@@ -442,22 +442,22 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
                 )}
               </div>
 
-              <Link href={`${prefix}/hakkimizda`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+              <Link href={`${prefix}/hakkimizda`} className="block 2xl:hidden px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 {tNav("about")}
               </Link>
-              <Link href={`${prefix}/referanslar`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+              <Link href={`${prefix}/referanslar`} className="block xl:hidden px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 {tNav("references")}
               </Link>
-              <Link href={`${prefix}/galeri`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+              <Link href={`${prefix}/galeri`} className="block 2xl:hidden px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 {tNav("gallery")}
               </Link>
-              <Link href={`${prefix}/blog`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+              <Link href={`${prefix}/blog`} className="block 2xl:hidden px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 {tNav("blog")}
               </Link>
-              <Link href={`${prefix}/teknik-ozellikler`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+              <Link href={`${prefix}/teknik-ozellikler`} className="block xl:hidden px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 {tNav("technicalSpecs")}
               </Link>
-              <Link href={`${prefix}/iletisim`} className="px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
+              <Link href={`${prefix}/iletisim`} className="block xl:hidden px-4 py-3 text-sm font-medium text-[#1A1A1A] hover:text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg" onClick={() => setMobileOpen(false)}>
                 {tNav("contact")}
               </Link>
 
