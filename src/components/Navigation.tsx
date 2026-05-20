@@ -285,7 +285,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
 
               {/* Halı Altı Malzemeleri Dropdown */}
               <div
-                className="relative flex-shrink-0"
+                className="relative flex-shrink-0 hidden xl:block"
                 onMouseEnter={openUnderlay}
                 onMouseLeave={closeUnderlay}
               >
@@ -406,7 +406,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
               </div>
 
               {/* Halı Altı Accordion */}
-              <div className="block lg:hidden">
+              <div className="block xl:hidden">
                 <button
                   className="w-full flex items-center justify-between px-4 py-3 text-sm font-bold text-[#0097A7] hover:bg-[#E0F7FA] rounded-lg"
                   onClick={() => setMobileExpanded(mobileExpanded === "underlay" ? null : "underlay")}
