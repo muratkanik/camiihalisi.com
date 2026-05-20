@@ -59,6 +59,42 @@ function hslToRgb(h: number, s: number, l: number) {
   return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
 }
 
+// Helper: Replace color in ImageData
+function replaceColorInImageData(ctx: CanvasRenderingContext2D, currentData: ImageData, sourceHex: string, targetHex: string, tolerance: number = 5): ImageData {
+  const newData = ctx.createImageData(currentData);
+  const sourceRgb = hexToRgb(sourceHex);
+  const sourceHsl = rgbToHsl(sourceRgb.r, sourceRgb.g, sourceRgb.b);
+  const targetRgb = hexToRgb(targetHex);
+  const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
+
+  for (let i = 0; i < currentData.data.length; i += 4) {
+    const r = currentData.data[i];
+    const g = currentData.data[i + 1];
+    const b = currentData.data[i + 2];
+    const a = currentData.data[i + 3];
+
+    const pxlHsl = rgbToHsl(r, g, b);
+    let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
+    if (hueDiff > 180) hueDiff = 360 - hueDiff;
+
+    if (hueDiff < tolerance && pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
+      const lDiff = pxlHsl.l - sourceHsl.l;
+      let newL = targetHsl.l + lDiff;
+      newL = Math.max(0, Math.min(1, newL));
+      const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
+      newData.data[i] = newRgb.r;
+      newData.data[i + 1] = newRgb.g;
+      newData.data[i + 2] = newRgb.b;
+    } else {
+      newData.data[i] = r;
+      newData.data[i + 1] = g;
+      newData.data[i + 2] = b;
+    }
+    newData.data[i + 3] = a;
+  }
+  return newData;
+}
+
 const MOTIFS = [
   { id: "sample-motif", src: "/images/sample.bmp", name: "Özel Desen", colors: ["#005577", "#a52a2a", "#e8dcc5"] },
   { id: "s101-turkuaz", src: "/images/s101-turkuaz.webp", name: "S101 Turkuaz", colors: ["#008c99", "#e2d5bc", "#b8860b"] },
@@ -82,8 +118,23 @@ export default function ColorReplacementDemo() {
   const [historyIndex, setHistoryIndex] = useState(-1);
 
   const originalImageDataRef = useRef<ImageData | null>(null);
+  const hasSetMotif = useRef(false);
+  const hasAppliedUrlChanges = useRef(false);
 
   useEffect(() => {
+    if (!hasSetMotif.current && typeof window !== 'undefined') {
+      hasSetMotif.current = true;
+      const params = new URLSearchParams(window.location.search);
+      const motifId = params.get('motif');
+      if (motifId && motifId !== currentMotif.id) {
+        const found = MOTIFS.find(m => m.id === motifId);
+        if (found) {
+          setCurrentMotif(found);
+          return;
+        }
+      }
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -109,10 +160,37 @@ export default function ColorReplacementDemo() {
       canvas.width = w;
       canvas.height = h;
       ctx.drawImage(img, 0, 0, w, h);
-      const imgData = ctx.getImageData(0, 0, w, h);
-      originalImageDataRef.current = imgData;
-      setHistory([imgData]);
-      setHistoryIndex(0);
+      
+      const initialImgData = ctx.getImageData(0, 0, w, h);
+      originalImageDataRef.current = initialImgData;
+
+      let finalImgData = initialImgData;
+      const initialHistory = [initialImgData];
+      const initialChanges: {from: string, to: string}[] = [];
+
+      if (!hasAppliedUrlChanges.current && typeof window !== 'undefined') {
+        hasAppliedUrlChanges.current = true;
+        const params = new URLSearchParams(window.location.search);
+        const changesParam = params.get('changes');
+        if (changesParam) {
+          const changesList = changesParam.split('_');
+          for (const ch of changesList) {
+            const parts = ch.split('-');
+            if (parts.length === 2) {
+              const from = '#' + parts[0];
+              const to = '#' + parts[1];
+              finalImgData = replaceColorInImageData(ctx, finalImgData, from, to, 5);
+              initialHistory.push(finalImgData);
+              initialChanges.push({ from, to });
+            }
+          }
+          ctx.putImageData(finalImgData, 0, 0);
+        }
+      }
+
+      setHistory(initialHistory);
+      setHistoryIndex(initialHistory.length - 1);
+      setAppliedChanges(initialChanges);
       setImageLoaded(true);
     };
   }, [currentMotif]);
@@ -149,54 +227,9 @@ export default function ColorReplacementDemo() {
     if (!ctx) return;
 
     const currentData = history[historyIndex];
-    const newData = ctx.createImageData(currentData);
-
-    const sourceRgb = hexToRgb(selectedColorToReplace);
-    const sourceHsl = rgbToHsl(sourceRgb.r, sourceRgb.g, sourceRgb.b);
-    
-    const targetRgb = hexToRgb(newColorHex);
-    const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
-
-    const tolerance = 5;
-
-    for (let i = 0; i < currentData.data.length; i += 4) {
-      const r = currentData.data[i];
-      const g = currentData.data[i + 1];
-      const b = currentData.data[i + 2];
-      const a = currentData.data[i + 3];
-
-      const pxlHsl = rgbToHsl(r, g, b);
-
-      let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
-      if (hueDiff > 180) hueDiff = 360 - hueDiff;
-
-      // Hem hue farkına hem de parlaklık yakınlığına bakalım ki yanlış yerler boyanmasın
-      if (hueDiff < tolerance && pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
-        // Tıklanan orijinal rengin parlaklığı (sourceHsl.l) referans alınır
-        // Bu pikselin parlaklığı ile tıklanan yer arasındaki fark (lDiff)
-        const lDiff = pxlHsl.l - sourceHsl.l;
-        
-        // Hedef rengin parlaklığına bu farkı ekle (Böylece seçilen renk baz alınır, gölgeler ona göre ayarlanır)
-        let newL = targetHsl.l + lDiff;
-        
-        // 0-1 aralığında sınırla
-        newL = Math.max(0, Math.min(1, newL));
-
-        const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
-        newData.data[i] = newRgb.r;
-        newData.data[i + 1] = newRgb.g;
-        newData.data[i + 2] = newRgb.b;
-      } else {
-        newData.data[i] = r;
-        newData.data[i + 1] = g;
-        newData.data[i + 2] = b;
-      }
-      newData.data[i + 3] = a;
-    }
-
+    const newData = replaceColorInImageData(ctx, currentData, selectedColorToReplace, newColorHex, 5);
     ctx.putImageData(newData, 0, 0);
 
-    // Save change history
     const newHistory = history.slice(0, historyIndex + 1);
     newHistory.push(newData);
     setHistory(newHistory);
@@ -233,7 +266,18 @@ export default function ColorReplacementDemo() {
   };
 
   const activeChanges = appliedChanges.slice(0, Math.max(0, historyIndex));
-  const shareText = `Asil Halı Simülatörü'nde yeni bir model tasarladım!\nMotif: ${currentMotif.name}\n\n${activeChanges.length > 0 ? `🎨 Uygulanan Renk Değişiklikleri:\n${activeChanges.map(c => `• ${c.from.toUpperCase()} ➔ ${c.to.toUpperCase()}`).join('\n')}` : 'Özel tasarımım'}\n\nKendi halını tasarlamak için tıkla:\nhttps://camiihalisi.com/renk-demo`;
+  let customUrl = "https://camiihalisi.com/renk-demo";
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams();
+    params.set('motif', currentMotif.id);
+    if (activeChanges.length > 0) {
+      const changesStr = activeChanges.map(c => `${c.from.replace('#', '')}-${c.to.replace('#', '')}`).join('_');
+      params.set('changes', changesStr);
+    }
+    customUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+  }
+
+  const shareText = `Asil Halı Simülatörü'nde yeni bir model tasarladım!\nMotif: ${currentMotif.name}\n\n${activeChanges.length > 0 ? `🎨 Uygulanan Renk Değişiklikleri:\n${activeChanges.map(c => `• ${c.from.toUpperCase()} ➔ ${c.to.toUpperCase()}`).join('\n')}` : 'Özel tasarımım'}\n\nKendi halını tasarlamak için tıkla:\n${customUrl}`;
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
