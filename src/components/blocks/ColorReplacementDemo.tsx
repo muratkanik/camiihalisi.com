@@ -125,8 +125,19 @@ export default function ColorReplacementDemo() {
     if (!hasSetMotif.current && typeof window !== 'undefined') {
       hasSetMotif.current = true;
       const params = new URLSearchParams(window.location.search);
+      const customUrl = params.get('imageUrl');
+      const customName = params.get('motifName');
       const motifId = params.get('motif');
-      if (motifId && motifId !== currentMotif.id) {
+
+      if (customUrl) {
+        setCurrentMotif({
+          id: "custom",
+          src: customUrl,
+          name: customName || "Özel Desen",
+          colors: []
+        });
+        return;
+      } else if (motifId && motifId !== currentMotif.id) {
         const found = MOTIFS.find(m => m.id === motifId);
         if (found) {
           setCurrentMotif(found);
@@ -269,7 +280,12 @@ export default function ColorReplacementDemo() {
   let customUrl = "https://camiihalisi.com/renk-demo";
   if (typeof window !== "undefined") {
     const params = new URLSearchParams();
-    params.set('motif', currentMotif.id);
+    if (currentMotif.id === "custom") {
+      params.set('imageUrl', currentMotif.src);
+      params.set('motifName', currentMotif.name);
+    } else {
+      params.set('motif', currentMotif.id);
+    }
     if (activeChanges.length > 0) {
       const changesStr = activeChanges.map(c => `${c.from.replace('#', '')}-${c.to.replace('#', '')}`).join('_');
       params.set('changes', changesStr);

@@ -134,7 +134,15 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
                   {/* Renk Varyantları Seçimi */}
                   {item.colors.length > 0 && (
                     <div className="mt-auto pt-3 border-t border-[#B2EBF2]/50">
-                      <p className="text-[10px] text-[#6B6355] mb-2">{item.colors.length} Renk Seçeneği</p>
+                      <div className="flex justify-between items-center mb-2">
+                        <p className="text-[10px] text-[#6B6355]">{item.colors.length} Renk Seçeneği</p>
+                        <Link 
+                          href={`${prefix}/renk-demo?imageUrl=${encodeURIComponent(currentImg || item.colors[0].image)}&motifName=${encodeURIComponent(item.title)}`}
+                          className="text-[10px] font-bold text-[#0097A7] bg-[#E0F7FA] px-2 py-0.5 rounded hover:bg-[#0097A7] hover:text-white transition-colors flex items-center gap-1"
+                        >
+                          <span role="img" aria-label="palette">🎨</span> Rengini Değiştir
+                        </Link>
+                      </div>
                       <div className="flex flex-wrap gap-1.5">
                         {item.colors.slice(0, 6).map(color => (
                           <div 
