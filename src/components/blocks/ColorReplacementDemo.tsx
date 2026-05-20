@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Download, Share2, MessageCircle } from "lucide-react";
+import { Download, Share2, MessageCircle, Undo2, Redo2 } from "lucide-react";
 
 // Helper: Convert hex to RGB
 function hexToRgb(hex: string) {
@@ -79,6 +79,8 @@ export default function ColorReplacementDemo() {
   const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); 
   const [tolerance, setTolerance] = useState<number>(35);
   const [appliedChanges, setAppliedChanges] = useState<{from: string, to: string}[]>([]);
+  const [history, setHistory] = useState<ImageData[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   const originalImageDataRef = useRef<ImageData | null>(null);
 
@@ -92,6 +94,8 @@ export default function ColorReplacementDemo() {
     setSelectedColorToReplace(null);
     setExtractedColors(currentMotif.colors);
     setAppliedChanges([]);
+    setHistory([]);
+    setHistoryIndex(-1);
 
     const img = new window.Image();
     img.src = currentMotif.src; 
@@ -106,7 +110,10 @@ export default function ColorReplacementDemo() {
       canvas.width = w;
       canvas.height = h;
       ctx.drawImage(img, 0, 0, w, h);
-      originalImageDataRef.current = ctx.getImageData(0, 0, w, h);
+      const imgData = ctx.getImageData(0, 0, w, h);
+      originalImageDataRef.current = imgData;
+      setHistory([imgData]);
+      setHistoryIndex(0);
       setImageLoaded(true);
     };
   }, [currentMotif]);
@@ -136,14 +143,15 @@ export default function ColorReplacementDemo() {
   };
 
   const handleReplaceColor = () => {
-    if (!selectedColorToReplace || !originalImageDataRef.current || !canvasRef.current) return;
+    if (!selectedColorToReplace || historyIndex < 0 || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const originalData = originalImageDataRef.current;
-    const newData = ctx.createImageData(originalData);
+    // Aktif durumdaki resim verisini al
+    const currentData = history[historyIndex];
+    const newData = ctx.createImageData(currentData);
 
     const sourceRgb = hexToRgb(selectedColorToReplace);
     const sourceHsl = rgbToHsl(sourceRgb.r, sourceRgb.g, sourceRgb.b);
@@ -151,11 +159,11 @@ export default function ColorReplacementDemo() {
     const targetRgb = hexToRgb(newColorHex);
     const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
 
-    for (let i = 0; i < originalData.data.length; i += 4) {
-      const r = originalData.data[i];
-      const g = originalData.data[i + 1];
-      const b = originalData.data[i + 2];
-      const a = originalData.data[i + 3];
+    for (let i = 0; i < currentData.data.length; i += 4) {
+      const r = currentData.data[i];
+      const g = currentData.data[i + 1];
+      const b = currentData.data[i + 2];
+      const a = currentData.data[i + 3];
 
       const pxlHsl = rgbToHsl(r, g, b);
 
@@ -189,7 +197,29 @@ export default function ColorReplacementDemo() {
     ctx.putImageData(newData, 0, 0);
 
     // Save change history
-    setAppliedChanges(prev => [...prev, { from: selectedColorToReplace, to: newColorHex }]);
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(newData);
+    setHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+
+    const newAppliedChanges = appliedChanges.slice(0, historyIndex);
+    setAppliedChanges([...newAppliedChanges, { from: selectedColorToReplace, to: newColorHex }]);
+  };
+
+  const handleUndo = () => {
+    if (historyIndex > 0) {
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      canvasRef.current?.getContext("2d")?.putImageData(history[newIndex], 0, 0);
+    }
+  };
+
+  const handleRedo = () => {
+    if (historyIndex < history.length - 1) {
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      canvasRef.current?.getContext("2d")?.putImageData(history[newIndex], 0, 0);
+    }
   };
 
   const resetImage = () => {
@@ -198,6 +228,8 @@ export default function ColorReplacementDemo() {
     ctx?.putImageData(originalImageDataRef.current, 0, 0);
     setSelectedColorToReplace(null);
     setAppliedChanges([]);
+    setHistory([originalImageDataRef.current]);
+    setHistoryIndex(0);
   };
 
   const shareText = `Asil Halı Simülatörü'nde yeni bir model tasarladım!\nMotif: ${currentMotif.name}\n\n${appliedChanges.length > 0 ? `🎨 Uygulanan Renk Değişiklikleri:\n${appliedChanges.map(c => `• ${c.from.toUpperCase()} rengi ➔ ${c.to.toUpperCase()} oldu`).join('\n')}` : 'Özel tasarımım'}\n\nKendi halını tasarlamak için tıkla:\nhttps://camiihalisi.com/renk-demo`;
@@ -349,11 +381,32 @@ export default function ColorReplacementDemo() {
             >
               Rengi Uygula
             </button>
+            
+            <div className="flex gap-2 w-full">
+              <button
+                onClick={handleUndo}
+                disabled={historyIndex <= 0}
+                className="flex-1 btn btn-outline py-3 flex items-center justify-center gap-2 disabled:opacity-50"
+                title="Geri Al"
+              >
+                <Undo2 className="w-4 h-4" /> Geri Al
+              </button>
+              <button
+                onClick={handleRedo}
+                disabled={historyIndex >= history.length - 1}
+                className="flex-1 btn btn-outline py-3 flex items-center justify-center gap-2 disabled:opacity-50"
+                title="İleri Al"
+              >
+                <Redo2 className="w-4 h-4" /> İleri Al
+              </button>
+            </div>
+            
             <button
               onClick={resetImage}
-              className="btn btn-outline w-full py-3"
+              disabled={historyIndex <= 0}
+              className="btn btn-ghost w-full py-2 text-red-500 hover:bg-red-50 hover:text-red-600 disabled:opacity-50"
             >
-              Orijinale Dön
+              Tüm Değişiklikleri Sıfırla
             </button>
           </div>
 
