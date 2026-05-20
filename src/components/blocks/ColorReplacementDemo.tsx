@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Download, Share2, MessageCircle } from "lucide-react";
 
 // Helper: Convert hex to RGB
 function hexToRgb(hex: string) {
@@ -75,6 +76,8 @@ export default function ColorReplacementDemo() {
   const [extractedColors, setExtractedColors] = useState<string[]>(MOTIFS[0].colors);
   const [selectedColorToReplace, setSelectedColorToReplace] = useState<string | null>(null);
   const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); 
+  const [tolerance, setTolerance] = useState<number>(35);
+  const [appliedChanges, setAppliedChanges] = useState<{from: string, to: string}[]>([]);
 
   const originalImageDataRef = useRef<ImageData | null>(null);
 
@@ -87,11 +90,11 @@ export default function ColorReplacementDemo() {
     setImageLoaded(false);
     setSelectedColorToReplace(null);
     setExtractedColors(currentMotif.colors);
+    setAppliedChanges([]);
 
     const img = new window.Image();
     img.src = currentMotif.src; 
     img.onload = () => {
-      // Set canvas size preserving aspect ratio but max width 600px for performance
       const maxW = 600;
       let w = img.width;
       let h = img.height;
@@ -110,8 +113,6 @@ export default function ColorReplacementDemo() {
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!imageLoaded || !canvasRef.current || !originalImageDataRef.current) return;
     
-    // Sadece canvas'ın mevcut (render edilmiş) kopyasından değil, direkt orijinal veriden veya o anki ekrandan seçebiliriz.
-    // O anki renk durumunu almak daha iyi olabilir, böylece üst üste değişiklik yapılabilir.
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -128,7 +129,6 @@ export default function ColorReplacementDemo() {
     
     setSelectedColorToReplace(hex);
     
-    // Eğer extractedColors içinde yoksa ekle
     if (!extractedColors.includes(hex)) {
       setExtractedColors(prev => [hex, ...prev].slice(0, 5));
     }
@@ -141,7 +141,6 @@ export default function ColorReplacementDemo() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Her zaman orijinal resmin üzerinden hesapla ki kalitesi bozulmasın
     const originalData = originalImageDataRef.current;
     const newData = ctx.createImageData(originalData);
 
@@ -150,8 +149,6 @@ export default function ColorReplacementDemo() {
     
     const targetRgb = hexToRgb(newColorHex);
     const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
-
-    const tolerance = 20; // Hue tolerance in degrees
 
     for (let i = 0; i < originalData.data.length; i += 4) {
       const r = originalData.data[i];
@@ -164,9 +161,7 @@ export default function ColorReplacementDemo() {
       let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
       if (hueDiff > 180) hueDiff = 360 - hueDiff;
 
-      // Hem hue farkına hem de parlaklık yakınlığına bakalım ki yanlış yerler boyanmasın
-      if (hueDiff < tolerance && pxlHsl.s > 0.1 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
-        // Hedef rengin Hue değerine çevir, ama orijinal aydınlığı koru
+      if (hueDiff < tolerance && pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
         const newRgb = hslToRgb(targetHsl.h, targetHsl.s, pxlHsl.l);
         newData.data[i] = newRgb.r;
         newData.data[i + 1] = newRgb.g;
@@ -180,6 +175,9 @@ export default function ColorReplacementDemo() {
     }
 
     ctx.putImageData(newData, 0, 0);
+
+    // Save change history
+    setAppliedChanges(prev => [...prev, { from: selectedColorToReplace, to: newColorHex }]);
   };
 
   const resetImage = () => {
@@ -187,6 +185,48 @@ export default function ColorReplacementDemo() {
     const ctx = canvasRef.current.getContext("2d");
     ctx?.putImageData(originalImageDataRef.current, 0, 0);
     setSelectedColorToReplace(null);
+    setAppliedChanges([]);
+  };
+
+  const shareText = `Asil Halı Simülatörü'nde yeni bir model tasarladım!\nMotif: ${currentMotif.name}\n\n${appliedChanges.length > 0 ? `🎨 Uygulanan Renk Değişiklikleri:\n${appliedChanges.map(c => `• ${c.from.toUpperCase()} rengi ➔ ${c.to.toUpperCase()} oldu`).join('\n')}` : 'Özel tasarımım'}\n\nKendi halını tasarlamak için tıkla:\nhttps://camiihalisi.com/renk-demo`;
+
+  const handleDownload = () => {
+    if (!canvasRef.current) return;
+    const url = canvasRef.current.toDataURL("image/jpeg", 0.9);
+    const link = document.createElement("a");
+    link.download = `asil-hali-${currentMotif.id}-tasarim.jpg`;
+    link.href = url;
+    link.click();
+  };
+
+  const handleWhatsAppShare = () => {
+    const encodedText = encodeURIComponent(shareText);
+    window.open(`https://api.whatsapp.com/send?text=${encodedText}`, "_blank");
+  };
+
+  const handleNativeShare = async () => {
+    if (!canvasRef.current) return;
+    
+    if (navigator.share) {
+      try {
+        const blob = await new Promise<Blob | null>(resolve => canvasRef.current!.toBlob(resolve, 'image/jpeg', 0.9));
+        if (blob) {
+          const file = new File([blob], `asil-hali-${currentMotif.id}.jpg`, { type: 'image/jpeg' });
+          await navigator.share({
+            title: 'Asil Halı Özel Tasarım',
+            text: shareText,
+            files: [file]
+          });
+          return;
+        }
+      } catch (err) {
+        console.error("Share failed", err);
+      }
+    }
+    
+    alert("Cihazınız doğrudan paylaşımı desteklemiyor. Resim indirilecek ve mesaj panoya kopyalanacak. WhatsApp'tan manuel olarak gönderebilirsiniz.");
+    navigator.clipboard.writeText(shareText);
+    handleDownload();
   };
 
   return (
@@ -271,6 +311,22 @@ export default function ColorReplacementDemo() {
                 {newColorHex.toUpperCase()}
               </div>
             </div>
+
+            <div className="mt-6">
+              <label className="text-sm font-bold text-[#1A1A1A] flex justify-between">
+                <span>Renk Hassasiyeti (Tolerans)</span>
+                <span>{tolerance}</span>
+              </label>
+              <input
+                type="range"
+                min="5"
+                max="90"
+                value={tolerance}
+                onChange={(e) => setTolerance(Number(e.target.value))}
+                className="w-full mt-2 accent-[#0097A7]"
+              />
+              <p className="text-xs text-[#6B6355] mt-1">Değeri artırdıkça seçtiğiniz renge yakın olan diğer tonlar da değişime dahil olur.</p>
+            </div>
           </div>
 
           <div className="pt-6 border-t border-[#E0F7FA] flex flex-col gap-3">
@@ -287,6 +343,39 @@ export default function ColorReplacementDemo() {
             >
               Orijinale Dön
             </button>
+          </div>
+
+          {/* Paylaşım Alanı */}
+          <div className="pt-6 border-t border-[#E0F7FA]">
+            <h3 className="text-lg font-bold text-[#1A1A1A] mb-3">Tasarımını Paylaş</h3>
+            <div className="grid grid-cols-3 gap-3">
+              <button 
+                onClick={handleDownload}
+                className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-[#E0F7FA] hover:bg-[#F0FDFE] hover:border-[#0097A7] transition-all"
+                title="Resmi İndir"
+              >
+                <Download className="w-5 h-5 text-[#0097A7]" />
+                <span className="text-xs font-semibold text-[#1A1A1A]">İndir</span>
+              </button>
+              
+              <button 
+                onClick={handleWhatsAppShare}
+                className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-green-100 hover:bg-green-50 hover:border-green-500 transition-all"
+                title="WhatsApp'ta Paylaş"
+              >
+                <MessageCircle className="w-5 h-5 text-green-600" />
+                <span className="text-xs font-semibold text-green-700">WhatsApp</span>
+              </button>
+              
+              <button 
+                onClick={handleNativeShare}
+                className="flex flex-col items-center justify-center gap-2 p-3 rounded-xl border border-blue-100 hover:bg-blue-50 hover:border-blue-500 transition-all"
+                title="Diğer Seçenekler"
+              >
+                <Share2 className="w-5 h-5 text-blue-600" />
+                <span className="text-xs font-semibold text-blue-700">Paylaş</span>
+              </button>
+            </div>
           </div>
 
           <div className="bg-[#FFF9E6] p-4 rounded-xl border border-[#FFE082]">
