@@ -100,31 +100,64 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
           </button>
         </div>
       ) : (
-                )}
-                {/* Color dots */}
-                <div className="absolute bottom-2 right-2 flex gap-1">
-                  {item.colors.slice(0, 4).map((hex) => (
-                    <span
-                      key={hex}
-                      className="w-3 h-3 rounded-full border border-white/60 shadow-sm"
-                      style={{ background: hex }}
-                    />
-                  ))}
-                </div>
-              </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filtered.map((item) => {
+            const currentImg = hoveredImage[item.id] || (item.colors.length > 0 ? item.colors[0].image : "/images/cami-1.png");
+            return (
+              <div
+                key={item.id}
+                className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-xl transition-all flex flex-col"
+              >
+                {/* Image */}
+                <Link href={`${prefix}/kategori/${item.categorySlug}`} className="relative aspect-[4/3] bg-[#F0FDFE] overflow-hidden cursor-pointer block">
+                  <Image
+                    src={currentImg || "/images/cami-1.png"}
+                    alt={item.title}
+                    fill
+                    sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  {item.badge && (
+                    <div className="absolute top-3 left-3 bg-[#C9972B] text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm tracking-wider uppercase z-10">
+                      {item.badge}
+                    </div>
+                  )}
+                </Link>
 
-              {/* Info */}
-              <div className="p-3">
-                <p className="text-xs font-bold text-[#0097A7] uppercase tracking-wide">{item.desen}</p>
-                <h3 className="text-sm font-semibold text-[#1A1A1A] mt-0.5 leading-snug group-hover:text-[#0097A7] transition-colors line-clamp-2">
-                  {item.title}
-                </h3>
-                <div className="flex items-center gap-1 mt-2 text-xs text-[#C9972B] font-semibold">
-                  Detay <ArrowRight className="w-3 h-3" />
+                {/* Content */}
+                <div className="p-4 flex-1 flex flex-col">
+                  <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-1">{item.code}</div>
+                  <Link href={`${prefix}/kategori/${item.categorySlug}`}>
+                    <h3 className="font-bold text-[#0097A7] text-base mb-3 leading-tight cursor-pointer hover:text-[#C9972B] transition-colors">{item.title}</h3>
+                  </Link>
+                  
+                  {/* Renk Varyantları Seçimi */}
+                  {item.colors.length > 0 && (
+                    <div className="mt-auto pt-3 border-t border-[#B2EBF2]/50">
+                      <p className="text-[10px] text-[#6B6355] mb-2">{item.colors.length} Renk Seçeneği</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {item.colors.slice(0, 6).map(color => (
+                          <div 
+                            key={color.id}
+                            onMouseEnter={() => setHoveredImage(prev => ({...prev, [item.id]: color.image}))}
+                            onMouseLeave={() => setHoveredImage(prev => { const p = {...prev}; delete p[item.id]; return p; })}
+                            className="w-5 h-5 rounded-full border border-slate-200 cursor-pointer shadow-sm hover:scale-110 transition-transform"
+                            style={{ backgroundColor: color.hex }}
+                            title={color.name}
+                          />
+                        ))}
+                        {item.colors.length > 6 && (
+                          <div className="w-5 h-5 rounded-full border border-slate-200 bg-slate-50 flex items-center justify-center text-[8px] font-bold text-slate-500">
+                            +{item.colors.length - 6}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            </Link>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

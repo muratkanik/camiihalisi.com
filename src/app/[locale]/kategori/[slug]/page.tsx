@@ -361,6 +361,18 @@ export default async function KategoriPage({
 
   const cat = CATEGORIES[slug];
   if (!cat) notFound();
+
+  let dbCatalogItems: any[] = [];
+  try {
+    const { PrismaClient } = await import("@prisma/client");
+    const prisma = new PrismaClient();
+    const row = await prisma.setting.findUnique({ where: { key: "catalog_items" } });
+    if (row && row.value) {
+      dbCatalogItems = JSON.parse(row.value);
+    }
+  } catch (err) {
+    console.error("Failed to load catalog items:", err);
+  }
   
   const t = await getTranslations({ locale, namespace: `categoryData.${slug}` });
   const tPage = await getTranslations({ locale, namespace: "categoryPage" });
@@ -522,7 +534,7 @@ export default async function KategoriPage({
         ) : (
           <>
             {/* ── Ürün Çeşitleri & Filtreler ── */}
-        {CATALOG_DATA[slug] && (
+        {dbCatalogItems.filter(i => i.categorySlug === slug).length > 0 ? (
           <section className="py-12 bg-white border-b border-[#E0F7FA]">
             <div className="container-site">
               <div className="mb-8">
@@ -536,7 +548,24 @@ export default async function KategoriPage({
                   {tPage("varietiesSubtitle")}
                 </p>
               </div>
-              <CategoryFiltersClient prefix={prefix} items={CATALOG_DATA[slug]!} />
+              <CategoryFiltersClient prefix={prefix} items={dbCatalogItems.filter(i => i.categorySlug === slug)} />
+            </div>
+          </section>
+        ) : CATALOG_DATA[slug] && (
+          <section className="py-12 bg-white border-b border-[#E0F7FA]">
+            <div className="container-site">
+              <div className="mb-8">
+                <h2
+                  className="text-2xl font-bold text-[#0097A7] mb-2"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                >
+                  {tPage("varieties", { title: t("title") })}
+                </h2>
+                <p className="text-sm text-[#6B6355]">
+                  {tPage("varietiesSubtitle")}
+                </p>
+              </div>
+              <CategoryFiltersClient prefix={prefix} items={CATALOG_DATA[slug] as any} />
             </div>
           </section>
         )}
