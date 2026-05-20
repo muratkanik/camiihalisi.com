@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { logoutAction } from "../login/actions";
+import { PrismaClient } from "@prisma/client";
 
 export const metadata: Metadata = {
   title: "Admin Panel | camiihalisi.com",
@@ -202,6 +203,20 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect("/login");
   }
 
+  const prisma = new PrismaClient();
+  let unreadCount = 0;
+  try {
+    const row = await prisma.setting.findUnique({ where: { key: "contact_submissions" } });
+    if (row) {
+      const submissions = JSON.parse(row.value);
+      unreadCount = submissions.filter((s: any) => !s.read).length;
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await prisma.$disconnect();
+  }
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex font-sans">
       {/* ── Sidebar ── */}
@@ -262,8 +277,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       </aside>
 
       {/* ── Main ── */}
-      <main className="flex-1 ml-64 min-h-screen">
-        <div className="p-8 max-w-6xl mx-auto">
+      <main className="flex-1 ml-64 min-h-screen flex flex-col">
+        {unreadCount > 0 && (
+          <div className="bg-red-500 hover:bg-red-600 transition-colors text-white px-4 py-3 text-center text-sm font-bold shadow-md animate-pulse sticky top-0 z-50">
+            <a href="/admin/iletisim" className="flex items-center justify-center gap-2">
+              <span className="w-2.5 h-2.5 bg-white rounded-full inline-block animate-ping shadow-sm" />
+              {unreadCount} adet yeni iletişim formu var! İncelemek ve yanıtlamak için tıklayın.
+            </a>
+          </div>
+        )}
+        <div className="p-8 max-w-6xl mx-auto w-full">
           {children}
         </div>
       </main>
