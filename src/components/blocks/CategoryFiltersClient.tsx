@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Lightbox from "@/components/ui/Lightbox";
 
 export interface CatalogColor {
   id: string; 
@@ -45,6 +46,9 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
   // Kartlardaki hover edilen rengi tutmak için (id => color_image_url)
   const [hoveredImage, setHoveredImage] = useState<Record<string, string>>({});
 
+  // Lightbox State
+  const [lightboxIndex, setLightboxIndex] = useState<number>(-1);
+
   const desenValues = DESEN_LABELS.filter(
     (d) => d === "Tümü" || items.some((item) => getDesen(item.title, item.code) === d)
   );
@@ -54,6 +58,18 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
     const rMatch = !activeRenk || item.colors.some(c => c.hex.toLowerCase() === activeRenk.toLowerCase());
     return dMatch && rMatch;
   });
+
+  const handleOpenLightbox = (index: number, e: React.MouseEvent) => {
+    e.preventDefault();
+    setLightboxIndex(index);
+  };
+
+  // Build Lightbox images array from filtered items
+  const lightboxImages = filtered.map(item => ({
+    src: hoveredImage[item.id] || (item.colors.length > 0 ? item.colors[0].image : "/images/cami-1.png"),
+    alt: item.title,
+    title: item.title
+  }));
 
   return (
     <div className="space-y-6">
@@ -101,7 +117,7 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-          {filtered.map((item) => {
+          {filtered.map((item, index) => {
             const currentImg = hoveredImage[item.id] || (item.colors.length > 0 ? item.colors[0].image : "/images/cami-1.png");
             return (
               <div
@@ -109,7 +125,10 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
                 className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-xl transition-all flex flex-col"
               >
                 {/* Image */}
-                <Link href={`${prefix}/kategori/${item.categorySlug}`} className="relative aspect-[4/3] bg-[#F0FDFE] overflow-hidden cursor-pointer block">
+                <div 
+                  onClick={(e) => handleOpenLightbox(index, e)} 
+                  className="relative aspect-[4/3] bg-[#F0FDFE] overflow-hidden cursor-pointer block"
+                >
                   <Image
                     src={currentImg || "/images/cami-1.png"}
                     alt={item.title}
@@ -122,7 +141,14 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
                       {item.badge}
                     </div>
                   )}
-                </Link>
+                  
+                  {/* Hover Overlay Icon for Lightbox */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                     <span className="bg-white/90 text-[#0097A7] rounded-full p-2 shadow-lg backdrop-blur-sm">
+                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                     </span>
+                  </div>
+                </div>
 
                 {/* Content */}
                 <div className="p-4 flex-1 flex flex-col">
@@ -168,6 +194,14 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
           })}
         </div>
       )}
+      
+      <Lightbox 
+        isOpen={lightboxIndex >= 0} 
+        images={lightboxImages} 
+        initialIndex={Math.max(0, lightboxIndex)} 
+        onClose={() => setLightboxIndex(-1)} 
+        prefix={prefix}
+      />
     </div>
   );
 }

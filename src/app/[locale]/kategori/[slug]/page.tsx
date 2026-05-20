@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import FAQSection from "@/components/blocks/FAQSection";
 import CategoryFiltersClient from "@/components/blocks/CategoryFiltersClient";
+import S101GalleryClient from "@/components/blocks/S101GalleryClient";
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -583,30 +584,7 @@ export default async function KategoriPage({
               <p className="text-sm text-[#6B6355] mb-8">
                 {tPage("s101Desc")}
               </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                {S101_GALLERY.map(({ src, label }) => (
-                  <div key={src} className="group flex flex-col items-center gap-2">
-                    <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-[#B2EBF2] group-hover:border-[#C9972B]/50 transition-colors shadow-sm">
-                      <Image
-                        src={src}
-                        alt={`Saflı cami halısı S101 desen ${label} renk`}
-                        width={300}
-                        height={300}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Link 
-                          href={`${prefix}/renk-demo?imageUrl=${encodeURIComponent(src)}&motifName=${encodeURIComponent("S101 " + label)}`}
-                          className="bg-[#0097A7] text-white text-xs font-bold px-3 py-1.5 rounded shadow-lg hover:bg-[#007A87] transition-colors flex items-center gap-1"
-                        >
-                          <span role="img" aria-label="palette">🎨</span> Rengini Değiştir
-                        </Link>
-                      </div>
-                    </div>
-                    <span className="text-xs font-medium text-[#6B6355]">{label}</span>
-                  </div>
-                ))}
-              </div>
+              <S101GalleryClient prefix={prefix} items={S101_GALLERY} />
             </div>
           </section>
         )}
