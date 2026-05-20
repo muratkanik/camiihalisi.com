@@ -60,6 +60,7 @@ function hslToRgb(h: number, s: number, l: number) {
 }
 
 const MOTIFS = [
+  { id: "sample-motif", src: "/images/sample.jpeg", name: "Özel Desen", colors: ["#005577", "#a52a2a", "#e8dcc5"] },
   { id: "s101-turkuaz", src: "/images/s101-turkuaz.webp", name: "S101 Turkuaz", colors: ["#008c99", "#e2d5bc", "#b8860b"] },
   { id: "s101-bordo", src: "/images/s101-bordo.webp", name: "S101 Bordo", colors: ["#6b1c23", "#e2d5bc", "#b8860b"] },
   { id: "s101-bej", src: "/images/s101-bej.webp", name: "S101 Bej", colors: ["#dcd3b6", "#a0522d", "#4b5320"] },
