@@ -13,6 +13,8 @@
 import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
+export const maxDuration = 300; // 5 minutes to allow for 3 AI calls (Generate -> Humanize -> Checker)
+
 function slugify(text: string): string {
   const trMap: Record<string, string> = {
     ç: "c", ğ: "g", ı: "i", İ: "i", ö: "o", ş: "s", ü: "u",
@@ -175,7 +177,76 @@ export async function POST(req: NextRequest) {
           return;
         }
 
-        send({ type: "progress", message: "💾 DB'ye kaydediliyor...", progress: 90 });
+        send({ type: "progress", message: "✍️ Aşama 2: İçerik 'İnsanileştiriliyor' (Humanizer)...", progress: 85 });
+
+        // ── Stage 2: Humanize ────────────────────────────────────────────────
+        try {
+          const humanizeRes = await fetch("https://api.x.ai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${xaiKey}`,
+            },
+            body: JSON.stringify({
+              model: "grok-3",
+              messages: [
+                {
+                  role: "system",
+                  content: "Sen uzman bir metin editörü ve içerik stratejistisin. Görevin, SEO uyumlu olarak üretilmiş, ancak biraz 'robotik' veya 'suni' durabilecek blog içeriğini %100 doğal, akıcı, samimi ve insansı (human-like) bir dile çevirmektir. Marka (Asil Halı) ciddiyetini korurken, okuyucuyla doğrudan konuşuyormuş gibi bir his yarat. HTML/Markdown başlık (##) yapısını ve SEO kelimelerini KESİNLİKLE BOZMA. Asla başına veya sonuna 'Tamamdır', 'İşte metin' gibi açıklamalar ekleme, SADECE düzeltilmiş metni döndür.",
+                },
+                { role: "user", content: `Lütfen bu içeriği insanileştir:\n\n${blogData.content}` },
+              ],
+              temperature: 0.8,
+            }),
+          });
+          
+          if (humanizeRes.ok) {
+            const humanizeData = await humanizeRes.json();
+            const hContent = humanizeData.choices?.[0]?.message?.content?.trim();
+            if (hContent && hContent.length > 50) {
+              blogData.content = hContent;
+            }
+          }
+        } catch (hErr) {
+          console.error("Humanize error:", hErr);
+          // Hata olsa bile sessizce devam et, orijinal içerik kalsın.
+        }
+
+        send({ type: "progress", message: "🔍 Aşama 3: Çapraz Yapay Zeka Onayı (AI Checker)...", progress: 92 });
+
+        // ── Stage 3: AI Checker ──────────────────────────────────────────────
+        try {
+          const checkerRes = await fetch("https://api.x.ai/v1/chat/completions", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${xaiKey}`,
+            },
+            body: JSON.stringify({
+              model: "grok-3",
+              messages: [
+                {
+                  role: "system",
+                  content: "Sen üst düzey bir Kalite Kontrol ve Yazı İşleri (AI Checker) yöneticisisin. Sana gönderilen metni son bir kez inceleyeceksin. \n1. Varsa yarım kalmış cümleleri tamamla.\n2. Kapanmamış Markdown (**) veya başlık (##) etiketleri varsa düzelt.\n3. Yazımda çok göze batan mantık hatası veya tekrarlar varsa törpüle.\nEğer her şey mükemmelse metni AYNEN geri döndür. Asla başına veya sonuna kendi yorumunu ekleme, SADECE nihai metni ver.",
+                },
+                { role: "user", content: `Kontrol edilecek metin:\n\n${blogData.content}` },
+              ],
+              temperature: 0.3,
+            }),
+          });
+          
+          if (checkerRes.ok) {
+            const checkerData = await checkerRes.json();
+            const cContent = checkerData.choices?.[0]?.message?.content?.trim();
+            if (cContent && cContent.length > 50) {
+              blogData.content = cContent;
+            }
+          }
+        } catch (cErr) {
+          console.error("Checker error:", cErr);
+        }
+
+        send({ type: "progress", message: "💾 DB'ye kaydediliyor...", progress: 95 });
 
         // ── Save to DB ───────────────────────────────────────────────────────
         const slug =
