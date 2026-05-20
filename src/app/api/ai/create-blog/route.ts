@@ -200,7 +200,7 @@ export async function POST(req: NextRequest) {
           publishedAt: getIstanbulDateString(),
           createdAt: new Date().toISOString(), // UTC — "Yeni" badge süresi için
           seoKeyword: String(blogData.seoKeyword ?? kw),
-          status: "published",
+          status: "draft",
           isNew: true,
           image: typeof blogData.image === "string" && blogData.image ? blogData.image : randomImage,
         };
