@@ -58,21 +58,24 @@ function hslToRgb(h: number, s: number, l: number) {
   return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
 }
 
+const MOTIFS = [
+  { id: "s101-turkuaz", src: "/images/s101-turkuaz.webp", name: "S101 Turkuaz", colors: ["#008c99", "#e2d5bc", "#b8860b"] },
+  { id: "s101-bordo", src: "/images/s101-bordo.webp", name: "S101 Bordo", colors: ["#6b1c23", "#e2d5bc", "#b8860b"] },
+  { id: "s101-bej", src: "/images/s101-bej.webp", name: "S101 Bej", colors: ["#dcd3b6", "#a0522d", "#4b5320"] },
+  { id: "cami-1", src: "/images/cami-1.png", name: "Akrilik Saflı", colors: ["#005577", "#a52a2a", "#e8dcc5"] },
+  { id: "cami-2", src: "/images/cami-2.png", name: "Yün Göbekli", colors: ["#6B4226", "#e8dcc5", "#005577"] },
+  { id: "cami-3", src: "/images/cami-3.png", name: "P.P. Seccadeli", colors: ["#1A4E8B", "#e8dcc5", "#b8860b"] },
+];
+
 export default function ColorReplacementDemo() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [currentMotif, setCurrentMotif] = useState(MOTIFS[0]);
   
-  // Örnek başlangıç renkleri (Sistem otomatik de bulabilir ama demo amaçlı manuel sabitliyoruz)
-  const [extractedColors, setExtractedColors] = useState<string[]>([
-    "#008c99", // Turkuaz zemin rengi
-    "#e2d5bc", // Krem/Bej motif rengi
-    "#b8860b", // Hardal/Altın sarısı detay rengi
-  ]);
-
+  const [extractedColors, setExtractedColors] = useState<string[]>(MOTIFS[0].colors);
   const [selectedColorToReplace, setSelectedColorToReplace] = useState<string | null>(null);
-  const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); // Varsayılan olarak bordo yapalım
+  const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); 
 
-  // Asıl resim verisini saklamak için
   const originalImageDataRef = useRef<ImageData | null>(null);
 
   useEffect(() => {
@@ -81,17 +84,55 @@ export default function ColorReplacementDemo() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    setImageLoaded(false);
+    setSelectedColorToReplace(null);
+    setExtractedColors(currentMotif.colors);
+
     const img = new window.Image();
-    // master-content/S101 içindeki resmin optimize edilmiş web versiyonu
-    img.src = "/images/s101-turkuaz.webp"; 
+    img.src = currentMotif.src; 
     img.onload = () => {
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
-      originalImageDataRef.current = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      // Set canvas size preserving aspect ratio but max width 600px for performance
+      const maxW = 600;
+      let w = img.width;
+      let h = img.height;
+      if (w > maxW) {
+        h = (maxW / w) * h;
+        w = maxW;
+      }
+      canvas.width = w;
+      canvas.height = h;
+      ctx.drawImage(img, 0, 0, w, h);
+      originalImageDataRef.current = ctx.getImageData(0, 0, w, h);
       setImageLoaded(true);
     };
-  }, []);
+  }, [currentMotif]);
+
+  const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    if (!imageLoaded || !canvasRef.current || !originalImageDataRef.current) return;
+    
+    // Sadece canvas'ın mevcut (render edilmiş) kopyasından değil, direkt orijinal veriden veya o anki ekrandan seçebiliriz.
+    // O anki renk durumunu almak daha iyi olabilir, böylece üst üste değişiklik yapılabilir.
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    const x = Math.floor((e.clientX - rect.left) * scaleX);
+    const y = Math.floor((e.clientY - rect.top) * scaleY);
+
+    const pixel = ctx.getImageData(x, y, 1, 1).data;
+    const hex = "#" + [pixel[0], pixel[1], pixel[2]].map(x => x.toString(16).padStart(2, '0')).join('');
+    
+    setSelectedColorToReplace(hex);
+    
+    // Eğer extractedColors içinde yoksa ekle
+    if (!extractedColors.includes(hex)) {
+      setExtractedColors(prev => [hex, ...prev].slice(0, 5));
+    }
+  };
 
   const handleReplaceColor = () => {
     if (!selectedColorToReplace || !originalImageDataRef.current || !canvasRef.current) return;
@@ -100,6 +141,7 @@ export default function ColorReplacementDemo() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Her zaman orijinal resmin üzerinden hesapla ki kalitesi bozulmasın
     const originalData = originalImageDataRef.current;
     const newData = ctx.createImageData(originalData);
 
@@ -109,7 +151,7 @@ export default function ColorReplacementDemo() {
     const targetRgb = hexToRgb(newColorHex);
     const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
 
-    const tolerance = 25; // Hue tolerance in degrees
+    const tolerance = 20; // Hue tolerance in degrees
 
     for (let i = 0; i < originalData.data.length; i += 4) {
       const r = originalData.data[i];
@@ -119,20 +161,17 @@ export default function ColorReplacementDemo() {
 
       const pxlHsl = rgbToHsl(r, g, b);
 
-      // Renk mesafesini ölç
       let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
       if (hueDiff > 180) hueDiff = 360 - hueDiff;
 
-      // Sadece doygunluğu yeterli olan ve Hue değeri benzeyen pikselleri değiştir
-      // Gölgeleri ve beyaz/siyah alanları koru
-      if (hueDiff < tolerance && pxlHsl.s > 0.15 && pxlHsl.l > 0.1 && pxlHsl.l < 0.9) {
+      // Hem hue farkına hem de parlaklık yakınlığına bakalım ki yanlış yerler boyanmasın
+      if (hueDiff < tolerance && pxlHsl.s > 0.1 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
         // Hedef rengin Hue değerine çevir, ama orijinal aydınlığı koru
         const newRgb = hslToRgb(targetHsl.h, targetHsl.s, pxlHsl.l);
         newData.data[i] = newRgb.r;
         newData.data[i + 1] = newRgb.g;
         newData.data[i + 2] = newRgb.b;
       } else {
-        // Değiştirme
         newData.data[i] = r;
         newData.data[i + 1] = g;
         newData.data[i + 2] = b;
@@ -147,28 +186,63 @@ export default function ColorReplacementDemo() {
     if (!originalImageDataRef.current || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
     ctx?.putImageData(originalImageDataRef.current, 0, 0);
+    setSelectedColorToReplace(null);
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#B2EBF2]">
+    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#B2EBF2] flex flex-col gap-8">
+      
+      {/* ── Motif Seçici ── */}
+      <div>
+        <h3 className="text-xl font-bold text-[#0097A7] mb-3" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+          1. Motif Seçin
+        </h3>
+        <div className="flex flex-wrap gap-4">
+          {MOTIFS.map(motif => (
+            <button
+              key={motif.id}
+              onClick={() => setCurrentMotif(motif)}
+              className={`flex flex-col items-center gap-2 p-2 rounded-xl border transition-all ${
+                currentMotif.id === motif.id ? 'border-[#C9972B] bg-[#FFF9E6] shadow-md scale-105' : 'border-[#E0F7FA] hover:border-[#0097A7] hover:bg-[#F0FDFE]'
+              }`}
+            >
+              <div className="w-16 h-16 rounded-lg overflow-hidden relative">
+                <img src={motif.src} alt={motif.name} className="object-cover w-full h-full" />
+              </div>
+              <span className="text-xs font-semibold text-[#1A1A1A]">{motif.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="grid lg:grid-cols-3 gap-8">
-        
         {/* Sol Taraf: Kanvas / Resim */}
         <div className="lg:col-span-2">
-          <div className="bg-[#F0FDFE] rounded-xl overflow-hidden border border-[#E0F7FA] flex items-center justify-center min-h-[400px]">
-            {!imageLoaded && <div className="text-[#0097A7] font-semibold animate-pulse">Resim Yükleniyor...</div>}
-            <canvas ref={canvasRef} className="max-w-full h-auto drop-shadow-md" />
+          <h3 className="text-xl font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            2. Resim Üzerinden veya Listeden Renk Seçin
+          </h3>
+          <p className="text-sm text-[#6B6355] mb-4">
+            Resmin üzerindeki bir noktaya <strong>tıklayarak</strong> değiştirmek istediğiniz rengi anında seçebilirsiniz.
+          </p>
+          <div className="bg-[#F0FDFE] rounded-xl overflow-hidden border border-[#E0F7FA] flex items-center justify-center min-h-[400px] relative cursor-crosshair">
+            {!imageLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-10">
+                <div className="text-[#0097A7] font-semibold animate-pulse">Motif Yükleniyor...</div>
+              </div>
+            )}
+            <canvas 
+              ref={canvasRef} 
+              onClick={handleCanvasClick}
+              className="max-w-full h-auto drop-shadow-md" 
+            />
           </div>
         </div>
 
         {/* Sağ Taraf: Kontroller */}
-        <div className="space-y-8">
+        <div className="space-y-8 mt-2 lg:mt-0">
           <div>
-            <h3 className="text-xl font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              1. Değiştirilecek Rengi Seç
-            </h3>
-            <p className="text-sm text-[#6B6355] mb-4">Resmin içinden algılanan baskın renkler:</p>
-            <div className="flex gap-3">
+            <h3 className="text-lg font-bold text-[#1A1A1A] mb-2">Seçili Değiştirilecek Renk:</h3>
+            <div className="flex gap-3 flex-wrap">
               {extractedColors.map(color => (
                 <button
                   key={color}
@@ -183,7 +257,7 @@ export default function ColorReplacementDemo() {
 
           <div className={`transition-opacity duration-300 ${!selectedColorToReplace ? 'opacity-30 pointer-events-none' : 'opacity-100'}`}>
             <h3 className="text-xl font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-              2. Yeni Rengi Belirle
+              3. Yeni Rengi Belirle
             </h3>
             <p className="text-sm text-[#6B6355] mb-4">Uygulamak istediğiniz yeni tonu seçin:</p>
             <div className="flex items-center gap-4">
@@ -217,9 +291,7 @@ export default function ColorReplacementDemo() {
 
           <div className="bg-[#FFF9E6] p-4 rounded-xl border border-[#FFE082]">
             <p className="text-xs text-[#8B6E23] leading-relaxed font-medium">
-              💡 <strong>İpucu:</strong> Bu algoritma HSL (Hue-Saturation-Lightness) dönüşümü kullanır. 
-              Gölgeler ve parlama efektleri (aydınlık/karanlık değerleri) korunarak sadece "renk tonu" (Hue) değiştirilir.
-              Böylece gerçekçi bir halı dokusu korunur.
+              💡 <strong>İpucu:</strong> Farenizle (veya dokunarak) <strong>resmin üzerindeki herhangi bir alana tıklayıp</strong> oradaki rengi yakalayabilirsiniz. Algoritma tıkladığınız renge benzeyen (ton olarak) diğer alanları da bulup yeni rengi uygular.
             </p>
           </div>
         </div>
