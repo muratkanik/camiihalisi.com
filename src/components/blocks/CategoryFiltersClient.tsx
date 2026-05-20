@@ -5,45 +5,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-interface CatalogItem {
-  slug: string;
+export interface CatalogColor {
+  id: string; 
+  image: string; 
+  hex: string;   
+  name: string;  
+}
+
+export interface DBCatalogItem {
+  id: string;
+  categorySlug: string;
+  code: string;
   title: string;
-  image: string;
-  desen: "Saflı" | "Göbekli" | "Seccadeli" | "Standart" | "Özel";
-  colors: string[]; // hex
-  badge?: string;
+  badge: string;
+  colors: CatalogColor[];
 }
 
 interface Props {
   prefix: string;
-  items: CatalogItem[];
+  items: DBCatalogItem[];
 }
 
-const DESEN_LABELS = ["Tümü", "Standart", "Saflı", "Göbekli", "Seccadeli", "Özel"] as const;
+const DESEN_LABELS = ["Tümü", "Saflı", "Göbekli", "Seccadeli", "Standart", "Özel"];
 
-const RENK_OPTIONS = [
-  { label: "Turkuaz", hex: "#0097A7", dark: true },
-  { label: "Lacivert", hex: "#1B2E5E", dark: true },
-  { label: "Bordo", hex: "#8B1A1A", dark: true },
-  { label: "Mavi", hex: "#1A4E8B", dark: true },
-  { label: "Krem", hex: "#F5EDD7", dark: false },
-  { label: "Gri", hex: "#7A7A7A", dark: true },
-  { label: "Kahverengi", hex: "#6B4226", dark: true },
-  { label: "Altın", hex: "#C9972B", dark: false },
-];
+// Sınıflandırma yardımcısı
+function getDesen(title: string, code: string): string {
+  const t = title.toLowerCase();
+  if (t.includes("saflı")) return "Saflı";
+  if (t.includes("göbekli") || t.includes("gobekli")) return "Göbekli";
+  if (t.includes("seccade")) return "Seccadeli";
+  if (t.includes("özel") || t.includes("axminster")) return "Özel";
+  return "Standart";
+}
 
 export default function CategoryFiltersClient({ prefix, items }: Props) {
   const [activeDesen, setActiveDesen] = useState<string>("Tümü");
   const [activeRenk, setActiveRenk] = useState<string | null>(null);
 
+  // Kartlardaki hover edilen rengi tutmak için (id => color_image_url)
+  const [hoveredImage, setHoveredImage] = useState<Record<string, string>>({});
+
   const desenValues = DESEN_LABELS.filter(
-    (d) => d === "Tümü" || items.some((item) => item.desen === d)
+    (d) => d === "Tümü" || items.some((item) => getDesen(item.title, item.code) === d)
   );
 
   const filtered = items.filter((item) => {
-    const desenMatch = activeDesen === "Tümü" || item.desen === activeDesen;
-    const renkMatch = !activeRenk || item.colors.includes(activeRenk);
-    return desenMatch && renkMatch;
+    const dMatch = activeDesen === "Tümü" || getDesen(item.title, item.code) === activeDesen;
+    const rMatch = !activeRenk || item.colors.some(c => c.hex.toLowerCase() === activeRenk.toLowerCase());
+    return dMatch && rMatch;
   });
 
   return (
@@ -65,57 +74,12 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
               {d}
               {d !== "Tümü" && (
                 <span className="ml-1.5 text-xs opacity-60">
-                  ({items.filter((i) => i.desen === d).length})
+                  ({items.filter((i) => getDesen(i.title, i.code) === d).length})
                 </span>
               )}
             </button>
           ))}
         </div>
-      </div>
-
-      {/* Renk Filtreleri */}
-      <div>
-        <p className="text-xs font-bold text-[#6B6355] uppercase tracking-widest mb-3">Renk / Ton</p>
-        <div className="flex flex-wrap gap-2.5">
-          {RENK_OPTIONS.map((renk) => {
-            const isActive = activeRenk === renk.hex;
-            const hasItems = items.some((item) => item.colors.includes(renk.hex));
-            return (
-              <button
-                key={renk.hex}
-                onClick={() => setActiveRenk(isActive ? null : renk.hex)}
-                disabled={!hasItems && activeRenk !== renk.hex}
-                title={renk.label}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-all border ${
-                  isActive
-                    ? "ring-2 ring-offset-1 ring-[#C9972B] border-[#C9972B] shadow-sm"
-                    : "border-[#B2EBF2] hover:border-[#C9972B]/40"
-                } ${!hasItems && !isActive ? "opacity-30 cursor-not-allowed" : ""}`}
-                style={{ background: renk.hex }}
-              >
-                <span className={`text-xs font-bold ${renk.dark ? "text-white" : "text-[#1A1A1A]"}`}>
-                  {renk.label}
-                </span>
-                {isActive && (
-                  <span className={`text-xs ${renk.dark ? "text-white/80" : "text-[#1A1A1A]/70"}`}>✕</span>
-                )}
-              </button>
-            );
-          })}
-          {activeRenk && (
-            <button
-              onClick={() => setActiveRenk(null)}
-              className="px-3 py-1.5 rounded-full text-xs font-semibold border border-[#B2EBF2] text-[#6B6355] hover:border-[#C9972B]/40 bg-white"
-            >
-              Tümü
-            </button>
-          )}
-        </div>
-        {activeRenk && (
-          <p className="text-xs text-[#6B6355] mt-2 italic">
-            * Renk filtresi rehber amaçlıdır. Tam renk eşleşmesi için ücretsiz numune talep edin.
-          </p>
-        )}
       </div>
 
       {/* Sonuç Sayısı */}
@@ -136,26 +100,6 @@ export default function CategoryFiltersClient({ prefix, items }: Props) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filtered.map((item) => (
-            <Link
-              key={item.slug}
-              href={`${prefix}/kategori/${item.slug}`}
-              className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-md transition-all"
-            >
-              {/* Image */}
-              <div className="relative aspect-square bg-[#F0FDFE] overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                {item.badge && (
-                  <span className="absolute top-2 left-2 text-xs font-bold bg-[#C9972B] text-white px-2.5 py-1 rounded-full">
-                    {item.badge}
-                  </span>
                 )}
                 {/* Color dots */}
                 <div className="absolute bottom-2 right-2 flex gap-1">

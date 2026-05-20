@@ -70,6 +70,11 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
       parentSlug: "ozel-desen-axminster-cami-halisi",
       children: [],
     },
+    {
+      parent: "Stok Cami Halısı",
+      parentSlug: "stok-cami-halisi",
+      children: [],
+    },
   ];
 
   const UNDERLAY_MENU = [

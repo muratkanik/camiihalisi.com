@@ -270,9 +270,25 @@ const CATEGORIES: Record<string, CategoryBaseData> = {
     color: "#0097A7",
     relatedSlugs: ["600-cami-halisi-kecesi","1000-cami-halisi-kecesi","kece-cami-halisi-altligi"],
   },
+  "stok-cami-halisi": {
+    slug: "stok-cami-halisi",
+    image: "/images/cami-1.png",
+    heroImage: "/images/cami-hero.png",
+    color: "#0097A7",
+    relatedSlugs: ["akrilik-cami-halisi","yun-cami-halisi","polipropilen-cami-halisi"],
+  },
+  "cami-halisi": {
+    slug: "cami-halisi",
+    image: "/images/cami-hero.png",
+    heroImage: "/images/cami-hero.png",
+    color: "#C9972B",
+    relatedSlugs: [],
+  },
 };
 
 const CATEGORY_NAMES: Record<string, string> = {
+  "cami-halisi": "Cami Halısı Modelleri",
+  "stok-cami-halisi": "Stok Cami Halısı",
   "akrilik-cami-halisi": "Akrilik Cami Halısı",
   "yun-cami-halisi": "Yün Cami Halısı",
   "polipropilen-cami-halisi": "Polipropilen Cami Halısı",
@@ -438,26 +454,74 @@ export default async function KategoriPage({
               <Link href={`${prefix}/`} className="hover:text-white transition-colors">{tNav("home")}</Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span className="text-white/60">{tNav("products")}</span>
-              <ChevronRight className="w-3.5 h-3.5" />
-              <span className="text-[#E4B84A]">{t("shortTitle")}</span>
+              {slug !== "cami-halisi" && (
+                <>
+                  <ChevronRight className="w-3.5 h-3.5" />
+                  <span className="text-[#E4B84A]">{t("shortTitle") || CATEGORY_NAMES[slug]}</span>
+                </>
+              )}
             </nav>
 
-            <span className="badge bg-[#C9972B]/20 text-[#E4B84A] border border-[#C9972B]/30 mb-3">
-              {t("badge")}
-            </span>
+            {slug !== "cami-halisi" && (
+              <span className="badge bg-[#C9972B]/20 text-[#E4B84A] border border-[#C9972B]/30 mb-3">
+                {t("badge") || "Premium"}
+              </span>
+            )}
             <h1
               className="text-4xl md:text-6xl font-bold text-white mb-4"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
-              {t("title")}
+              {slug === "cami-halisi" ? "Cami Halısı Modelleri" : t("title")}
             </h1>
             <p className="text-lg text-white/80 max-w-2xl">
-              {t("description")}
+              {slug === "cami-halisi" 
+                ? "Camilerimiz için özel üretilen en kaliteli akrilik, yün ve polipropilen halı seçeneklerimizi inceleyin." 
+                : t("description")}
             </p>
           </div>
         </section>
 
-        {/* ── Ürün Çeşitleri & Filtreler ── */}
+        {/* ── Cami Halısı Ana Sayfası (4 Kategori Gösterimi) ── */}
+        {slug === "cami-halisi" ? (
+          <section className="py-16 bg-[#F0FDFE]">
+            <div className="container-site">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-[#0097A7] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                  Halı Türünü Seçin
+                </h2>
+                <div className="gold-line mx-auto mb-4" />
+                <p className="text-[#6B6355]">Caminizin ihtiyacına uygun malzemeye göre filtrelenmiş ürün gruplarımız.</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { id: "akrilik", title: "Akrilik Cami Halısı", desc: "Canlı renkler, yüksek dayanıklılık.", link: "akrilik-cami-halisi", img: "/images/cami-katalog-01.png" },
+                  { id: "yun", title: "Yün Cami Halısı", desc: "Doğal, uzun ömürlü ve alev almaz.", link: "yun-cami-halisi", img: "/images/cami-katalog-05.png" },
+                  { id: "polipropilen", title: "Polipropilen Cami Halısı", desc: "Ekonomik, hafif ve kolay temizlenir.", link: "polipropilen-cami-halisi", img: "/images/cami-katalog-09.png" },
+                  { id: "stok", title: "Stok Cami Halısı", desc: "Hemen teslimata hazır modeller.", link: "stok-cami-halisi", img: "/images/cami-katalog-02.png" }
+                ].map((item) => (
+                  <Link key={item.id} href={`${prefix}/kategori/${item.link}`} className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-xl transition-all">
+                    <div className="relative h-64 bg-slate-100 overflow-hidden">
+                      <Image src={item.img} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <h3 className="absolute bottom-4 left-4 right-4 text-white font-bold text-xl" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                        {item.title}
+                      </h3>
+                    </div>
+                    <div className="p-5 flex items-center justify-between">
+                      <p className="text-sm text-[#6B6355]">{item.desc}</p>
+                      <div className="w-8 h-8 rounded-full bg-[#0097A7]/10 flex items-center justify-center text-[#0097A7] group-hover:bg-[#0097A7] group-hover:text-white transition-colors">
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : (
+          <>
+            {/* ── Ürün Çeşitleri & Filtreler ── */}
         {CATALOG_DATA[slug] && (
           <section className="py-12 bg-white border-b border-[#E0F7FA]">
             <div className="container-site">
@@ -648,12 +712,13 @@ export default async function KategoriPage({
         {/* SSS */}
         <FAQSection faqs={(t.raw("faqs") as {question: string, answer: string}[])} title={tPage("faqTitle", { title: t("title") })} />
 
-        {/* CTA */}
         <CTASection
           variant="green"
           title={tPage("ctaTitle", { title: t("title") })}
           subtitle={tPage("ctaSubtitle")}
         />
+        </>
+        )}
       </main>
 
       <Footer locale={locale} />

@@ -78,7 +78,10 @@ const CERTS = [
   { ad: "EN 13501-1", konu: "Yapı Malzemeleri Yangın Sınıflandırması", sinif: "Bfl-s1" },
   { ad: "ISO 105-B02", konu: "Renk Haslığı – Işığa Karşı", sinif: "≥5/8" },
   { ad: "ISO 105-X12", konu: "Renk Haslığı – Sürtünmeye Karşı", sinif: "≥4/5" },
-  { ad: "EN 1307", konu: "Tekstil Zemin Kaplamaları Sınıflandırması", sinif: "Sexport default async function TeknikOzelliklerPage({
+  { ad: "EN 1307", konu: "Tekstil Zemin Kaplamaları Sınıflandırması", sinif: "Sınıf 33 (Ticari)" },
+];
+
+export default async function TeknikOzelliklerPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
