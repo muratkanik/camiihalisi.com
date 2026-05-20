@@ -138,6 +138,7 @@ export async function POST(req: Request) {
     } else {
       // Create new dynamic post
       const slug = slugify(blogData.title) || `ai-blog-${Date.now()}`;
+      const randomImg = `/images/cami-katalog-${String(Math.floor(Math.random() * 31) + 1).padStart(2, "0")}.png`;
       const newPost = {
         slug,
         title: blogData.title,
@@ -150,7 +151,7 @@ export async function POST(req: Request) {
         readTime: blogData.readTime || "5 dk",
         publishedAt: new Date().toISOString().split("T")[0],
         author: "Asil Halı Uzmanları",
-        image: "/images/cami-katalog-01.png",
+        image: blogData.image || randomImg,
         seoKeyword: blogData.seoKeyword || "",
       };
 

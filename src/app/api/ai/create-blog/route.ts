@@ -183,6 +183,9 @@ export async function POST(req: NextRequest) {
             ? blogData.slug
             : slugify(String(blogData.title ?? title));
 
+        const randomCatalogId = Math.floor(Math.random() * 31) + 1;
+        const randomImage = `/images/cami-katalog-${randomCatalogId.toString().padStart(2, "0")}.png`;
+
         const overrideEntry = {
           slug,
           title: String(blogData.title ?? title),
@@ -199,6 +202,7 @@ export async function POST(req: NextRequest) {
           seoKeyword: String(blogData.seoKeyword ?? kw),
           status: "published",
           isNew: true,
+          image: typeof blogData.image === "string" && blogData.image ? blogData.image : randomImage,
         };
 
         const { PrismaClient } = await import("@prisma/client");

@@ -224,7 +224,7 @@ export default function Navigation({ locale, waUrl, phone, t }: NavProps) {
             </Link>
 
             {/* Desktop Menü */}
-            <nav className="hidden xl:flex items-center gap-0.5 overflow-hidden" aria-label="Ana menü">
+            <nav className="hidden xl:flex items-center gap-0.5" aria-label="Ana menü">
               <Link href={`${prefix}/hakkimizda`} className="whitespace-nowrap px-2 2xl:px-3 py-2 text-[#1A1A1A] text-sm font-medium rounded-lg hover:bg-[#E0F7FA] hover:text-[#0097A7] transition-colors">
                 {tNav("about")}
               </Link>
