@@ -111,6 +111,37 @@ export async function POST(req: NextRequest) {
       update: { value: JSON.stringify(trimmed) },
     });
 
+    // Send Email
+    try {
+      const nodemailer = await import("nodemailer");
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || "smtp.gmail.com",
+        port: parseInt(process.env.SMTP_PORT || "587"),
+        secure: process.env.SMTP_SECURE === "true", // true for 465, false for other ports
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      if (process.env.SMTP_USER) {
+        await transporter.sendMail({
+          from: `"Cami Halısı İletişim Formu" <${process.env.SMTP_USER}>`,
+          to: "info@asilhali.com.tr",
+          subject: `Yeni İletişim Talebi: ${submission.type}`,
+          text: `Ad Soyad: ${submission.name}\nEmail: ${submission.email}\nTelefon: ${submission.phone}\nCami: ${submission.mosque}\nTarih: ${new Date().toLocaleString("tr-TR")}\n\nMesaj:\n${submission.message}`,
+          html: `<p><strong>Ad Soyad:</strong> ${submission.name}</p>
+                 <p><strong>Email:</strong> ${submission.email}</p>
+                 <p><strong>Telefon:</strong> ${submission.phone}</p>
+                 <p><strong>Cami:</strong> ${submission.mosque}</p>
+                 <p><strong>Tarih:</strong> ${new Date().toLocaleString("tr-TR")}</p>
+                 <br/><p><strong>Mesaj:</strong></p><p>${submission.message.replace(/\n/g, '<br/>')}</p>`,
+        });
+      }
+    } catch (emailErr) {
+      console.error("Email sending failed:", emailErr);
+    }
+
     return NextResponse.json({ ok: true, id: submission.id });
   } catch (err: unknown) {
     console.error("Contact form save error:", err);

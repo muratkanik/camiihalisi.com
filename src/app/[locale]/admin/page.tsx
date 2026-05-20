@@ -1,4 +1,4 @@
-import { Image, Package, BookOpen, MapPin, Users, Settings, ArrowRight, BarChart2, Zap } from "lucide-react";
+import { Image, Package, BookOpen, MapPin, Users, Settings, ArrowRight, BarChart2, Zap, Inbox } from "lucide-react";
 import { CATEGORIES } from "@/lib/categories";
 import { BLOG_POSTS } from "@/lib/blog-data";
 import { PrismaClient } from "@prisma/client";
@@ -8,21 +8,24 @@ export const dynamic = "force-dynamic";
 async function getDashboardStats() {
   const prisma = new PrismaClient();
   try {
-    const [userCount, keywordCount, cityCount] = await Promise.all([
+    const [userCount, keywordCount, cityCount, contactSubmissions] = await Promise.all([
       prisma.user.count(),
       prisma.cityKeyword.count({ where: { isActive: true } }),
       prisma.city.count(),
+      prisma.setting.findUnique({ where: { key: "contact_submissions" } }),
     ]);
-    return { userCount, keywordCount, cityCount };
+    const submissions = contactSubmissions ? JSON.parse(contactSubmissions.value) : [];
+    const unreadCount = submissions.filter((s: any) => !s.read).length;
+    return { userCount, keywordCount, cityCount, unreadCount, totalSubmissions: submissions.length };
   } catch {
-    return { userCount: 0, keywordCount: 0, cityCount: 0 };
+    return { userCount: 0, keywordCount: 0, cityCount: 0, unreadCount: 0, totalSubmissions: 0 };
   } finally {
     await prisma.$disconnect();
   }
 }
 
 export default async function AdminDashboard() {
-  const { userCount, keywordCount, cityCount } = await getDashboardStats();
+  const { userCount, keywordCount, cityCount, unreadCount, totalSubmissions } = await getDashboardStats();
 
   const stats = [
     { label: "Kategori", value: CATEGORIES.length, icon: <Package className="w-5 h-5" />, color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400", href: "/admin/kategoriler" },
@@ -34,6 +37,7 @@ export default async function AdminDashboard() {
 
   const quickLinks = [
     { label: "İçerik Motoru", desc: "AI ile blog yazısı üret · İçerik takvimini yönet", href: "/admin/icerik-motoru", icon: <Zap className="w-5 h-5" />, highlight: true },
+    { label: "Gelen Formlar", desc: `${unreadCount} okunmamış mesaj · Toplam ${totalSubmissions} iletişim formu`, href: "/admin/iletisim", icon: <Inbox className="w-5 h-5" /> },
     { label: "Hero Slayt Yönetimi", desc: "Ana sayfadaki fotoğraf slaytlarını düzenle", href: "/admin/hero", icon: <Image className="w-5 h-5" /> },
     { label: "Kategori Yönetimi", desc: "23 kategori başlık, açıklama ve görsel düzenleme", href: "/admin/kategoriler", icon: <Package className="w-5 h-5" /> },
     { label: "Blog Yazıları", desc: `${BLOG_POSTS.length} blog yazısının içeriğini düzenle`, href: "/admin/blog", icon: <BookOpen className="w-5 h-5" /> },
