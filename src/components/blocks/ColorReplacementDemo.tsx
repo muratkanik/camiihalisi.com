@@ -60,7 +60,7 @@ function hslToRgb(h: number, s: number, l: number) {
 }
 
 const MOTIFS = [
-  { id: "sample-motif", src: "/images/sample.jpeg", name: "Özel Desen", colors: ["#005577", "#a52a2a", "#e8dcc5"] },
+  { id: "sample-motif", src: "/images/sample.bmp", name: "Özel Desen", colors: ["#005577", "#a52a2a", "#e8dcc5"] },
   { id: "s101-turkuaz", src: "/images/s101-turkuaz.webp", name: "S101 Turkuaz", colors: ["#008c99", "#e2d5bc", "#b8860b"] },
   { id: "s101-bordo", src: "/images/s101-bordo.webp", name: "S101 Bordo", colors: ["#6b1c23", "#e2d5bc", "#b8860b"] },
   { id: "s101-bej", src: "/images/s101-bej.webp", name: "S101 Bej", colors: ["#dcd3b6", "#a0522d", "#4b5320"] },
@@ -162,8 +162,19 @@ export default function ColorReplacementDemo() {
       let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
       if (hueDiff > 180) hueDiff = 360 - hueDiff;
 
+      // Hem hue farkına hem de parlaklık yakınlığına bakalım ki yanlış yerler boyanmasın
       if (hueDiff < tolerance && pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
-        const newRgb = hslToRgb(targetHsl.h, targetHsl.s, pxlHsl.l);
+        // Tıklanan orijinal rengin parlaklığı (sourceHsl.l) referans alınır
+        // Bu pikselin parlaklığı ile tıklanan yer arasındaki fark (lDiff)
+        const lDiff = pxlHsl.l - sourceHsl.l;
+        
+        // Hedef rengin parlaklığına bu farkı ekle (Böylece seçilen renk baz alınır, gölgeler ona göre ayarlanır)
+        let newL = targetHsl.l + lDiff;
+        
+        // 0-1 aralığında sınırla
+        newL = Math.max(0, Math.min(1, newL));
+
+        const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
         newData.data[i] = newRgb.r;
         newData.data[i + 1] = newRgb.g;
         newData.data[i + 2] = newRgb.b;
