@@ -78,12 +78,7 @@ const CERTS = [
   { ad: "EN 13501-1", konu: "Yapı Malzemeleri Yangın Sınıflandırması", sinif: "Bfl-s1" },
   { ad: "ISO 105-B02", konu: "Renk Haslığı – Işığa Karşı", sinif: "≥5/8" },
   { ad: "ISO 105-X12", konu: "Renk Haslığı – Sürtünmeye Karşı", sinif: "≥4/5" },
-  { ad: "EN 1307", konu: "Tekstil Zemin Kaplamaları Sınıflandırması", sinif: "Sınıf 32+" },
-  { ad: "EN 1815", konu: "Statik Elektrik Değerlendirmesi", sinif: "≤2 kV" },
-  { ad: "Oeko-Tex Standard 100", konu: "İnsan Sağlığına Zararsızlık", sinif: "Sertifikalı" },
-];
-
-export default async function TeknikOzelliklerPage({
+  { ad: "EN 1307", konu: "Tekstil Zemin Kaplamaları Sınıflandırması", sinif: "Sexport default async function TeknikOzelliklerPage({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -91,6 +86,26 @@ export default async function TeknikOzelliklerPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const prefix = locale === "tr" ? "" : `/${locale}`;
+
+  // ── Veritabanından Dinamik Verileri Çek ──
+  const { PrismaClient } = await import("@prisma/client");
+  const prisma = new PrismaClient();
+  let teknikData = {
+    specsTable: [] as any[],
+    materialSpecs: [] as any[],
+    certificates: [] as any[],
+    awards: [] as any[]
+  };
+  try {
+    const row = await prisma.setting.findUnique({ where: { key: "teknik_ozellikler_data" } });
+    if (row) {
+      teknikData = JSON.parse(row.value);
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await prisma.$disconnect();
+  }
 
   const breadcrumbLD = {
     "@context": "https://schema.org",
@@ -143,8 +158,8 @@ export default async function TeknikOzelliklerPage({
                   </tr>
                 </thead>
                 <tbody>
-                  {SPECS_TABLE.map((row, i) => (
-                    <tr key={row.ozellik} className={i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]"}>
+                  {teknikData.specsTable?.map((row, i) => (
+                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]"}>
                       <td className="px-5 py-3.5 font-medium text-[#0097A7]">{row.ozellik}</td>
                       <td className="px-5 py-3.5 font-semibold text-[#C9972B]">{row.deger}</td>
                       <td className="px-5 py-3.5 text-[#6B6355] hidden md:table-cell">{row.aciklama}</td>
@@ -172,10 +187,10 @@ export default async function TeknikOzelliklerPage({
                   </tr>
                 </thead>
                 <tbody>
-                  {MATERIAL_SPECS.map((m, i) => (
-                    <tr key={m.malzeme} className={i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]"}>
+                  {teknikData.materialSpecs?.map((m, i) => (
+                    <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#F0FDFE]"}>
                       <td className="px-5 py-3.5 font-bold text-[#0097A7]">
-                        <Link href={`${prefix}/kategori/${m.malzeme.toLowerCase().replace("ü", "u").replace("ı", "i")}-cami-halisi`} className="hover:text-[#C9972B] transition-colors">
+                        <Link href={`${prefix}/kategori/${(m.malzeme||"").toLowerCase().replace("ü", "u").replace("ı", "i")}-cami-halisi`} className="hover:text-[#C9972B] transition-colors">
                           {m.malzeme}
                         </Link>
                       </td>
@@ -191,19 +206,50 @@ export default async function TeknikOzelliklerPage({
             </div>
 
             {/* Sertifikalar */}
-            <div className="text-center mb-10">
-              <h2 className="section-title">Sertifikalar ve Belgeler</h2>
-              <div className="gold-line mx-auto mt-4" />
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-              {CERTS.map((cert) => (
-                <div key={cert.ad} className="bg-white rounded-xl border border-[#B2EBF2] p-5 hover:border-[#C9972B]/40 transition-colors">
-                  <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-1">{cert.ad}</div>
-                  <div className="font-semibold text-[#0097A7] text-sm mb-1">{cert.konu}</div>
-                  <div className="text-xs text-[#6B6355]">Sınıf / Sonuç: <span className="font-bold text-[#0097A7]">{cert.sinif}</span></div>
+            {(teknikData.certificates?.length > 0) && (
+              <>
+                <div className="text-center mb-10">
+                  <h2 className="section-title">Sertifikalar ve Belgeler</h2>
+                  <div className="gold-line mx-auto mt-4" />
                 </div>
-              ))}
-            </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
+                  {teknikData.certificates.map((cert, i) => (
+                    <a key={i} href={cert.fileUrl} target="_blank" rel="noopener noreferrer" className="bg-white rounded-xl border border-[#B2EBF2] p-5 hover:border-[#C9972B]/40 transition-all hover:shadow-lg hover:-translate-y-1 block group">
+                      <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-2 flex items-center justify-between">
+                        {cert.name}
+                        <ExternalLink className="w-3.5 h-3.5 opacity-50 group-hover:opacity-100" />
+                      </div>
+                      <div className="font-semibold text-[#0097A7] text-sm mb-1 line-clamp-1">{cert.name} Belgesi</div>
+                      <div className="text-xs text-[#6B6355]">Format: <span className="font-bold text-[#0097A7] uppercase">{cert.type}</span></div>
+                    </a>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Başarı Ödülleri */}
+            {(teknikData.awards?.length > 0) && (
+              <>
+                <div className="text-center mb-10">
+                  <h2 className="section-title">Başarı Ödülleri</h2>
+                  <div className="gold-line mx-auto mt-4" />
+                </div>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                  {teknikData.awards.map((award, i) => (
+                    <div key={i} className="bg-white rounded-xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 transition-colors">
+                      <div className="h-48 relative bg-slate-100">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={award.image} alt={award.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="p-4">
+                        <h4 className="font-bold text-[#0097A7] text-sm mb-1">{award.name}</h4>
+                        {award.description && <p className="text-xs text-[#6B6355]">{award.description}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
 
             {/* Bfl-s1 açıklaması */}
             <div className="bg-[#0097A7]/5 border border-[#0097A7]/20 rounded-2xl p-8">
@@ -248,3 +294,4 @@ export default async function TeknikOzelliklerPage({
     </>
   );
 }
+
