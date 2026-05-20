@@ -232,7 +232,8 @@ export default function ColorReplacementDemo() {
     setHistoryIndex(0);
   };
 
-  const shareText = `Asil Halı Simülatörü'nde yeni bir model tasarladım!\nMotif: ${currentMotif.name}\n\n${appliedChanges.length > 0 ? `🎨 Uygulanan Renk Değişiklikleri:\n${appliedChanges.map(c => `• ${c.from.toUpperCase()} rengi ➔ ${c.to.toUpperCase()} oldu`).join('\n')}` : 'Özel tasarımım'}\n\nKendi halını tasarlamak için tıkla:\nhttps://camiihalisi.com/renk-demo`;
+  const activeChanges = appliedChanges.slice(0, Math.max(0, historyIndex));
+  const shareText = `Asil Halı Simülatörü'nde yeni bir model tasarladım!\nMotif: ${currentMotif.name}\n\n${activeChanges.length > 0 ? `🎨 Uygulanan Renk Değişiklikleri:\n${activeChanges.map(c => `• ${c.from.toUpperCase()} ➔ ${c.to.toUpperCase()}`).join('\n')}` : 'Özel tasarımım'}\n\nKendi halını tasarlamak için tıkla:\nhttps://camiihalisi.com/renk-demo`;
 
   const handleDownload = () => {
     if (!canvasRef.current) return;
