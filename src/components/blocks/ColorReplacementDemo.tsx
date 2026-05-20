@@ -424,6 +424,12 @@ export default function ColorReplacementDemo() {
           </div>
         </div>
       </div>
+
+      <div className="mt-4 text-center">
+        <p className="text-[10px] text-[#8B6E23] font-medium bg-[#FFF9E6] py-1.5 px-3 rounded-lg inline-block border border-[#FFE082]">
+          <strong>Not:</strong> Ekrandaki renkler simülasyon amaçlıdır, fiziksel iplik renkleriyle %100 birebir uyum göstermeyebilir.
+        </p>
+      </div>
     </div>
   );
 }
