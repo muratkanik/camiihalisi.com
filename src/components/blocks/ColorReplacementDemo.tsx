@@ -64,13 +64,13 @@ export default function ColorReplacementDemo() {
   
   // Örnek başlangıç renkleri (Sistem otomatik de bulabilir ama demo amaçlı manuel sabitliyoruz)
   const [extractedColors, setExtractedColors] = useState<string[]>([
-    "#005577", // Turkuaz/Mavi ton
-    "#a52a2a", // Bordo ton
-    "#e8dcc5", // Krem/Bej ton
+    "#008c99", // Turkuaz zemin rengi
+    "#e2d5bc", // Krem/Bej motif rengi
+    "#b8860b", // Hardal/Altın sarısı detay rengi
   ]);
 
   const [selectedColorToReplace, setSelectedColorToReplace] = useState<string | null>(null);
-  const [newColorHex, setNewColorHex] = useState<string>("#0097A7");
+  const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); // Varsayılan olarak bordo yapalım
 
   // Asıl resim verisini saklamak için
   const originalImageDataRef = useRef<ImageData | null>(null);
@@ -82,8 +82,8 @@ export default function ColorReplacementDemo() {
     if (!ctx) return;
 
     const img = new window.Image();
-    // Test amaçlı bir halı resmi
-    img.src = "/images/cami-1.png"; 
+    // master-content/S101 içindeki resmin optimize edilmiş web versiyonu
+    img.src = "/images/s101-turkuaz.webp"; 
     img.onload = () => {
       canvas.width = img.width;
       canvas.height = img.height;
