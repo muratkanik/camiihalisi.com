@@ -157,7 +157,7 @@ export default function ColorReplacementDemo() {
     const targetRgb = hexToRgb(newColorHex);
     const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
 
-    const tolerance = 35;
+    const tolerance = 5;
 
     for (let i = 0; i < currentData.data.length; i += 4) {
       const r = currentData.data[i];
