@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "@/i18n/routing";
 import { ChevronDown } from "lucide-react";
 
 const LOCALES = [
@@ -20,7 +21,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const nativePath = usePathname();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const current = LOCALES.find((l) => l.code === currentLocale) ?? LOCALES[0];
@@ -37,27 +38,10 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
 
   function switchLocale(newLocale: string) {
     setOpen(false);
-    
-    // Güvenilir URL değiştirme stratejisi (dinamik sayfa parametresi hatalarını önler)
-    let newPath = nativePath || '/';
-    const nonDefaultLocales = ['en', 'ar', 'fr', 'de'];
-    
-    // Mevcut locale prefix'ini kaldır
-    for (const loc of nonDefaultLocales) {
-      if (newPath === `/${loc}` || newPath.startsWith(`/${loc}/`)) {
-        newPath = newPath.replace(`/${loc}`, '');
-        if (newPath === '') newPath = '/';
-        break;
-      }
-    }
-    
-    // Yeni locale prefix'ini ekle (TR varsayılan, prefix yok)
-    if (newLocale !== 'tr') {
-      newPath = newPath === '/' ? `/${newLocale}` : `/${newLocale}${newPath}`;
-    }
-    
-    const query = searchParams.toString() ? `?${searchParams.toString()}` : '';
-    router.replace(newPath + query);
+    // next-intl's router takes care of the prefix, the cookie, and preserving query params
+    const query = searchParams.toString() ? `?${searchParams.toString()}` : "";
+    const locale = newLocale as 'tr' | 'en' | 'de' | 'ar' | 'fr';
+    router.replace(`${pathname}${query}`, { locale });
   }
 
   return (
