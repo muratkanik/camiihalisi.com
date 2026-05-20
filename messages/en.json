@@ -1517,6 +1517,45 @@
           "answer": "Evet, özellikle büyük projelerde 1200 gr/m² keçe üzerine halı, altına kauçuk altlık kombinasyonu en iyi sonucu verir."
         }
       ]
+    },
+    "stok-cami-halisi": {
+      "title": "Stok Cami Halısı",
+      "shortTitle": "Stok Halı",
+      "metaTitle": "Stok Cami Halısı | Hemen Teslim Hazır Halılar – Asil Halı",
+      "metaDescription": "Stok cami halısı modelleri. Hemen teslim, uygun fiyatlı hazır cami halıları. Türkiye geneli hızlı sevkiyat. Asil Halı A.Ş.",
+      "description": "Acil ihtiyaçlar için hemen teslim, depomuzda hazır bulunan standart ölçü cami halıları.",
+      "longDescription": "Stok cami halısı serimiz, acil halı ihtiyacı olan projeler için fabrikamızda sürekli hazır bulunan, standart kalite ve desenlerden oluşur. Bekleme süresi olmadan hemen sevk edilebilir.",
+      "badge": "Hemen Teslim",
+      "advantages": [
+        "Bekleme süresi yok, anında teslimat",
+        "Standart ölçülerde stok garantisi",
+        "Uygun fiyat avantajı",
+        "Klasik desen ve renk seçenekleri",
+        "Acil tadilat projeleri için ideal",
+        "Tüm kalite sertifikalarına sahip"
+      ],
+      "specs": [
+        {
+          "label": "Lif Türü",
+          "value": "Akrilik veya Polipropilen"
+        },
+        {
+          "label": "Teslimat",
+          "value": "1-3 İş Günü"
+        }
+      ],
+      "useCases": [
+        "Acil tadilat projeleri",
+        "Geçici mescit alanları",
+        "Konteyner camileri",
+        "Hızlı açılış yapılacak ibadethaneler"
+      ],
+      "faqs": [
+        {
+          "question": "Stok halılar defolu mudur?",
+          "answer": "Hayır, stok halılarımız birinci kalite standart üretimlerimizdir. Fazla üretilen partilerden oluşur."
+        }
+      ]
     }
   },
   "categoryPage": {
