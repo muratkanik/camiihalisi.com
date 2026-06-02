@@ -130,6 +130,15 @@ export default async function IntlMosqueCarpetPage({
     ? `توريد وتركيب سجاد المساجد في ${cityName}، ${countryName}. شركة أصيل هالي تركيا — خبرة أكثر من 50 عاماً، شحن دولي.`
     : `Mosque carpet supply and installation for ${city.name}, ${city.country}. Asil Hali Turkey — 50+ years expertise, worldwide shipping.`;
 
+  const servicesSummary = [
+    { label: isAr ? "المدينة" : "City", value: `${cityName}, ${countryName}` },
+    { label: isAr ? "خيارات المواد" : "Material Options", value: isAr ? "4 خيارات مختلفة" : "4 Different Materials" },
+    { label: isAr ? "نوع الإنتاج" : "Production Type", value: isAr ? "بقياسات مخصصة" : "Custom Size" },
+    { label: isAr ? "وقت التسليم" : "Delivery Time", value: isAr ? "3-8 أسابيع" : "3–8 Weeks" },
+    { label: isAr ? "الضمان" : "Warranty", value: isAr ? "5-10 سنوات" : "5–10 Years" },
+    { label: isAr ? "درجة مقاومة الحريق" : "Fire Class", value: "Bfl-s1" },
+  ];
+
   return (
     <>
       <Navigation locale={locale} />
@@ -169,14 +178,7 @@ export default async function IntlMosqueCarpetPage({
                   {isAr ? `ملخص خدماتنا في ${cityName}` : `Our Service for ${city.name}`}
                 </h2>
                 <div className="space-y-2.5 text-sm text-white/80">
-                  {[
-                    { label: isAr ? "المدينة" : "City", value: `${cityName}, ${countryName}` },
-                    { label: isAr ? "خيارات المواد" : "Material Options", value: isAr ? "4 خيارات مختلفة" : "4 Different Materials" },
-                    { label: isAr ? "نوع الإنتاج" : "Production Type", value: isAr ? "بقياسات مخصصة" : "Custom Size" },
-                    { label: isAr ? "وقت التسليم" : "Delivery Time", value: isAr ? "3-8 أسابيع" : "3–8 Weeks" },
-                    { label: isAr ? "الضمان" : "Warranty", value: isAr ? "5-10 سنوات" : "5–10 Years" },
-                    { label: isAr ? "درجة مقاومة الحريق" : "Fire Class", value: "Bfl-s1" },
-                  ].map((item) => (
+                  {servicesSummary.map((item) => (
                     <div key={item.label} className="flex justify-between">
                       <span>{item.label}:</span>
                       <span className="font-semibold text-white">{item.value}</span>
