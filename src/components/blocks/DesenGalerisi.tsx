@@ -13,6 +13,20 @@ interface DesenItem {
   category?: string;
 }
 
+/* ── Çeviri Sözlüğü ── */
+const GT: Record<string, Record<string, string>> = {
+  tr: { all: "Tümü", enlarge: "Büyüt", detail: "Detay", productDetail: "Ürün Detayı", changeColor: "Rengini Değiştir", loadMore: "Daha Fazla Göster", remaining: "desen kaldı", patterns: "desen" },
+  en: { all: "All", enlarge: "Enlarge", detail: "Detail", productDetail: "Product Detail", changeColor: "Change Colour", loadMore: "Load More", remaining: "patterns left", patterns: "patterns" },
+  ar: { all: "الكل", enlarge: "تكبير", detail: "تفاصيل", productDetail: "تفاصيل المنتج", changeColor: "تغيير اللون", loadMore: "عرض المزيد", remaining: "نمط متبقي", patterns: "نمط" },
+  fr: { all: "Tous", enlarge: "Agrandir", detail: "Détail", productDetail: "Détail Produit", changeColor: "Changer la Couleur", loadMore: "Voir Plus", remaining: "motifs restants", patterns: "motifs" },
+  de: { all: "Alle", enlarge: "Vergrößern", detail: "Detail", productDetail: "Produktdetail", changeColor: "Farbe Ändern", loadMore: "Mehr Anzeigen", remaining: "Muster übrig", patterns: "Muster" },
+};
+
+function gt(locale: string, key: string): string {
+  const dict = GT[locale] || GT.tr;
+  return dict[key] || GT.tr[key] || key;
+}
+
 // Kategori etiketleri
 const CATEGORY_LABELS: Record<string, string> = {
   "acrylic-mosque-carpet": "Akrilik",
@@ -39,9 +53,10 @@ interface DesenGalerisiProps {
   subtitle?: string;
   showCategoryFilter?: boolean;
   categorySlug?: string;
+  locale?: string;
 }
 
-export default function DesenGalerisi({ items, prefix, title, subtitle, showCategoryFilter = true, categorySlug = "safli-akrilik-cami-halisi" }: DesenGalerisiProps) {
+export default function DesenGalerisi({ items, prefix, title, subtitle, showCategoryFilter = true, categorySlug = "safli-akrilik-cami-halisi", locale = "tr" }: DesenGalerisiProps) {
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(24);
@@ -100,7 +115,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
           <div className="gold-line mb-3" />
           {subtitle && <p className="text-sm text-[#6B6355]">{subtitle}</p>}
           <p className="text-xs text-[#0097A7] font-semibold mt-2">
-            {filteredItems.length} desen
+            {filteredItems.length} {gt(locale, "patterns")}
           </p>
         </div>
       )}
@@ -117,7 +132,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
                 : "bg-[#E0F7FA] text-[#0097A7] hover:bg-[#B2EBF2]"
             }`}
           >
-            Tümü ({items.length})
+            {gt(locale, "all")} ({items.length})
           </button>
           {categories.map(cat => {
             const count = items.filter(i => i.category === cat).length;
@@ -157,13 +172,13 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
                   onClick={() => openLightbox(idx)}
                   className="px-2.5 py-1 bg-white/20 hover:bg-white/30 text-white rounded-lg text-[10px] font-semibold backdrop-blur-sm transition-colors flex items-center gap-1"
                 >
-                  <Eye className="w-3 h-3" /> Büyüt
+                  <Eye className="w-3 h-3" /> {gt(locale, "enlarge")}
                 </button>
                 <Link
                   href={detailUrl(item)}
                   className="px-2.5 py-1 bg-[#C9972B]/80 hover:bg-[#C9972B] text-white rounded-lg text-[10px] font-semibold backdrop-blur-sm transition-colors flex items-center gap-1"
                 >
-                  <ExternalLink className="w-3 h-3" /> Detay
+                  <ExternalLink className="w-3 h-3" /> {gt(locale, "detail")}
                 </Link>
               </div>
             </div>
@@ -178,7 +193,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
             onClick={loadMore}
             className="px-6 py-3 bg-[#0097A7] hover:bg-[#007A88] text-white rounded-xl font-semibold text-sm transition-colors shadow-md"
           >
-            Daha Fazla Göster ({filteredItems.length - displayedItems.length} desen kaldı)
+            {gt(locale, "loadMore")} ({filteredItems.length - displayedItems.length} {gt(locale, "remaining")})
           </button>
         </div>
       )}
@@ -191,67 +206,40 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
           onKeyDown={handleKeyDown}
           tabIndex={0}
           role="dialog"
-          aria-label="Desen detay görünümü"
+          aria-label="Pattern detail view"
         >
-          <button
-            onClick={closeLightbox}
-            className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-            aria-label="Kapat"
-          >
+          <button onClick={closeLightbox} className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors" aria-label="Close">
             <X className="w-5 h-5" />
           </button>
-
-          <button
-            onClick={(e) => { e.stopPropagation(); goPrev(); }}
-            className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-            aria-label="Önceki desen"
-          >
+          <button onClick={(e) => { e.stopPropagation(); goPrev(); }} className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors" aria-label="Previous">
             <ChevronLeft className="w-6 h-6" />
           </button>
-
-          <button
-            onClick={(e) => { e.stopPropagation(); goNext(); }}
-            className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
-            aria-label="Sonraki desen"
-          >
+          <button onClick={(e) => { e.stopPropagation(); goNext(); }} className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors" aria-label="Next">
             <ChevronRight className="w-6 h-6" />
           </button>
 
-          <div
-            className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative max-w-[90vw] max-h-[85vh] flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
             <div className="relative w-[80vw] max-w-[560px] aspect-square">
-              <Image
-                src={activeItem.image}
-                alt={activeItem.altText}
-                fill
-                sizes="80vw"
-                className="object-contain rounded-lg"
-                priority
-              />
+              <Image src={activeItem.image} alt={activeItem.altText} fill sizes="80vw" className="object-contain rounded-lg" priority />
             </div>
-
             <div className="mt-4 text-center space-y-3">
               <h3 className="text-white text-lg font-bold">{activeItem.name}</h3>
-
               <div className="flex items-center gap-3 justify-center">
                 <Link
                   href={detailUrl(activeItem)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0097A7] hover:bg-[#007A88] text-white rounded-xl text-sm font-semibold transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  Ürün Detayı
+                  {gt(locale, "productDetail")}
                 </Link>
                 <Link
                   href={`${prefix}/renk-demo?imageUrl=${encodeURIComponent(activeItem.image)}&motifName=${encodeURIComponent(activeItem.name)}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#C9972B] hover:bg-[#B8860B] text-white rounded-xl text-sm font-semibold transition-colors"
                 >
                   <Palette className="w-4 h-4" />
-                  Rengini Değiştir
+                  {gt(locale, "changeColor")}
                 </Link>
               </div>
-
               <p className="text-white/40 text-xs">
                 {lightboxIdx! + 1} / {filteredItems.length}
               </p>

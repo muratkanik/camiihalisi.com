@@ -92,6 +92,95 @@ function replaceColorInImageData(
   return newData;
 }
 
+/* ── Çeviri Sözlüğü ── */
+const MT: Record<string, Record<string, string>> = {
+  tr: {
+    title: "Renk Değiştirme",
+    howTo: "Nasıl kullanılır?",
+    step1: "1. Desen üzerinde değiştirmek istediğiniz renge tıklayın",
+    step2: "2. Aşağıdan yeni rengi seçin",
+    step3: "3. \"Uygula\" butonuna basın",
+    selectedColor: "Seçili Renk",
+    clickHint: "Desen üzerinde bir renge tıklayın",
+    newColor: "Yeni Renk",
+    apply: "Rengi Uygula",
+    undo: "Geri",
+    redo: "İleri",
+    reset: "Sıfırla",
+    download: "İndir",
+    share: "Paylaş",
+  },
+  en: {
+    title: "Change Colour",
+    howTo: "How to use?",
+    step1: "1. Click on the colour you want to change on the pattern",
+    step2: "2. Choose the new colour below",
+    step3: "3. Press the \"Apply\" button",
+    selectedColor: "Selected Colour",
+    clickHint: "Click a colour on the pattern",
+    newColor: "New Colour",
+    apply: "Apply Colour",
+    undo: "Undo",
+    redo: "Redo",
+    reset: "Reset",
+    download: "Download",
+    share: "Share",
+  },
+  ar: {
+    title: "تغيير اللون",
+    howTo: "كيفية الاستخدام؟",
+    step1: "١. انقر على اللون الذي تريد تغييره على النمط",
+    step2: "٢. اختر اللون الجديد أدناه",
+    step3: "٣. اضغط على زر \"تطبيق\"",
+    selectedColor: "اللون المحدد",
+    clickHint: "انقر على لون على النمط",
+    newColor: "اللون الجديد",
+    apply: "تطبيق اللون",
+    undo: "تراجع",
+    redo: "إعادة",
+    reset: "إعادة تعيين",
+    download: "تحميل",
+    share: "مشاركة",
+  },
+  fr: {
+    title: "Changer la Couleur",
+    howTo: "Comment utiliser ?",
+    step1: "1. Cliquez sur la couleur à modifier sur le motif",
+    step2: "2. Choisissez la nouvelle couleur ci-dessous",
+    step3: "3. Appuyez sur le bouton « Appliquer »",
+    selectedColor: "Couleur Sélectionnée",
+    clickHint: "Cliquez sur une couleur du motif",
+    newColor: "Nouvelle Couleur",
+    apply: "Appliquer la Couleur",
+    undo: "Annuler",
+    redo: "Rétablir",
+    reset: "Réinitialiser",
+    download: "Télécharger",
+    share: "Partager",
+  },
+  de: {
+    title: "Farbe Ändern",
+    howTo: "Wie benutzen?",
+    step1: "1. Klicken Sie auf die Farbe, die Sie ändern möchten",
+    step2: "2. Wählen Sie unten die neue Farbe",
+    step3: "3. Klicken Sie auf \"Anwenden\"",
+    selectedColor: "Ausgewählte Farbe",
+    clickHint: "Klicken Sie auf eine Farbe im Muster",
+    newColor: "Neue Farbe",
+    apply: "Farbe Anwenden",
+    undo: "Rückgängig",
+    redo: "Wiederholen",
+    reset: "Zurücksetzen",
+    download: "Herunterladen",
+    share: "Teilen",
+  },
+};
+
+function mt(locale: string, key: string): string {
+  const dict = MT[locale] || MT.tr;
+  return dict[key] || MT.tr[key] || key;
+}
+
 /* ── Hazır Renk Paleti ── */
 const PRESET_COLORS = [
   "#8B1A1A", "#6b1c23", "#B22222", "#CD853F", "#DAA520",
@@ -105,6 +194,7 @@ interface ColorReplacementModalProps {
   onClose: () => void;
   imageSrc: string;
   patternName: string;
+  locale?: string;
 }
 
 export default function ColorReplacementModal({
@@ -112,6 +202,7 @@ export default function ColorReplacementModal({
   onClose,
   imageSrc,
   patternName,
+  locale = "tr",
 }: ColorReplacementModalProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -122,10 +213,8 @@ export default function ColorReplacementModal({
   const [historyIndex, setHistoryIndex] = useState(-1);
   const originalDataRef = useRef<ImageData | null>(null);
 
-  // Resim yükle
   useEffect(() => {
     if (!isOpen) return;
-
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -156,7 +245,6 @@ export default function ColorReplacementModal({
     };
   }, [isOpen, imageSrc]);
 
-  // Canvas tıklama — renk seçme
   const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!imageLoaded || !canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -175,7 +263,6 @@ export default function ColorReplacementModal({
     }
   }, [imageLoaded, extractedColors]);
 
-  // Renk değiştir
   const applyColor = useCallback(() => {
     if (!selectedColor || !canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -183,7 +270,6 @@ export default function ColorReplacementModal({
     if (!ctx) return;
     const currentData = history[historyIndex];
     if (!currentData) return;
-
     const newData = replaceColorInImageData(ctx, currentData, selectedColor, newColor, 5);
     ctx.putImageData(newData, 0, 0);
     const newHistory = [...history.slice(0, historyIndex + 1), newData];
@@ -192,7 +278,6 @@ export default function ColorReplacementModal({
     setSelectedColor(null);
   }, [selectedColor, newColor, history, historyIndex]);
 
-  // Geri al
   const undo = useCallback(() => {
     if (historyIndex <= 0 || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
@@ -202,7 +287,6 @@ export default function ColorReplacementModal({
     setHistoryIndex(newIdx);
   }, [historyIndex, history]);
 
-  // İleri al
   const redo = useCallback(() => {
     if (historyIndex >= history.length - 1 || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
@@ -212,7 +296,6 @@ export default function ColorReplacementModal({
     setHistoryIndex(newIdx);
   }, [historyIndex, history]);
 
-  // Sıfırla
   const reset = useCallback(() => {
     if (!originalDataRef.current || !canvasRef.current) return;
     const ctx = canvasRef.current.getContext("2d");
@@ -223,21 +306,17 @@ export default function ColorReplacementModal({
     setSelectedColor(null);
   }, []);
 
-  // İndir
   const download = useCallback(() => {
     if (!canvasRef.current) return;
     const link = document.createElement("a");
-    link.download = `${patternName.replace(/\s+/g, "-")}-ozel-renk.jpg`;
+    link.download = `${patternName.replace(/\s+/g, "-")}-custom-color.jpg`;
     link.href = canvasRef.current.toDataURL("image/jpeg", 0.92);
     link.click();
   }, [patternName]);
 
-  // Escape ile kapat
   useEffect(() => {
     if (!isOpen) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [isOpen, onClose]);
@@ -252,13 +331,14 @@ export default function ColorReplacementModal({
       <div
         className="relative bg-white rounded-2xl shadow-2xl max-w-[720px] w-full max-h-[95vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
+        dir={locale === "ar" ? "rtl" : "ltr"}
       >
         {/* Başlık */}
         <div className="sticky top-0 z-10 bg-white border-b border-[#E0F7FA] px-5 py-3 rounded-t-2xl flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Palette className="w-5 h-5 text-[#0097A7]" />
             <h3 className="font-bold text-[#003B40] text-base">
-              Renk Değiştirme — {patternName}
+              {mt(locale, "title")} — {patternName}
             </h3>
           </div>
           <button
@@ -287,30 +367,24 @@ export default function ColorReplacementModal({
 
           {/* Talimatlar */}
           <div className="bg-[#F0FDFE] rounded-xl p-3 text-xs text-[#003B40] space-y-1">
-            <p className="font-semibold text-[#0097A7]">Nasıl kullanılır?</p>
-            <p>1. Desen üzerinde değiştirmek istediğiniz <strong>renge tıklayın</strong></p>
-            <p>2. Aşağıdan <strong>yeni rengi</strong> seçin</p>
-            <p>3. <strong>&quot;Uygula&quot;</strong> butonuna basın</p>
+            <p className="font-semibold text-[#0097A7]">{mt(locale, "howTo")}</p>
+            <p>{mt(locale, "step1")}</p>
+            <p>{mt(locale, "step2")}</p>
+            <p>{mt(locale, "step3")}</p>
           </div>
 
           {/* Seçili Renk + Yeni Renk */}
           <div className="grid grid-cols-2 gap-4">
-            {/* Seçili Renk */}
             <div>
-              <label className="text-xs font-semibold text-[#6B6355] mb-2 block">Seçili Renk</label>
+              <label className="text-xs font-semibold text-[#6B6355] mb-2 block">{mt(locale, "selectedColor")}</label>
               {selectedColor ? (
                 <div className="flex items-center gap-2">
-                  <div
-                    className="w-10 h-10 rounded-lg border-2 border-[#E0F7FA] shadow-inner"
-                    style={{ backgroundColor: selectedColor }}
-                  />
+                  <div className="w-10 h-10 rounded-lg border-2 border-[#E0F7FA] shadow-inner" style={{ backgroundColor: selectedColor }} />
                   <span className="font-mono text-sm text-[#003B40]">{selectedColor}</span>
                 </div>
               ) : (
-                <p className="text-xs text-[#999] italic">Desen üzerinde bir renge tıklayın</p>
+                <p className="text-xs text-[#999] italic">{mt(locale, "clickHint")}</p>
               )}
-
-              {/* Seçilen Renkler */}
               {extractedColors.length > 0 && (
                 <div className="flex gap-1.5 mt-2">
                   {extractedColors.map((c, i) => (
@@ -328,9 +402,8 @@ export default function ColorReplacementModal({
               )}
             </div>
 
-            {/* Yeni Renk */}
             <div>
-              <label className="text-xs font-semibold text-[#6B6355] mb-2 block">Yeni Renk</label>
+              <label className="text-xs font-semibold text-[#6B6355] mb-2 block">{mt(locale, "newColor")}</label>
               <div className="flex items-center gap-2 mb-2">
                 <input
                   type="color"
@@ -340,8 +413,6 @@ export default function ColorReplacementModal({
                 />
                 <span className="font-mono text-sm text-[#003B40]">{newColor}</span>
               </div>
-
-              {/* Hazır Renkler */}
               <div className="grid grid-cols-10 gap-1">
                 {PRESET_COLORS.map((c) => (
                   <button
@@ -368,39 +439,25 @@ export default function ColorReplacementModal({
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
             }`}
           >
-            Rengi Uygula
+            {mt(locale, "apply")}
           </button>
 
           {/* Araç Çubuğu */}
           <div className="flex items-center justify-between border-t border-[#E0F7FA] pt-4">
             <div className="flex gap-2">
-              <button
-                onClick={undo}
-                disabled={historyIndex <= 0}
-                className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all"
-              >
-                <Undo2 className="w-3.5 h-3.5" /> Geri
+              <button onClick={undo} disabled={historyIndex <= 0} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
+                <Undo2 className="w-3.5 h-3.5" /> {mt(locale, "undo")}
               </button>
-              <button
-                onClick={redo}
-                disabled={historyIndex >= history.length - 1}
-                className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all"
-              >
-                <Redo2 className="w-3.5 h-3.5" /> İleri
+              <button onClick={redo} disabled={historyIndex >= history.length - 1} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
+                <Redo2 className="w-3.5 h-3.5" /> {mt(locale, "redo")}
               </button>
-              <button
-                onClick={reset}
-                className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] transition-all"
-              >
-                <RotateCcw className="w-3.5 h-3.5" /> Sıfırla
+              <button onClick={reset} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] transition-all">
+                <RotateCcw className="w-3.5 h-3.5" /> {mt(locale, "reset")}
               </button>
             </div>
             <div className="flex gap-2">
-              <button
-                onClick={download}
-                className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#003B40] text-white hover:bg-[#005566] transition-all"
-              >
-                <Download className="w-3.5 h-3.5" /> İndir
+              <button onClick={download} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#003B40] text-white hover:bg-[#005566] transition-all">
+                <Download className="w-3.5 h-3.5" /> {mt(locale, "download")}
               </button>
               <button
                 onClick={() => {
@@ -415,7 +472,7 @@ export default function ColorReplacementModal({
                 }}
                 className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#20BD5C] transition-all"
               >
-                <Share2 className="w-3.5 h-3.5" /> Paylaş
+                <Share2 className="w-3.5 h-3.5" /> {mt(locale, "share")}
               </button>
             </div>
           </div>

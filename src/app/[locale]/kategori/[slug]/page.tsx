@@ -573,6 +573,7 @@ export default async function KategoriPage({
                 title={tPage("desenGalerisiTitle")}
                 subtitle={tPage("desenGalerisiDesc")}
                 categorySlug={slug}
+                locale={locale}
                 items={SAFLI_AKRILIK_DESENLER.map(d => ({
                   id: d.id,
                   image: d.image,
