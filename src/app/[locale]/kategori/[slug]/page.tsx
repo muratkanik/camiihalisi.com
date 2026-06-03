@@ -404,7 +404,7 @@ export default async function KategoriPage({
       priceCurrency: "TRY",
       priceSpecification: {
         "@type": "PriceSpecification",
-        description: "Fiyat teklifi için iletişime geçin",
+        description: tPage("getQuoteDesc"),
       },
     },
   };
@@ -413,8 +413,8 @@ export default async function KategoriPage({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Ana Sayfa", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Kategoriler", item: `${SITE_URL}/kategori` },
+      { "@type": "ListItem", position: 1, name: tNav("home"), item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: tNav("products"), item: `${SITE_URL}/kategori` },
       { "@type": "ListItem", position: 3, name: t("title"), item: `${SITE_URL}/kategori/${slug}` },
     ],
   };
@@ -477,11 +477,11 @@ export default async function KategoriPage({
               className="text-4xl md:text-6xl font-bold text-white mb-4"
               style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
-              {slug === "cami-halisi" ? "Cami Halısı Modelleri" : t("title")}
+              {slug === "cami-halisi" ? tPage("allModelsTitle") : t("title")}
             </h1>
             <p className="text-lg text-white/80 max-w-2xl">
               {slug === "cami-halisi" 
-                ? "Camilerimiz için özel üretilen en kaliteli akrilik, yün ve polipropilen halı seçeneklerimizi inceleyin." 
+                ? tPage("allModelsDesc") 
                 : t("description")}
             </p>
           </div>
@@ -493,29 +493,29 @@ export default async function KategoriPage({
             <div className="container-site">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-[#0097A7] mb-4" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                  Halı Türünü Seçin
+                  {tPage("selectType")}
                 </h2>
                 <div className="gold-line mx-auto mb-4" />
-                <p className="text-[#6B6355]">Caminizin ihtiyacına uygun malzemeye göre filtrelenmiş ürün gruplarımız.</p>
+                <p className="text-[#6B6355]">{tPage("selectTypeDesc")}</p>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { id: "akrilik", title: "Akrilik Cami Halısı", desc: "Canlı renkler, yüksek dayanıklılık.", link: "akrilik-cami-halisi", img: "/images/cami-katalog-01.png" },
-                  { id: "yun", title: "Yün Cami Halısı", desc: "Doğal, uzun ömürlü ve alev almaz.", link: "yun-cami-halisi", img: "/images/cami-katalog-05.png" },
-                  { id: "polipropilen", title: "Polipropilen Cami Halısı", desc: "Ekonomik, hafif ve kolay temizlenir.", link: "polipropilen-cami-halisi", img: "/images/cami-katalog-09.png" },
-                  { id: "stok", title: "Stok Cami Halısı", desc: "Hemen teslimata hazır modeller.", link: "stok-cami-halisi", img: "/images/cami-katalog-02.png" }
+                  { id: "akrilik", titleKey: "matAcrylic" as const, descKey: "matAcrylicDesc" as const, link: "akrilik-cami-halisi", img: "/images/cami-katalog-01.png" },
+                  { id: "yun", titleKey: "matWool" as const, descKey: "matWoolDesc" as const, link: "yun-cami-halisi", img: "/images/cami-katalog-05.png" },
+                  { id: "polipropilen", titleKey: "matPP" as const, descKey: "matPPDesc" as const, link: "polipropilen-cami-halisi", img: "/images/cami-katalog-09.png" },
+                  { id: "stok", titleKey: "matStock" as const, descKey: "matStockDesc" as const, link: "stok-cami-halisi", img: "/images/cami-katalog-02.png" }
                 ].map((item) => (
                   <Link key={item.id} href={`${prefix}/kategori/${item.link}`} className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-xl transition-all">
                     <div className="relative h-64 bg-slate-100 overflow-hidden">
-                      <Image src={item.img} alt={item.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <Image src={item.img} alt={tPage(item.titleKey)} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                       <h3 className="absolute bottom-4 left-4 right-4 text-white font-bold text-xl" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                        {item.title}
+                        {tPage(item.titleKey)}
                       </h3>
                     </div>
                     <div className="p-5 flex items-center justify-between">
-                      <p className="text-sm text-[#6B6355]">{item.desc}</p>
+                      <p className="text-sm text-[#6B6355]">{tPage(item.descKey)}</p>
                       <div className="w-8 h-8 rounded-full bg-[#0097A7]/10 flex items-center justify-center text-[#0097A7] group-hover:bg-[#0097A7] group-hover:text-white transition-colors">
                         <ArrowRight className="w-4 h-4" />
                       </div>

@@ -1589,7 +1589,19 @@
     "ctaTitle": "{title} Siparişi İçin Hemen İletişime Geçin",
     "ctaSubtitle": "Asil Halı uzmanları caminizin ölçülerine ve ihtiyaçlarına göre en uygun çözümü sunmak için hazır.",
     "desenGalerisiTitle": "Saflı Akrilik Desen Koleksiyonu",
-    "desenGalerisiDesc": "251 farklı saflı akrilik cami halısı deseni. Her deseni tıklayarak büyütebilir ve renk simülatöründe farklı renk seçeneklerini deneyebilirsiniz."
+    "desenGalerisiDesc": "251 farklı saflı akrilik cami halısı deseni. Her deseni tıklayarak büyütebilir ve renk simülatöründe farklı renk seçeneklerini deneyebilirsiniz.",
+    "allModelsTitle": "Cami Halısı Modelleri",
+    "allModelsDesc": "Camilerimiz için özel üretilen en kaliteli akrilik, yün ve polipropilen halı seçeneklerimizi inceleyin.",
+    "selectType": "Halı Türünü Seçin",
+    "selectTypeDesc": "Caminizin ihtiyacına uygun malzemeye göre filtrelenmiş ürün gruplarımız.",
+    "matAcrylic": "Akrilik Cami Halısı",
+    "matAcrylicDesc": "Canlı renkler, yüksek dayanıklılık.",
+    "matWool": "Yün Cami Halısı",
+    "matWoolDesc": "Doğal, uzun ömürlü ve alev almaz.",
+    "matPP": "Polipropilen Cami Halısı",
+    "matPPDesc": "Ekonomik, hafif ve kolay temizlenir.",
+    "matStock": "Stok Cami Halısı",
+    "matStockDesc": "Hemen teslimata hazır modeller."
   },
   "categoryNames": {
     "akrilik-cami-halisi": "Akrilik Cami Halısı",

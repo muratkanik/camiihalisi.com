@@ -2136,7 +2136,19 @@
     "ctaTitle": "Kontaktieren Sie uns für Ihre {title}-Bestellung",
     "ctaSubtitle": "Asil Halı-Experten bieten Ihnen die beste Lösung für die Maße und Anforderungen Ihrer Moschee.",
     "desenGalerisiTitle": "Acryl-Reihenmuster-Kollektion",
-    "desenGalerisiDesc": "17 verschiedene Acryl-Moscheeteppichmuster. Klicken Sie auf ein Muster, um es zu vergrößern und verschiedene Farboptionen im Farbsimulator auszuprobieren."
+    "desenGalerisiDesc": "17 verschiedene Acryl-Moscheeteppichmuster. Klicken Sie auf ein Muster, um es zu vergrößern und verschiedene Farboptionen im Farbsimulator auszuprobieren.",
+    "allModelsTitle": "Moscheeteppich-Modelle",
+    "allModelsDesc": "Entdecken Sie unsere hochwertigen Acryl-, Woll- und Polypropylenteppiche, die speziell für Moscheen hergestellt werden.",
+    "selectType": "Teppichtyp Wählen",
+    "selectTypeDesc": "Unsere Produktgruppen nach Materialtyp gefiltert, passend für die Bedürfnisse Ihrer Moschee.",
+    "matAcrylic": "Acryl-Moscheeteppich",
+    "matAcrylicDesc": "Lebhafte Farben, hohe Strapazierfähigkeit.",
+    "matWool": "Woll-Moscheeteppich",
+    "matWoolDesc": "Natürlich, langlebig und flammhemmend.",
+    "matPP": "Polypropylen-Moscheeteppich",
+    "matPPDesc": "Wirtschaftlich, leicht und pflegeleicht.",
+    "matStock": "Lagerteppiche",
+    "matStockDesc": "Sofort lieferbare Modelle."
   },
   "categoryNames": {
     "akrilik-cami-halisi": "Acryl-Moscheeteppich",

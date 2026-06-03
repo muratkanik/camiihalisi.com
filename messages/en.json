@@ -330,157 +330,158 @@
   },
   "categoryData": {
     "akrilik-cami-halisi": {
-      "title": "Akrilik Cami Halısı",
-      "shortTitle": "Akrilik Halı",
-      "metaTitle": "Akrilik Cami Halısı | Fiyatları, Çeşitleri ve Özellikleri – Asil Halı",
-      "metaDescription": "Akrilik cami halısı fiyatları, çeşitleri ve özellikleri. Solmaz renk, yumuşak doku, ekonomik fiyat. Özel ölçü üretim, Türkiye geneli teslimat. Asil Halı A.Ş.",
-      "description": "Parlak renkleri, yumuşak dokusu ve ekonomik fiyatıyla Türkiye'de en çok tercih edilen cami halısı türü.",
-      "longDescription": "\nAkrilik cami halısı, sentetik liflerin içinde en yüksek kalite-fiyat oranını sunan tercih olup Türkiye'deki camilerin büyük çoğunluğunda kullanılmaktadır. Yüksek UV direnci sayesinde uzun yıllar solmayan canlı renkler korunur. Caminin genel havasına uygun, özel desen tasarımıyla üretilir.\n\nAkrilik liflerin gözenekli yapısı, cami ortamında oluşabilecek nemi emer ve buharlaştırarak sağlıklı bir zemin sağlar. Günlük cemaat yoğunluğuna dayanacak şekilde üretilen akrilik halılar, düzenli bakım ile 15-20 yıl sorunsuz kullanılabilir.\n\nAsil Halı'nın akrilik serisi; mihrap önünden saf aralarına, merdivenlerden koridor kenarlarına kadar tüm cami alanlarına uygun özel kesim seçenekleriyle sunulmaktadır.\n    ",
-      "badge": "En Çok Satan",
+      "title": "Acrylic Mosque Carpet",
+      "shortTitle": "Acrylic Carpet",
+      "metaTitle": "Acrylic Mosque Carpet | Prices, Varieties and Features – Asil Hali",
+      "metaDescription": "Acrylic mosque carpet prices, varieties and features. Fade-resistant colours, soft texture, economical price. Custom-size production, delivery throughout Turkey. Asil Halı A.Ş.",
+      "description": "With vibrant colours, soft texture and economical pricing, the most preferred mosque carpet type in Turkey.",
+      "longDescription": "\nAcrylic mosque carpet offers the best quality-to-price ratio among synthetic fibres and is used in the vast majority of mosques in Turkey. Thanks to high UV resistance, vibrant colours are preserved without fading for many years. It is produced with custom pattern designs that complement the overall atmosphere of the mosque.\n\nThe porous structure of acrylic fibres absorbs moisture that may occur in the mosque environment and evaporates it, ensuring a healthy floor surface. Acrylic carpets, manufactured to withstand daily congregation traffic, can be used trouble-free for 15–20 years with regular maintenance.\n\nAsil Halı's acrylic range is offered with custom-cut options suitable for all mosque areas — from the prayer niche to the prayer rows, from staircases to corridor edges.\n    ",
+      "badge": "Best Seller",
       "advantages": [
-        "Uzun yıllar solmayan UV dirençli renkler",
-        "Yumuşak ve konforlu doku — uzun ibadet seansları için ideal",
-        "Nem emici ve hızlı kuruyan yapı",
-        "Ekonomik fiyat-performans oranı",
-        "Özel desen ve renk seçeneği",
-        "Kolay temizlik ve bakım",
-        "15-20 yıl kullanım ömrü",
-        "Alevlenmeye karşı sertifikalı"
+        "UV-resistant colours that do not fade for many years",
+        "Soft and comfortable texture — ideal for long prayer sessions",
+        "Moisture-absorbing and quick-drying structure",
+        "Economical price-to-performance ratio",
+        "Custom pattern and colour options",
+        "Easy cleaning and maintenance",
+        "15–20 years service life",
+        "Fire-resistance certified"
       ],
       "specs": [
         {
-          "label": "Lif Türü",
-          "value": "Akrilik (100%)"
+          "label": "Fibre Type",
+          "value": "Acrylic (100%)"
         },
         {
-          "label": "Dokuma Yöntemi",
-          "value": "Makine Dokuması"
+          "label": "Weaving Method",
+          "value": "Machine Woven"
         },
         {
-          "label": "Hav Yüksekliği",
+          "label": "Pile Height",
           "value": "6-10 mm"
         },
         {
-          "label": "Ağırlık",
-          "value": "1.800-2.400 gr/m²"
+          "label": "Weight",
+          "value": "1,800–2,400 g/m²"
         },
         {
-          "label": "Bağ Yoğunluğu",
-          "value": "180.000-350.000 düğüm/m²"
+          "label": "Knot Density",
+          "value": "180,000–350,000 knots/m²"
         },
         {
-          "label": "Yangın Sınıfı",
+          "label": "Fire Class",
           "value": "Bfl-s1 (EN 13501-1)"
         },
         {
-          "label": "Garanti",
-          "value": "5 Yıl"
+          "label": "Warranty",
+          "value": "5 Years"
         },
         {
-          "label": "Üretim Yeri",
-          "value": "Türkiye"
+          "label": "Place of Manufacture",
+          "value": "Turkey"
         }
       ],
       "useCases": [
-        "Küçük ve orta boy mahalle camileri",
-        "Belediye ve vakıf camileri",
-        "Okul ve üniversite mescitleri",
-        "Alış veriş merkezi ve iş yeri mescitleri",
-        "Yurt ve öğrenci evi mescitleri"
+        "Small and medium-sized neighbourhood mosques",
+        "Municipal and foundation mosques",
+        "School and university prayer rooms",
+        "Shopping centre and workplace prayer rooms",
+        "Dormitory and student housing prayer rooms"
       ],
       "faqs": [
         {
-          "question": "Akrilik cami halısının ömrü ne kadardır?",
-          "answer": "Kaliteli akrilik cami halısı, düzenli temizlik ve bakımla 15-20 yıl sorunsuz kullanılabilir. Asil Halı ürünleri 5 yıl garantilidir."
+          "question": "How long does an acrylic mosque carpet last?",
+          "answer": "A quality acrylic mosque carpet can be used trouble-free for 15–20 years with regular cleaning and maintenance. Asil Halı products come with a 5-year warranty."
         },
         {
-          "question": "Akrilik halı mı yün halı mı daha iyi?",
-          "answer": "Bütçe ve kullanım yoğunluğuna göre değişir. Akrilik daha ekonomik ve kolay bakımlıdır; yün ise daha doğal ve uzun ömürlüdür. Her ikisi de cami için uygundur."
+          "question": "Is acrylic or wool carpet better?",
+          "answer": "It depends on your budget and usage intensity. Acrylic is more economical and easier to maintain; wool is more natural and longer-lasting. Both are suitable for mosques."
         },
         {
-          "question": "Özel desen yaptırabilir miyim?",
-          "answer": "Evet. Caminizin mimarisine veya bölgesel geleneğe uygun özel desen tasarımı ücretsiz olarak hazırlanır, onayınızın ardından üretime geçilir."
+          "question": "Can I have a custom pattern made?",
+          "answer": "Yes. A custom pattern design matching your mosque's architecture or regional tradition is prepared free of charge; production begins after your approval."
         },
         {
-          "question": "Minimum sipariş miktarı nedir?",
-          "answer": "Minimum sipariş miktarı yoktur. Küçük bir mescit için 10 m² veya büyük bir cami için 5.000 m² sipariş verilebilir."
+          "question": "What is the minimum order quantity?",
+          "answer": "There is no minimum order quantity. You can order 10 m² for a small prayer room or 5,000 m² for a large mosque."
         }
       ]
     },
     "yun-cami-halisi": {
-      "title": "Yün Cami Halısı",
-      "shortTitle": "Yün Halı",
-      "metaTitle": "Yün Cami Halısı | Doğal, Dayanıklı, Premium Kalite – Asil Halı",
-      "metaDescription": "Yün cami halısı: doğal lif, uzun ömür, ısı yalıtımı ve doğal nem yönetimi. Premium kalite, özel ölçü üretim. Asil Halı A.Ş. – Türkiye geneli teslimat.",
-      "description": "Doğal yünün sıcaklığı, dayanıklılığı ve neme karşı doğal direnciyle ibadethaneye özel lüks deneyim.",
-      "longDescription": "\nYün cami halısı, binlerce yıllık gelenekte köklü bir yere sahiptir. Doğal protein lifleri sayesinde yün; ısıyı dengeler, nemi yönetir ve cami ortamının hijyenine katkı sağlar. Sentetik liflere kıyasla çok daha uzun ömürlü olan yün halılar, 25-30 yıl veya daha fazla kullanılabilir.\n\nYünün doğal kir itici özelliği, yoğun kullanımda bile halının görünümünü uzun süre korur. Üstelik yün, statik elektriği tutmadığı için toz birikmesini önler; bu da ibadet ortamının temizliğine doğrudan katkıda bulunur.\n\nAsil Halı'nın yün serisi; New Zealand ve Türk yününden seçilen en kaliteli hammaddelerle, geleneksel İslami desenlerle üretilmektedir. Büyük camilerin prestijli alanları, mihrap önleri ve imam namaz yerleri için özellikle tavsiye edilir.\n    ",
+      "title": "Wool Mosque Carpet",
+      "shortTitle": "Wool Carpet",
+      "metaTitle": "Wool Mosque Carpet | Natural, Durable, Premium Quality – Asil Hali",
+      "metaDescription": "Wool mosque carpet: natural fibre, long life, thermal insulation and natural moisture management. Premium quality, custom-size production. Asil Halı A.Ş. – delivery throughout Turkey.",
+      "description": "A luxury worship experience with natural wool's warmth, durability and natural resistance to moisture.",
+      "longDescription": "\nWool mosque carpet holds a deep-rooted place in a tradition spanning thousands of years. Thanks to natural protein fibres, wool regulates temperature, manages moisture and contributes to the hygiene of the mosque environment. Wool carpets are far more durable than synthetic fibres and can last 25–30 years or more.\n\nWool's natural soil-repellent property preserves the carpet's appearance for a long time even under heavy use. Moreover, wool does not hold static electricity, preventing dust accumulation — directly contributing to the cleanliness of the worship environment.\n\nAsil Halı's wool range is produced with the finest raw materials selected from New Zealand and Turkish wool, featuring traditional Islamic patterns. It is particularly recommended for the prestigious areas of large mosques, prayer niches and imam prayer areas.\n    ",
       "badge": "Premium",
       "advantages": [
-        "%100 doğal yün, çevre dostu üretim",
-        "Doğal ısı ve nem yönetimi",
-        "25-30 yıl uzun kullanım ömrü",
-        "Doğal kir ve leke direnci",
-        "Statik elektriği tutmaz, toz biriktirmez",
-        "Yangına karşı doğal direnç",
-        "Hipoalerjenik — alerjik reaksiyon riski düşük",
-        "Yıllar geçtikçe patina kazanan doku"
+        "100% natural wool, eco-friendly production",
+        "Natural thermal and moisture management",
+        "25–30 years long service life",
+        "Natural soil and stain resistance",
+        "Anti-static, does not accumulate dust",
+        "Natural fire resistance",
+        "Hypoallergenic — low risk of allergic reactions",
+        "Texture that develops patina over the years"
       ],
       "specs": [
         {
-          "label": "Lif Türü",
-          "value": "Yün (80-100%)"
+          "label": "Fibre Type",
+          "value": "Wool (80-100%)"
         },
         {
-          "label": "Dokuma Yöntemi",
-          "value": "El ve Makine Dokuması"
+          "label": "Weaving Method",
+          "value": "Hand and Machine Woven"
         },
         {
-          "label": "Hav Yüksekliği",
+          "label": "Pile Height",
           "value": "8-14 mm"
         },
         {
-          "label": "Ağırlık",
-          "value": "2.200-3.500 gr/m²"
+          "label": "Weight",
+          "value": "2,200–3,500 g/m²"
         },
         {
-          "label": "Bağ Yoğunluğu",
-          "value": "200.000-500.000 düğüm/m²"
+          "label": "Knot Density",
+          "value": "200,000–500,000 knots/m²"
         },
         {
-          "label": "Yangın Sınıfı",
+          "label": "Fire Class",
           "value": "Bfl-s1 (EN 13501-1)"
         },
         {
-          "label": "Garanti",
-          "value": "10 Yıl"
+          "label": "Warranty",
+          "value": "10 Years"
         },
         {
-          "label": "Üretim Yeri",
-          "value": "Türkiye"
+          "label": "Place of Manufacture",
+          "value": "Turkey"
         }
       ],
       "useCases": [
-        "Büyük ve prestijli cami projeleri",
-        "Külliye ve tarihi cami restorasyonları",
-        "İmam namaz ve mihrap alanları",
-        "VIP toplantı salonları ve dini merasim alanları",
-        "Yurt dışı ihracat projeleri"
+        "Large and prestigious mosque projects",
+        "Mosque complexes and historic mosque restorations",
+        "Imam and prayer niche areas",
+        "VIP meeting halls and religious ceremony areas",
+        "International export projects"
       ],
       "faqs": [
         {
-          "question": "Yün cami halısı nasıl temizlenir?",
-          "answer": "Yün halılar profesyonel kuru temizleme veya soğuk su ile yıkama ile temizlenir. Sıcak su ve ağır deterjanlardan kaçınılmalıdır. Yılda 1-2 kez profesyonel bakım önerilir."
+          "question": "How is a wool mosque carpet cleaned?",
+          "answer": "Wool carpets are cleaned with professional dry cleaning or cold water washing. Hot water and harsh detergents should be avoided. Professional maintenance 1–2 times per year is recommended."
         },
         {
-          "question": "Yün halı nem çeker mi?",
-          "answer": "Yün doğal nem yönetimi sağlar; havadan nemi alır ve bırakır, ancak ıslak zemine konmamalıdır. Camide taban nem yalıtımı yapılması önerilir."
+          "question": "Does wool carpet absorb moisture?",
+          "answer": "Wool provides natural moisture management; it absorbs and releases humidity from the air, but it should not be placed on wet floors. Floor moisture insulation in the mosque is recommended."
         },
         {
-          "question": "Yün halının fiyatı akrilikten neden yüksek?",
-          "answer": "Doğal yün hammaddesi daha pahalıdır ve işlenme süreci daha uzundur. Ancak 2-3 kat daha uzun ömrü hesaba katıldığında, uzun vadede daha ekonomik olur."
+          "question": "Why is wool carpet more expensive than acrylic?",
+          "answer": "Natural wool raw material is more expensive and the processing period is longer. However, when its 2–3 times longer lifespan is taken into account, it becomes more economical in the long run."
         }
       ]
     },
+
     "polipropilen-cami-halisi": {
       "title": "Polipropilen Cami Halısı",
       "shortTitle": "Polipropilen Halı",
@@ -1589,7 +1590,19 @@
     "ctaTitle": "Contact Us Now for Your {title} Order",
     "ctaSubtitle": "Asil Halı experts are ready to offer the best solution for your mosque's dimensions and requirements.",
     "desenGalerisiTitle": "Acrylic Lined Pattern Collection",
-    "desenGalerisiDesc": "251 different acrylic mosque carpet patterns. Click any pattern to enlarge and try different colour options in the colour simulator."
+    "desenGalerisiDesc": "251 different acrylic mosque carpet patterns. Click any pattern to enlarge and try different colour options in the colour simulator.",
+    "allModelsTitle": "Mosque Carpet Models",
+    "allModelsDesc": "Explore our highest quality acrylic, wool and polypropylene carpet options specially produced for mosques.",
+    "selectType": "Select Carpet Type",
+    "selectTypeDesc": "Our product ranges filtered by material type to suit your mosque's needs.",
+    "matAcrylic": "Acrylic Mosque Carpet",
+    "matAcrylicDesc": "Vibrant colours, high durability.",
+    "matWool": "Wool Mosque Carpet",
+    "matWoolDesc": "Natural, long-lasting and flame-retardant.",
+    "matPP": "Polypropylene Mosque Carpet",
+    "matPPDesc": "Economical, lightweight and easy to clean.",
+    "matStock": "In-Stock Mosque Carpet",
+    "matStockDesc": "Models ready for immediate delivery."
   },
   "categoryNames": {
     "akrilik-cami-halisi": "Acrylic Mosque Carpet",
