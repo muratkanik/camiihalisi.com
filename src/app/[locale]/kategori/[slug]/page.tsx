@@ -11,6 +11,8 @@ import CTASection from "@/components/blocks/CTASection";
 import FAQSection from "@/components/blocks/FAQSection";
 import CategoryFiltersClient from "@/components/blocks/CategoryFiltersClient";
 import S101GalleryClient from "@/components/blocks/S101GalleryClient";
+import DesenGalerisi from "@/components/blocks/DesenGalerisi";
+import { SAFLI_AKRILIK_DESENLER } from "@/lib/safli-akrilik-desenler";
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -66,6 +68,12 @@ const SAFLI_SLUGS = new Set([
   "safli-yun-cami-halisi",
   "safli-polipropilen-cami-halisi",
   "safli-polyamid-cami-halisi",
+]);
+
+// Saflı akrilik desen galerisi gösterilecek slug'lar
+const DESEN_GALERISI_SLUGS = new Set([
+  "safli-akrilik-cami-halisi",
+  "akrilik-cami-halisi",
 ]);
 
 type CatalogDesen = "Saflı" | "Göbekli" | "Seccadeli" | "Standart" | "Özel";
@@ -585,6 +593,27 @@ export default async function KategoriPage({
                 {tPage("s101Desc")}
               </p>
               <S101GalleryClient prefix={prefix} items={S101_GALLERY} />
+            </div>
+          </section>
+        )}
+
+        {/* ── Saflı Akrilik Desen Galerisi ── */}
+        {DESEN_GALERISI_SLUGS.has(slug) && (
+          <section className="py-14 bg-[#F0FDFE] border-b border-[#E0F7FA]">
+            <div className="container-site">
+              <DesenGalerisi
+                prefix={prefix}
+                title={tPage("desenGalerisiTitle")}
+                subtitle={tPage("desenGalerisiDesc")}
+                items={SAFLI_AKRILIK_DESENLER.map(d => ({
+                  id: d.id,
+                  slug: d.slug,
+                  image: d.image,
+                  name: locale === "en" ? d.nameEn : locale === "ar" ? d.nameAr : d.name,
+                  altText: locale === "en" ? d.altTextEn : locale === "ar" ? d.altTextAr : d.altText,
+                  dominantColors: d.dominantColors,
+                }))}
+              />
             </div>
           </section>
         )}

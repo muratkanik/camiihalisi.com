@@ -48,6 +48,7 @@ dev.db
 
 # raw content / assets (large files)
 master-content/
+master docs/
 
 # reports (local only)
 proje-raporu.md

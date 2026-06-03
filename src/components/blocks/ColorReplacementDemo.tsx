@@ -103,6 +103,24 @@ const MOTIFS = [
   { id: "cami-1", src: "/images/cami-1.png", name: "Akrilik Saflı", colors: ["#005577", "#a52a2a", "#e8dcc5"] },
   { id: "cami-2", src: "/images/cami-2.png", name: "Yün Göbekli", colors: ["#6B4226", "#e8dcc5", "#005577"] },
   { id: "cami-3", src: "/images/cami-3.png", name: "P.P. Seccadeli", colors: ["#1A4E8B", "#e8dcc5", "#b8860b"] },
+  // ── Saflı Akrilik Desen Koleksiyonu ──
+  { id: "safli-akrilik-01", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-01.webp", name: "Yıldız Geometri", colors: ["#006B7B", "#4CC4C4", "#FFFFFF"] },
+  { id: "safli-akrilik-02", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-02.webp", name: "Sade Bordür", colors: ["#0097A7", "#005566", "#E0F0F0"] },
+  { id: "safli-akrilik-03", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-03.webp", name: "Osmanlı Motif", colors: ["#006B7B", "#4CC4C4", "#C9972B"] },
+  { id: "safli-akrilik-04", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-04.webp", name: "Klasik Saflı", colors: ["#006B7B", "#4CC4C4", "#E0C880"] },
+  { id: "safli-akrilik-05", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-05.webp", name: "Lale Motif", colors: ["#0097A7", "#002244", "#E0C880"] },
+  { id: "safli-akrilik-06", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-06.webp", name: "İnce Çizgi", colors: ["#006B7B", "#3BB8B8", "#002244"] },
+  { id: "safli-akrilik-07", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-07.webp", name: "Selçuklu Yıldız", colors: ["#006B7B", "#4CC4C4", "#C9972B"] },
+  { id: "safli-akrilik-08", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-08.webp", name: "Mihrap Bordür", colors: ["#006B7B", "#3BB8B8", "#E0C880"] },
+  { id: "safli-akrilik-09", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-09.webp", name: "Geometrik Şerit", colors: ["#006B7B", "#4CC4C4", "#002244"] },
+  { id: "safli-akrilik-10", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-10.webp", name: "Dokuma Doku", colors: ["#005566", "#3BB8B8", "#002244"] },
+  { id: "safli-akrilik-11", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-11.webp", name: "Çiçek Motif", colors: ["#006B7B", "#4CC4C4", "#C9972B"] },
+  { id: "safli-akrilik-12", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-12.webp", name: "Modern Saflı", colors: ["#0097A7", "#005566", "#E0F0F0"] },
+  { id: "safli-akrilik-13", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-13.webp", name: "Halı Bordür", colors: ["#006B7B", "#4CC4C4", "#C9972B"] },
+  { id: "safli-akrilik-14", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-14.webp", name: "Zincir Motif", colors: ["#006B7B", "#3BB8B8", "#E0C880"] },
+  { id: "safli-akrilik-15", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-15.webp", name: "Büyük Yıldız", colors: ["#005566", "#4CC4C4", "#002244"] },
+  { id: "safli-akrilik-16", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-16.webp", name: "Arabesque", colors: ["#006B7B", "#4CC4C4", "#C9972B"] },
+  { id: "safli-akrilik-17", src: "/images/desenler/safli-akrilik/safli-akrilik-desen-17.webp", name: "Minimal Saflı", colors: ["#005566", "#0097A7", "#002244"] },
 ];
 
 export default function ColorReplacementDemo() {
