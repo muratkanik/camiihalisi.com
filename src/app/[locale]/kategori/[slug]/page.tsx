@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
 import FAQSection from "@/components/blocks/FAQSection";
 import CategoryFiltersClient from "@/components/blocks/CategoryFiltersClient";
-import S101GalleryClient from "@/components/blocks/S101GalleryClient";
+
 import DesenGalerisi from "@/components/blocks/DesenGalerisi";
 import { SAFLI_AKRILIK_DESENLER } from "@/lib/safli-akrilik-desenler";
 
@@ -54,21 +54,6 @@ const CATEGORY_IMAGES: Record<string, string> = {
 const COMMON_COLORS = ["#0097A7", "#1B2E5E", "#8B1A1A", "#1A4E8B", "#C9972B", "#7A7A7A"];
 const NATURAL_COLORS = ["#0097A7", "#1B2E5E", "#8B1A1A", "#6B4226", "#C9972B", "#F5EDD7"];
 
-// S101 desen renk varyantları — saflı kategorilerde gösterilir
-const S101_GALLERY = [
-  { src: "/images/s101-acik-cini.webp",  label: "Açık Çini"  },
-  { src: "/images/s101-bej.webp",         label: "Bej"        },
-  { src: "/images/s101-bordo.webp",       label: "Bordo"      },
-  { src: "/images/s101-hardal.webp",      label: "Hardal"     },
-  { src: "/images/s101-koyu-cini.webp",  label: "Koyu Çini"  },
-  { src: "/images/s101-turkuaz.webp",     label: "Turkuaz"    },
-];
-const SAFLI_SLUGS = new Set([
-  "safli-akrilik-cami-halisi",
-  "safli-yun-cami-halisi",
-  "safli-polipropilen-cami-halisi",
-  "safli-polyamid-cami-halisi",
-]);
 
 // Saflı akrilik desen galerisi gösterilecek slug'lar
 const DESEN_GALERISI_SLUGS = new Set([
@@ -579,24 +564,6 @@ export default async function KategoriPage({
           </section>
         )}
 
-        {/* ── S101 Desen Galerisi (yalnızca saflı kategoriler) ── */}
-        {SAFLI_SLUGS.has(slug) && (
-          <section className="py-14 bg-white border-b border-[#E0F7FA]">
-            <div className="container-site">
-              <h2
-                className="text-2xl font-bold text-[#0097A7] mb-2"
-                style={{ fontFamily: "'Cormorant Garamond', serif" }}
-              >
-                {tPage("s101Title")}
-              </h2>
-              <p className="text-sm text-[#6B6355] mb-8">
-                {tPage("s101Desc")}
-              </p>
-              <S101GalleryClient prefix={prefix} items={S101_GALLERY} />
-            </div>
-          </section>
-        )}
-
         {/* ── Saflı Akrilik Desen Galerisi ── */}
         {DESEN_GALERISI_SLUGS.has(slug) && (
           <section className="py-14 bg-[#F0FDFE] border-b border-[#E0F7FA]">
@@ -605,6 +572,7 @@ export default async function KategoriPage({
                 prefix={prefix}
                 title={tPage("desenGalerisiTitle")}
                 subtitle={tPage("desenGalerisiDesc")}
+                categorySlug={slug}
                 items={SAFLI_AKRILIK_DESENLER.map(d => ({
                   id: d.id,
                   image: d.image,
