@@ -124,7 +124,16 @@ const MT: Record<string, Record<string, string>> = {
     original: "Orijinal",
     orderBtn: "Bu Varyasyonla Sipariş Ver",
     orderBtnShort: "Sipariş Ver",
-    orderMessage: "📋 SİPARİŞ TALEBİ\n\n🕌 Motif: {pattern}\n\n🎨 Renk Değişiklikleri:\n{changes}\n\n📞 İletişim Bilgileri:\n- Ad Soyad: \n- Telefon: \n- E-posta: \n\nAsil Halı — camiihalisi.com renk simülatöründen gönderilmiştir.",
+    orderMessage: "📋 SİPARİŞ TALEBİ\n\n🕌 Motif: {pattern}\n\n🎨 Renk Değişiklikleri:\n{changes}\n\n📞 İletişim Bilgileri:\n- Ad Soyad: {name}\n- Telefon: {phone}\n- E-posta: {email}\n\nAsil Halı — camiihalisi.com renk simülatöründen gönderilmiştir.",
+    formTitle: "Sipariş Bilgileri",
+    formName: "Ad Soyad",
+    formPhone: "Telefon",
+    formEmail: "E-posta",
+    formSubmit: "Gönder ve WhatsApp ile İlet",
+    formSaving: "Kaydediliyor...",
+    formBack: "Geri Dön",
+    formNameReq: "Ad soyad gerekli",
+    formPhoneReq: "Telefon gerekli",
     shareText: "Cami halısı desen özelleştirmem:\nMotif: {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
     changeItem: "{source} → {target} (İplik: {code})",
   },
@@ -149,7 +158,16 @@ const MT: Record<string, Record<string, string>> = {
     original: "Original",
     orderBtn: "Order with This Variation",
     orderBtnShort: "Order",
-    orderMessage: "📋 ORDER REQUEST\n\n🕌 Pattern: {pattern}\n\n🎨 Colour Changes:\n{changes}\n\n📞 Contact Details:\n- Name: \n- Phone: \n- Email: \n\nSent from Asil Halı — camiihalisi.com colour simulator.",
+    orderMessage: "📋 ORDER REQUEST\n\n🕌 Pattern: {pattern}\n\n🎨 Colour Changes:\n{changes}\n\n📞 Contact Details:\n- Name: {name}\n- Phone: {phone}\n- Email: {email}\n\nSent from Asil Halı — camiihalisi.com colour simulator.",
+    formTitle: "Order Details",
+    formName: "Full Name",
+    formPhone: "Phone",
+    formEmail: "Email",
+    formSubmit: "Submit & Send via WhatsApp",
+    formSaving: "Saving...",
+    formBack: "Go Back",
+    formNameReq: "Name is required",
+    formPhoneReq: "Phone is required",
     shareText: "My mosque carpet customisation:\nPattern: {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
     changeItem: "{source} → {target} (Yarn: {code})",
   },
@@ -174,7 +192,16 @@ const MT: Record<string, Record<string, string>> = {
     original: "أصلي",
     orderBtn: "اطلب بهذا التنوع",
     orderBtnShort: "اطلب",
-    orderMessage: "📋 طلب شراء\n\n🕌 النمط: {pattern}\n\n🎨 تغييرات الألوان:\n{changes}\n\n📞 بيانات التواصل:\n- الاسم: \n- الهاتف: \n- البريد الإلكتروني: \n\nمرسل من محاكي ألوان أصيل هالي — camiihalisi.com",
+    orderMessage: "📋 طلب شراء\n\n🕌 النمط: {pattern}\n\n🎨 تغييرات الألوان:\n{changes}\n\n📞 بيانات التواصل:\n- الاسم: {name}\n- الهاتف: {phone}\n- البريد الإلكتروني: {email}\n\nمرسل من محاكي ألوان أصيل هالي — camiihalisi.com",
+    formTitle: "بيانات الطلب",
+    formName: "الاسم الكامل",
+    formPhone: "الهاتف",
+    formEmail: "البريد الإلكتروني",
+    formSubmit: "إرسال عبر واتساب",
+    formSaving: "جاري الحفظ...",
+    formBack: "رجوع",
+    formNameReq: "الاسم مطلوب",
+    formPhoneReq: "الهاتف مطلوب",
     shareText: "تخصيص سجاد مسجدي:\nالنمط: {pattern}\n{changes}\n\nأصيل هالي — camiihalisi.com",
     changeItem: "{source} ← {target} (خيط: {code})",
   },
@@ -199,7 +226,16 @@ const MT: Record<string, Record<string, string>> = {
     original: "Original",
     orderBtn: "Commander avec cette Variation",
     orderBtnShort: "Commander",
-    orderMessage: "📋 DEMANDE DE COMMANDE\n\n🕌 Motif : {pattern}\n\n🎨 Changements de couleur :\n{changes}\n\n📞 Coordonnées :\n- Nom : \n- Téléphone : \n- E-mail : \n\nEnvoyé depuis le simulateur de couleurs Asil Halı — camiihalisi.com",
+    orderMessage: "📋 DEMANDE DE COMMANDE\n\n🕌 Motif : {pattern}\n\n🎨 Changements de couleur :\n{changes}\n\n📞 Coordonnées :\n- Nom : {name}\n- Téléphone : {phone}\n- E-mail : {email}\n\nEnvoyé depuis le simulateur de couleurs Asil Halı — camiihalisi.com",
+    formTitle: "Détails de la Commande",
+    formName: "Nom Complet",
+    formPhone: "Téléphone",
+    formEmail: "E-mail",
+    formSubmit: "Envoyer via WhatsApp",
+    formSaving: "Enregistrement...",
+    formBack: "Retour",
+    formNameReq: "Le nom est requis",
+    formPhoneReq: "Le téléphone est requis",
     shareText: "Ma personnalisation de tapis de mosquée :\nMotif : {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
     changeItem: "{source} → {target} (Fil : {code})",
   },
@@ -224,7 +260,16 @@ const MT: Record<string, Record<string, string>> = {
     original: "Original",
     orderBtn: "Mit dieser Variation bestellen",
     orderBtnShort: "Bestellen",
-    orderMessage: "📋 BESTELLANFRAGE\n\n🕌 Muster: {pattern}\n\n🎨 Farbänderungen:\n{changes}\n\n📞 Kontaktdaten:\n- Name: \n- Telefon: \n- E-Mail: \n\nGesendet vom Asil Halı — camiihalisi.com Farbsimulator.",
+    orderMessage: "📋 BESTELLANFRAGE\n\n🕌 Muster: {pattern}\n\n🎨 Farbänderungen:\n{changes}\n\n📞 Kontaktdaten:\n- Name: {name}\n- Telefon: {phone}\n- E-Mail: {email}\n\nGesendet vom Asil Halı — camiihalisi.com Farbsimulator.",
+    formTitle: "Bestelldetails",
+    formName: "Vollständiger Name",
+    formPhone: "Telefon",
+    formEmail: "E-Mail",
+    formSubmit: "Senden & per WhatsApp übermitteln",
+    formSaving: "Speichern...",
+    formBack: "Zurück",
+    formNameReq: "Name ist erforderlich",
+    formPhoneReq: "Telefon ist erforderlich",
     shareText: "Meine Moscheeteppich-Anpassung:\nMuster: {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
     changeItem: "{source} → {target} (Garn: {code})",
   },
@@ -235,8 +280,8 @@ function mt(locale: string, key: string): string {
   return dict[key] || MT.tr[key] || key;
 }
 
-/* ── Sipariş Linki Oluşturma (WhatsApp tabanlı) ── */
-function buildOrderUrl(patternName: string, changes: ColorChange[], locale: string): string {
+/* ── Sipariş Linki Oluşturma (WhatsApp tabanlı, form bilgileriyle) ── */
+function buildOrderUrl(patternName: string, changes: ColorChange[], locale: string, form: { name: string; phone: string; email: string }): string {
   const t = (key: string) => mt(locale, key);
   const changesText = changes
     .map(c => t("changeItem")
@@ -247,25 +292,11 @@ function buildOrderUrl(patternName: string, changes: ColorChange[], locale: stri
     .join("\n");
   const text = t("orderMessage")
     .replace("{pattern}", patternName)
-    .replace("{changes}", changesText || t("noChanges"));
-  const target = `https://wa.me/905062259235?text=${encodeURIComponent(text)}`;
-  return `/api/r?to=${encodeURIComponent(target)}&from=renk-simulatoru&label=siparis-ver&cat=whatsapp`;
-}
-
-function buildWhatsAppOrderUrl(patternName: string, changes: ColorChange[], locale: string): string {
-  const t = (key: string) => mt(locale, key);
-  const changesText = changes
-    .map(c => t("changeItem")
-      .replace("{source}", c.sourceHex)
-      .replace("{target}", `${c.targetHex}`)
-      .replace("{code}", `${c.yarnCode} - ${c.yarnName}`)
-    )
-    .join("\n");
-  const text = t("shareText")
-    .replace("{pattern}", patternName)
-    .replace("{changes}", changesText || t("noChanges"));
-  const target = `https://wa.me/905062259235?text=${encodeURIComponent(text)}`;
-  return `/api/r?to=${encodeURIComponent(target)}&from=renk-simulatoru&label=whatsapp-siparis&cat=whatsapp`;
+    .replace("{changes}", changesText || t("noChanges"))
+    .replace("{name}", form.name)
+    .replace("{phone}", form.phone)
+    .replace("{email}", form.email || "-");
+  return `https://wa.me/905062259235?text=${encodeURIComponent(text)}`;
 }
 
 /* ── Bileşen ── */
@@ -293,6 +324,10 @@ export default function ColorReplacementModal({
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [colorChanges, setColorChanges] = useState<ColorChange[]>([]);
   const [showInstructions, setShowInstructions] = useState(false);
+  const [showOrderForm, setShowOrderForm] = useState(false);
+  const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
+  const [orderSaving, setOrderSaving] = useState(false);
+  const [orderFormErrors, setOrderFormErrors] = useState<Record<string, string>>({});
   const originalDataRef = useRef<ImageData | null>(null);
 
   const t = useCallback((key: string) => mt(locale, key), [locale]);
@@ -649,28 +684,150 @@ export default function ColorReplacementModal({
             </div>
           </div>
 
-          {/* ── Sipariş Butonu ── */}
-          {colorChanges.length > 0 && (
-            <div className="flex gap-2">
-              <a
-                href={buildOrderUrl(patternName, colorChanges, locale)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#C9972B] to-[#E4B84A] text-[#1A1A1A] hover:from-[#B8860B] hover:to-[#C9972B] shadow-lg hover:shadow-xl transition-all"
+          {/* ── Sipariş Butonu veya Form ── */}
+          {colorChanges.length > 0 && !showOrderForm && (
+            <button
+              onClick={() => setShowOrderForm(true)}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#C9972B] to-[#E4B84A] text-[#1A1A1A] hover:from-[#B8860B] hover:to-[#C9972B] shadow-lg hover:shadow-xl transition-all"
+            >
+              <ShoppingCart className="w-4 h-4" />
+              <span className="hidden sm:inline">{t("orderBtn")}</span>
+              <span className="sm:hidden">{t("orderBtnShort")}</span>
+            </button>
+          )}
+
+          {/* ── Sipariş Formu ── */}
+          {showOrderForm && (
+            <div className="bg-gradient-to-b from-[#FFF8E8] to-white border-2 border-[#C9972B]/30 rounded-2xl p-5 space-y-4">
+              <div className="flex items-center justify-between">
+                <h4 className="font-bold text-[#003B40] flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4 text-[#C9972B]" />
+                  {t("formTitle")}
+                </h4>
+                <button
+                  onClick={() => { setShowOrderForm(false); setOrderFormErrors({}); }}
+                  className="text-xs text-[#6B6355] hover:text-[#003B40] transition-colors"
+                >
+                  {t("formBack")}
+                </button>
+              </div>
+
+              {/* Renk değişimleri özeti */}
+              <div className="flex gap-1.5 flex-wrap">
+                {colorChanges.map((c, i) => (
+                  <div key={i} className="flex items-center gap-1 bg-white rounded-md px-2 py-1 border border-[#E0F7FA] text-[10px]">
+                    <div className="w-3 h-3 rounded-sm border border-black/10" style={{ backgroundColor: c.sourceHex }} />
+                    <ArrowRight className="w-2.5 h-2.5 text-[#C9972B]" />
+                    <div className="w-3 h-3 rounded-sm border border-black/10" style={{ backgroundColor: c.targetHex }} />
+                    <span className="font-mono font-bold text-[#003B40]">{c.yarnCode}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Form alanları */}
+              <div className="space-y-3">
+                <div>
+                  <label className="text-xs font-semibold text-[#6B6355] mb-1 block">{t("formName")} *</label>
+                  <input
+                    type="text"
+                    value={orderForm.name}
+                    onChange={(e) => { setOrderForm(prev => ({ ...prev, name: e.target.value })); setOrderFormErrors(prev => ({ ...prev, name: "" })); }}
+                    className={`w-full px-3 py-2.5 rounded-xl border text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 transition-all ${
+                      orderFormErrors.name ? "border-red-400" : "border-[#E0F7FA]"
+                    }`}
+                    placeholder={t("formName")}
+                  />
+                  {orderFormErrors.name && <p className="text-[10px] text-red-500 mt-0.5">{orderFormErrors.name}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-[#6B6355] mb-1 block">{t("formPhone")} *</label>
+                  <input
+                    type="tel"
+                    value={orderForm.phone}
+                    onChange={(e) => { setOrderForm(prev => ({ ...prev, phone: e.target.value })); setOrderFormErrors(prev => ({ ...prev, phone: "" })); }}
+                    className={`w-full px-3 py-2.5 rounded-xl border text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 transition-all ${
+                      orderFormErrors.phone ? "border-red-400" : "border-[#E0F7FA]"
+                    }`}
+                    placeholder="+90 5XX XXX XX XX"
+                    dir="ltr"
+                  />
+                  {orderFormErrors.phone && <p className="text-[10px] text-red-500 mt-0.5">{orderFormErrors.phone}</p>}
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-[#6B6355] mb-1 block">{t("formEmail")}</label>
+                  <input
+                    type="email"
+                    value={orderForm.email}
+                    onChange={(e) => setOrderForm(prev => ({ ...prev, email: e.target.value }))}
+                    className="w-full px-3 py-2.5 rounded-xl border border-[#E0F7FA] text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#C9972B]/40 transition-all"
+                    placeholder="ornek@email.com"
+                    dir="ltr"
+                  />
+                </div>
+              </div>
+
+              {/* Gönder butonu */}
+              <button
+                onClick={async () => {
+                  // Validate
+                  const errors: Record<string, string> = {};
+                  if (!orderForm.name.trim()) errors.name = t("formNameReq");
+                  if (!orderForm.phone.trim()) errors.phone = t("formPhoneReq");
+                  if (Object.keys(errors).length > 0) {
+                    setOrderFormErrors(errors);
+                    return;
+                  }
+
+                  setOrderSaving(true);
+                  try {
+                    // Save to Supabase
+                    await fetch("/api/orders", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        patternName,
+                        colorChanges: colorChanges.map(c => ({
+                          source: c.sourceHex,
+                          target: c.targetHex,
+                          yarnCode: c.yarnCode,
+                          yarnName: c.yarnName,
+                        })),
+                        customerName: orderForm.name.trim(),
+                        phone: orderForm.phone.trim(),
+                        email: orderForm.email.trim() || null,
+                        locale,
+                      }),
+                    });
+                  } catch {
+                    // Even if save fails, still redirect to WhatsApp
+                  }
+
+                  // Redirect to WhatsApp
+                  const waUrl = buildOrderUrl(patternName, colorChanges, locale, {
+                    name: orderForm.name.trim(),
+                    phone: orderForm.phone.trim(),
+                    email: orderForm.email.trim(),
+                  });
+                  window.open(waUrl, "_blank");
+                  setOrderSaving(false);
+                  setShowOrderForm(false);
+                }}
+                disabled={orderSaving}
+                className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm transition-all ${
+                  orderSaving
+                    ? "bg-gray-300 text-gray-500 cursor-wait"
+                    : "bg-[#25D366] text-white hover:bg-[#20BD5C] shadow-lg hover:shadow-xl"
+                }`}
               >
-                <ShoppingCart className="w-4 h-4" />
-                <span className="hidden sm:inline">{t("orderBtn")}</span>
-                <span className="sm:hidden">{t("orderBtnShort")}</span>
-              </a>
-              <a
-                href={buildWhatsAppOrderUrl(patternName, colorChanges, locale)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm bg-[#25D366] text-white hover:bg-[#20BD5C] shadow-lg hover:shadow-xl transition-all"
-                title="WhatsApp"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              </a>
+                {orderSaving ? (
+                  <><div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> {t("formSaving")}</>
+                ) : (
+                  <>
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    {t("formSubmit")}
+                  </>
+                )}
+              </button>
             </div>
           )}
         </div>
