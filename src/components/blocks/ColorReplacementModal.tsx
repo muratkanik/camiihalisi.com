@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { X, Download, Share2, Undo2, Redo2, RotateCcw, Palette } from "lucide-react";
+import { X, Download, Share2, Undo2, Redo2, RotateCcw, Palette, ShoppingCart, ArrowRight } from "lucide-react";
+import { YARN_COLORS, type YarnColor } from "@/lib/yarn-colors";
 
 /* ── Renk Yardımcı Fonksiyonları ── */
 function hexToRgb(hex: string) {
@@ -92,87 +93,140 @@ function replaceColorInImageData(
   return newData;
 }
 
+/* ── Renk Değişim Kaydı ── */
+interface ColorChange {
+  sourceHex: string;
+  targetHex: string;
+  yarnCode: string;
+  yarnName: string;
+}
+
 /* ── Çeviri Sözlüğü ── */
 const MT: Record<string, Record<string, string>> = {
   tr: {
     title: "Renk Değiştirme",
     howTo: "Nasıl kullanılır?",
     step1: "1. Desen üzerinde değiştirmek istediğiniz renge tıklayın",
-    step2: "2. Aşağıdan yeni rengi seçin",
+    step2: "2. Aşağıdaki iplik paletinden yeni rengi seçin",
     step3: "3. \"Uygula\" butonuna basın",
     selectedColor: "Seçili Renk",
     clickHint: "Desen üzerinde bir renge tıklayın",
-    newColor: "Yeni Renk",
+    yarnPalette: "İplik Renk Paleti",
+    yarnCode: "İplik",
     apply: "Rengi Uygula",
     undo: "Geri",
     redo: "İleri",
     reset: "Sıfırla",
     download: "İndir",
     share: "Paylaş",
+    colorChanges: "Renk Değişimleri",
+    noChanges: "Henüz renk değişikliği yapılmadı",
+    original: "Orijinal",
+    orderBtn: "Bu Varyasyonla Sipariş Ver",
+    orderBtnShort: "Sipariş Ver",
+    orderMessage: "📋 SİPARİŞ TALEBİ\n\n🕌 Motif: {pattern}\n\n🎨 Renk Değişiklikleri:\n{changes}\n\n📐 Cami ölçülerimiz:\n- En: \n- Boy: \n\n📞 İletişim bilgilerimiz:\n- Ad Soyad: \n- Telefon: \n\nAsil Halı — camiihalisi.com renk simülatöründen gönderilmiştir.",
+    shareText: "Cami halısı desen özelleştirmem:\nMotif: {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
+    changeItem: "{source} → {target} (İplik: {code})",
   },
   en: {
     title: "Change Colour",
     howTo: "How to use?",
     step1: "1. Click on the colour you want to change on the pattern",
-    step2: "2. Choose the new colour below",
+    step2: "2. Choose the new colour from the yarn palette below",
     step3: "3. Press the \"Apply\" button",
     selectedColor: "Selected Colour",
     clickHint: "Click a colour on the pattern",
-    newColor: "New Colour",
+    yarnPalette: "Yarn Colour Palette",
+    yarnCode: "Yarn",
     apply: "Apply Colour",
     undo: "Undo",
     redo: "Redo",
     reset: "Reset",
     download: "Download",
     share: "Share",
+    colorChanges: "Colour Changes",
+    noChanges: "No colour changes yet",
+    original: "Original",
+    orderBtn: "Order with This Variation",
+    orderBtnShort: "Order",
+    orderMessage: "📋 ORDER REQUEST\n\n🕌 Pattern: {pattern}\n\n🎨 Colour Changes:\n{changes}\n\n📐 Mosque dimensions:\n- Width: \n- Length: \n\n📞 Contact details:\n- Name: \n- Phone: \n\nSent from Asil Halı — camiihalisi.com colour simulator.",
+    shareText: "My mosque carpet customisation:\nPattern: {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
+    changeItem: "{source} → {target} (Yarn: {code})",
   },
   ar: {
     title: "تغيير اللون",
     howTo: "كيفية الاستخدام؟",
     step1: "١. انقر على اللون الذي تريد تغييره على النمط",
-    step2: "٢. اختر اللون الجديد أدناه",
+    step2: "٢. اختر اللون الجديد من لوحة الخيوط أدناه",
     step3: "٣. اضغط على زر \"تطبيق\"",
     selectedColor: "اللون المحدد",
     clickHint: "انقر على لون على النمط",
-    newColor: "اللون الجديد",
+    yarnPalette: "لوحة ألوان الخيوط",
+    yarnCode: "خيط",
     apply: "تطبيق اللون",
     undo: "تراجع",
     redo: "إعادة",
     reset: "إعادة تعيين",
     download: "تحميل",
     share: "مشاركة",
+    colorChanges: "تغييرات الألوان",
+    noChanges: "لا توجد تغييرات بعد",
+    original: "أصلي",
+    orderBtn: "اطلب بهذا التنوع",
+    orderBtnShort: "اطلب",
+    orderMessage: "📋 طلب شراء\n\n🕌 النمط: {pattern}\n\n🎨 تغييرات الألوان:\n{changes}\n\n📐 أبعاد المسجد:\n- العرض: \n- الطول: \n\n📞 بيانات التواصل:\n- الاسم: \n- الهاتف: \n\nمرسل من محاكي ألوان أصيل هالي — camiihalisi.com",
+    shareText: "تخصيص سجاد مسجدي:\nالنمط: {pattern}\n{changes}\n\nأصيل هالي — camiihalisi.com",
+    changeItem: "{source} ← {target} (خيط: {code})",
   },
   fr: {
     title: "Changer la Couleur",
     howTo: "Comment utiliser ?",
     step1: "1. Cliquez sur la couleur à modifier sur le motif",
-    step2: "2. Choisissez la nouvelle couleur ci-dessous",
+    step2: "2. Choisissez la nouvelle couleur dans la palette de fils",
     step3: "3. Appuyez sur le bouton « Appliquer »",
     selectedColor: "Couleur Sélectionnée",
     clickHint: "Cliquez sur une couleur du motif",
-    newColor: "Nouvelle Couleur",
+    yarnPalette: "Palette de Fils",
+    yarnCode: "Fil",
     apply: "Appliquer la Couleur",
     undo: "Annuler",
     redo: "Rétablir",
     reset: "Réinitialiser",
     download: "Télécharger",
     share: "Partager",
+    colorChanges: "Changements de Couleur",
+    noChanges: "Aucun changement de couleur",
+    original: "Original",
+    orderBtn: "Commander avec cette Variation",
+    orderBtnShort: "Commander",
+    orderMessage: "📋 DEMANDE DE COMMANDE\n\n🕌 Motif : {pattern}\n\n🎨 Changements de couleur :\n{changes}\n\n📐 Dimensions de la mosquée :\n- Largeur : \n- Longueur : \n\n📞 Coordonnées :\n- Nom : \n- Téléphone : \n\nEnvoyé depuis le simulateur de couleurs Asil Halı — camiihalisi.com",
+    shareText: "Ma personnalisation de tapis de mosquée :\nMotif : {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
+    changeItem: "{source} → {target} (Fil : {code})",
   },
   de: {
     title: "Farbe Ändern",
     howTo: "Wie benutzen?",
     step1: "1. Klicken Sie auf die Farbe, die Sie ändern möchten",
-    step2: "2. Wählen Sie unten die neue Farbe",
+    step2: "2. Wählen Sie die neue Farbe aus der Garnpalette",
     step3: "3. Klicken Sie auf \"Anwenden\"",
     selectedColor: "Ausgewählte Farbe",
     clickHint: "Klicken Sie auf eine Farbe im Muster",
-    newColor: "Neue Farbe",
+    yarnPalette: "Garn-Farbpalette",
+    yarnCode: "Garn",
     apply: "Farbe Anwenden",
     undo: "Rückgängig",
     redo: "Wiederholen",
     reset: "Zurücksetzen",
     download: "Herunterladen",
     share: "Teilen",
+    colorChanges: "Farbänderungen",
+    noChanges: "Noch keine Farbänderungen",
+    original: "Original",
+    orderBtn: "Mit dieser Variation bestellen",
+    orderBtnShort: "Bestellen",
+    orderMessage: "📋 BESTELLANFRAGE\n\n🕌 Muster: {pattern}\n\n🎨 Farbänderungen:\n{changes}\n\n📐 Moschee-Abmessungen:\n- Breite: \n- Länge: \n\n📞 Kontaktdaten:\n- Name: \n- Telefon: \n\nGesendet vom Asil Halı — camiihalisi.com Farbsimulator.",
+    shareText: "Meine Moscheeteppich-Anpassung:\nMuster: {pattern}\n{changes}\n\nAsil Halı — camiihalisi.com",
+    changeItem: "{source} → {target} (Garn: {code})",
   },
 };
 
@@ -181,14 +235,40 @@ function mt(locale: string, key: string): string {
   return dict[key] || MT.tr[key] || key;
 }
 
-/* ── Hazır Renk Paleti ── */
-const PRESET_COLORS = [
-  "#8B1A1A", "#6b1c23", "#B22222", "#CD853F", "#DAA520",
-  "#006B7B", "#0097A7", "#1A4E8B", "#003B40", "#2E8B57",
-  "#4B0082", "#800080", "#C71585", "#FF6347", "#FF8C00",
-  "#556B2F", "#8FBC8F", "#708090", "#2F4F4F", "#191970",
-];
+/* ── Sipariş Linki Oluşturma (WhatsApp tabanlı) ── */
+function buildOrderUrl(patternName: string, changes: ColorChange[], locale: string): string {
+  const t = (key: string) => mt(locale, key);
+  const changesText = changes
+    .map(c => t("changeItem")
+      .replace("{source}", c.sourceHex)
+      .replace("{target}", c.targetHex)
+      .replace("{code}", `${c.yarnCode} - ${c.yarnName}`)
+    )
+    .join("\n");
+  const text = t("orderMessage")
+    .replace("{pattern}", patternName)
+    .replace("{changes}", changesText || t("noChanges"));
+  const target = `https://wa.me/905062259235?text=${encodeURIComponent(text)}`;
+  return `/api/r?to=${encodeURIComponent(target)}&from=renk-simulatoru&label=siparis-ver&cat=whatsapp`;
+}
 
+function buildWhatsAppOrderUrl(patternName: string, changes: ColorChange[], locale: string): string {
+  const t = (key: string) => mt(locale, key);
+  const changesText = changes
+    .map(c => t("changeItem")
+      .replace("{source}", c.sourceHex)
+      .replace("{target}", `${c.targetHex}`)
+      .replace("{code}", `${c.yarnCode} - ${c.yarnName}`)
+    )
+    .join("\n");
+  const text = t("shareText")
+    .replace("{pattern}", patternName)
+    .replace("{changes}", changesText || t("noChanges"));
+  const target = `https://wa.me/905062259235?text=${encodeURIComponent(text)}`;
+  return `/api/r?to=${encodeURIComponent(target)}&from=renk-simulatoru&label=whatsapp-siparis&cat=whatsapp`;
+}
+
+/* ── Bileşen ── */
 interface ColorReplacementModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -208,10 +288,14 @@ export default function ColorReplacementModal({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [extractedColors, setExtractedColors] = useState<string[]>([]);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [newColor, setNewColor] = useState("#8B1A1A");
+  const [selectedYarn, setSelectedYarn] = useState<YarnColor | null>(null);
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [colorChanges, setColorChanges] = useState<ColorChange[]>([]);
+  const [showInstructions, setShowInstructions] = useState(false);
   const originalDataRef = useRef<ImageData | null>(null);
+
+  const t = useCallback((key: string) => mt(locale, key), [locale]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -222,9 +306,11 @@ export default function ColorReplacementModal({
 
     setImageLoaded(false);
     setSelectedColor(null);
+    setSelectedYarn(null);
     setExtractedColors([]);
     setHistory([]);
     setHistoryIndex(-1);
+    setColorChanges([]);
 
     const img = new window.Image();
     img.crossOrigin = "anonymous";
@@ -259,24 +345,36 @@ export default function ColorReplacementModal({
     const hex = "#" + [pixel[0], pixel[1], pixel[2]].map(v => v.toString(16).padStart(2, "0")).join("");
     setSelectedColor(hex);
     if (!extractedColors.includes(hex)) {
-      setExtractedColors(prev => [hex, ...prev].slice(0, 6));
+      setExtractedColors(prev => [hex, ...prev].slice(0, 8));
     }
   }, [imageLoaded, extractedColors]);
 
   const applyColor = useCallback(() => {
-    if (!selectedColor || !canvasRef.current) return;
+    if (!selectedColor || !selectedYarn || !canvasRef.current) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const currentData = history[historyIndex];
     if (!currentData) return;
-    const newData = replaceColorInImageData(ctx, currentData, selectedColor, newColor, 5);
+    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 5);
     ctx.putImageData(newData, 0, 0);
     const newHistory = [...history.slice(0, historyIndex + 1), newData];
     setHistory(newHistory);
     setHistoryIndex(newHistory.length - 1);
+
+    // Renk değişim kaydı
+    setColorChanges(prev => [
+      ...prev,
+      {
+        sourceHex: selectedColor,
+        targetHex: selectedYarn.hex,
+        yarnCode: selectedYarn.code,
+        yarnName: locale === "tr" ? selectedYarn.name : selectedYarn.nameEn,
+      },
+    ]);
+
     setSelectedColor(null);
-  }, [selectedColor, newColor, history, historyIndex]);
+  }, [selectedColor, selectedYarn, history, historyIndex, locale]);
 
   const undo = useCallback(() => {
     if (historyIndex <= 0 || !canvasRef.current) return;
@@ -285,6 +383,7 @@ export default function ColorReplacementModal({
     const newIdx = historyIndex - 1;
     ctx.putImageData(history[newIdx], 0, 0);
     setHistoryIndex(newIdx);
+    setColorChanges(prev => prev.slice(0, -1));
   }, [historyIndex, history]);
 
   const redo = useCallback(() => {
@@ -304,6 +403,8 @@ export default function ColorReplacementModal({
     setHistory([originalDataRef.current]);
     setHistoryIndex(0);
     setSelectedColor(null);
+    setSelectedYarn(null);
+    setColorChanges([]);
   }, []);
 
   const download = useCallback(() => {
@@ -314,6 +415,28 @@ export default function ColorReplacementModal({
     link.click();
   }, [patternName]);
 
+  const handleShare = useCallback(() => {
+    if (!canvasRef.current) return;
+    const changesText = colorChanges
+      .map(c => t("changeItem")
+        .replace("{source}", c.sourceHex)
+        .replace("{target}", c.targetHex)
+        .replace("{code}", `${c.yarnCode} - ${c.yarnName}`)
+      )
+      .join("\n");
+    const text = t("shareText")
+      .replace("{pattern}", patternName)
+      .replace("{changes}", changesText || t("noChanges"));
+
+    canvasRef.current.toBlob((blob) => {
+      if (!blob) return;
+      const file = new File([blob], `${patternName}.jpg`, { type: "image/jpeg" });
+      if (navigator.share) {
+        navigator.share({ title: patternName, text, files: [file] }).catch(() => {});
+      }
+    }, "image/jpeg", 0.92);
+  }, [patternName, colorChanges, t]);
+
   useEffect(() => {
     if (!isOpen) return;
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -323,40 +446,42 @@ export default function ColorReplacementModal({
 
   if (!isOpen) return null;
 
+  const yarnName = (yc: YarnColor) => locale === "tr" ? yc.name : yc.nameEn;
+
   return (
     <div
-      className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl max-w-[720px] w-full max-h-[95vh] overflow-y-auto"
+        className="relative bg-white rounded-2xl shadow-2xl max-w-[780px] w-full max-h-[95vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
         dir={locale === "ar" ? "rtl" : "ltr"}
       >
-        {/* Başlık */}
-        <div className="sticky top-0 z-10 bg-white border-b border-[#E0F7FA] px-5 py-3 rounded-t-2xl flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Palette className="w-5 h-5 text-[#0097A7]" />
-            <h3 className="font-bold text-[#003B40] text-base">
-              {mt(locale, "title")} — {patternName}
+        {/* ── Başlık ── */}
+        <div className="sticky top-0 z-10 bg-white border-b border-[#E0F7FA] px-4 sm:px-5 py-3 rounded-t-2xl flex items-center justify-between">
+          <div className="flex items-center gap-2 min-w-0">
+            <Palette className="w-5 h-5 text-[#0097A7] flex-shrink-0" />
+            <h3 className="font-bold text-[#003B40] text-sm sm:text-base truncate">
+              {t("title")} — {patternName}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#F0FDFE] hover:bg-red-50 flex items-center justify-center text-[#6B6355] hover:text-red-600 transition-colors"
+            className="w-8 h-8 rounded-full bg-[#F0FDFE] hover:bg-red-50 flex items-center justify-center text-[#6B6355] hover:text-red-600 transition-colors flex-shrink-0"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="p-5 space-y-5">
-          {/* Canvas */}
-          <div className="relative bg-[#F8F6F3] rounded-xl p-3 flex justify-center">
+        <div className="p-4 sm:p-5 space-y-4">
+          {/* ── Canvas ── */}
+          <div className="relative bg-[#F8F6F3] rounded-xl p-2 sm:p-3 flex justify-center">
             <canvas
               ref={canvasRef}
               onClick={handleCanvasClick}
               className="max-w-full cursor-crosshair rounded-lg shadow-inner"
-              style={{ maxHeight: "400px", objectFit: "contain" }}
+              style={{ maxHeight: "360px", objectFit: "contain" }}
             />
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center">
@@ -365,117 +490,189 @@ export default function ColorReplacementModal({
             )}
           </div>
 
-          {/* Talimatlar */}
-          <div className="bg-[#F0FDFE] rounded-xl p-3 text-xs text-[#003B40] space-y-1">
-            <p className="font-semibold text-[#0097A7]">{mt(locale, "howTo")}</p>
-            <p>{mt(locale, "step1")}</p>
-            <p>{mt(locale, "step2")}</p>
-            <p>{mt(locale, "step3")}</p>
-          </div>
-
-          {/* Seçili Renk + Yeni Renk */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="text-xs font-semibold text-[#6B6355] mb-2 block">{mt(locale, "selectedColor")}</label>
-              {selectedColor ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 rounded-lg border-2 border-[#E0F7FA] shadow-inner" style={{ backgroundColor: selectedColor }} />
-                  <span className="font-mono text-sm text-[#003B40]">{selectedColor}</span>
-                </div>
-              ) : (
-                <p className="text-xs text-[#999] italic">{mt(locale, "clickHint")}</p>
-              )}
-              {extractedColors.length > 0 && (
-                <div className="flex gap-1.5 mt-2">
-                  {extractedColors.map((c, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedColor(c)}
-                      className={`w-7 h-7 rounded-md border-2 transition-all ${
-                        selectedColor === c ? "border-[#C9972B] scale-110 shadow-md" : "border-[#E0F7FA] hover:border-[#0097A7]"
-                      }`}
-                      style={{ backgroundColor: c }}
-                      title={c}
-                    />
-                  ))}
-                </div>
-              )}
+          {/* ── Talimatlar (Katlanabilir) ── */}
+          <button
+            onClick={() => setShowInstructions(!showInstructions)}
+            className="w-full text-left bg-[#F0FDFE] rounded-xl px-3 py-2 text-xs text-[#0097A7] font-semibold hover:bg-[#E0F7FA] transition-colors flex items-center justify-between"
+          >
+            <span>{t("howTo")}</span>
+            <span className={`transform transition-transform ${showInstructions ? "rotate-180" : ""}`}>▾</span>
+          </button>
+          {showInstructions && (
+            <div className="bg-[#F0FDFE] rounded-xl px-3 py-2 text-xs text-[#003B40] space-y-0.5 -mt-2">
+              <p>{t("step1")}</p>
+              <p>{t("step2")}</p>
+              <p>{t("step3")}</p>
             </div>
+          )}
 
-            <div>
-              <label className="text-xs font-semibold text-[#6B6355] mb-2 block">{mt(locale, "newColor")}</label>
-              <div className="flex items-center gap-2 mb-2">
-                <input
-                  type="color"
-                  value={newColor}
-                  onChange={(e) => setNewColor(e.target.value)}
-                  className="w-10 h-10 rounded-lg cursor-pointer border-0"
-                />
-                <span className="font-mono text-sm text-[#003B40]">{newColor}</span>
+          {/* ── Seçili Renk ── */}
+          <div>
+            <label className="text-xs font-semibold text-[#6B6355] mb-1.5 block">{t("selectedColor")}</label>
+            {selectedColor ? (
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-lg border-2 border-[#E0F7FA] shadow-inner flex-shrink-0" style={{ backgroundColor: selectedColor }} />
+                <span className="font-mono text-sm text-[#003B40]">{selectedColor}</span>
+                {selectedYarn && (
+                  <>
+                    <ArrowRight className="w-4 h-4 text-[#C9972B] flex-shrink-0" />
+                    <div className="w-10 h-10 rounded-lg border-2 border-[#C9972B] shadow-inner flex-shrink-0" style={{ backgroundColor: selectedYarn.hex }} />
+                    <div className="text-xs">
+                      <span className="font-bold text-[#003B40]">{selectedYarn.code}</span>
+                      <span className="text-[#6B6355] ml-1">{yarnName(selectedYarn)}</span>
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="grid grid-cols-10 gap-1">
-                {PRESET_COLORS.map((c) => (
+            ) : (
+              <p className="text-xs text-[#999] italic">{t("clickHint")}</p>
+            )}
+            {extractedColors.length > 0 && (
+              <div className="flex gap-1.5 mt-2">
+                {extractedColors.map((c, i) => (
                   <button
-                    key={c}
-                    onClick={() => setNewColor(c)}
-                    className={`w-5 h-5 rounded border transition-all ${
-                      newColor === c ? "border-[#C9972B] ring-1 ring-[#C9972B]" : "border-transparent hover:border-[#0097A7]"
+                    key={i}
+                    onClick={() => setSelectedColor(c)}
+                    className={`w-7 h-7 rounded-md border-2 transition-all ${
+                      selectedColor === c ? "border-[#C9972B] scale-110 shadow-md" : "border-[#E0F7FA] hover:border-[#0097A7]"
                     }`}
                     style={{ backgroundColor: c }}
                     title={c}
                   />
                 ))}
               </div>
+            )}
+          </div>
+
+          {/* ── İplik Renk Paleti ── */}
+          <div>
+            <label className="text-xs font-semibold text-[#6B6355] mb-2 block flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-gradient-to-br from-[#0097A7] to-[#C9972B]" />
+              {t("yarnPalette")}
+              <span className="text-[10px] font-normal text-[#999]">({YARN_COLORS.length} {locale === "tr" ? "renk" : "colours"})</span>
+            </label>
+            <div className="grid grid-cols-8 sm:grid-cols-11 gap-1">
+              {YARN_COLORS.map((yc) => (
+                <button
+                  key={yc.code}
+                  onClick={() => setSelectedYarn(yc)}
+                  className={`group relative flex flex-col items-center gap-0.5 p-0.5 rounded-lg transition-all ${
+                    selectedYarn?.code === yc.code
+                      ? "ring-2 ring-[#C9972B] bg-[#FFF8E8] scale-105 shadow-md z-10"
+                      : "hover:bg-[#F0FDFE] hover:scale-105"
+                  }`}
+                  title={`${yc.code} — ${yarnName(yc)} (${yc.hex})`}
+                >
+                  <div
+                    className={`w-full aspect-square rounded-md border transition-all ${
+                      selectedYarn?.code === yc.code
+                        ? "border-[#C9972B] shadow-inner"
+                        : "border-black/10 group-hover:border-[#0097A7]"
+                    }`}
+                    style={{ backgroundColor: yc.hex }}
+                  />
+                  <span className={`text-[8px] sm:text-[9px] font-mono leading-none ${
+                    selectedYarn?.code === yc.code ? "text-[#C9972B] font-bold" : "text-[#999]"
+                  }`}>
+                    {yc.code}
+                  </span>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Uygula Butonu */}
+          {/* ── Uygula Butonu ── */}
           <button
             onClick={applyColor}
-            disabled={!selectedColor}
-            className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${
-              selectedColor
+            disabled={!selectedColor || !selectedYarn}
+            className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
+              selectedColor && selectedYarn
                 ? "bg-[#C9972B] hover:bg-[#B8860B] text-white shadow-md"
                 : "bg-gray-200 text-gray-400 cursor-not-allowed"
             }`}
           >
-            {mt(locale, "apply")}
+            <Palette className="w-4 h-4" />
+            {t("apply")}
+            {selectedYarn && (
+              <span className="text-xs opacity-80">
+                ({t("yarnCode")}: {selectedYarn.code})
+              </span>
+            )}
           </button>
 
-          {/* Araç Çubuğu */}
-          <div className="flex items-center justify-between border-t border-[#E0F7FA] pt-4">
-            <div className="flex gap-2">
-              <button onClick={undo} disabled={historyIndex <= 0} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
-                <Undo2 className="w-3.5 h-3.5" /> {mt(locale, "undo")}
+          {/* ── Renk Değişimleri Listesi ── */}
+          {colorChanges.length > 0 && (
+            <div className="bg-[#FAFAFA] border border-[#E0F7FA] rounded-xl p-3">
+              <h4 className="text-xs font-bold text-[#003B40] mb-2 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#C9972B]" />
+                {t("colorChanges")} ({colorChanges.length})
+              </h4>
+              <div className="space-y-1.5 max-h-[120px] overflow-y-auto">
+                {colorChanges.map((c, i) => (
+                  <div key={i} className="flex items-center gap-2 text-xs bg-white rounded-lg px-2 py-1.5 border border-[#F0F0F0]">
+                    <span className="text-[#999] font-mono w-4 text-right flex-shrink-0">{i + 1}.</span>
+                    <div className="w-5 h-5 rounded border border-black/10 flex-shrink-0" style={{ backgroundColor: c.sourceHex }} />
+                    <span className="font-mono text-[10px] text-[#999]">{c.sourceHex}</span>
+                    <ArrowRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
+                    <div className="w-5 h-5 rounded border border-black/10 flex-shrink-0" style={{ backgroundColor: c.targetHex }} />
+                    <span className="font-mono text-[10px] text-[#003B40] font-bold">{c.yarnCode}</span>
+                    <span className="text-[10px] text-[#6B6355] truncate">{c.yarnName}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* ── Araç Çubuğu ── */}
+          <div className="flex items-center justify-between border-t border-[#E0F7FA] pt-3">
+            <div className="flex gap-1.5">
+              <button onClick={undo} disabled={historyIndex <= 0} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
+                <Undo2 className="w-3.5 h-3.5" /> {t("undo")}
               </button>
-              <button onClick={redo} disabled={historyIndex >= history.length - 1} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
-                <Redo2 className="w-3.5 h-3.5" /> {mt(locale, "redo")}
+              <button onClick={redo} disabled={historyIndex >= history.length - 1} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
+                <Redo2 className="w-3.5 h-3.5" /> {t("redo")}
               </button>
-              <button onClick={reset} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] transition-all">
-                <RotateCcw className="w-3.5 h-3.5" /> {mt(locale, "reset")}
+              <button onClick={reset} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] transition-all">
+                <RotateCcw className="w-3.5 h-3.5" /> {t("reset")}
               </button>
             </div>
-            <div className="flex gap-2">
-              <button onClick={download} className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#003B40] text-white hover:bg-[#005566] transition-all">
-                <Download className="w-3.5 h-3.5" /> {mt(locale, "download")}
+            <div className="flex gap-1.5">
+              <button onClick={download} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#003B40] text-white hover:bg-[#005566] transition-all">
+                <Download className="w-3.5 h-3.5" /> {t("download")}
               </button>
               <button
-                onClick={() => {
-                  if (!canvasRef.current) return;
-                  canvasRef.current.toBlob((blob) => {
-                    if (!blob) return;
-                    const file = new File([blob], `${patternName}.jpg`, { type: "image/jpeg" });
-                    if (navigator.share) {
-                      navigator.share({ title: patternName, files: [file] }).catch(() => {});
-                    }
-                  }, "image/jpeg", 0.92);
-                }}
-                className="flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#20BD5C] transition-all"
+                onClick={handleShare}
+                className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#20BD5C] transition-all"
               >
-                <Share2 className="w-3.5 h-3.5" /> {mt(locale, "share")}
+                <Share2 className="w-3.5 h-3.5" /> {t("share")}
               </button>
             </div>
           </div>
+
+          {/* ── Sipariş Butonu ── */}
+          {colorChanges.length > 0 && (
+            <div className="flex gap-2">
+              <a
+                href={buildOrderUrl(patternName, colorChanges, locale)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#C9972B] to-[#E4B84A] text-[#1A1A1A] hover:from-[#B8860B] hover:to-[#C9972B] shadow-lg hover:shadow-xl transition-all"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                <span className="hidden sm:inline">{t("orderBtn")}</span>
+                <span className="sm:hidden">{t("orderBtnShort")}</span>
+              </a>
+              <a
+                href={buildWhatsAppOrderUrl(patternName, colorChanges, locale)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-sm bg-[#25D366] text-white hover:bg-[#20BD5C] shadow-lg hover:shadow-xl transition-all"
+                title="WhatsApp"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
