@@ -53,12 +53,137 @@ function hslToRgb(h: number, s: number, l: number) {
   return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
 }
 
+/* ── Gelişmiş Renk Eşleştirme ── */
+
+/** Hue farkı (0-180 arası, dairesel) */
+function hueDist(h1: number, h2: number): number {
+  const d = Math.abs(h1 - h2);
+  return d > 180 ? 360 - d : d;
+}
+
+/**
+ * İki renk arası HSL mesafesi (0-1 arası normalize).
+ * Düşük doygunluklu renklerde (gri/beyaz/siyah) hue'yu göz ardı eder.
+ */
+function colorDistance(h1: number, s1: number, l1: number, h2: number, s2: number, l2: number): number {
+  const avgS = (s1 + s2) / 2;
+  // Düşük doygunlukta hue anlamsız → ağırlığı düşür
+  const hueWeight = Math.min(avgS * 3, 1.0); // s < 0.33 → hue etkisi azalır
+  const hDiff = hueDist(h1, h2) / 180; // 0-1
+  const sDiff = Math.abs(s1 - s2);      // 0-1
+  const lDiff = Math.abs(l1 - l2);      // 0-1
+  return Math.sqrt(
+    hueWeight * hDiff * hDiff * 2.0 +   // Hue ağırlığı
+    sDiff * sDiff * 1.5 +                 // Doygunluk
+    lDiff * lDiff * 1.0                   // Parlaklık
+  );
+}
+
+/**
+ * Piksel seçiminde 7×7 alan örnekleyip medyan renk bulur.
+ * Gürültüyü azaltır, doğru rengi yakalar.
+ */
+function sampleAreaColor(
+  ctx: CanvasRenderingContext2D,
+  cx: number, cy: number,
+  canvasW: number, canvasH: number
+): string {
+  const radius = 3; // 7×7 grid
+  const samples: { r: number; g: number; b: number }[] = [];
+
+  for (let dy = -radius; dy <= radius; dy++) {
+    for (let dx = -radius; dx <= radius; dx++) {
+      const sx = Math.max(0, Math.min(canvasW - 1, cx + dx));
+      const sy = Math.max(0, Math.min(canvasH - 1, cy + dy));
+      const px = ctx.getImageData(sx, sy, 1, 1).data;
+      samples.push({ r: px[0], g: px[1], b: px[2] });
+    }
+  }
+
+  // Her kanalın medyanını al (gürültü dirençli)
+  const sorted = (arr: number[]) => [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(samples.length / 2);
+  const mr = sorted(samples.map(s => s.r))[mid];
+  const mg = sorted(samples.map(s => s.g))[mid];
+  const mb = sorted(samples.map(s => s.b))[mid];
+
+  return "#" + [mr, mg, mb].map(v => v.toString(16).padStart(2, "0")).join("");
+}
+
+/**
+ * Görüntüden dominant renkleri çıkarır (basitleştirilmiş k-means).
+ * Kullanıcının tek tıkla doğru rengi seçmesini sağlar.
+ */
+function extractDominantColors(data: ImageData, maxColors: number = 12): string[] {
+  const w = data.width, h = data.height;
+  const step = Math.max(1, Math.floor((w * h) / 5000)); // ~5000 örnekle hızlı çalış
+
+  // Tüm pikselleri HSL'e çevir, küçük kutulara grupla
+  const buckets = new Map<string, { count: number; rSum: number; gSum: number; bSum: number }>();
+
+  for (let i = 0; i < data.data.length; i += 4 * step) {
+    const r = data.data[i], g = data.data[i + 1], b = data.data[i + 2];
+    const hsl = rgbToHsl(r, g, b);
+    // Çok açık veya çok koyu pikselleri atla (arka plan/gölge)
+    if (hsl.l < 0.08 || hsl.l > 0.92) continue;
+
+    // Hue'yu 15°, Sat'ı 0.15, Light'ı 0.1 çözünürlükle grupla
+    const hBucket = Math.round(hsl.h / 15) * 15;
+    const sBucket = Math.round(hsl.s / 0.15) * 0.15;
+    const lBucket = Math.round(hsl.l / 0.1) * 0.1;
+    const key = `${hBucket}-${sBucket.toFixed(2)}-${lBucket.toFixed(2)}`;
+
+    const existing = buckets.get(key);
+    if (existing) {
+      existing.count++;
+      existing.rSum += r;
+      existing.gSum += g;
+      existing.bSum += b;
+    } else {
+      buckets.set(key, { count: 1, rSum: r, gSum: g, bSum: b });
+    }
+  }
+
+  // En çok piksel içeren grupları seç
+  const sorted = [...buckets.entries()]
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, maxColors * 2); // Aday fazlası al
+
+  // Birbirine çok yakın renkleri birleştir
+  const result: string[] = [];
+  for (const [, v] of sorted) {
+    const avgR = Math.round(v.rSum / v.count);
+    const avgG = Math.round(v.gSum / v.count);
+    const avgB = Math.round(v.bSum / v.count);
+    const hex = "#" + [avgR, avgG, avgB].map(c => c.toString(16).padStart(2, "0")).join("");
+    const hsl = rgbToHsl(avgR, avgG, avgB);
+
+    // Mevcut sonuçlara çok yakın mı?
+    const tooClose = result.some(existing => {
+      const eRgb = hexToRgb(existing);
+      const eHsl = rgbToHsl(eRgb.r, eRgb.g, eRgb.b);
+      return colorDistance(hsl.h, hsl.s, hsl.l, eHsl.h, eHsl.s, eHsl.l) < 0.15;
+    });
+
+    if (!tooClose) {
+      result.push(hex);
+      if (result.length >= maxColors) break;
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Gelişmiş renk değiştirme — HSL mesafesine dayalı, adaptif tolerans.
+ * Düşük doygunluklu renklerde otomatik olarak parlaklık tabanlı eşleştirme yapar.
+ */
 function replaceColorInImageData(
   ctx: CanvasRenderingContext2D,
   currentData: ImageData,
   sourceHex: string,
   targetHex: string,
-  tolerance: number = 5
+  toleranceLevel: number = 30 // 0-100 arası
 ): ImageData {
   const newData = ctx.createImageData(currentData);
   const sourceRgb = hexToRgb(sourceHex);
@@ -66,23 +191,43 @@ function replaceColorInImageData(
   const targetRgb = hexToRgb(targetHex);
   const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
 
+  // Normalize tolerans (0-100 → 0.05-0.5 aralığında mesafe eşiği)
+  const threshold = 0.05 + (toleranceLevel / 100) * 0.45;
+
   for (let i = 0; i < currentData.data.length; i += 4) {
     const r = currentData.data[i];
     const g = currentData.data[i + 1];
     const b = currentData.data[i + 2];
     const a = currentData.data[i + 3];
     const pxlHsl = rgbToHsl(r, g, b);
-    let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
-    if (hueDiff > 180) hueDiff = 360 - hueDiff;
 
-    if (hueDiff < tolerance && pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
+    // Çok açık ve çok koyu pikselleri koru (beyaz/siyah arka plan)
+    if (pxlHsl.l < 0.04 || pxlHsl.l > 0.96) {
+      newData.data[i] = r;
+      newData.data[i + 1] = g;
+      newData.data[i + 2] = b;
+      newData.data[i + 3] = a;
+      continue;
+    }
+
+    const dist = colorDistance(pxlHsl.h, pxlHsl.s, pxlHsl.l, sourceHsl.h, sourceHsl.s, sourceHsl.l);
+
+    if (dist < threshold) {
+      // Yumuşak geçiş: mesafe eşiğe yaklaştıkça etki azalır
+      const blend = Math.max(0, 1 - (dist / threshold));
+      const smoothBlend = blend * blend * (3 - 2 * blend); // smoothstep
+
       const lDiff = pxlHsl.l - sourceHsl.l;
-      let newL = targetHsl.l + lDiff;
-      newL = Math.max(0, Math.min(1, newL));
-      const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
-      newData.data[i] = newRgb.r;
-      newData.data[i + 1] = newRgb.g;
-      newData.data[i + 2] = newRgb.b;
+      const sDiff = pxlHsl.s - sourceHsl.s;
+      let newH = targetHsl.h;
+      let newS = Math.max(0, Math.min(1, targetHsl.s + sDiff * 0.5));
+      let newL = Math.max(0, Math.min(1, targetHsl.l + lDiff));
+
+      const replaced = hslToRgb(newH, newS, newL);
+      // Orijinal piksel ile replaced arasında smoothBlend ile karıştır
+      newData.data[i]     = Math.round(r + (replaced.r - r) * smoothBlend);
+      newData.data[i + 1] = Math.round(g + (replaced.g - g) * smoothBlend);
+      newData.data[i + 2] = Math.round(b + (replaced.b - b) * smoothBlend);
     } else {
       newData.data[i] = r;
       newData.data[i + 1] = g;
@@ -362,6 +507,11 @@ export default function ColorReplacementModal({
       originalDataRef.current = data;
       setHistory([data]);
       setHistoryIndex(0);
+
+      // Dominant renkleri otomatik çıkar
+      const dominants = extractDominantColors(data, 10);
+      setExtractedColors(dominants);
+
       setImageLoaded(true);
     };
   }, [isOpen, imageSrc]);
@@ -376,13 +526,11 @@ export default function ColorReplacementModal({
     const scaleY = canvas.height / rect.height;
     const x = Math.floor((e.clientX - rect.left) * scaleX);
     const y = Math.floor((e.clientY - rect.top) * scaleY);
-    const pixel = ctx.getImageData(x, y, 1, 1).data;
-    const hex = "#" + [pixel[0], pixel[1], pixel[2]].map(v => v.toString(16).padStart(2, "0")).join("");
+
+    // 7×7 alan medyan örnekleme — gürültüyü azaltır
+    const hex = sampleAreaColor(ctx, x, y, canvas.width, canvas.height);
     setSelectedColor(hex);
-    if (!extractedColors.includes(hex)) {
-      setExtractedColors(prev => [hex, ...prev].slice(0, 8));
-    }
-  }, [imageLoaded, extractedColors]);
+  }, [imageLoaded]);
 
   const applyColor = useCallback(() => {
     if (!selectedColor || !selectedYarn || !canvasRef.current) return;
@@ -391,7 +539,7 @@ export default function ColorReplacementModal({
     if (!ctx) return;
     const currentData = history[historyIndex];
     if (!currentData) return;
-    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 5);
+    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 30);
     ctx.putImageData(newData, 0, 0);
     const newHistory = [...history.slice(0, historyIndex + 1), newData];
     setHistory(newHistory);
@@ -563,18 +711,27 @@ export default function ColorReplacementModal({
               <p className="text-xs text-[#999] italic">{t("clickHint")}</p>
             )}
             {extractedColors.length > 0 && (
-              <div className="flex gap-1.5 mt-2">
-                {extractedColors.map((c, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setSelectedColor(c)}
-                    className={`w-7 h-7 rounded-md border-2 transition-all ${
-                      selectedColor === c ? "border-[#C9972B] scale-110 shadow-md" : "border-[#E0F7FA] hover:border-[#0097A7]"
-                    }`}
-                    style={{ backgroundColor: c }}
-                    title={c}
-                  />
-                ))}
+              <div className="mt-2">
+                <span className="text-[10px] font-semibold text-[#0097A7] mb-1 block">
+                  {locale === "tr" ? "Desen Renkleri — tıklayarak seçin" :
+                   locale === "en" ? "Pattern Colours — click to select" :
+                   locale === "ar" ? "ألوان النمط — انقر للتحديد" :
+                   locale === "fr" ? "Couleurs du motif — cliquez pour sélectionner" :
+                   "Musterfarben — klicken zum Auswählen"}
+                </span>
+                <div className="flex gap-1.5 flex-wrap">
+                  {extractedColors.map((c, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setSelectedColor(c)}
+                      className={`w-8 h-8 rounded-lg border-2 transition-all ${
+                        selectedColor === c ? "border-[#C9972B] scale-110 shadow-md ring-2 ring-[#C9972B]/30" : "border-[#E0F7FA] hover:border-[#0097A7] hover:scale-105"
+                      }`}
+                      style={{ backgroundColor: c }}
+                      title={c}
+                    />
+                  ))}
+                </div>
               </div>
             )}
           </div>
