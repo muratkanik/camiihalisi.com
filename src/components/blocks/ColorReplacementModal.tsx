@@ -111,45 +111,38 @@ function sampleAreaColor(
 }
 
 /**
- * Görüntüden dominant renkleri çıkarır (basitleştirilmiş k-means).
- * Kullanıcının tek tıkla doğru rengi seçmesini sağlar.
+ * Görüntüdeki renk ailelerini çıkarır.
+ * Birbirine yakın renkler tek bir temsil rengiyle gösterilir.
+ * Kullanıcı bir aile seçtiğinde tüm benzer tonlar değişir.
  */
-function extractDominantColors(data: ImageData, maxColors: number = 12): string[] {
-  const w = data.width, h = data.height;
-  const step = Math.max(1, Math.floor((w * h) / 10000)); // ~10000 örnekle daha hassas
+function extractDominantColors(data: ImageData, maxColors: number = 8): string[] {
+  const step = Math.max(1, Math.floor((data.width * data.height) / 15000));
 
-  // Tüm pikselleri HSL'e çevir, küçük kutulara grupla
+  // Geniş kutulara grupla — yakın renkler aynı kutuya düşsün
   const buckets = new Map<string, { count: number; rSum: number; gSum: number; bSum: number }>();
 
   for (let i = 0; i < data.data.length; i += 4 * step) {
     const r = data.data[i], g = data.data[i + 1], b = data.data[i + 2];
     const hsl = rgbToHsl(r, g, b);
-    // Çok açık veya çok koyu pikselleri atla (arka plan/gölge)
-    if (hsl.l < 0.06 || hsl.l > 0.94) continue;
+    if (hsl.l < 0.05 || hsl.l > 0.95) continue;
 
-    // Hue'yu 12°, Sat'ı 0.12, Light'ı 0.08 çözünürlükle grupla (daha ince)
-    const hBucket = Math.round(hsl.h / 12) * 12;
-    const sBucket = Math.round(hsl.s / 0.12) * 0.12;
-    const lBucket = Math.round(hsl.l / 0.08) * 0.08;
-    const key = `${hBucket}-${sBucket.toFixed(2)}-${lBucket.toFixed(2)}`;
+    // Geniş kova: 20° hue / 0.2 sat / 0.15 light
+    const hB = Math.round(hsl.h / 20) * 20;
+    const sB = Math.round(hsl.s / 0.2) * 0.2;
+    const lB = Math.round(hsl.l / 0.15) * 0.15;
+    const key = `${hB}-${sB.toFixed(1)}-${lB.toFixed(2)}`;
 
-    const existing = buckets.get(key);
-    if (existing) {
-      existing.count++;
-      existing.rSum += r;
-      existing.gSum += g;
-      existing.bSum += b;
-    } else {
-      buckets.set(key, { count: 1, rSum: r, gSum: g, bSum: b });
-    }
+    const ex = buckets.get(key);
+    if (ex) { ex.count++; ex.rSum += r; ex.gSum += g; ex.bSum += b; }
+    else buckets.set(key, { count: 1, rSum: r, gSum: g, bSum: b });
   }
 
-  // En çok piksel içeren grupları seç
+  // Piksel sayısına göre sırala
   const sorted = [...buckets.entries()]
     .sort((a, b) => b[1].count - a[1].count)
-    .slice(0, maxColors * 2); // Aday fazlası al
+    .slice(0, maxColors * 3);
 
-  // Birbirine çok yakın renkleri birleştir
+  // Birbirine yakın grupları birleştir (geniş eşik: 0.22)
   const result: string[] = [];
   for (const [, v] of sorted) {
     const avgR = Math.round(v.rSum / v.count);
@@ -158,11 +151,10 @@ function extractDominantColors(data: ImageData, maxColors: number = 12): string[
     const hex = "#" + [avgR, avgG, avgB].map(c => c.toString(16).padStart(2, "0")).join("");
     const hsl = rgbToHsl(avgR, avgG, avgB);
 
-    // Mevcut sonuçlara çok yakın mı?
     const tooClose = result.some(existing => {
       const eRgb = hexToRgb(existing);
       const eHsl = rgbToHsl(eRgb.r, eRgb.g, eRgb.b);
-      return colorDistance(hsl.h, hsl.s, hsl.l, eHsl.h, eHsl.s, eHsl.l) < 0.12;
+      return colorDistance(hsl.h, hsl.s, hsl.l, eHsl.h, eHsl.s, eHsl.l) < 0.22;
     });
 
     if (!tooClose) {
@@ -469,7 +461,6 @@ export default function ColorReplacementModal({
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [colorChanges, setColorChanges] = useState<ColorChange[]>([]);
   const [showInstructions, setShowInstructions] = useState(false);
-  const [tolerance, setTolerance] = useState(30);
   const [showOrderForm, setShowOrderForm] = useState(false);
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
   const [orderSaving, setOrderSaving] = useState(false);
@@ -509,16 +500,16 @@ export default function ColorReplacementModal({
       setHistory([data]);
       setHistoryIndex(0);
 
-      // Dominant renkleri otomatik çıkar
-      const dominants = extractDominantColors(data, 10);
-      setExtractedColors(dominants);
+      // Renk ailelerini otomatik çıkar (6-8 ana renk grubu)
+      const families = extractDominantColors(data, 8);
+      setExtractedColors(families);
 
       setImageLoaded(true);
     };
   }, [isOpen, imageSrc]);
 
   const handleCanvasClick = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!imageLoaded || !canvasRef.current) return;
+    if (!imageLoaded || !canvasRef.current || extractedColors.length === 0) return;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -530,27 +521,22 @@ export default function ColorReplacementModal({
 
     // 7×7 alan medyan örnekleme
     const rawHex = sampleAreaColor(ctx, x, y, canvas.width, canvas.height);
+    const rawRgb = hexToRgb(rawHex);
+    const rawHsl = rgbToHsl(rawRgb.r, rawRgb.g, rawRgb.b);
 
-    // En yakın dominant renge snap'le → stabil seçim
-    if (extractedColors.length > 0) {
-      const rawRgb = hexToRgb(rawHex);
-      const rawHsl = rgbToHsl(rawRgb.r, rawRgb.g, rawRgb.b);
-      let bestDist = Infinity;
-      let bestColor = rawHex;
-      for (const dc of extractedColors) {
-        const dcRgb = hexToRgb(dc);
-        const dcHsl = rgbToHsl(dcRgb.r, dcRgb.g, dcRgb.b);
-        const dist = colorDistance(rawHsl.h, rawHsl.s, rawHsl.l, dcHsl.h, dcHsl.s, dcHsl.l);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestColor = dc;
-        }
+    // Her zaman en yakın renk ailesine snap'le
+    let bestDist = Infinity;
+    let bestColor = extractedColors[0];
+    for (const dc of extractedColors) {
+      const dcRgb = hexToRgb(dc);
+      const dcHsl = rgbToHsl(dcRgb.r, dcRgb.g, dcRgb.b);
+      const dist = colorDistance(rawHsl.h, rawHsl.s, rawHsl.l, dcHsl.h, dcHsl.s, dcHsl.l);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestColor = dc;
       }
-      // Snap eşiği: 0.35 — çok uzak renkler için raw değer kullan
-      setSelectedColor(bestDist < 0.35 ? bestColor : rawHex);
-    } else {
-      setSelectedColor(rawHex);
     }
+    setSelectedColor(bestColor);
   }, [imageLoaded, extractedColors]);
 
   const applyColor = useCallback(() => {
@@ -560,7 +546,7 @@ export default function ColorReplacementModal({
     if (!ctx) return;
     const currentData = history[historyIndex];
     if (!currentData) return;
-    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, tolerance);
+    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 45);
     ctx.putImageData(newData, 0, 0);
     const newHistory = [...history.slice(0, historyIndex + 1), newData];
     setHistory(newHistory);
@@ -793,38 +779,6 @@ export default function ColorReplacementModal({
               ))}
             </div>
           </div>
-
-          {/* ── Tolerans Ayarı ── */}
-          {selectedColor && selectedYarn && (
-            <div className="bg-[#F8F6F3] rounded-xl px-3 py-2.5">
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-[10px] font-semibold text-[#6B6355]">
-                  {locale === "tr" ? "Renk Hassasiyeti" :
-                   locale === "en" ? "Colour Sensitivity" :
-                   locale === "ar" ? "حساسية اللون" :
-                   locale === "fr" ? "Sensibilité couleur" :
-                   "Farbempfindlichkeit"}
-                </label>
-                <span className="text-[10px] font-mono text-[#0097A7]">{tolerance}%</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[9px] text-[#999] flex-shrink-0">
-                  {locale === "tr" ? "Dar" : locale === "ar" ? "ضيق" : "Narrow"}
-                </span>
-                <input
-                  type="range"
-                  min="10"
-                  max="60"
-                  value={tolerance}
-                  onChange={(e) => setTolerance(Number(e.target.value))}
-                  className="flex-1 h-1.5 bg-gradient-to-r from-[#E0F7FA] to-[#C9972B] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#0097A7] [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer"
-                />
-                <span className="text-[9px] text-[#999] flex-shrink-0">
-                  {locale === "tr" ? "Geniş" : locale === "ar" ? "واسع" : "Wide"}
-                </span>
-              </div>
-            </div>
-          )}
 
           {/* ── Uygula Butonu ── */}
           <button
