@@ -112,13 +112,14 @@ function sampleAreaColor(
 
 /**
  * Görüntüdeki renk ailelerini çıkarır.
- * Birbirine yakın renkler tek bir temsil rengiyle gösterilir.
- * Kullanıcı bir aile seçtiğinde tüm benzer tonlar değişir.
+ * Birbirine yakın tüm tonlar tek temsil rengine birleşir.
+ * Sonuç: 4-6 ayrı, net renk ailesi.
  */
-function extractDominantColors(data: ImageData, maxColors: number = 8): string[] {
-  const step = Math.max(1, Math.floor((data.width * data.height) / 15000));
+function extractDominantColors(data: ImageData, maxColors: number = 6): string[] {
+  const totalPx = data.width * data.height;
+  const step = Math.max(1, Math.floor(totalPx / 20000));
 
-  // Geniş kutulara grupla — yakın renkler aynı kutuya düşsün
+  // Çok geniş kovalar — yakın tonlar kesinlikle aynı kovaya düşer
   const buckets = new Map<string, { count: number; rSum: number; gSum: number; bSum: number }>();
 
   for (let i = 0; i < data.data.length; i += 4 * step) {
@@ -126,24 +127,28 @@ function extractDominantColors(data: ImageData, maxColors: number = 8): string[]
     const hsl = rgbToHsl(r, g, b);
     if (hsl.l < 0.05 || hsl.l > 0.95) continue;
 
-    // Geniş kova: 20° hue / 0.2 sat / 0.15 light
-    const hB = Math.round(hsl.h / 20) * 20;
-    const sB = Math.round(hsl.s / 0.2) * 0.2;
-    const lB = Math.round(hsl.l / 0.15) * 0.15;
-    const key = `${hB}-${sB.toFixed(1)}-${lB.toFixed(2)}`;
+    // Çok geniş kova: 36° hue / 0.3 sat / 0.25 light
+    const hB = Math.round(hsl.h / 36) * 36;
+    const sB = Math.round(hsl.s / 0.3) * 0.3;
+    const lB = Math.round(hsl.l / 0.25) * 0.25;
+    const key = `${hB}-${sB.toFixed(1)}-${lB.toFixed(1)}`;
 
     const ex = buckets.get(key);
     if (ex) { ex.count++; ex.rSum += r; ex.gSum += g; ex.bSum += b; }
     else buckets.set(key, { count: 1, rSum: r, gSum: g, bSum: b });
   }
 
-  // Piksel sayısına göre sırala
-  const sorted = [...buckets.entries()]
-    .sort((a, b) => b[1].count - a[1].count)
-    .slice(0, maxColors * 3);
+  // Çok az pikseli olan kovaları at (gürültü)
+  const sampleCount = Math.floor(totalPx / step);
+  const minPixels = Math.max(3, Math.floor(sampleCount * 0.01)); // en az %1
 
-  // Birbirine yakın grupları birleştir (geniş eşik: 0.22)
-  const result: string[] = [];
+  const sorted = [...buckets.entries()]
+    .filter(([, v]) => v.count >= minPixels)
+    .sort((a, b) => b[1].count - a[1].count)
+    .slice(0, maxColors * 4);
+
+  // 1. Geçiş: Agresif birleştirme (eşik: 0.38)
+  const candidates: { hex: string; h: number; s: number; l: number; count: number }[] = [];
   for (const [, v] of sorted) {
     const avgR = Math.round(v.rSum / v.count);
     const avgG = Math.round(v.gSum / v.count);
@@ -151,19 +156,67 @@ function extractDominantColors(data: ImageData, maxColors: number = 8): string[]
     const hex = "#" + [avgR, avgG, avgB].map(c => c.toString(16).padStart(2, "0")).join("");
     const hsl = rgbToHsl(avgR, avgG, avgB);
 
-    const tooClose = result.some(existing => {
-      const eRgb = hexToRgb(existing);
-      const eHsl = rgbToHsl(eRgb.r, eRgb.g, eRgb.b);
-      return colorDistance(hsl.h, hsl.s, hsl.l, eHsl.h, eHsl.s, eHsl.l) < 0.22;
-    });
+    const closeIdx = candidates.findIndex(c =>
+      colorDistance(hsl.h, hsl.s, hsl.l, c.h, c.s, c.l) < 0.38
+    );
 
-    if (!tooClose) {
-      result.push(hex);
-      if (result.length >= maxColors) break;
+    if (closeIdx >= 0) {
+      // Piksel sayısı ağırlıklı birleştir
+      const c = candidates[closeIdx];
+      const totalCount = c.count + v.count;
+      const cRgb = hexToRgb(c.hex);
+      const newR = Math.round((cRgb.r * c.count + avgR * v.count) / totalCount);
+      const newG = Math.round((cRgb.g * c.count + avgG * v.count) / totalCount);
+      const newB = Math.round((cRgb.b * c.count + avgB * v.count) / totalCount);
+      const newHsl = rgbToHsl(newR, newG, newB);
+      candidates[closeIdx] = {
+        hex: "#" + [newR, newG, newB].map(cc => cc.toString(16).padStart(2, "0")).join(""),
+        h: newHsl.h, s: newHsl.s, l: newHsl.l,
+        count: totalCount,
+      };
+    } else {
+      candidates.push({ hex, h: hsl.h, s: hsl.s, l: hsl.l, count: v.count });
     }
   }
 
-  return result;
+  // 2. Geçiş: Kalan yakın renkleri tekrar birleştir
+  let merged = true;
+  while (merged) {
+    merged = false;
+    for (let i = 0; i < candidates.length; i++) {
+      for (let j = i + 1; j < candidates.length; j++) {
+        const dist = colorDistance(
+          candidates[i].h, candidates[i].s, candidates[i].l,
+          candidates[j].h, candidates[j].s, candidates[j].l
+        );
+        if (dist < 0.38) {
+          // i'ye birleştir
+          const a = candidates[i], b = candidates[j];
+          const total = a.count + b.count;
+          const aRgb = hexToRgb(a.hex), bRgb = hexToRgb(b.hex);
+          const nR = Math.round((aRgb.r * a.count + bRgb.r * b.count) / total);
+          const nG = Math.round((aRgb.g * a.count + bRgb.g * b.count) / total);
+          const nB = Math.round((aRgb.b * a.count + bRgb.b * b.count) / total);
+          const nHsl = rgbToHsl(nR, nG, nB);
+          candidates[i] = {
+            hex: "#" + [nR, nG, nB].map(cc => cc.toString(16).padStart(2, "0")).join(""),
+            h: nHsl.h, s: nHsl.s, l: nHsl.l,
+            count: total,
+          };
+          candidates.splice(j, 1);
+          merged = true;
+          break;
+        }
+      }
+      if (merged) break;
+    }
+  }
+
+  // Piksel sayısına göre sırala, maxColors kadar al
+  return candidates
+    .sort((a, b) => b.count - a.count)
+    .slice(0, maxColors)
+    .map(c => c.hex);
 }
 
 /**
@@ -500,7 +553,7 @@ export default function ColorReplacementModal({
       setHistoryIndex(0);
 
       // Renk ailelerini otomatik çıkar (6-8 ana renk grubu)
-      const families = extractDominantColors(data, 8);
+      const families = extractDominantColors(data, 6);
       setExtractedColors(families);
 
       setImageLoaded(true);
@@ -545,7 +598,7 @@ export default function ColorReplacementModal({
     if (!ctx) return;
     const currentData = history[historyIndex];
     if (!currentData) return;
-    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 45);
+    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 50);
     ctx.putImageData(newData, 0, 0);
     const newHistory = [...history.slice(0, historyIndex + 1), newData];
     setHistory(newHistory);
