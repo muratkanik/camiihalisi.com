@@ -460,7 +460,6 @@ export default function ColorReplacementModal({
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [colorChanges, setColorChanges] = useState<ColorChange[]>([]);
-  const [showInstructions, setShowInstructions] = useState(false);
   const [showOrderForm, setShowOrderForm] = useState(false);
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
   const [orderSaving, setOrderSaving] = useState(false);
@@ -644,221 +643,169 @@ export default function ColorReplacementModal({
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl max-w-[780px] w-full max-h-[95vh] overflow-y-auto"
+        className="relative bg-white rounded-2xl shadow-2xl max-w-[960px] w-full max-h-[95vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
         dir={locale === "ar" ? "rtl" : "ltr"}
       >
         {/* ── Başlık ── */}
-        <div className="sticky top-0 z-10 bg-white border-b border-[#E0F7FA] px-4 sm:px-5 py-3 rounded-t-2xl flex items-center justify-between">
+        <div className="sticky top-0 z-10 bg-white border-b border-[#E0F7FA] px-3 sm:px-4 py-2 rounded-t-2xl flex items-center justify-between">
           <div className="flex items-center gap-2 min-w-0">
-            <Palette className="w-5 h-5 text-[#0097A7] flex-shrink-0" />
-            <h3 className="font-bold text-[#003B40] text-sm sm:text-base truncate">
+            <Palette className="w-4 h-4 text-[#0097A7] flex-shrink-0" />
+            <h3 className="font-bold text-[#003B40] text-xs sm:text-sm truncate">
               {t("title")} — {patternName}
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-[#F0FDFE] hover:bg-red-50 flex items-center justify-center text-[#6B6355] hover:text-red-600 transition-colors flex-shrink-0"
+            className="w-7 h-7 rounded-full bg-[#F0FDFE] hover:bg-red-50 flex items-center justify-center text-[#6B6355] hover:text-red-600 transition-colors flex-shrink-0"
           >
-            <X className="w-4 h-4" />
+            <X className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        <div className="p-4 sm:p-5 space-y-4">
-          {/* ── Canvas ── */}
-          <div className="relative bg-[#F8F6F3] rounded-xl p-2 sm:p-3 flex justify-center">
-            <canvas
-              ref={canvasRef}
-              onClick={handleCanvasClick}
-              className="max-w-full cursor-crosshair rounded-lg shadow-inner"
-              style={{ maxHeight: "360px", objectFit: "contain" }}
-            />
-            {!imageLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="animate-spin w-8 h-8 border-3 border-[#0097A7] border-t-transparent rounded-full" />
+        {/* ── İki Sütunlu Layout (desktop) ── */}
+        <div className="p-3 sm:p-4 flex flex-col lg:flex-row gap-3">
+
+          {/* ── Sol: Canvas + Desen Renkleri ── */}
+          <div className="lg:w-[55%] flex-shrink-0 space-y-2">
+            <div className="relative bg-[#F8F6F3] rounded-xl p-1.5 flex justify-center">
+              <canvas
+                ref={canvasRef}
+                onClick={handleCanvasClick}
+                className="max-w-full cursor-crosshair rounded-lg shadow-inner"
+                style={{ maxHeight: "280px", objectFit: "contain" }}
+              />
+              {!imageLoaded && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="animate-spin w-6 h-6 border-2 border-[#0097A7] border-t-transparent rounded-full" />
+                </div>
+              )}
+            </div>
+
+            {/* Desen Renkleri — canvas altında inline */}
+            {extractedColors.length > 0 && (
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className="text-[9px] font-semibold text-[#0097A7] flex-shrink-0">
+                  {locale === "tr" ? "Desen:" : locale === "ar" ? "النمط:" : "Pattern:"}
+                </span>
+                {extractedColors.map((c, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedColor(c)}
+                    className={`w-7 h-7 rounded-md border-2 transition-all ${
+                      selectedColor === c ? "border-[#C9972B] scale-110 shadow-md ring-1 ring-[#C9972B]/40" : "border-black/10 hover:border-[#0097A7] hover:scale-105"
+                    }`}
+                    style={{ backgroundColor: c }}
+                    title={c}
+                  />
+                ))}
               </div>
             )}
-          </div>
 
-          {/* ── Talimatlar (Katlanabilir) ── */}
-          <button
-            onClick={() => setShowInstructions(!showInstructions)}
-            className="w-full text-left bg-[#F0FDFE] rounded-xl px-3 py-2 text-xs text-[#0097A7] font-semibold hover:bg-[#E0F7FA] transition-colors flex items-center justify-between"
-          >
-            <span>{t("howTo")}</span>
-            <span className={`transform transition-transform ${showInstructions ? "rotate-180" : ""}`}>▾</span>
-          </button>
-          {showInstructions && (
-            <div className="bg-[#F0FDFE] rounded-xl px-3 py-2 text-xs text-[#003B40] space-y-0.5 -mt-2">
-              <p>{t("step1")}</p>
-              <p>{t("step2")}</p>
-              <p>{t("step3")}</p>
-            </div>
-          )}
-
-          {/* ── Seçili Renk ── */}
-          <div>
-            <label className="text-xs font-semibold text-[#6B6355] mb-1.5 block">{t("selectedColor")}</label>
-            {selectedColor ? (
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg border-2 border-[#E0F7FA] shadow-inner flex-shrink-0" style={{ backgroundColor: selectedColor }} />
-                <span className="font-mono text-sm text-[#003B40]">{selectedColor}</span>
+            {/* Seçili → Hedef mini gösterim */}
+            {selectedColor && (
+              <div className="flex items-center gap-2 bg-[#F8F6F3] rounded-lg px-2 py-1.5">
+                <div className="w-6 h-6 rounded border-2 border-[#E0F7FA] flex-shrink-0" style={{ backgroundColor: selectedColor }} />
+                <span className="font-mono text-[10px] text-[#003B40]">{selectedColor}</span>
                 {selectedYarn && (
                   <>
-                    <ArrowRight className="w-4 h-4 text-[#C9972B] flex-shrink-0" />
-                    <div className="w-10 h-10 rounded-lg border-2 border-[#C9972B] shadow-inner flex-shrink-0" style={{ backgroundColor: selectedYarn.hex }} />
-                    <div className="text-xs">
-                      <span className="font-bold text-[#003B40]">{selectedYarn.code}</span>
-                      <span className="text-[#6B6355] ml-1">{yarnName(selectedYarn)}</span>
-                    </div>
+                    <ArrowRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
+                    <div className="w-6 h-6 rounded border-2 border-[#C9972B] flex-shrink-0" style={{ backgroundColor: selectedYarn.hex }} />
+                    <span className="font-mono text-[10px] font-bold text-[#003B40]">{selectedYarn.code}</span>
                   </>
                 )}
-              </div>
-            ) : (
-              <p className="text-xs text-[#999] italic">{t("clickHint")}</p>
-            )}
-            {extractedColors.length > 0 && (
-              <div className="mt-2">
-                <span className="text-[10px] font-semibold text-[#0097A7] mb-1 block">
-                  {locale === "tr" ? "Desen Renkleri — tıklayarak seçin" :
-                   locale === "en" ? "Pattern Colours — click to select" :
-                   locale === "ar" ? "ألوان النمط — انقر للتحديد" :
-                   locale === "fr" ? "Couleurs du motif — cliquez pour sélectionner" :
-                   "Musterfarben — klicken zum Auswählen"}
-                </span>
-                <div className="flex gap-1.5 flex-wrap">
-                  {extractedColors.map((c, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setSelectedColor(c)}
-                      className={`w-8 h-8 rounded-lg border-2 transition-all ${
-                        selectedColor === c ? "border-[#C9972B] scale-110 shadow-md ring-2 ring-[#C9972B]/30" : "border-[#E0F7FA] hover:border-[#0097A7] hover:scale-105"
-                      }`}
-                      style={{ backgroundColor: c }}
-                      title={c}
-                    />
-                  ))}
-                </div>
+                {selectedColor && selectedYarn && (
+                  <button
+                    onClick={applyColor}
+                    className="ml-auto px-3 py-1 text-[10px] font-bold rounded-lg bg-[#C9972B] hover:bg-[#B8860B] text-white transition-all"
+                  >
+                    {t("apply")}
+                  </button>
+                )}
               </div>
             )}
-          </div>
 
-          {/* ── İplik Renk Paleti ── */}
-          <div>
-            <label className="text-xs font-semibold text-[#6B6355] mb-2 block flex items-center gap-1.5">
-              <span className="w-3 h-3 rounded-full bg-gradient-to-br from-[#0097A7] to-[#C9972B]" />
-              {t("yarnPalette")}
-              <span className="text-[10px] font-normal text-[#999]">({YARN_COLORS.length} {locale === "tr" ? "renk" : "colours"})</span>
-            </label>
-            <div className="grid grid-cols-8 sm:grid-cols-11 gap-1">
-              {YARN_COLORS.map((yc) => (
-                <button
-                  key={yc.code}
-                  onClick={() => setSelectedYarn(yc)}
-                  className={`group relative flex flex-col items-center gap-0.5 p-0.5 rounded-lg transition-all ${
-                    selectedYarn?.code === yc.code
-                      ? "ring-2 ring-[#C9972B] bg-[#FFF8E8] scale-105 shadow-md z-10"
-                      : "hover:bg-[#F0FDFE] hover:scale-105"
-                  }`}
-                  title={`${yc.code} — ${yarnName(yc)} (${yc.hex})`}
-                >
-                  <div
-                    className={`w-full aspect-square rounded-md border transition-all ${
-                      selectedYarn?.code === yc.code
-                        ? "border-[#C9972B] shadow-inner"
-                        : "border-black/10 group-hover:border-[#0097A7]"
-                    }`}
-                    style={{ backgroundColor: yc.hex }}
-                  />
-                  <span className={`text-[8px] sm:text-[9px] font-mono leading-none ${
-                    selectedYarn?.code === yc.code ? "text-[#C9972B] font-bold" : "text-[#999]"
-                  }`}>
-                    {yc.code}
-                  </span>
-                </button>
+            {/* Renk değişimleri + araç çubuğu (inline) */}
+            <div className="flex items-center gap-1 flex-wrap">
+              {colorChanges.map((c, i) => (
+                <div key={i} className="flex items-center gap-0.5 bg-[#F8F6F3] rounded px-1 py-0.5 text-[8px]">
+                  <div className="w-3 h-3 rounded-sm border border-black/10" style={{ backgroundColor: c.sourceHex }} />
+                  <ArrowRight className="w-2 h-2 text-[#C9972B]" />
+                  <div className="w-3 h-3 rounded-sm border border-black/10" style={{ backgroundColor: c.targetHex }} />
+                  <span className="font-mono font-bold">{c.yarnCode}</span>
+                </div>
               ))}
+              {/* Mini araç butonları */}
+              <div className="flex gap-0.5 ml-auto">
+                <button onClick={undo} disabled={historyIndex <= 0} className="p-1 rounded bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-20 transition-all" title={t("undo")}>
+                  <Undo2 className="w-3 h-3" />
+                </button>
+                <button onClick={redo} disabled={historyIndex >= history.length - 1} className="p-1 rounded bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-20 transition-all" title={t("redo")}>
+                  <Redo2 className="w-3 h-3" />
+                </button>
+                <button onClick={reset} className="p-1 rounded bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] transition-all" title={t("reset")}>
+                  <RotateCcw className="w-3 h-3" />
+                </button>
+                <button onClick={download} className="p-1 rounded bg-[#003B40] text-white hover:bg-[#005566] transition-all" title={t("download")}>
+                  <Download className="w-3 h-3" />
+                </button>
+                <button onClick={handleShare} className="p-1 rounded bg-[#25D366] text-white hover:bg-[#20BD5C] transition-all" title={t("share")}>
+                  <Share2 className="w-3 h-3" />
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* ── Uygula Butonu ── */}
-          <button
-            onClick={applyColor}
-            disabled={!selectedColor || !selectedYarn}
-            className={`w-full py-3 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${
-              selectedColor && selectedYarn
-                ? "bg-[#C9972B] hover:bg-[#B8860B] text-white shadow-md"
-                : "bg-gray-200 text-gray-400 cursor-not-allowed"
-            }`}
-          >
-            <Palette className="w-4 h-4" />
-            {t("apply")}
-            {selectedYarn && (
-              <span className="text-xs opacity-80">
-                ({t("yarnCode")}: {selectedYarn.code})
-              </span>
-            )}
-          </button>
-
-          {/* ── Renk Değişimleri Listesi ── */}
-          {colorChanges.length > 0 && (
-            <div className="bg-[#FAFAFA] border border-[#E0F7FA] rounded-xl p-3">
-              <h4 className="text-xs font-bold text-[#003B40] mb-2 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#C9972B]" />
-                {t("colorChanges")} ({colorChanges.length})
-              </h4>
-              <div className="space-y-1.5 max-h-[120px] overflow-y-auto">
-                {colorChanges.map((c, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs bg-white rounded-lg px-2 py-1.5 border border-[#F0F0F0]">
-                    <span className="text-[#999] font-mono w-4 text-right flex-shrink-0">{i + 1}.</span>
-                    <div className="w-5 h-5 rounded border border-black/10 flex-shrink-0" style={{ backgroundColor: c.sourceHex }} />
-                    <span className="font-mono text-[10px] text-[#999]">{c.sourceHex}</span>
-                    <ArrowRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
-                    <div className="w-5 h-5 rounded border border-black/10 flex-shrink-0" style={{ backgroundColor: c.targetHex }} />
-                    <span className="font-mono text-[10px] text-[#003B40] font-bold">{c.yarnCode}</span>
-                    <span className="text-[10px] text-[#6B6355] truncate">{c.yarnName}</span>
-                  </div>
+          {/* ── Sağ: İplik Paleti + Sipariş ── */}
+          <div className="lg:w-[45%] space-y-2">
+            {/* İplik paleti */}
+            <div>
+              <label className="text-[10px] font-semibold text-[#6B6355] mb-1 block flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-gradient-to-br from-[#0097A7] to-[#C9972B]" />
+                {t("yarnPalette")}
+                <span className="text-[9px] font-normal text-[#999]">({YARN_COLORS.length})</span>
+              </label>
+              <div className="grid grid-cols-9 sm:grid-cols-11 lg:grid-cols-9 gap-0.5">
+                {YARN_COLORS.map((yc) => (
+                  <button
+                    key={yc.code}
+                    onClick={() => setSelectedYarn(yc)}
+                    className={`group relative flex flex-col items-center p-0.5 rounded transition-all ${
+                      selectedYarn?.code === yc.code
+                        ? "ring-2 ring-[#C9972B] bg-[#FFF8E8] scale-110 shadow-md z-10"
+                        : "hover:bg-[#F0FDFE] hover:scale-110"
+                    }`}
+                    title={`${yc.code} — ${yarnName(yc)}`}
+                  >
+                    <div
+                      className={`w-full aspect-square rounded border transition-all ${
+                        selectedYarn?.code === yc.code
+                          ? "border-[#C9972B]"
+                          : "border-black/10 group-hover:border-[#0097A7]"
+                      }`}
+                      style={{ backgroundColor: yc.hex }}
+                    />
+                    <span className={`text-[7px] font-mono leading-tight ${
+                      selectedYarn?.code === yc.code ? "text-[#C9972B] font-bold" : "text-[#AAA]"
+                    }`}>
+                      {yc.code}
+                    </span>
+                  </button>
                 ))}
               </div>
             </div>
-          )}
 
-          {/* ── Araç Çubuğu ── */}
-          <div className="flex items-center justify-between border-t border-[#E0F7FA] pt-3">
-            <div className="flex gap-1.5">
-              <button onClick={undo} disabled={historyIndex <= 0} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
-                <Undo2 className="w-3.5 h-3.5" /> {t("undo")}
-              </button>
-              <button onClick={redo} disabled={historyIndex >= history.length - 1} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] disabled:opacity-30 transition-all">
-                <Redo2 className="w-3.5 h-3.5" /> {t("redo")}
-              </button>
-              <button onClick={reset} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#F0FDFE] text-[#0097A7] hover:bg-[#E0F7FA] transition-all">
-                <RotateCcw className="w-3.5 h-3.5" /> {t("reset")}
-              </button>
-            </div>
-            <div className="flex gap-1.5">
-              <button onClick={download} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#003B40] text-white hover:bg-[#005566] transition-all">
-                <Download className="w-3.5 h-3.5" /> {t("download")}
-              </button>
+            {/* Sipariş butonu */}
+            {colorChanges.length > 0 && !showOrderForm && (
               <button
-                onClick={handleShare}
-                className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-[#25D366] text-white hover:bg-[#20BD5C] transition-all"
+                onClick={() => setShowOrderForm(true)}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-[#C9972B] to-[#E4B84A] text-[#1A1A1A] hover:from-[#B8860B] hover:to-[#C9972B] shadow-lg hover:shadow-xl transition-all"
               >
-                <Share2 className="w-3.5 h-3.5" /> {t("share")}
+                <ShoppingCart className="w-4 h-4" />
+                <span className="hidden sm:inline">{t("orderBtn")}</span>
+                <span className="sm:hidden">{t("orderBtnShort")}</span>
               </button>
-            </div>
-          </div>
-
-          {/* ── Sipariş Butonu veya Form ── */}
-          {colorChanges.length > 0 && !showOrderForm && (
-            <button
-              onClick={() => setShowOrderForm(true)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-gradient-to-r from-[#C9972B] to-[#E4B84A] text-[#1A1A1A] hover:from-[#B8860B] hover:to-[#C9972B] shadow-lg hover:shadow-xl transition-all"
-            >
-              <ShoppingCart className="w-4 h-4" />
-              <span className="hidden sm:inline">{t("orderBtn")}</span>
-              <span className="sm:hidden">{t("orderBtnShort")}</span>
-            </button>
-          )}
+            )}
 
           {/* ── Sipariş Formu ── */}
           {showOrderForm && (
@@ -994,6 +941,7 @@ export default function ColorReplacementModal({
               </button>
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>
