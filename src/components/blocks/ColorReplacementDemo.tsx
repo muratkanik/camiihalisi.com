@@ -71,10 +71,11 @@ function perceptualColorDistance(r1: number, g1: number, b1: number, r2: number,
 }
 
 function extractColorsHistogram(imgData: ImageData, maxColors: number = 6): string[] {
-  const binSize = 16; 
+  const binSize = 12; // finer bins
   const bins = new Map<string, { r: number, g: number, b: number, count: number }>();
 
-  const step = Math.max(4, Math.floor(imgData.data.length / 4 / 10000) * 4); 
+  // Sample every 4th pixel (step = 16 bytes). 360,000 pixels / 4 = 90,000 samples. Fast and highly accurate.
+  const step = 16; 
   let totalSampled = 0;
 
   for (let i = 0; i < imgData.data.length; i += step) {
@@ -108,7 +109,7 @@ function extractColorsHistogram(imgData: ImageData, maxColors: number = 6): stri
   })).sort((a, b) => b.count - a.count);
 
   const result: string[] = [];
-  const minCount = Math.max(1, totalSampled * 0.005); // 0.5% presence
+  const minCount = Math.max(1, totalSampled * 0.001); // 0.1% presence
 
   for (const bin of sortedBins) {
     if (bin.count < minCount) continue;
@@ -116,7 +117,7 @@ function extractColorsHistogram(imgData: ImageData, maxColors: number = 6): stri
     let tooSimilar = false;
     for (const resHex of result) {
       const rgb = hexToRgb(resHex);
-      if (perceptualColorDistance(bin.r, bin.g, bin.b, rgb.r, rgb.g, rgb.b) < 20) {
+      if (perceptualColorDistance(bin.r, bin.g, bin.b, rgb.r, rgb.g, rgb.b) < 12) {
         tooSimilar = true; 
         break;
       }
