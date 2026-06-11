@@ -59,8 +59,98 @@ function hslToRgb(h: number, s: number, l: number) {
   return { r: Math.round(r * 255), g: Math.round(g * 255), b: Math.round(b * 255) };
 }
 
+function perceptualColorDistance(r1: number, g1: number, b1: number, r2: number, g2: number, b2: number) {
+  const rmean = (r1 + r2) / 2;
+  const r = r1 - r2;
+  const g = g1 - g2;
+  const b = b1 - b2;
+  const weightR = 2 + rmean / 256;
+  const weightG = 4;
+  const weightB = 2 + (255 - rmean) / 256;
+  return Math.sqrt(weightR * r * r + weightG * g * g + weightB * b * b);
+}
+
+function extractColorsKMeans(imgData: ImageData, k: number = 6): string[] {
+  interface Point { r: number, g: number, b: number, count: number }
+  const points: Point[] = [];
+  const step = Math.max(4, Math.floor(imgData.data.length / 4 / 3000) * 4); 
+  for (let i = 0; i < imgData.data.length; i += step) {
+    const a = imgData.data[i + 3];
+    if (a < 128) continue;
+    points.push({ r: imgData.data[i], g: imgData.data[i+1], b: imgData.data[i+2], count: 1 });
+  }
+  if (points.length === 0) return [];
+
+  const centroids: Point[] = [];
+  centroids.push(points[Math.floor(Math.random() * points.length)]);
+  
+  for (let i = 1; i < k; i++) {
+    let maxDist = -1;
+    let bestPoint = points[0];
+    for (const p of points) {
+      let minDistToAnyCentroid = Infinity;
+      for (const c of centroids) {
+        const d = perceptualColorDistance(p.r, p.g, p.b, c.r, c.g, c.b);
+        if (d < minDistToAnyCentroid) minDistToAnyCentroid = d;
+      }
+      if (minDistToAnyCentroid > maxDist) {
+        maxDist = minDistToAnyCentroid;
+        bestPoint = p;
+      }
+    }
+    centroids.push({...bestPoint});
+  }
+
+  for (let iter = 0; iter < 15; iter++) {
+    const clusters: Point[][] = Array.from({length: k}, () => []);
+    for (const p of points) {
+      let minDist = Infinity;
+      let closest = 0;
+      for (let i = 0; i < k; i++) {
+        const d = perceptualColorDistance(p.r, p.g, p.b, centroids[i].r, centroids[i].g, centroids[i].b);
+        if (d < minDist) { minDist = d; closest = i; }
+      }
+      clusters[closest].push(p);
+    }
+
+    let changed = false;
+    for (let i = 0; i < k; i++) {
+      if (clusters[i].length === 0) continue;
+      let sumR = 0, sumG = 0, sumB = 0;
+      for (const p of clusters[i]) { sumR+=p.r; sumG+=p.g; sumB+=p.b; }
+      const newR = sumR / clusters[i].length;
+      const newG = sumG / clusters[i].length;
+      const newB = sumB / clusters[i].length;
+      if (Math.abs(centroids[i].r - newR) > 1 || Math.abs(centroids[i].g - newG) > 1) changed = true;
+      centroids[i] = { r: newR, g: newG, b: newB, count: clusters[i].length };
+    }
+    if (!changed) break;
+  }
+
+  centroids.sort((a,b) => b.count - a.count);
+
+  const result: string[] = [];
+  for (const c of centroids) {
+    if (c.count < points.length * 0.02) continue; 
+    let tooSimilar = false;
+    for (const resHex of result) {
+      const rgb = hexToRgb(resHex);
+      if (perceptualColorDistance(c.r, c.g, c.b, rgb.r, rgb.g, rgb.b) < 50) {
+        tooSimilar = true; break;
+      }
+    }
+    if (!tooSimilar) {
+      const hex = "#" + [Math.round(c.r), Math.round(c.g), Math.round(c.b)]
+        .map(x => x.toString(16).padStart(2, '0')).join('');
+      result.push(hex);
+    }
+    if (result.length >= k) break;
+  }
+  return result;
+}
+
 // Helper: Replace color in ImageData
-function replaceColorInImageData(ctx: CanvasRenderingContext2D, currentData: ImageData, sourceHex: string, targetHex: string, tolerance: number = 5): ImageData {
+function replaceColorInImageData(ctx: CanvasRenderingContext2D, currentData: ImageData, sourceHex: string, targetHex: string, tolerance: number = 50): ImageData {
   const newData = ctx.createImageData(currentData);
   const sourceRgb = hexToRgb(sourceHex);
   const sourceHsl = rgbToHsl(sourceRgb.r, sourceRgb.g, sourceRgb.b);
@@ -73,18 +163,23 @@ function replaceColorInImageData(ctx: CanvasRenderingContext2D, currentData: Ima
     const b = currentData.data[i + 2];
     const a = currentData.data[i + 3];
 
-    const pxlHsl = rgbToHsl(r, g, b);
-    let hueDiff = Math.abs(pxlHsl.h - sourceHsl.h);
-    if (hueDiff > 180) hueDiff = 360 - hueDiff;
+    const dist = perceptualColorDistance(r, g, b, sourceRgb.r, sourceRgb.g, sourceRgb.b);
 
-    if (hueDiff < tolerance && pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
-      const lDiff = pxlHsl.l - sourceHsl.l;
-      let newL = targetHsl.l + lDiff;
-      newL = Math.max(0, Math.min(1, newL));
-      const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
-      newData.data[i] = newRgb.r;
-      newData.data[i + 1] = newRgb.g;
-      newData.data[i + 2] = newRgb.b;
+    if (dist < tolerance) {
+      const pxlHsl = rgbToHsl(r, g, b);
+      if (pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
+        const lDiff = pxlHsl.l - sourceHsl.l;
+        let newL = targetHsl.l + lDiff;
+        newL = Math.max(0, Math.min(1, newL));
+        const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
+        newData.data[i] = newRgb.r;
+        newData.data[i + 1] = newRgb.g;
+        newData.data[i + 2] = newRgb.b;
+      } else {
+        newData.data[i] = r;
+        newData.data[i + 1] = g;
+        newData.data[i + 2] = b;
+      }
     } else {
       newData.data[i] = r;
       newData.data[i + 1] = g;
@@ -131,6 +226,7 @@ export default function ColorReplacementDemo() {
   const [extractedColors, setExtractedColors] = useState<string[]>(MOTIFS[0].colors);
   const [selectedColorToReplace, setSelectedColorToReplace] = useState<string | null>(null);
   const [newColorHex, setNewColorHex] = useState<string>("#8B1A1A"); 
+  const [tolerance, setTolerance] = useState<number>(50);
   const [appliedChanges, setAppliedChanges] = useState<{from: string, to: string}[]>([]);
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -171,13 +267,13 @@ export default function ColorReplacementDemo() {
 
     setImageLoaded(false);
     setSelectedColorToReplace(null);
-    setExtractedColors(currentMotif.colors);
     setAppliedChanges([]);
     setHistory([]);
     setHistoryIndex(-1);
 
     const img = new window.Image();
     img.src = currentMotif.src; 
+    img.crossOrigin = "Anonymous"; // In case customUrl is external
     img.onload = () => {
       const maxW = 600;
       let w = img.width;
@@ -192,6 +288,13 @@ export default function ColorReplacementDemo() {
       
       const initialImgData = ctx.getImageData(0, 0, w, h);
       originalImageDataRef.current = initialImgData;
+
+      if (currentMotif.id === "custom" || currentMotif.colors.length === 0) {
+        const extracted = extractColorsKMeans(initialImgData, 6);
+        setExtractedColors(extracted.length > 0 ? extracted : ["#ffffff", "#000000"]);
+      } else {
+        setExtractedColors(currentMotif.colors);
+      }
 
       let finalImgData = initialImgData;
       const initialHistory = [initialImgData];
@@ -208,7 +311,7 @@ export default function ColorReplacementDemo() {
             if (parts.length === 2) {
               const from = '#' + parts[0];
               const to = '#' + parts[1];
-              finalImgData = replaceColorInImageData(ctx, finalImgData, from, to, 5);
+              finalImgData = replaceColorInImageData(ctx, finalImgData, from, to, tolerance);
               initialHistory.push(finalImgData);
               initialChanges.push({ from, to });
             }
@@ -222,7 +325,7 @@ export default function ColorReplacementDemo() {
       setAppliedChanges(initialChanges);
       setImageLoaded(true);
     };
-  }, [currentMotif]);
+  }, [currentMotif, tolerance]);
 
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!imageLoaded || !canvasRef.current || !originalImageDataRef.current) return;
@@ -256,7 +359,7 @@ export default function ColorReplacementDemo() {
     if (!ctx) return;
 
     const currentData = history[historyIndex];
-    const newData = replaceColorInImageData(ctx, currentData, selectedColorToReplace, newColorHex, 5);
+    const newData = replaceColorInImageData(ctx, currentData, selectedColorToReplace, newColorHex, tolerance);
     ctx.putImageData(newData, 0, 0);
 
     const newHistory = history.slice(0, historyIndex + 1);
@@ -419,7 +522,7 @@ export default function ColorReplacementDemo() {
             <h3 className="text-lg font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
               3. Yeni Rengi Belirle
             </h3>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 mb-4">
               <input 
                 type="color" 
                 value={newColorHex} 
@@ -428,6 +531,27 @@ export default function ColorReplacementDemo() {
               />
               <div className="text-sm font-mono text-[#1A1A1A] bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
                 {newColorHex.toUpperCase()}
+              </div>
+            </div>
+
+            <div>
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-xs font-bold text-[#1A1A1A]">Yayılım Hassasiyeti (Tolerans)</span>
+                <span className="text-xs font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-600">{tolerance}</span>
+              </div>
+              <input 
+                type="range" 
+                min="10" 
+                max="150" 
+                step="5"
+                value={tolerance} 
+                onChange={(e) => setTolerance(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0097A7]"
+                title="Aynı tonların ne kadar geniş bir aralıkta seçileceğini belirler"
+              />
+              <div className="flex justify-between text-[10px] text-slate-500 mt-1">
+                <span>Dar (Sadece tıklandığı gibi)</span>
+                <span>Geniş (Benzer tonları katar)</span>
               </div>
             </div>
           </div>
