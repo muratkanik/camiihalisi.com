@@ -131,11 +131,11 @@ function extractColorsKMeans(imgData: ImageData, k: number = 6): string[] {
 
   const result: string[] = [];
   for (const c of centroids) {
-    if (c.count < points.length * 0.02) continue; 
+    if (c.count < points.length * 0.01) continue; // ignore less than 1% presence
     let tooSimilar = false;
     for (const resHex of result) {
       const rgb = hexToRgb(resHex);
-      if (perceptualColorDistance(c.r, c.g, c.b, rgb.r, rgb.g, rgb.b) < 50) {
+      if (perceptualColorDistance(c.r, c.g, c.b, rgb.r, rgb.g, rgb.b) < 25) {
         tooSimilar = true; break;
       }
     }
