@@ -70,82 +70,67 @@ function perceptualColorDistance(r1: number, g1: number, b1: number, r2: number,
   return Math.sqrt(weightR * r * r + weightG * g * g + weightB * b * b);
 }
 
-function extractColorsKMeans(imgData: ImageData, k: number = 6): string[] {
-  interface Point { r: number, g: number, b: number, count: number }
-  const points: Point[] = [];
-  const step = Math.max(4, Math.floor(imgData.data.length / 4 / 3000) * 4); 
+function extractColorsHistogram(imgData: ImageData, maxColors: number = 6): string[] {
+  const binSize = 16; 
+  const bins = new Map<string, { r: number, g: number, b: number, count: number }>();
+
+  const step = Math.max(4, Math.floor(imgData.data.length / 4 / 10000) * 4); 
+  let totalSampled = 0;
+
   for (let i = 0; i < imgData.data.length; i += step) {
-    const a = imgData.data[i + 3];
-    if (a < 128) continue;
-    points.push({ r: imgData.data[i], g: imgData.data[i+1], b: imgData.data[i+2], count: 1 });
-  }
-  if (points.length === 0) return [];
+    if (imgData.data[i + 3] < 128) continue;
+    const r = imgData.data[i];
+    const g = imgData.data[i + 1];
+    const b = imgData.data[i + 2];
+    
+    const binR = Math.round(r / binSize) * binSize;
+    const binG = Math.round(g / binSize) * binSize;
+    const binB = Math.round(b / binSize) * binSize;
+    const key = `${binR},${binG},${binB}`;
 
-  const centroids: Point[] = [];
-  centroids.push(points[Math.floor(Math.random() * points.length)]);
-  
-  for (let i = 1; i < k; i++) {
-    let maxDist = -1;
-    let bestPoint = points[0];
-    for (const p of points) {
-      let minDistToAnyCentroid = Infinity;
-      for (const c of centroids) {
-        const d = perceptualColorDistance(p.r, p.g, p.b, c.r, c.g, c.b);
-        if (d < minDistToAnyCentroid) minDistToAnyCentroid = d;
-      }
-      if (minDistToAnyCentroid > maxDist) {
-        maxDist = minDistToAnyCentroid;
-        bestPoint = p;
-      }
+    const existing = bins.get(key);
+    if (existing) {
+      existing.r += r;
+      existing.g += g;
+      existing.b += b;
+      existing.count++;
+    } else {
+      bins.set(key, { r, g, b, count: 1 });
     }
-    centroids.push({...bestPoint});
+    totalSampled++;
   }
 
-  for (let iter = 0; iter < 15; iter++) {
-    const clusters: Point[][] = Array.from({length: k}, () => []);
-    for (const p of points) {
-      let minDist = Infinity;
-      let closest = 0;
-      for (let i = 0; i < k; i++) {
-        const d = perceptualColorDistance(p.r, p.g, p.b, centroids[i].r, centroids[i].g, centroids[i].b);
-        if (d < minDist) { minDist = d; closest = i; }
-      }
-      clusters[closest].push(p);
-    }
-
-    let changed = false;
-    for (let i = 0; i < k; i++) {
-      if (clusters[i].length === 0) continue;
-      let sumR = 0, sumG = 0, sumB = 0;
-      for (const p of clusters[i]) { sumR+=p.r; sumG+=p.g; sumB+=p.b; }
-      const newR = sumR / clusters[i].length;
-      const newG = sumG / clusters[i].length;
-      const newB = sumB / clusters[i].length;
-      if (Math.abs(centroids[i].r - newR) > 1 || Math.abs(centroids[i].g - newG) > 1) changed = true;
-      centroids[i] = { r: newR, g: newG, b: newB, count: clusters[i].length };
-    }
-    if (!changed) break;
-  }
-
-  centroids.sort((a,b) => b.count - a.count);
+  const sortedBins = Array.from(bins.values()).map(bin => ({
+    r: bin.r / bin.count,
+    g: bin.g / bin.count,
+    b: bin.b / bin.count,
+    count: bin.count
+  })).sort((a, b) => b.count - a.count);
 
   const result: string[] = [];
-  for (const c of centroids) {
-    if (c.count < points.length * 0.01) continue; // ignore less than 1% presence
+  const minCount = Math.max(1, totalSampled * 0.005); // 0.5% presence
+
+  for (const bin of sortedBins) {
+    if (bin.count < minCount) continue;
+    
     let tooSimilar = false;
     for (const resHex of result) {
       const rgb = hexToRgb(resHex);
-      if (perceptualColorDistance(c.r, c.g, c.b, rgb.r, rgb.g, rgb.b) < 25) {
-        tooSimilar = true; break;
+      if (perceptualColorDistance(bin.r, bin.g, bin.b, rgb.r, rgb.g, rgb.b) < 20) {
+        tooSimilar = true; 
+        break;
       }
     }
+    
     if (!tooSimilar) {
-      const hex = "#" + [Math.round(c.r), Math.round(c.g), Math.round(c.b)]
+      const hex = "#" + [Math.round(bin.r), Math.round(bin.g), Math.round(bin.b)]
         .map(x => x.toString(16).padStart(2, '0')).join('');
       result.push(hex);
     }
-    if (result.length >= k) break;
+    
+    if (result.length >= maxColors) break;
   }
+  
   return result;
 }
 
