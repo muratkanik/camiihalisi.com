@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Download, Share2, MessageCircle, Undo2, Redo2 } from "lucide-react";
+import { Download, Share2, MessageCircle, Undo2, Redo2, ZoomIn, ZoomOut } from "lucide-react";
 
 // Helper: Convert hex to RGB
 function hexToRgb(hex: string) {
@@ -208,6 +208,7 @@ export default function ColorReplacementDemo() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [currentMotif, setCurrentMotif] = useState(MOTIFS[0]);
+  const [zoom, setZoom] = useState(1);
   
   const [extractedColors, setExtractedColors] = useState<string[]>(MOTIFS[0].colors);
   const [selectedColorToReplace, setSelectedColorToReplace] = useState<string | null>(null);
@@ -470,20 +471,39 @@ export default function ColorReplacementDemo() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Sol Taraf: Kanvas / Resim */}
         <div className="lg:col-span-2 flex flex-col">
-          <h3 className="text-lg font-bold text-[#0097A7] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-            2. Resme Tıklayarak Renk Seçin
+          <h3 className="text-lg font-bold text-[#0097A7] mb-2 flex items-center justify-between" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+            <span>2. Resme Tıklayarak Renk Seçin</span>
+            <div className="flex gap-2">
+              <button onClick={() => setZoom(z => Math.max(z - 0.5, 1))} className="p-1.5 rounded bg-white text-slate-600 shadow border hover:bg-slate-50 transition-colors" title="Uzaklaştır" disabled={zoom <= 1}>
+                <ZoomOut className="w-4 h-4" />
+              </button>
+              <button onClick={() => setZoom(1)} className="px-2 py-1 rounded bg-white text-slate-600 shadow border hover:bg-slate-50 transition-colors text-xs font-semibold" title="Orijinal Boyut">
+                1x
+              </button>
+              <button onClick={() => setZoom(z => Math.min(z + 0.5, 4))} className="p-1.5 rounded bg-white text-slate-600 shadow border hover:bg-slate-50 transition-colors" title="Yakınlaştır" disabled={zoom >= 4}>
+                <ZoomIn className="w-4 h-4" />
+              </button>
+            </div>
           </h3>
-          <div className="bg-[#F0FDFE] rounded-xl overflow-hidden border border-[#E0F7FA] flex items-center justify-center relative cursor-crosshair flex-1 min-h-[300px]">
+          <div className="bg-[#F0FDFE] rounded-xl overflow-auto border border-[#E0F7FA] flex relative flex-1 min-h-[300px] max-h-[60vh] custom-scrollbar">
             {!imageLoaded && (
               <div className="absolute inset-0 flex items-center justify-center bg-white/50 z-10">
                 <div className="text-[#0097A7] font-semibold animate-pulse">Yükleniyor...</div>
               </div>
             )}
-            <canvas 
-              ref={canvasRef} 
-              onClick={handleCanvasClick}
-              className="max-w-full max-h-[60vh] object-contain drop-shadow-md" 
-            />
+            <div className="flex w-full h-full items-center justify-center min-w-min min-h-min p-4">
+              <canvas 
+                ref={canvasRef} 
+                onClick={handleCanvasClick}
+                className="object-contain drop-shadow-md cursor-crosshair transition-all duration-200"
+                style={{ 
+                  width: zoom === 1 ? 'auto' : `${zoom * 100}%`,
+                  maxWidth: zoom === 1 ? '100%' : 'none',
+                  maxHeight: zoom === 1 ? '100%' : 'none',
+                  height: zoom === 1 ? 'auto' : 'auto'
+                }}
+              />
+            </div>
           </div>
         </div>
 
