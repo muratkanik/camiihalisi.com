@@ -275,7 +275,7 @@ export default function ColorReplacementDemo() {
       originalImageDataRef.current = initialImgData;
 
       if (currentMotif.id === "custom" || currentMotif.colors.length === 0) {
-        const extracted = extractColorsKMeans(initialImgData, 6);
+        const extracted = extractColorsHistogram(initialImgData, 6);
         setExtractedColors(extracted.length > 0 ? extracted : ["#ffffff", "#000000"]);
       } else {
         setExtractedColors(currentMotif.colors);
