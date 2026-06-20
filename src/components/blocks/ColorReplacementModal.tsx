@@ -506,7 +506,7 @@ export default function ColorReplacementModal({
     ]);
 
     setSelectedColor(null);
-  }, [selectedColor, selectedYarn, history, historyIndex, locale]);
+  }, [selectedColor, selectedYarn, history, historyIndex, locale, tolerance]);
 
   const undo = useCallback(() => {
     if (historyIndex <= 0 || !canvasRef.current) return;
