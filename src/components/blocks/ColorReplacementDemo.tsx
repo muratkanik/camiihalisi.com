@@ -109,7 +109,8 @@ function extractColorsHistogram(imgData: ImageData, maxColors: number = 6): stri
   })).sort((a, b) => b.count - a.count);
 
   const result: string[] = [];
-  const minCount = Math.max(1, totalSampled * 0.001); // 0.1% presence
+  // Geçiş (anti-alias) renklerini ve çok ufak lekeleri elemek için minimum %2'lik (0.02) bir hacim arıyoruz.
+  const minCount = Math.max(1, totalSampled * 0.02);
 
   for (const bin of sortedBins) {
     if (bin.count < minCount) continue;
