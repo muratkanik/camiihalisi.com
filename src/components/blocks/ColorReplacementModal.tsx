@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { X, Download, Share2, Undo2, Redo2, RotateCcw, Palette, ShoppingCart, ArrowRight } from "lucide-react";
+import { X, Download, Share2, Undo2, Redo2, RotateCcw, Palette, ShoppingCart, ArrowRight, Check } from "lucide-react";
 import { YARN_COLORS, type YarnColor } from "@/lib/yarn-colors";
 
 /* ── Renk Yardımcı Fonksiyonları ── */
@@ -641,17 +641,25 @@ export default function ColorReplacementModal({
                 <span className="text-[9px] font-bold text-[#0097A7] flex-shrink-0">
                   {locale === "tr" ? "Tespit Edilen Renkler:" : locale === "ar" ? "الألوان المكتشفة:" : "Extracted Colors:"}
                 </span>
-                {extractedColors.map((c, i) => (
+                {extractedColors.map((c, i) => {
+                  const isChanged = colorChanges.some(change => change.sourceHex === c);
+                  return (
                   <button
                     key={i}
                     onClick={() => setSelectedColor(c)}
-                    className={`w-7 h-7 rounded-md border-2 transition-all ${
+                    className={`relative w-7 h-7 rounded-md border-2 transition-all ${
                       selectedColor === c ? "border-[#C9972B] scale-110 shadow-md ring-1 ring-[#C9972B]/40" : "border-black/10 hover:border-[#0097A7] hover:scale-105"
                     }`}
                     style={{ backgroundColor: c }}
                     title={c}
-                  />
-                ))}
+                  >
+                    {isChanged && (
+                      <div className="absolute -top-1.5 -right-1.5 bg-green-500 rounded-full w-3.5 h-3.5 flex items-center justify-center border border-white shadow-sm z-10">
+                        <Check className="w-2.5 h-2.5 text-white stroke-[3]" />
+                      </div>
+                    )}
+                  </button>
+                )})}
               </div>
             )}
 
