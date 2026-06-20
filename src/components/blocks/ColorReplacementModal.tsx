@@ -55,224 +55,115 @@ function hslToRgb(h: number, s: number, l: number) {
 
 /* ── Gelişmiş Renk Eşleştirme ── */
 
-/** Hue farkı (0-180 arası, dairesel) */
-function hueDist(h1: number, h2: number): number {
-  const d = Math.abs(h1 - h2);
-  return d > 180 ? 360 - d : d;
+/* ── Gelişmiş Renk Eşleştirme ── */
+
+function perceptualColorDistance(r1: number, g1: number, b1: number, r2: number, g2: number, b2: number) {
+  const rmean = (r1 + r2) / 2;
+  const r = r1 - r2;
+  const g = g1 - g2;
+  const b = b1 - b2;
+  const weightR = 2 + rmean / 256;
+  const weightG = 4;
+  const weightB = 2 + (255 - rmean) / 256;
+  return Math.sqrt(weightR * r * r + weightG * g * g + weightB * b * b);
 }
 
-/**
- * İki renk arası HSL mesafesi (0-1 arası normalize).
- * Düşük doygunluklu renklerde (gri/beyaz/siyah) hue'yu göz ardı eder.
- */
-function colorDistance(h1: number, s1: number, l1: number, h2: number, s2: number, l2: number): number {
-  const avgS = (s1 + s2) / 2;
-  // Düşük doygunlukta hue anlamsız → ağırlığı düşür
-  const hueWeight = Math.min(avgS * 3, 1.0); // s < 0.33 → hue etkisi azalır
-  const hDiff = hueDist(h1, h2) / 180; // 0-1
-  const sDiff = Math.abs(s1 - s2);      // 0-1
-  const lDiff = Math.abs(l1 - l2);      // 0-1
-  return Math.sqrt(
-    hueWeight * hDiff * hDiff * 2.0 +   // Hue ağırlığı
-    sDiff * sDiff * 1.5 +                 // Doygunluk
-    lDiff * lDiff * 1.0                   // Parlaklık
-  );
-}
+function extractColorsHistogram(imgData: ImageData, maxColors: number = 6): string[] {
+  const binSize = 12; // finer bins
+  const bins = new Map<string, { r: number, g: number, b: number, count: number }>();
 
-/**
- * Piksel seçiminde 7×7 alan örnekleyip medyan renk bulur.
- * Gürültüyü azaltır, doğru rengi yakalar.
- */
-function sampleAreaColor(
-  ctx: CanvasRenderingContext2D,
-  cx: number, cy: number,
-  canvasW: number, canvasH: number
-): string {
-  const radius = 3; // 7×7 grid
-  const samples: { r: number; g: number; b: number }[] = [];
+  // Sample every 4th pixel (step = 16 bytes). 360,000 pixels / 4 = 90,000 samples. Fast and highly accurate.
+  const step = 16; 
+  let totalSampled = 0;
 
-  for (let dy = -radius; dy <= radius; dy++) {
-    for (let dx = -radius; dx <= radius; dx++) {
-      const sx = Math.max(0, Math.min(canvasW - 1, cx + dx));
-      const sy = Math.max(0, Math.min(canvasH - 1, cy + dy));
-      const px = ctx.getImageData(sx, sy, 1, 1).data;
-      samples.push({ r: px[0], g: px[1], b: px[2] });
-    }
-  }
+  for (let i = 0; i < imgData.data.length; i += step) {
+    if (imgData.data[i + 3] < 128) continue;
+    const r = imgData.data[i];
+    const g = imgData.data[i + 1];
+    const b = imgData.data[i + 2];
+    
+    const binR = Math.round(r / binSize) * binSize;
+    const binG = Math.round(g / binSize) * binSize;
+    const binB = Math.round(b / binSize) * binSize;
+    const key = `${binR},${binG},${binB}`;
 
-  // Her kanalın medyanını al (gürültü dirençli)
-  const sorted = (arr: number[]) => [...arr].sort((a, b) => a - b);
-  const mid = Math.floor(samples.length / 2);
-  const mr = sorted(samples.map(s => s.r))[mid];
-  const mg = sorted(samples.map(s => s.g))[mid];
-  const mb = sorted(samples.map(s => s.b))[mid];
-
-  return "#" + [mr, mg, mb].map(v => v.toString(16).padStart(2, "0")).join("");
-}
-
-/**
- * Görüntüdeki renk ailelerini çıkarır.
- * Birbirine yakın tüm tonlar tek temsil rengine birleşir.
- * Sonuç: 4-6 ayrı, net renk ailesi.
- */
-function extractDominantColors(data: ImageData, maxColors: number = 6): string[] {
-  const totalPx = data.width * data.height;
-  const step = Math.max(1, Math.floor(totalPx / 20000));
-
-  // Çok geniş kovalar — yakın tonlar kesinlikle aynı kovaya düşer
-  const buckets = new Map<string, { count: number; rSum: number; gSum: number; bSum: number }>();
-
-  for (let i = 0; i < data.data.length; i += 4 * step) {
-    const r = data.data[i], g = data.data[i + 1], b = data.data[i + 2];
-    const hsl = rgbToHsl(r, g, b);
-    if (hsl.l < 0.05 || hsl.l > 0.95) continue;
-
-    // Çok geniş kova: 36° hue / 0.3 sat / 0.25 light
-    const hB = Math.round(hsl.h / 36) * 36;
-    const sB = Math.round(hsl.s / 0.3) * 0.3;
-    const lB = Math.round(hsl.l / 0.25) * 0.25;
-    const key = `${hB}-${sB.toFixed(1)}-${lB.toFixed(1)}`;
-
-    const ex = buckets.get(key);
-    if (ex) { ex.count++; ex.rSum += r; ex.gSum += g; ex.bSum += b; }
-    else buckets.set(key, { count: 1, rSum: r, gSum: g, bSum: b });
-  }
-
-  // Çok az pikseli olan kovaları at (gürültü)
-  const sampleCount = Math.floor(totalPx / step);
-  const minPixels = Math.max(3, Math.floor(sampleCount * 0.01)); // en az %1
-
-  const sorted = [...buckets.entries()]
-    .filter(([, v]) => v.count >= minPixels)
-    .sort((a, b) => b[1].count - a[1].count)
-    .slice(0, maxColors * 4);
-
-  // 1. Geçiş: Agresif birleştirme (eşik: 0.38)
-  const candidates: { hex: string; h: number; s: number; l: number; count: number }[] = [];
-  for (const [, v] of sorted) {
-    const avgR = Math.round(v.rSum / v.count);
-    const avgG = Math.round(v.gSum / v.count);
-    const avgB = Math.round(v.bSum / v.count);
-    const hex = "#" + [avgR, avgG, avgB].map(c => c.toString(16).padStart(2, "0")).join("");
-    const hsl = rgbToHsl(avgR, avgG, avgB);
-
-    const closeIdx = candidates.findIndex(c =>
-      colorDistance(hsl.h, hsl.s, hsl.l, c.h, c.s, c.l) < 0.38
-    );
-
-    if (closeIdx >= 0) {
-      // Piksel sayısı ağırlıklı birleştir
-      const c = candidates[closeIdx];
-      const totalCount = c.count + v.count;
-      const cRgb = hexToRgb(c.hex);
-      const newR = Math.round((cRgb.r * c.count + avgR * v.count) / totalCount);
-      const newG = Math.round((cRgb.g * c.count + avgG * v.count) / totalCount);
-      const newB = Math.round((cRgb.b * c.count + avgB * v.count) / totalCount);
-      const newHsl = rgbToHsl(newR, newG, newB);
-      candidates[closeIdx] = {
-        hex: "#" + [newR, newG, newB].map(cc => cc.toString(16).padStart(2, "0")).join(""),
-        h: newHsl.h, s: newHsl.s, l: newHsl.l,
-        count: totalCount,
-      };
+    const existing = bins.get(key);
+    if (existing) {
+      existing.r += r;
+      existing.g += g;
+      existing.b += b;
+      existing.count++;
     } else {
-      candidates.push({ hex, h: hsl.h, s: hsl.s, l: hsl.l, count: v.count });
+      bins.set(key, { r, g, b, count: 1 });
     }
+    totalSampled++;
   }
 
-  // 2. Geçiş: Kalan yakın renkleri tekrar birleştir
-  let merged = true;
-  while (merged) {
-    merged = false;
-    for (let i = 0; i < candidates.length; i++) {
-      for (let j = i + 1; j < candidates.length; j++) {
-        const dist = colorDistance(
-          candidates[i].h, candidates[i].s, candidates[i].l,
-          candidates[j].h, candidates[j].s, candidates[j].l
-        );
-        if (dist < 0.38) {
-          // i'ye birleştir
-          const a = candidates[i], b = candidates[j];
-          const total = a.count + b.count;
-          const aRgb = hexToRgb(a.hex), bRgb = hexToRgb(b.hex);
-          const nR = Math.round((aRgb.r * a.count + bRgb.r * b.count) / total);
-          const nG = Math.round((aRgb.g * a.count + bRgb.g * b.count) / total);
-          const nB = Math.round((aRgb.b * a.count + bRgb.b * b.count) / total);
-          const nHsl = rgbToHsl(nR, nG, nB);
-          candidates[i] = {
-            hex: "#" + [nR, nG, nB].map(cc => cc.toString(16).padStart(2, "0")).join(""),
-            h: nHsl.h, s: nHsl.s, l: nHsl.l,
-            count: total,
-          };
-          candidates.splice(j, 1);
-          merged = true;
-          break;
-        }
+  const sortedBins = Array.from(bins.values()).map(bin => ({
+    r: bin.r / bin.count,
+    g: bin.g / bin.count,
+    b: bin.b / bin.count,
+    count: bin.count
+  })).sort((a, b) => b.count - a.count);
+
+  const result: string[] = [];
+  // Geçiş (anti-alias) renklerini ve çok ufak lekeleri elemek için minimum %2'lik (0.02) bir hacim arıyoruz.
+  const minCount = Math.max(1, totalSampled * 0.02);
+
+  for (const bin of sortedBins) {
+    if (bin.count < minCount) continue;
+    
+    let tooSimilar = false;
+    for (const resHex of result) {
+      const rgb = hexToRgb(resHex);
+      if (perceptualColorDistance(bin.r, bin.g, bin.b, rgb.r, rgb.g, rgb.b) < 12) {
+        tooSimilar = true; 
+        break;
       }
-      if (merged) break;
     }
+    
+    if (!tooSimilar) {
+      const hex = "#" + [Math.round(bin.r), Math.round(bin.g), Math.round(bin.b)]
+        .map(x => x.toString(16).padStart(2, '0')).join('');
+      result.push(hex);
+    }
+    
+    if (result.length >= maxColors) break;
   }
-
-  // Piksel sayısına göre sırala, maxColors kadar al
-  return candidates
-    .sort((a, b) => b.count - a.count)
-    .slice(0, maxColors)
-    .map(c => c.hex);
+  
+  return result;
 }
 
-/**
- * Gelişmiş renk değiştirme — HSL mesafesine dayalı, adaptif tolerans.
- * Düşük doygunluklu renklerde otomatik olarak parlaklık tabanlı eşleştirme yapar.
- */
-function replaceColorInImageData(
-  ctx: CanvasRenderingContext2D,
-  currentData: ImageData,
-  sourceHex: string,
-  targetHex: string,
-  toleranceLevel: number = 30 // 0-100 arası
-): ImageData {
+function replaceColorInImageData(ctx: CanvasRenderingContext2D, currentData: ImageData, sourceHex: string, targetHex: string, tolerance: number = 50): ImageData {
   const newData = ctx.createImageData(currentData);
   const sourceRgb = hexToRgb(sourceHex);
   const sourceHsl = rgbToHsl(sourceRgb.r, sourceRgb.g, sourceRgb.b);
   const targetRgb = hexToRgb(targetHex);
   const targetHsl = rgbToHsl(targetRgb.r, targetRgb.g, targetRgb.b);
 
-  // Normalize tolerans (0-100 → 0.05-0.5 aralığında mesafe eşiği)
-  const threshold = 0.05 + (toleranceLevel / 100) * 0.45;
-
   for (let i = 0; i < currentData.data.length; i += 4) {
     const r = currentData.data[i];
     const g = currentData.data[i + 1];
     const b = currentData.data[i + 2];
     const a = currentData.data[i + 3];
-    const pxlHsl = rgbToHsl(r, g, b);
 
-    // Çok açık ve çok koyu pikselleri koru (beyaz/siyah arka plan)
-    if (pxlHsl.l < 0.04 || pxlHsl.l > 0.96) {
-      newData.data[i] = r;
-      newData.data[i + 1] = g;
-      newData.data[i + 2] = b;
-      newData.data[i + 3] = a;
-      continue;
-    }
+    const dist = perceptualColorDistance(r, g, b, sourceRgb.r, sourceRgb.g, sourceRgb.b);
 
-    const dist = colorDistance(pxlHsl.h, pxlHsl.s, pxlHsl.l, sourceHsl.h, sourceHsl.s, sourceHsl.l);
-
-    if (dist < threshold) {
-      // Yumuşak geçiş: mesafe eşiğe yaklaştıkça etki azalır
-      const blend = Math.max(0, 1 - (dist / threshold));
-      const smoothBlend = blend * blend * (3 - 2 * blend); // smoothstep
-
-      const lDiff = pxlHsl.l - sourceHsl.l;
-      const sDiff = pxlHsl.s - sourceHsl.s;
-      let newH = targetHsl.h;
-      let newS = Math.max(0, Math.min(1, targetHsl.s + sDiff * 0.5));
-      let newL = Math.max(0, Math.min(1, targetHsl.l + lDiff));
-
-      const replaced = hslToRgb(newH, newS, newL);
-      // Orijinal piksel ile replaced arasında smoothBlend ile karıştır
-      newData.data[i]     = Math.round(r + (replaced.r - r) * smoothBlend);
-      newData.data[i + 1] = Math.round(g + (replaced.g - g) * smoothBlend);
-      newData.data[i + 2] = Math.round(b + (replaced.b - b) * smoothBlend);
+    if (dist < tolerance) {
+      const pxlHsl = rgbToHsl(r, g, b);
+      if (pxlHsl.s > 0.05 && pxlHsl.l > 0.05 && pxlHsl.l < 0.95) {
+        const lDiff = pxlHsl.l - sourceHsl.l;
+        let newL = targetHsl.l + lDiff;
+        newL = Math.max(0, Math.min(1, newL));
+        const newRgb = hslToRgb(targetHsl.h, targetHsl.s, newL);
+        newData.data[i] = newRgb.r;
+        newData.data[i + 1] = newRgb.g;
+        newData.data[i + 2] = newRgb.b;
+      } else {
+        newData.data[i] = r;
+        newData.data[i + 1] = g;
+        newData.data[i + 2] = b;
+      }
     } else {
       newData.data[i] = r;
       newData.data[i + 1] = g;
@@ -512,6 +403,7 @@ export default function ColorReplacementModal({
   const [selectedYarn, setSelectedYarn] = useState<YarnColor | null>(null);
   const [history, setHistory] = useState<ImageData[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [tolerance, setTolerance] = useState(50);
   const [colorChanges, setColorChanges] = useState<ColorChange[]>([]);
   const [showOrderForm, setShowOrderForm] = useState(false);
   const [orderForm, setOrderForm] = useState({ name: "", phone: "", email: "" });
@@ -553,7 +445,7 @@ export default function ColorReplacementModal({
       setHistoryIndex(0);
 
       // Renk ailelerini otomatik çıkar (6-8 ana renk grubu)
-      const families = extractDominantColors(data, 6);
+      const families = extractColorsHistogram(data, 6);
       setExtractedColors(families);
 
       setImageLoaded(true);
@@ -571,18 +463,16 @@ export default function ColorReplacementModal({
     const x = Math.floor((e.clientX - rect.left) * scaleX);
     const y = Math.floor((e.clientY - rect.top) * scaleY);
 
-    // 7×7 alan medyan örnekleme
-    const rawHex = sampleAreaColor(ctx, x, y, canvas.width, canvas.height);
+    const pixel = ctx.getImageData(x, y, 1, 1).data;
+    const rawHex = "#" + [pixel[0], pixel[1], pixel[2]].map(x => x.toString(16).padStart(2, '0')).join('');
     const rawRgb = hexToRgb(rawHex);
-    const rawHsl = rgbToHsl(rawRgb.r, rawRgb.g, rawRgb.b);
 
     // Her zaman en yakın renk ailesine snap'le
     let bestDist = Infinity;
     let bestColor = extractedColors[0];
     for (const dc of extractedColors) {
       const dcRgb = hexToRgb(dc);
-      const dcHsl = rgbToHsl(dcRgb.r, dcRgb.g, dcRgb.b);
-      const dist = colorDistance(rawHsl.h, rawHsl.s, rawHsl.l, dcHsl.h, dcHsl.s, dcHsl.l);
+      const dist = perceptualColorDistance(rawRgb.r, rawRgb.g, rawRgb.b, dcRgb.r, dcRgb.g, dcRgb.b);
       if (dist < bestDist) {
         bestDist = dist;
         bestColor = dc;
@@ -598,7 +488,7 @@ export default function ColorReplacementModal({
     if (!ctx) return;
     const currentData = history[historyIndex];
     if (!currentData) return;
-    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, 50);
+    const newData = replaceColorInImageData(ctx, currentData, selectedColor, selectedYarn.hex, tolerance);
     ctx.putImageData(newData, 0, 0);
     const newHistory = [...history.slice(0, historyIndex + 1), newData];
     setHistory(newHistory);
@@ -757,24 +647,41 @@ export default function ColorReplacementModal({
 
             {/* Seçili → Hedef mini gösterim */}
             {selectedColor && (
-              <div className="flex items-center gap-2 bg-[#F8F6F3] rounded-lg px-2 py-1.5">
-                <div className="w-6 h-6 rounded border-2 border-[#E0F7FA] flex-shrink-0" style={{ backgroundColor: selectedColor }} />
-                <span className="font-mono text-[10px] text-[#003B40]">{selectedColor}</span>
-                {selectedYarn && (
-                  <>
-                    <ArrowRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
-                    <div className="w-6 h-6 rounded border-2 border-[#C9972B] flex-shrink-0" style={{ backgroundColor: selectedYarn.hex }} />
-                    <span className="font-mono text-[10px] font-bold text-[#003B40]">{selectedYarn.code}</span>
-                  </>
-                )}
-                {selectedColor && selectedYarn && (
-                  <button
-                    onClick={applyColor}
-                    className="ml-auto px-3 py-1 text-[10px] font-bold rounded-lg bg-[#C9972B] hover:bg-[#B8860B] text-white transition-all"
-                  >
-                    {t("apply")}
-                  </button>
-                )}
+              <div className="flex flex-col gap-2 bg-[#F8F6F3] rounded-lg px-2 py-1.5">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded border-2 border-[#E0F7FA] flex-shrink-0" style={{ backgroundColor: selectedColor }} />
+                  <span className="font-mono text-[10px] text-[#003B40]">{selectedColor}</span>
+                  {selectedYarn && (
+                    <>
+                      <ArrowRight className="w-3 h-3 text-[#C9972B] flex-shrink-0" />
+                      <div className="w-6 h-6 rounded border-2 border-[#C9972B] flex-shrink-0" style={{ backgroundColor: selectedYarn.hex }} />
+                      <span className="font-mono text-[10px] font-bold text-[#003B40]">{selectedYarn.code}</span>
+                    </>
+                  )}
+                  {selectedColor && selectedYarn && (
+                    <button
+                      onClick={applyColor}
+                      className="ml-auto px-3 py-1 text-[10px] font-bold rounded-lg bg-[#C9972B] hover:bg-[#B8860B] text-white transition-all"
+                    >
+                      {t("apply")}
+                    </button>
+                  )}
+                </div>
+                
+                {/* Tolerans Slider */}
+                <div className="flex items-center gap-2 px-1 pb-1">
+                  <span className="text-[9px] font-semibold text-[#0097A7] flex-shrink-0 whitespace-nowrap">
+                    {locale === "tr" ? "Hassasiyet (Tolerans):" : locale === "ar" ? "حساسية الانتشار:" : "Tolerance:"}
+                  </span>
+                  <input 
+                    type="range" 
+                    min="10" max="150" step="5"
+                    value={tolerance}
+                    onChange={(e) => setTolerance(parseInt(e.target.value))}
+                    className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#0097A7]"
+                  />
+                  <span className="text-[9px] font-bold text-[#1A1A1A] w-6 text-right">{tolerance}</span>
+                </div>
               </div>
             )}
 
