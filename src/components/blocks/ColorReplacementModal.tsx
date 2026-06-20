@@ -187,8 +187,8 @@ const MT: Record<string, Record<string, string>> = {
   tr: {
     title: "Renk Değiştirme",
     howTo: "Nasıl kullanılır?",
-    step1: "1. Desen üzerinde değiştirmek istediğiniz renge tıklayın",
-    step2: "2. Aşağıdaki iplik paletinden yeni rengi seçin",
+    step1: "1. Değiştirmek istediğiniz rengi seçin ya da resim üstüne tıklayarak rengi seçin",
+    step2: "2. Sağdaki paletten seçtiğiniz renk yerine istediğiniz rengi seçin",
     step3: "3. \"Uygula\" butonuna basın",
     selectedColor: "Seçili Renk",
     clickHint: "Desen üzerinde bir renge tıklayın",
@@ -611,6 +611,17 @@ export default function ColorReplacementModal({
 
           {/* ── Sol: Canvas + Desen Renkleri ── */}
           <div className="lg:w-[55%] flex-shrink-0 space-y-2">
+            
+            {/* Adımlar */}
+            <div className="bg-[#F0FDFE] rounded-lg p-2 text-[10px] text-[#005566] border border-[#E0F7FA]">
+              <div className="font-bold text-[#003B40] mb-1">{t("howTo")}</div>
+              <ul className="space-y-0.5 ml-1 flex flex-col">
+                <li>{t("step1")}</li>
+                <li>{t("step2")}</li>
+                <li>{t("step3")}</li>
+              </ul>
+            </div>
+
             <div className="relative bg-[#F8F6F3] rounded-xl p-1.5 flex justify-center">
               <canvas
                 ref={canvasRef}
@@ -627,9 +638,9 @@ export default function ColorReplacementModal({
 
             {/* Desen Renkleri — canvas altında inline */}
             {extractedColors.length > 0 && (
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[9px] font-semibold text-[#0097A7] flex-shrink-0">
-                  {locale === "tr" ? "Desen:" : locale === "ar" ? "النمط:" : "Pattern:"}
+              <div className="flex items-center gap-1.5 flex-wrap mt-2">
+                <span className="text-[9px] font-bold text-[#0097A7] flex-shrink-0">
+                  {locale === "tr" ? "Tespit Edilen Renkler:" : locale === "ar" ? "الألوان المكتشفة:" : "Extracted Colors:"}
                 </span>
                 {extractedColors.map((c, i) => (
                   <button
