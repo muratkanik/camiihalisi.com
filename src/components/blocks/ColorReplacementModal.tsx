@@ -586,7 +586,7 @@ export default function ColorReplacementModal({
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl max-w-[960px] w-full max-h-[95vh] overflow-y-auto"
+        className="relative bg-white rounded-2xl shadow-2xl w-[95vw] lg:w-[85vw] xl:w-[80vw] h-[95vh] lg:h-[85vh] xl:h-[80vh] flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
         dir={locale === "ar" ? "rtl" : "ltr"}
       >
@@ -607,10 +607,10 @@ export default function ColorReplacementModal({
         </div>
 
         {/* ── İki Sütunlu Layout (desktop) ── */}
-        <div className="p-3 sm:p-4 flex flex-col lg:flex-row gap-3">
+        <div className="p-3 sm:p-4 flex flex-col lg:flex-row gap-4 flex-1 min-h-0 overflow-y-auto lg:overflow-hidden">
 
           {/* ── Sol: Canvas + Desen Renkleri ── */}
-          <div className="lg:w-[55%] flex-shrink-0 space-y-2">
+          <div className="lg:w-[60%] flex flex-col space-y-3 min-h-0">
             
             {/* Adımlar */}
             <div className="bg-[#F0FDFE] rounded-lg p-2 text-[10px] text-[#005566] border border-[#E0F7FA]">
@@ -622,12 +622,11 @@ export default function ColorReplacementModal({
               </ul>
             </div>
 
-            <div className="relative bg-[#F8F6F3] rounded-xl p-1.5 flex justify-center">
+            <div className="relative bg-[#F8F6F3] rounded-xl p-2 flex justify-center flex-1 min-h-[300px]">
               <canvas
                 ref={canvasRef}
                 onClick={handleCanvasClick}
-                className="max-w-full cursor-crosshair rounded-lg shadow-inner"
-                style={{ maxHeight: "280px", objectFit: "contain" }}
+                className="max-w-full h-full cursor-crosshair rounded-lg shadow-inner object-contain"
               />
               {!imageLoaded && (
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -728,7 +727,7 @@ export default function ColorReplacementModal({
           </div>
 
           {/* ── Sağ: İplik Paleti + Sipariş ── */}
-          <div className="lg:w-[45%] space-y-2">
+          <div className="lg:w-[40%] flex flex-col space-y-3 lg:overflow-y-auto custom-scrollbar pr-1 pb-4">
             {/* İplik paleti */}
             <div>
               <label className="text-[10px] font-semibold text-[#6B6355] mb-1 block flex items-center gap-1">
