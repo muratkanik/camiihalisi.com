@@ -85,12 +85,12 @@ export default async function BlogPreview({ locale }: BlogPreviewProps) {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                <span className="absolute top-3 left-3 badge badge-gold text-xs">
-                  {post.category}
-                </span>
               </div>
 
               <div className="p-5 flex flex-col flex-1">
+                <span className="text-[10px] font-bold text-[#C9972B] tracking-widest uppercase mb-2 block">
+                  {post.category}
+                </span>
                 <h3
                   className="font-bold text-[#1A1A1A] mb-2 leading-snug group-hover:text-[#0097A7] transition-colors"
                   style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.1rem" }}
