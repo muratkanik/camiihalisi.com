@@ -157,29 +157,25 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
         {displayedItems.map((item, idx) => (
           <div key={item.id} className="group relative aspect-square rounded-xl overflow-hidden border-2 border-[#E0F7FA] hover:border-[#C9972B] transition-all duration-300">
-            <Image
-              src={item.image}
-              alt={item.altText}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#003B40]/90 via-[#003B40]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-2 gap-1.5">
+            <Link href={detailUrl(item)} className="absolute inset-0 z-0 block">
+              <Image
+                src={item.image}
+                alt={item.altText}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+              />
+            </Link>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#003B40]/90 via-[#003B40]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-end p-2 gap-1.5 pointer-events-none">
               <span className="text-white font-semibold text-xs text-center leading-tight">{item.name}</span>
-              <div className="flex gap-1.5">
+              <div className="flex gap-1.5 pointer-events-auto">
                 <button
                   onClick={() => openLightbox(idx)}
                   className="px-2.5 py-1 bg-white/20 hover:bg-white/30 text-white rounded-lg text-[10px] font-semibold backdrop-blur-sm transition-colors flex items-center gap-1"
                 >
                   <Eye className="w-3 h-3" /> {gt(locale, "enlarge")}
                 </button>
-                <Link
-                  href={detailUrl(item)}
-                  className="px-2.5 py-1 bg-[#C9972B]/80 hover:bg-[#C9972B] text-white rounded-lg text-[10px] font-semibold backdrop-blur-sm transition-colors flex items-center gap-1"
-                >
-                  <ExternalLink className="w-3 h-3" /> {gt(locale, "detail")}
-                </Link>
               </div>
             </div>
           </div>
