@@ -153,14 +153,3 @@ model Badge {
   createdAt DateTime @default(now())
 }
 
-// ── Bekleme Listesi (Waitlist) ───────────────────────────────────
-model WaitlistEntry {
-  id          String   @id @default(cuid())
-  contactInfo String   @unique // E-mail or Phone number
-  contactType String   // "email" or "phone"
-  locale      String   @default("tr") // User's locale when signing up
-  createdAt   DateTime @default(now())
-  
-  @@index([createdAt])
-}
-

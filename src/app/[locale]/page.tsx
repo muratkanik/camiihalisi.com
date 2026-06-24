@@ -12,7 +12,6 @@ import CategoryShowcase from "@/components/blocks/CategoryShowcase";
 import TrustSection, { type Testimonial } from "@/components/blocks/TrustSection";
 import FeatureGrid from "@/components/blocks/FeatureGrid";
 import BlogPreview from "@/components/blocks/BlogPreview";
-import WaitlistSection from "@/components/blocks/WaitlistSection";
 import CTASection from "@/components/blocks/CTASection";
 import FAQSection, { type FAQItem } from "@/components/blocks/FAQSection";
 import { getBlogPosts as getBlogPostsFromAdmin } from "@/app/[locale]/admin/blog/actions";
@@ -83,12 +82,10 @@ export default async function HomePage({
   // ProblemSection verilerini blog'dan al (category: "Faydalı Bilgiler", subcategory: "Birçok Camide Halılar Neden Erken Yıpranır?")
   // Blog çevirilerini DB'den yükle
   let blogTranslations: Record<string, Record<string, Record<string, string>>> = {};
-  let waitlistCount = 0;
   try {
     const { PrismaClient } = await import("@prisma/client");
     const prisma = new PrismaClient();
     const row = await prisma.setting.findUnique({ where: { key: "blog_translations" } });
-    waitlistCount = await prisma.waitlistEntry.count();
     await prisma.$disconnect();
     if (row) blogTranslations = JSON.parse(row.value);
   } catch { /* DB unavailable */ }
@@ -251,9 +248,6 @@ export default async function HomePage({
       <main id="main-content">
         {/* 1. Hero — full-width slider with overlay */}
         <HeroSectionWrapper content={{ title: settings.heroTitle, subtitle: settings.heroSubtitle }} />
-
-        {/* Bekleme Listesi (Waitlist) */}
-        <WaitlistSection count={waitlistCount} />
 
         {/* 2. Problem — Neden Erken Yıpranır? (blog'dan) */}
         <ProblemSection items={problemItems} sectionTitle={tProblem("sectionTitle")} locale={locale} />
