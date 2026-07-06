@@ -19,8 +19,8 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
-const ColorReplacementModal = dynamic(
-  () => import("@/components/blocks/ColorReplacementModal"),
+const CarpetColorCustomizer = dynamic(
+  () => import("@/components/blocks/CarpetColorCustomizer"),
   { ssr: false }
 );
 
@@ -493,7 +493,7 @@ export default function DesenDetayClient({
         </section>
       </div>
 
-      <ColorReplacementModal
+      <CarpetColorCustomizer
         isOpen={colorModalOpen}
         onClose={() => setColorModalOpen(false)}
         imageSrc={desen.image}
