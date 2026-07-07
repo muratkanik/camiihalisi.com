@@ -153,3 +153,49 @@ model Badge {
   createdAt DateTime @default(now())
 }
 
+// ── Halı Tasarım Oturumları (Carpet Design Sessions) ─────────────────────────
+model CarpetDesignSession {
+  id               String   @id @default(cuid())
+  productSlug      String
+  productTitle     String
+  productUrl       String
+  originalImageUrl String
+  mappings         Json     // Stores mapping objects
+  previewImageUrl  String?
+  customerName     String?
+  customerPhone    String?
+  customerEmail    String?
+  requestedSize    String?
+  requestedQuantity String?
+  customerNote     String?
+  status           String   @default("draft") // draft, shared, quote_requested, ordered
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  quoteRequests    CarpetQuoteRequest[]
+
+  @@index([createdAt])
+  @@index([productSlug])
+}
+
+model CarpetQuoteRequest {
+  id               String   @id @default(cuid())
+  designSessionId  String
+  designSession    CarpetDesignSession @relation(fields: [designSessionId], references: [id])
+  productSlug      String
+  customerName     String
+  customerPhone    String
+  customerEmail    String?
+  city             String?
+  district         String?
+  requestedSize    String?
+  requestedQuantity String?
+  customerNote     String?
+  contactPreference String
+  status           String   @default("new")
+  createdAt        DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([designSessionId])
+}
+

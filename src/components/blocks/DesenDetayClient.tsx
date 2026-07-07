@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -277,6 +278,28 @@ interface DesenDetayClientProps {
   categorySlug: string;
 }
 
+import { Suspense } from "react";
+
+function DesignAutoLoader({ onLoaded }: { onLoaded: (session: any) => void }) {
+  const searchParams = useSearchParams();
+  
+  useEffect(() => {
+    const designId = searchParams.get("design");
+    if (designId) {
+      fetch(`/api/carpet-designs?id=${designId}`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.success && data.session) {
+            onLoaded(data.session);
+          }
+        })
+        .catch(err => console.error("Error loading design", err));
+    }
+  }, [searchParams, onLoaded]);
+
+  return null;
+}
+
 export default function DesenDetayClient({
   desen,
   prevDesen,
@@ -286,6 +309,12 @@ export default function DesenDetayClient({
   categorySlug,
 }: DesenDetayClientProps) {
   const [colorModalOpen, setColorModalOpen] = useState(false);
+  const [initialDesignSession, setInitialDesignSession] = useState<any | null>(null);
+
+  const handleDesignLoaded = (session: any) => {
+    setInitialDesignSession(session);
+    setColorModalOpen(true);
+  };
 
   const displayName = useMemo(() => {
     if (locale === "en") return desen.nameEn;
@@ -499,7 +528,12 @@ export default function DesenDetayClient({
         imageSrc={desen.image}
         patternName={displayName}
         locale={locale}
+        productSlug={desen.id}
+        initialDesignSession={initialDesignSession}
       />
+      <Suspense fallback={null}>
+        <DesignAutoLoader onLoaded={handleDesignLoaded} />
+      </Suspense>
     </>
   );
 }
