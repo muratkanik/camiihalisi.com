@@ -13,6 +13,7 @@ import CategoryFiltersClient from "@/components/blocks/CategoryFiltersClient";
 
 import DesenGalerisi from "@/components/blocks/DesenGalerisi";
 import { SAFLI_AKRILIK_DESENLER } from "@/lib/safli-akrilik-desenler";
+import ProductDatasheets from "@/components/blocks/ProductDatasheets";
 
 const SITE_URL = "https://camiihalisi.com";
 
@@ -585,6 +586,8 @@ export default async function KategoriPage({
             </div>
           </section>
         )}
+
+        {slug === "akrilik-cami-halisi" && <ProductDatasheets locale={locale} />}
 
         {/* ── İçerik ── */}
         <section className="section bg-[#F0FDFE]">
