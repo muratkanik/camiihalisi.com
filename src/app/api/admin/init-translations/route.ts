@@ -9,16 +9,15 @@
  *
  * Safe to run multiple times — existing admin overrides win on merge.
  */
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { isAdminAuthenticated } from "@/lib/auth";
 import fs from "fs";
 import path from "path";
 
 const LOCALES = ["tr", "en", "ar", "fr"] as const;
 
 async function isAdmin(): Promise<boolean> {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 async function getPrisma() {

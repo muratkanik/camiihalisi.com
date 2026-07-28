@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");
@@ -8,9 +8,7 @@ async function getPrisma() {
 }
 
 async function isAuthorized(): Promise<boolean> {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("auth_token")?.value;
-  return !!token;
+  return isAdminAuthenticated();
 }
 
 // GET — list users

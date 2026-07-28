@@ -5,6 +5,12 @@ import { BLOG_POSTS } from "@/lib/blog-data";
 import { CATEGORIES, getCategoryPriority } from "@/lib/categories";
 
 const SITE_URL = "https://camiihalisi.com";
+const LOCALES = ["tr", "en", "ar", "fr", "de"] as const;
+
+function localizedUrl(locale: (typeof LOCALES)[number], path = ""): string {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  return locale === "tr" ? `${SITE_URL}${normalizedPath}` : `${SITE_URL}/${locale}${normalizedPath}`;
+}
 
 // DB'den aktif keyword'leri çek (yoksa boş dizi döner)
 async function getActiveKeywords(): Promise<Array<{ citySlug: string; keywordSlug: string }>> {
@@ -55,20 +61,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "yun-vs-polyamid-cami-halisi",
     "safli-vs-gobekli-vs-seccadeli",
   ];
-  const comparisonPages: MetadataRoute.Sitemap = comparisonSlugs.map((slug) => ({
-    url: `${SITE_URL}/karsilastirma/${slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const comparisonPages: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    comparisonSlugs.map((slug) => ({
+      url: localizedUrl(locale, `/karsilastirma/${slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    }))
+  );
 
   // Kategori sayfaları — src/lib/categories.ts'den otomatik
-  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${SITE_URL}/kategori/${cat.slug}`,
-    lastModified: now,
-    changeFrequency: "monthly" as const,
-    priority: getCategoryPriority(cat.slug),
-  }));
+  const categoryPages: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    CATEGORIES.map((cat) => ({
+      url: localizedUrl(locale, `/kategori/${cat.slug}`),
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: getCategoryPriority(cat.slug),
+    }))
+  );
 
   // Şehir ve ilçe sayfaları — src/lib/cities.ts'den otomatik
   const cityPages: MetadataRoute.Sitemap = ALL_CITIES.map((city) => ({
@@ -98,12 +108,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   );
 
   // Blog yazıları — src/lib/blog-data.ts'den otomatik
-  const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
-    url: `${SITE_URL}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
-    changeFrequency: "yearly" as const,
-    priority: 0.6,
-  }));
+  const blogPages: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    BLOG_POSTS.map((post) => ({
+      url: localizedUrl(locale, `/blog/${post.slug}`),
+      lastModified: new Date(post.publishedAt),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    }))
+  );
 
   return [...staticPages, ...comparisonPages, ...categoryPages, ...cityPages, ...keywordPages, ...intlPages, ...blogPages];
 }

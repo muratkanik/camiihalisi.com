@@ -5,8 +5,8 @@
  * Body: { slug: string, targetLocale: "en"|"ar"|"fr", fields: { title, excerpt, content, metaTitle, metaDescription } }
  * Returns: { ok: true, translation: { title, excerpt, content, metaTitle, metaDescription } }
  */
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 const LOCALE_NAMES: Record<string, string> = {
   en: "English",
@@ -16,8 +16,7 @@ const LOCALE_NAMES: Record<string, string> = {
 };
 
 async function isAdmin(): Promise<boolean> {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 async function getPrisma() {

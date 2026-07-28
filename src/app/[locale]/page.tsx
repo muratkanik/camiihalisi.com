@@ -114,7 +114,7 @@ export default async function HomePage({
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE_URL}/images/logo.png`,
+      url: `${SITE_URL}/icon.svg`,
       width: 200,
       height: 60,
     },

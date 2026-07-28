@@ -1,19 +1,14 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { DEFAULT_OFFICES } from "@/app/[locale]/admin/iletisim/types";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");
   return new PrismaClient();
 }
 
-function auth(cookieStore: Awaited<ReturnType<typeof cookies>>) {
-  return !!cookieStore.get("auth_token")?.value;
-}
-
 export async function GET() {
-  const cookieStore = await cookies();
-  if (!auth(cookieStore)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const prisma = await getPrisma();
   try {
@@ -26,8 +21,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const cookieStore = await cookies();
-  if (!auth(cookieStore)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { offices } = await req.json();
   if (!Array.isArray(offices)) return NextResponse.json({ error: "Geçersiz veri" }, { status: 400 });
@@ -46,8 +40,7 @@ export async function POST(req: Request) {
 }
 
 export async function DELETE() {
-  const cookieStore = await cookies();
-  if (!auth(cookieStore)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!(await isAdminAuthenticated())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const prisma = await getPrisma();
   try {

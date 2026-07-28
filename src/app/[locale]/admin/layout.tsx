@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { logoutAction } from "../login/actions";
 import { PrismaClient } from "@prisma/client";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 export const metadata: Metadata = {
   title: "Admin Panel | camiihalisi.com",
@@ -207,9 +207,7 @@ const NAV_ITEMS = [
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("auth_token")?.value;
-  if (!token) {
+  if (!(await isAdminAuthenticated())) {
     redirect("/login");
   }
 

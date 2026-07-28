@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { isAdminAuthenticated } from "@/lib/auth";
 import TranslationEditorClient from "@/components/admin/TranslationEditorClient";
 
 async function getTranslationData() {
@@ -23,8 +23,7 @@ async function getTranslationData() {
 }
 
 export default async function CeviriPage({ params }: { params: Promise<{ locale: string }> }) {
-  const cookieStore = await cookies();
-  if (!cookieStore.get("auth_token")?.value) {
+  if (!(await isAdminAuthenticated())) {
     redirect("/login");
   }
 
