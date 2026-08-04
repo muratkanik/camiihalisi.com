@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import Script from "next/script";
+import { Inter, Cormorant_Garamond, Noto_Sans_Arabic } from "next/font/google";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
@@ -9,6 +10,28 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import { getSettings } from "@/lib/settings";
 
 const SITE_URL = "https://camiihalisi.com";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-noto-arabic",
+  display: "swap",
+});
 
 export async function generateMetadata({
   params,
@@ -134,13 +157,9 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={isRTL ? "rtl" : "ltr"}
-      className="h-full"
+      className={`h-full ${inter.variable} ${cormorantGaramond.variable} ${notoSansArabic.variable}`}
     >
       <head>
-        {/* Preconnect for Google Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
         {/* Organization JSON-LD */}
         <script
           type="application/ld+json"
@@ -155,6 +174,8 @@ export default async function LocaleLayout({
               sameAs: [
                 "https://camiihalisi.com",
                 "https://www.asilhali.com.tr",
+                "https://www.instagram.com/mosquecarpets",
+                "https://www.linkedin.com/company/asil-hali",
               ],
               logo: {
                 "@type": "ImageObject",
@@ -203,7 +224,7 @@ export default async function LocaleLayout({
       </head>
       <body
         className="min-h-full flex flex-col"
-        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+        style={{ fontFamily: "var(--font-inter), system-ui, sans-serif" }}
       >
         <NextIntlClientProvider messages={messages}>
           {children}

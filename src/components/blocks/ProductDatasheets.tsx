@@ -111,7 +111,7 @@ const COPY: Record<Locale, {
 }> = {
   tr: {
     eyebrow: "Teknik dokümanlar",
-    title: "Akrilik cami halısı teknik veri föyleri",
+    title: "Teknik Veri Föyleri",
     description: "Akrilik cami halısı kalite ve model kodlarına göre teknik özellikleri karşılaştırın. Her kartta üretim yöntemi, dokuma değerleri, ürün açıklaması, performans özellikleri ve kullanım bilgileri yer alır.",
     code: "Kalite / model kodu",
     height: "Hav yüksekliği",
@@ -135,7 +135,7 @@ const COPY: Record<Locale, {
   },
   en: {
     eyebrow: "Technical documents",
-    title: "Acrylic mosque carpet technical data sheets",
+    title: "Technical Data Sheets",
     description: "Compare acrylic mosque carpet specifications by quality and model code. Each card includes manufacturing method, weaving values, product description, performance features, and usage information.",
     code: "Quality / model code",
     height: "Pile height",
@@ -159,7 +159,7 @@ const COPY: Record<Locale, {
   },
   de: {
     eyebrow: "Technische Dokumente",
-    title: "Technische Datenblätter für Acryl-Moscheeteppiche",
+    title: "Technische Datenblätter",
     description: "Vergleichen Sie die technischen Eigenschaften nach Qualitäts- und Modellcode.",
     code: "Qualitäts- / Modellcode",
     height: "Polhöhe",
@@ -183,7 +183,7 @@ const COPY: Record<Locale, {
   },
   fr: {
     eyebrow: "Documents techniques",
-    title: "Fiches techniques des tapis de mosquée en acrylique",
+    title: "Fiches Techniques",
     description: "Comparez les caractéristiques techniques par code qualité et modèle.",
     code: "Code qualité / modèle",
     height: "Hauteur de velours",
@@ -207,7 +207,7 @@ const COPY: Record<Locale, {
   },
   ar: {
     eyebrow: "الوثائق الفنية",
-    title: "النشرات الفنية لسجاد المساجد الأكريليك",
+    title: "النشرات الفنية",
     description: "قارن المواصفات الفنية حسب رمز الجودة والطراز.",
     code: "رمز الجودة / الطراز",
     height: "ارتفاع الوبر",
@@ -231,6 +231,39 @@ const COPY: Record<Locale, {
   },
 };
 
+const SITE_URL = "https://camiihalisi.com";
+
+function buildProductsJsonLd(products: Product[], common: CommonData, locale: Locale, copy: (typeof COPY)[Locale]) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": products.map((p) => ({
+      "@type": "Product",
+      "@id": `${SITE_URL}/kategori/akrilik-cami-halisi#akrilik-${p.code}`,
+      name: `Akrilik Cami Halısı ${p.code}`,
+      sku: p.code,
+      category: "Cami Halısı > Akrilik Cami Halısı",
+      material: common.pileYarn[locale],
+      brand: { "@type": "Brand", name: "Asil Halı" },
+      manufacturer: { "@type": "Organization", name: "Asil Halı A.Ş.", url: "https://www.asilhali.com.tr" },
+      url: `${SITE_URL}/kategori/akrilik-cami-halisi#teknik-veri-foyleri`,
+      additionalProperty: [
+        { "@type": "PropertyValue", name: copy.height, value: p.pileHeight },
+        { "@type": "PropertyValue", name: copy.pitch, value: p.pitch },
+        { "@type": "PropertyValue", name: copy.points, value: p.points },
+        { "@type": "PropertyValue", name: copy.weight, value: p.weight },
+        { "@type": "PropertyValue", name: copy.row, value: common.row },
+        { "@type": "PropertyValue", name: copy.weavingWidth, value: common.weavingWidth },
+        { "@type": "PropertyValue", name: copy.yarnCount, value: common.yarnCount },
+        { "@type": "PropertyValue", name: copy.warpYarn, value: common.warpYarn[locale] },
+        { "@type": "PropertyValue", name: copy.backing, value: common.backing[locale] },
+        { "@type": "PropertyValue", name: copy.weavingSystem, value: common.weavingSystem[locale] },
+        { "@type": "PropertyValue", name: copy.manufacturingMethod, value: common.manufacturingMethod[locale] },
+        { "@type": "PropertyValue", name: copy.manufacturingTechnology, value: common.manufacturingTechnology[locale] },
+      ],
+    })),
+  };
+}
+
 export default async function ProductDatasheets({ locale }: { locale: string }) {
   const activeLocale: Locale = (locale as Locale) in COPY ? (locale as Locale) : "tr";
   const copy = COPY[activeLocale];
@@ -251,6 +284,10 @@ export default async function ProductDatasheets({ locale }: { locale: string }) 
 
   return (
     <section id="teknik-veri-foyleri" className="py-14 bg-white border-b border-[#E0F7FA]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildProductsJsonLd(products, common, activeLocale, copy)) }}
+      />
       <div className="container-site">
         <div className="max-w-3xl mb-8">
           <span className="badge badge-gold mb-4">{copy.eyebrow}</span>
