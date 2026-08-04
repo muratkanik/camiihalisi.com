@@ -1,8 +1,10 @@
-import { FileText, Download } from "lucide-react";
+import prisma from "@/lib/prisma";
+import AcrylicDatasheetCard from "./AcrylicDatasheetCard";
 
 type Locale = "tr" | "en" | "ar" | "fr" | "de";
+type LocalizedText = Record<Locale, string>;
 
-type Datasheet = {
+type Product = {
   code: string;
   pileHeight: string;
   pitch: string;
@@ -11,7 +13,30 @@ type Datasheet = {
   pdf: string;
 };
 
-const ACRYLIC_DATASHEETS: Datasheet[] = [
+type CommonData = {
+  manufacturingMethod: LocalizedText;
+  manufacturingTechnology: LocalizedText;
+  pileYarn: LocalizedText;
+  weavingSystem: LocalizedText;
+  weavingWidth: string;
+  row: string;
+  backing: LocalizedText;
+  yarnCount: string;
+  warpYarn: LocalizedText;
+  tolerance: LocalizedText;
+  description: LocalizedText;
+  performanceFeatures: LocalizedText[];
+  usage: {
+    underlay: LocalizedText;
+    vacuum: LocalizedText;
+    serviceLife: LocalizedText;
+    warranty: LocalizedText;
+  };
+};
+
+// DB satırı (Setting.key = "akrilik_datasheets_data") boşsa kullanılacak yedek veri.
+// bkz. prisma/seed-akrilik-datasheets.ts
+const FALLBACK_PRODUCTS: Product[] = [
   { code: "3000", pileHeight: "13 mm", pitch: "400 / m", points: "505.000 / m²", weight: "3.000 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3000-teknik-veri-foyu.pdf" },
   { code: "3300", pileHeight: "14 mm", pitch: "676 / m", points: "567.800 / m²", weight: "3.300 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3300-teknik-veri-foyu.pdf" },
   { code: "3465", pileHeight: "13 mm", pitch: "400 / m", points: "582.000 / m²", weight: "3.465 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3465-teknik-veri-foyu.pdf" },
@@ -28,6 +53,38 @@ const ACRYLIC_DATASHEETS: Datasheet[] = [
   { code: "5535", pileHeight: "16 mm", pitch: "700 / m", points: "1.205.400 / m²", weight: "5.535 g / m²", pdf: "asil-hali-akrilik-cami-halisi-5535-teknik-veri-foyu.pdf" },
 ];
 
+const FALLBACK_COMMON: CommonData = {
+  manufacturingMethod: { tr: "Wilton Çift Karşılıklı Dokuma Teknolojisi", en: "Wilton Face-to-Face Weaving Technology", de: "Wilton-Doppelgesicht-Webtechnologie", fr: "Technologie de tissage Wilton face à face", ar: "تقنية نسج ويلتون وجهًا لوجه" },
+  manufacturingTechnology: { tr: "Van de Wiele Elektronik Jakarlı Dokuma Sistemi", en: "Van de Wiele Electronic Jacquard Weaving System", de: "Van de Wiele Elektronisches Jacquard-Websystem", fr: "Système de tissage Jacquard électronique Van de Wiele", ar: "نظام نسج جاكار إلكتروني من فان دي ويله" },
+  pileYarn: { tr: "%100 Birinci Kalite Akrilik", en: "100% First Quality Acrylic", de: "100% Acryl erster Qualität", fr: "100% acrylique de première qualité", ar: "100% أكريليك من الدرجة الأولى" },
+  weavingSystem: { tr: "1/1 Yüksek Yoğunluklu Dokuma Sistemi", en: "1/1 High-Density Weaving System", de: "1/1 Hochdichtes Websystem", fr: "Système de tissage haute densité 1/1", ar: "نظام نسج عالي الكثافة 1/1" },
+  weavingWidth: "400 cm",
+  row: "420 / m",
+  backing: { tr: "%100 Premium Kalite Jüt", en: "100% Premium Grade Jute", de: "100% Jute in Premiumqualität", fr: "100% jute de qualité premium", ar: "100% خيش فاخر" },
+  yarnCount: "15/3",
+  warpYarn: { tr: "Pamuk", en: "Cotton", de: "Baumwolle", fr: "Coton", ar: "قطن" },
+  tolerance: { tr: "Tüm ölçüm değerlerinde ±%5 üretim toleransı uygulanır.", en: "A ±5% manufacturing tolerance applies to all measurement values.", de: "Für alle Messwerte gilt eine Fertigungstoleranz von ±5%.", fr: "Une tolérance de fabrication de ±5% s'applique à toutes les valeurs mesurées.", ar: "يتم تطبيق هامش تصنيع ±5% على جميع القيم القياسية." },
+  description: {
+    tr: "Premium kalite %100 akrilik hav ipliği kullanılarak üretilen bu Wilton dokuma cami halısı, gelişmiş dokuma teknolojisini üstün işçilik ile birleştirerek yüksek dayanıklılık, konfor ve boyutsal stabilite sunmaktadır.\n\nYoğun ziyaretçi trafiğine sahip ibadet alanları için geliştirilen ürün, kullanım ömrü boyunca estetik görünümünü koruyacak şekilde tasarlanmıştır. Camiler, mescitler, namaz salonları ve diğer dini yapılarda kalite, dayanıklılık ve görsel bütünlüğün ön planda olduğu projeler için ideal bir zemin kaplama çözümüdür.",
+    en: "Manufactured with premium-grade 100% acrylic pile yarn, this Wilton woven mosque carpet combines advanced weaving technology with exceptional craftsmanship to deliver outstanding durability, comfort, and dimensional stability.\n\nDeveloped for high-traffic worship environments, the carpet provides long-lasting aesthetic appearance, excellent walking comfort, and reliable performance throughout its service life. It is suitable for mosques, masjids, prayer halls, and other religious buildings where quality, durability, and visual elegance are essential.",
+    de: "Dieser Wilton-gewebte Moscheeteppich wird aus erstklassigem 100% Acryl-Polgarn gefertigt und vereint fortschrittliche Webtechnologie mit hervorragender Verarbeitung für außergewöhnliche Haltbarkeit, Komfort und Formstabilität.\n\nEntwickelt für stark frequentierte Gebetsräume, bewahrt der Teppich sein ästhetisches Erscheinungsbild über die gesamte Nutzungsdauer. Er ist ideal für Moscheen, Gebetsräume und andere religiöse Gebäude, in denen Qualität, Haltbarkeit und visuelle Eleganz im Vordergrund stehen.",
+    fr: "Fabriqué avec un fil de velours 100% acrylique de qualité premium, ce tapis de mosquée tissé Wilton allie une technologie de tissage avancée à un savoir-faire exceptionnel pour offrir une durabilité, un confort et une stabilité dimensionnelle remarquables.\n\nConçu pour les lieux de culte à fort trafic, il conserve son aspect esthétique tout au long de sa durée de vie. Il convient parfaitement aux mosquées, masjids, salles de prière et autres édifices religieux où qualité, durabilité et élégance visuelle sont essentielles.",
+    ar: "صُنعت هذه السجادة المنسوجة بتقنية ويلتون من خيوط الوبر الأكريليكية الفاخرة بنسبة 100%، وتجمع بين تقنية النسج المتطورة والحرفية الاستثنائية لتوفر متانة فائقة وراحة واستقرارًا في الأبعاد.\n\nصُممت خصيصًا لأماكن العبادة ذات الحركة الكثيفة، وتحافظ على مظهرها الجمالي طوال عمرها الافتراضي. وهي مثالية للمساجد والمصليات وقاعات الصلاة وغيرها من المباني الدينية التي تُعطى فيها الأولوية للجودة والمتانة والأناقة البصرية.",
+  },
+  performanceFeatures: [
+    { tr: "Işığa ve Solmaya Karşı Dayanıklı", en: "Light Resistant", de: "Lichtbeständig", fr: "Résistant à la lumière", ar: "مقاوم للضوء والبهتان" },
+    { tr: "Bakteri Gelişimine Karşı Dayanıklı", en: "Anti-Bacterial", de: "Antibakteriell", fr: "Antibactérien", ar: "مقاوم لنمو البكتيريا" },
+    { tr: "Koku Oluşumuna Karşı Dayanıklı", en: "Odor Resistant", de: "Geruchsresistent", fr: "Résistant aux odeurs", ar: "مقاوم لتكون الروائح" },
+    { tr: "Antistatik Özellikli", en: "Anti-Static", de: "Antistatisch", fr: "Antistatique", ar: "خاصية مضادة للكهرباء الساكنة" },
+  ],
+  usage: {
+    underlay: { tr: "Altlık ile Kullanıma Uygundur", en: "Suitable for Use with Underlay", de: "Geeignet für die Verwendung mit Unterlage", fr: "Adapté à l'utilisation avec sous-couche", ar: "مناسب للاستخدام مع الطبقة السفلية" },
+    vacuum: { tr: "Düzenli Vakumlu Temizliğe Uygundur", en: "Suitable for Frequent Vacuuming", de: "Geeignet für häufiges Staubsaugen", fr: "Adapté à un aspirateur fréquent", ar: "مناسب للتنظيف المتكرر بالمكنسة الكهربائية" },
+    serviceLife: { tr: "Kullanım Ömrü: 30 Yıl", en: "Service Life: 30 Years", de: "Nutzungsdauer: 30 Jahre", fr: "Durée de vie : 30 ans", ar: "العمر الافتراضي: 30 عامًا" },
+    warranty: { tr: "Ürün Garantisi: Türkiye Mevzuatına Uygun Olarak 2 Yıl", en: "Product Warranty: 2 Years (in accordance with Turkish legislation)", de: "Produktgarantie: 2 Jahre (gemäß türkischer Gesetzgebung)", fr: "Garantie produit : 2 ans (conformément à la législation turque)", ar: "ضمان المنتج: عامان (وفقًا للتشريعات التركية)" },
+  },
+};
+
 const COPY: Record<Locale, {
   eyebrow: string;
   title: string;
@@ -37,35 +94,68 @@ const COPY: Record<Locale, {
   pitch: string;
   points: string;
   weight: string;
-  open: string;
+  row: string;
+  weavingWidth: string;
+  manufacturingMethod: string;
+  manufacturingTechnology: string;
+  pileYarn: string;
+  weavingSystem: string;
+  backing: string;
+  yarnCount: string;
+  warpYarn: string;
   download: string;
+  tabSpecs: string;
+  tabDescription: string;
+  tabPerformance: string;
   note: string;
 }> = {
   tr: {
     eyebrow: "Teknik dokümanlar",
     title: "Akrilik cami halısı teknik veri föyleri",
-    description: "Akrilik cami halısı kalite ve model kodlarına göre teknik özellikleri karşılaştırın. Her föyde üretim yöntemi, dokuma değerleri, hav yüksekliği, toplam ağırlık ve kullanım bilgileri yer alır.",
+    description: "Akrilik cami halısı kalite ve model kodlarına göre teknik özellikleri karşılaştırın. Her kartta üretim yöntemi, dokuma değerleri, ürün açıklaması, performans özellikleri ve kullanım bilgileri yer alır.",
     code: "Kalite / model kodu",
     height: "Hav yüksekliği",
     pitch: "Atkı sayısı",
     points: "İlme ucu",
     weight: "Toplam ağırlık",
-    open: "Teknik özeti aç",
+    row: "Tarak sayısı",
+    weavingWidth: "Dokuma genişliği",
+    manufacturingMethod: "Üretim metodu",
+    manufacturingTechnology: "Üretim teknolojisi",
+    pileYarn: "Hav ipliği",
+    weavingSystem: "Dokuma sistemi",
+    backing: "Taban",
+    yarnCount: "İplik numarası",
+    warpYarn: "Çözgü ipliği",
     download: "PDF föyü indir",
-    note: "Tüm föylerde %100 birinci kalite akrilik hav ipliği, Wilton çift karşılıklı dokuma teknolojisi, premium jüt taban ve 2 yıl ürün garantisi bilgisi yer alır. Projeye uygun seçim için teknik ekibimizden destek alabilirsiniz.",
+    tabSpecs: "Teknik Veriler",
+    tabDescription: "Ürün Açıklaması",
+    tabPerformance: "Performans & Kullanım",
+    note: "Projeye uygun kalite seçimi için teknik ekibimizden destek alabilirsiniz.",
   },
   en: {
     eyebrow: "Technical documents",
     title: "Acrylic mosque carpet technical data sheets",
-    description: "Compare acrylic mosque carpet specifications by quality and model code. Each sheet includes manufacturing, weaving, pile height, total weight and use information.",
+    description: "Compare acrylic mosque carpet specifications by quality and model code. Each card includes manufacturing method, weaving values, product description, performance features, and usage information.",
     code: "Quality / model code",
     height: "Pile height",
     pitch: "Pitch",
     points: "Points",
     weight: "Total weight",
-    open: "Open technical summary",
+    row: "Row",
+    weavingWidth: "Weaving width",
+    manufacturingMethod: "Manufacturing method",
+    manufacturingTechnology: "Manufacturing technology",
+    pileYarn: "Pile yarn",
+    weavingSystem: "Weaving system",
+    backing: "Backing",
+    yarnCount: "Yarn count",
+    warpYarn: "Warp yarn",
     download: "Download PDF sheet",
-    note: "All sheets specify first-quality acrylic pile yarn, Wilton face-to-face weaving, premium jute backing and a 2-year product warranty. Contact our technical team for project-specific guidance.",
+    tabSpecs: "Technical Data",
+    tabDescription: "Product Description",
+    tabPerformance: "Performance & Use",
+    note: "Contact our technical team for project-specific quality guidance.",
   },
   de: {
     eyebrow: "Technische Dokumente",
@@ -76,9 +166,20 @@ const COPY: Record<Locale, {
     pitch: "Schussdichte",
     points: "Noppen",
     weight: "Gesamtgewicht",
-    open: "Technische Zusammenfassung öffnen",
+    row: "Kettdichte",
+    weavingWidth: "Webbreite",
+    manufacturingMethod: "Herstellungsmethode",
+    manufacturingTechnology: "Herstellungstechnologie",
+    pileYarn: "Polgarn",
+    weavingSystem: "Websystem",
+    backing: "Rücken",
+    yarnCount: "Garnnummer",
+    warpYarn: "Kettgarn",
     download: "PDF-Datenblatt herunterladen",
-    note: "Alle Datenblätter enthalten Angaben zu Acrylgarn, Wilton-Webtechnik, Juterücken und 2 Jahren Produktgarantie.",
+    tabSpecs: "Technische Daten",
+    tabDescription: "Produktbeschreibung",
+    tabPerformance: "Leistung & Nutzung",
+    note: "Kontaktieren Sie unser technisches Team für projektspezifische Beratung.",
   },
   fr: {
     eyebrow: "Documents techniques",
@@ -89,9 +190,20 @@ const COPY: Record<Locale, {
     pitch: "Trame",
     points: "Points",
     weight: "Poids total",
-    open: "Ouvrir le résumé technique",
+    row: "Densité de chaîne",
+    weavingWidth: "Largeur de tissage",
+    manufacturingMethod: "Méthode de fabrication",
+    manufacturingTechnology: "Technologie de fabrication",
+    pileYarn: "Fil de velours",
+    weavingSystem: "Système de tissage",
+    backing: "Dossier",
+    yarnCount: "Numéro de fil",
+    warpYarn: "Fil de chaîne",
     download: "Télécharger la fiche PDF",
-    note: "Toutes les fiches indiquent le fil acrylique, le tissage Wilton, le dossier en jute et une garantie produit de 2 ans.",
+    tabSpecs: "Données Techniques",
+    tabDescription: "Description du Produit",
+    tabPerformance: "Performance & Usage",
+    note: "Contactez notre équipe technique pour des conseils spécifiques au projet.",
   },
   ar: {
     eyebrow: "الوثائق الفنية",
@@ -102,14 +214,40 @@ const COPY: Record<Locale, {
     pitch: "عدد اللحمة",
     points: "عدد العقد",
     weight: "الوزن الإجمالي",
-    open: "فتح الملخص الفني",
+    row: "كثافة السداء",
+    weavingWidth: "عرض النسج",
+    manufacturingMethod: "طريقة التصنيع",
+    manufacturingTechnology: "تقنية التصنيع",
+    pileYarn: "خيط الوبر",
+    weavingSystem: "نظام النسج",
+    backing: "القاعدة",
+    yarnCount: "رقم الخيط",
+    warpYarn: "خيط السداء",
     download: "تحميل ورقة PDF",
-    note: "تتضمن جميع النشرات معلومات عن خيوط الأكريليك وتقنية نسج ويلتون وقاعدة الجوت وضمان المنتج لمدة عامين.",
+    tabSpecs: "البيانات الفنية",
+    tabDescription: "وصف المنتج",
+    tabPerformance: "الأداء والاستخدام",
+    note: "تواصل مع فريقنا الفني للحصول على إرشادات خاصة بمشروعك.",
   },
 };
 
-export default function ProductDatasheets({ locale }: { locale: string }) {
-  const copy = COPY[(locale as Locale) in COPY ? (locale as Locale) : "tr"];
+export default async function ProductDatasheets({ locale }: { locale: string }) {
+  const activeLocale: Locale = (locale as Locale) in COPY ? (locale as Locale) : "tr";
+  const copy = COPY[activeLocale];
+
+  let products: Product[] = FALLBACK_PRODUCTS;
+  let common: CommonData = FALLBACK_COMMON;
+
+  try {
+    const row = await prisma.setting.findUnique({ where: { key: "akrilik_datasheets_data" } });
+    if (row) {
+      const parsed = JSON.parse(row.value);
+      if (Array.isArray(parsed.products) && parsed.products.length > 0) products = parsed.products;
+      if (parsed.common) common = parsed.common;
+    }
+  } catch (e) {
+    console.error(e);
+  }
 
   return (
     <section id="teknik-veri-foyleri" className="py-14 bg-white border-b border-[#E0F7FA]">
@@ -122,33 +260,35 @@ export default function ProductDatasheets({ locale }: { locale: string }) {
         </div>
 
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {ACRYLIC_DATASHEETS.map((sheet) => (
-            <details key={sheet.code} className="group rounded-2xl border border-[#B2EBF2] bg-[#F0FDFE] overflow-hidden">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5">
-                <span>
-                  <span className="block text-xs uppercase tracking-wider text-[#0097A7] font-semibold">{copy.code}</span>
-                  <span className="block text-2xl font-bold text-[#003B40] mt-1">Akrilik {sheet.code}</span>
-                </span>
-                <FileText className="w-6 h-6 text-[#C9972B] flex-shrink-0" aria-hidden="true" />
-              </summary>
-              <div className="px-5 pb-5">
-                <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm border-t border-[#B2EBF2] pt-4">
-                  <div><dt className="text-[#6B6355]">{copy.height}</dt><dd className="font-semibold text-[#1A1A1A]">{sheet.pileHeight}</dd></div>
-                  <div><dt className="text-[#6B6355]">{copy.pitch}</dt><dd className="font-semibold text-[#1A1A1A]">{sheet.pitch}</dd></div>
-                  <div><dt className="text-[#6B6355]">{copy.points}</dt><dd className="font-semibold text-[#1A1A1A]">{sheet.points}</dd></div>
-                  <div><dt className="text-[#6B6355]">{copy.weight}</dt><dd className="font-semibold text-[#1A1A1A]">{sheet.weight}</dd></div>
-                </dl>
-                <a
-                  href={`/datasheets/akrilik/${sheet.pdf}`}
-                  target="_blank"
-                  rel="noopener"
-                  className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0097A7] px-4 py-3 text-sm font-semibold text-white hover:bg-[#007F8C] transition-colors"
-                >
-                  <Download className="w-4 h-4" aria-hidden="true" />
-                  {copy.download} — {sheet.code}
-                </a>
-              </div>
-            </details>
+          {products.map((product) => (
+            <AcrylicDatasheetCard
+              key={product.code}
+              product={product}
+              common={common}
+              locale={activeLocale}
+              labels={{
+                code: copy.code,
+                height: copy.height,
+                pitch: copy.pitch,
+                points: copy.points,
+                weight: copy.weight,
+                row: copy.row,
+                weavingWidth: copy.weavingWidth,
+                manufacturingMethod: copy.manufacturingMethod,
+                manufacturingTechnology: copy.manufacturingTechnology,
+                pileYarn: copy.pileYarn,
+                weavingSystem: copy.weavingSystem,
+                backing: copy.backing,
+                yarnCount: copy.yarnCount,
+                warpYarn: copy.warpYarn,
+                download: copy.download,
+              }}
+              tabs={{
+                specs: copy.tabSpecs,
+                description: copy.tabDescription,
+                performance: copy.tabPerformance,
+              }}
+            />
           ))}
         </div>
 
