@@ -33,7 +33,7 @@ function labToRgb(l: number, a: number, b: number) {
   let x = a / 500 + y;
   let z = y - b / 200;
 
-  let x3 = x * x * x, y3 = y * y * y, z3 = z * z * z;
+  const x3 = x * x * x, y3 = y * y * y, z3 = z * z * z;
 
   x = (x3 > 0.008856 ? x3 : (x - 16 / 116) / 7.787) * 0.95047;
   y = (y3 > 0.008856 ? y3 : (y - 16 / 116) / 7.787) * 1.00000;
@@ -88,12 +88,12 @@ function extractDominantColors(imgData: ImageData, k: number = 8): DetectedColor
 
   if (pixels.length === 0) return [];
 
-  let centroids: {L: number, a: number, b: number}[] = [];
+  const centroids: {L: number, a: number, b: number}[] = [];
   for (let i = 0; i < Math.min(k, pixels.length); i++) {
     centroids.push(pixels[Math.floor(Math.random() * pixels.length)]);
   }
 
-  let assignments = new Int32Array(pixels.length);
+  const assignments = new Int32Array(pixels.length);
   for (let iter = 0; iter < 12; iter++) {
     for (let p = 0; p < pixels.length; p++) {
       let minDist = Infinity;
@@ -133,7 +133,7 @@ function extractDominantColors(imgData: ImageData, k: number = 8): DetectedColor
   const counts = Array(centroids.length).fill(0);
   for (let i = 0; i < pixels.length; i++) counts[assignments[i]]++;
 
-  let results: DetectedColor[] = [];
+  const results: DetectedColor[] = [];
   for (let i = 0; i < centroids.length; i++) {
     if (counts[i] === 0) continue;
     const percentage = (counts[i] / pixels.length) * 100;

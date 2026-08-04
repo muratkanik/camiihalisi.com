@@ -10,8 +10,8 @@
  *   { type: "done",     slug: string, title: string, wordCount: number }
  *   { type: "error",    message: string }
  */
-import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 export const maxDuration = 300; // 5 minutes to allow for 3 AI calls (Generate -> Humanize -> Checker)
 
@@ -28,8 +28,7 @@ function slugify(text: string): string {
 }
 
 async function isAdmin(): Promise<boolean> {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 export async function POST(req: NextRequest) {

@@ -46,7 +46,6 @@ export async function generateMetadata({
       canonical: `${SITE_URL}/cami-halisi/${sehir}`,
       languages: {
         "tr": `${SITE_URL}/cami-halisi/${sehir}`,
-        "de": `${SITE_URL}/de/cami-halisi/${sehir}`,
         "x-default": `${SITE_URL}/cami-halisi/${sehir}`,
       },
     },
@@ -116,7 +115,7 @@ export default async function SehirCamiHalisiPage({
     name: "Asil Halı A.Ş.",
     description: `${city.name} bölgesine cami halısı tedariki ve montaj hizmetleri.`,
     url: "https://www.asilhali.com.tr",
-    telephone: "+90-532-555-1234",
+    telephone: "+90-532-346-79-39",
     areaServed: {
       "@type": "City",
       name: city.name,

@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { loadLinkMap, saveLinkMap, DEFAULT_LINK_MAP, LinkMap } from "@/lib/internal-links";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 async function checkAuth() {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 // GET /api/admin/ic-link — returns current link map

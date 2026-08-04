@@ -104,9 +104,6 @@ export async function generateMetadata({
       canonical: alternates[locale] || SITE_URL,
       languages: alternates,
     },
-    verification: {
-      google: "BURAYA_GSC_DOGRULAMA_KODU_GELECEK",
-    },
   };
 }
 
@@ -143,14 +140,6 @@ export default async function LocaleLayout({
         {/* Preconnect for Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-
-        {/* hreflang tags */}
-        <link rel="alternate" hrefLang="tr" href={`${SITE_URL}`} />
-        <link rel="alternate" hrefLang="en" href={`${SITE_URL}/en`} />
-        <link rel="alternate" hrefLang="ar" href={`${SITE_URL}/ar`} />
-        <link rel="alternate" hrefLang="fr" href={`${SITE_URL}/fr`} />
-        <link rel="alternate" hrefLang="de" href={`${SITE_URL}/de`} />
-        <link rel="alternate" hrefLang="x-default" href={SITE_URL} />
 
         {/* Organization JSON-LD */}
         <script

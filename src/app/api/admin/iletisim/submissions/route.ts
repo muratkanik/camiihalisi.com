@@ -2,8 +2,8 @@
  * GET  /api/admin/iletisim/submissions — list form submissions
  * POST /api/admin/iletisim/submissions — mark as read / delete
  */
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");
@@ -11,8 +11,7 @@ async function getPrisma() {
 }
 
 async function isAdmin(): Promise<boolean> {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 export async function GET() {

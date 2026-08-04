@@ -1,9 +1,8 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const cookieStore = await cookies();
-  if (!cookieStore.get("auth_token")?.value) {
+  if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

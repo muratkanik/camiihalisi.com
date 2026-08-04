@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { STATIC_IMAGES } from "@/lib/image-manifest";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 async function checkAuth() {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 async function getBlobImages(): Promise<string[]> {

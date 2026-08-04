@@ -2,9 +2,9 @@
  * GET  /api/admin/blog?q=keyword  → search similar posts
  * POST /api/admin/blog            → apply (update existing or create new)
  */
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { BLOG_POSTS } from "@/lib/blog-data";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 async function getPrisma() {
   const { PrismaClient } = await import("@prisma/client");
@@ -48,8 +48,7 @@ function similarity(post: typeof BLOG_POSTS[0], query: string): number {
 
 // GET /api/admin/blog?q=keyword
 export async function GET(req: Request) {
-  const cookieStore = await cookies();
-  if (!cookieStore.get("auth_token")?.value) {
+  if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -87,8 +86,7 @@ function isCronRequest(req: Request): boolean {
 // POST /api/admin/blog — apply blog data
 export async function POST(req: Request) {
   if (!isCronRequest(req)) {
-    const cookieStore = await cookies();
-    if (!cookieStore.get("auth_token")?.value) {
+    if (!(await isAdminAuthenticated())) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
   }

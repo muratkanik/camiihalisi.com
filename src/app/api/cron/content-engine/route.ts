@@ -4,17 +4,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { BLOG_POSTS } from "@/lib/blog-data";
 import { CONTENT_CALENDAR, getNextTarget, getLowScoreTarget, SEO_IMPROVE_THRESHOLD } from "@/lib/content-calendar";
 import { scorePage, saveSeoScore } from "@/lib/seo-scorer";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 const SITE_ORIGIN = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-function isAuthorized(req: NextRequest): boolean {
+async function isAuthorized(req: NextRequest): Promise<boolean> {
   const authHeader = req.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
   if (cronSecret && authHeader === `Bearer ${cronSecret}`) return true;
-  const adminToken = req.cookies.get("auth_token")?.value;
-  return !!adminToken;
+  return isAdminAuthenticated();
 }
 
 async function getPrisma() {
@@ -62,7 +62,7 @@ async function logTask(prisma: any, keyword: string, slug: string, status: strin
 }
 
 export async function GET(req: NextRequest) {
-  if (!isAuthorized(req)) {
+  if (!(await isAuthorized(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -92,10 +92,10 @@ export async function GET(req: NextRequest) {
         const scores = await loadSeoScores(prisma, coveredSlugs);
 
         const improvTarget = getLowScoreTarget(scores, allSlugs);
-        let nextUncovered = getNextTarget(allSlugs);
+        const nextUncovered = getNextTarget(allSlugs);
 
-        let target = nextUncovered ? nextUncovered : improvTarget;
-        let mode: "new" | "improve" = nextUncovered ? "new" : "improve";
+        const target = nextUncovered ? nextUncovered : improvTarget;
+        const mode: "new" | "improve" = nextUncovered ? "new" : "improve";
 
         if (!target) {
           send({ type: "progress", message: "✓ İçerik takvimi tamamlandı, iyileştirilecek makale bulunamadı.", progress: 100 });

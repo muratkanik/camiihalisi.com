@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
+import { AUTH_COOKIE, TOKEN_TTL_SECONDS, createAuthToken } from "@/lib/auth";
 
 // Form action — redirect'i burada yapıyoruz (void döner)
 export async function loginAction(formData: FormData): Promise<void> {
@@ -28,12 +29,18 @@ export async function loginAction(formData: FormData): Promise<void> {
       redirect(`/login?error=${encodeURIComponent("Şifre yanlış.")}`);
     }
 
+    const authToken = createAuthToken(user.id, user.role);
+    if (!authToken) {
+      redirect(`/login?error=${encodeURIComponent("Sunucu kimlik doğrulama ayarı eksik.")}`);
+    }
+
     const cookieStore = await cookies();
-    cookieStore.set("auth_token", user.id + "-secure-token", {
+    cookieStore.set(AUTH_COOKIE, authToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24,
+      maxAge: TOKEN_TTL_SECONDS,
     });
   } catch (err: unknown) {
     // redirect() throws internally — re-throw it
@@ -47,6 +54,6 @@ export async function loginAction(formData: FormData): Promise<void> {
 
 export async function logoutAction(): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.delete("auth_token");
+  cookieStore.delete(AUTH_COOKIE);
   redirect("/login");
 }

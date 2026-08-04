@@ -5,8 +5,8 @@
  * Body: { namespace: string, content: Record<string, string>, targetLocales: string[] }
  * Response: { [locale]: Record<string, string> }
  */
-import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { isAdminAuthenticated } from "@/lib/auth";
 
 function isAuthorized(req: NextRequest): boolean {
   const authHeader = req.headers.get("authorization");
@@ -16,8 +16,7 @@ function isAuthorized(req: NextRequest): boolean {
 }
 
 async function isAdminCookie(): Promise<boolean> {
-  const cookieStore = await cookies();
-  return !!cookieStore.get("auth_token")?.value;
+  return isAdminAuthenticated();
 }
 
 const LOCALE_NAMES: Record<string, string> = {
