@@ -12,14 +12,14 @@ import { getSettings } from "@/lib/settings";
 const SITE_URL = "https://camiihalisi.com";
 
 const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
 
 const cormorantGaramond = Cormorant_Garamond({
-  subsets: ["latin"],
+  subsets: ["latin", "cyrillic"],
   weight: ["300", "400", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
