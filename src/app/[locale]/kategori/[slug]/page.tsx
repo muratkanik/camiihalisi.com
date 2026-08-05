@@ -33,7 +33,7 @@ interface CategoryBaseData {
 const CATEGORY_IMAGES: Record<string, string> = {
   "akrilik-cami-halisi": "/images/cami-katalog-01.png",
   "safli-akrilik-cami-halisi": "/images/cami-katalog-02.png",
-  "gobekli-akrilik-cami-halisi": "/images/cami-katalog-03.png",
+  "gobekli-akrilik-cami-halisi": "/images/gobekli-cami-halisi.png",
   "seccadeli-akrilik-cami-halisi": "/images/cami-katalog-04.png",
   "yun-cami-halisi": "/images/cami-katalog-05.png",
   "safli-yun-cami-halisi": "/images/cami-katalog-06.png",
@@ -77,7 +77,7 @@ const CATALOG_DATA: Record<string, CatalogItem[]> = {
   "akrilik-cami-halisi": [
     { slug: "akrilik-cami-halisi", title: "Akrilik Cami Halısı", image: "/images/cami-katalog-01.png", desen: "Standart", colors: COMMON_COLORS, badge: "En Çok Satan" },
     { slug: "safli-akrilik-cami-halisi", title: "Saflı Akrilik Cami Halısı", image: "/images/cami-katalog-02.png", desen: "Saflı", colors: COMMON_COLORS },
-    { slug: "gobekli-akrilik-cami-halisi", title: "Göbekli Akrilik Cami Halısı", image: "/images/cami-katalog-03.png", desen: "Göbekli", colors: COMMON_COLORS },
+    { slug: "gobekli-akrilik-cami-halisi", title: "Göbekli Akrilik Cami Halısı", image: "/images/gobekli-cami-halisi.png", desen: "Göbekli", colors: COMMON_COLORS },
     { slug: "seccadeli-akrilik-cami-halisi", title: "Seccadeli Akrilik Cami Halısı", image: "/images/cami-katalog-04.png", desen: "Seccadeli", colors: COMMON_COLORS },
   ],
   "yun-cami-halisi": [

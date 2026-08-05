@@ -19,12 +19,27 @@ export interface DBCatalogItem {
   code: string;
   title: string;
   badge: string;
+  image?: string;
   colors: CatalogColor[];
 }
 
 interface Props {
   prefix: string;
   items: DBCatalogItem[];
+}
+
+// Katalog kaynağına göre colors ya CatalogColor[] (DB) ya da düz hex string[] (statik
+// fallback CATALOG_DATA) olabilir — ikisini de tek şekle indirger.
+function normalizeItems(items: DBCatalogItem[]): DBCatalogItem[] {
+  return items.map((item) => {
+    const rawColors = item.colors as unknown as (CatalogColor | string)[];
+    const colors = rawColors.map((c, i) =>
+      typeof c === "string"
+        ? { id: `${item.id}-${i}`, hex: c, name: c, image: item.image || "/images/cami-1.png" }
+        : c
+    );
+    return { ...item, colors };
+  });
 }
 
 const DESEN_LABELS = ["Tümü", "Saflı", "Göbekli", "Seccadeli", "Standart", "Özel"];
@@ -39,7 +54,8 @@ function getDesen(title: string, code: string): string {
   return "Standart";
 }
 
-export default function CategoryFiltersClient({ prefix, items }: Props) {
+export default function CategoryFiltersClient({ prefix, items: rawItems }: Props) {
+  const items = normalizeItems(rawItems);
   const [activeDesen, setActiveDesen] = useState<string>("Tümü");
   const [activeRenk, setActiveRenk] = useState<string | null>(null);
 

@@ -159,7 +159,7 @@ const COMPARISONS: Record<string, ComparisonData> = {
     metaTitle: "Saflı, Göbekli, Seccadeli Cami Halısı Desen Karşılaştırması | Asil Halı",
     metaDesc: "Saflı mı göbekli mi seccadeli mi? Üç temel cami halısı deseninin detaylı karşılaştırması. Hangi desen caminize uygun? Asil Halı uzmanları anlatıyor.",
     a: { isim: "Saflı", slug: "safli-akrilik-cami-halisi", image: "/images/cami-katalog-02.png", renk: "#0097A7" },
-    b: { isim: "Göbekli", slug: "gobekli-akrilik-cami-halisi", image: "/images/cami-katalog-03.png", renk: "#0097A7" },
+    b: { isim: "Göbekli", slug: "gobekli-akrilik-cami-halisi", image: "/images/gobekli-cami-halisi.png", renk: "#0097A7" },
     ozet: "Saflı, göbekli ve seccadeli; Türkiye'deki camilerde en yaygın üç desen türüdür. Her biri farklı ihtiyaçlara ve cami mimarilerine hitap eder.",
     kriterler: [
       { kriter: "Namaz Hizalaması", aScore: 5, bScore: 3, aAciklama: "Saf çizgileri cemaati mükemmel hizalar", bAciklama: "Görsel merkez sağlar; saf çizgisi yok" },

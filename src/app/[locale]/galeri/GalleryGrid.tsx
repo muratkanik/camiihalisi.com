@@ -39,7 +39,7 @@ const HD_PHOTOS = [
 const KATALOG_IMAGES = [
   { src: "/images/cami-katalog-01.png", caption: "Akrilik cami halısı koleksiyonu — Asil Halı saflı akrilik model" },
   { src: "/images/cami-katalog-02.png", caption: "Saflı akrilik cami halısı — düz saf çizgili model, çeşitli renk" },
-  { src: "/images/cami-katalog-03.png", caption: "Göbekli akrilik cami halısı — merkezi motifli seccade deseni" },
+  { src: "/images/gobekli-cami-halisi.png", caption: "Göbekli akrilik cami halısı — merkezi motifli seccade deseni" },
   { src: "/images/cami-katalog-04.png", caption: "Seccadeli akrilik cami halısı — bireysel namaz bölümlü model" },
   { src: "/images/cami-katalog-05.png", caption: "Yün cami halısı koleksiyonu — doğal yün saflı ve göbekli modeller" },
   { src: "/images/cami-katalog-06.png", caption: "Saflı yün cami halısı — doğal yün saf çizgili uzun ömürlü model" },
