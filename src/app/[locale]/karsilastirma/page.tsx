@@ -21,7 +21,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/karsilastirma`,
       "fr": `${SITE_URL}/fr/karsilastirma`,
       "de": `${SITE_URL}/de/karsilastirma`,
-      "x-default": `${SITE_URL}/karsilastirma`,
+        "ru": `${SITE_URL}/ru/karsilastirma`,
+        "x-default": `${SITE_URL}/karsilastirma`,
     },
   },
 };

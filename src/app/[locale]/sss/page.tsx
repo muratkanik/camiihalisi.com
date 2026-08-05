@@ -20,7 +20,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/sss`,
       "fr": `${SITE_URL}/fr/sss`,
       "de": `${SITE_URL}/de/sss`,
-      "x-default": `${SITE_URL}/sss`,
+        "ru": `${SITE_URL}/ru/sss`,
+        "x-default": `${SITE_URL}/sss`,
     },
   },
   openGraph: {

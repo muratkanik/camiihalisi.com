@@ -66,6 +66,7 @@ export async function generateMetadata({
         "ar": `${SITE_URL}/ar/blog/${slug}`,
         "fr": `${SITE_URL}/fr/blog/${slug}`,
         "de": `${SITE_URL}/de/blog/${slug}`,
+        "ru": `${SITE_URL}/ru/blog/${slug}`,
         "x-default": `${SITE_URL}/blog/${slug}`,
       },
     },
@@ -81,7 +82,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return BLOG_POSTS.flatMap((post) =>
-    ["tr", "en", "ar", "fr", "de"].map((locale) => ({ locale, slug: post.slug }))
+    ["tr", "en", "ar", "fr", "de", "ru"].map((locale) => ({ locale, slug: post.slug }))
   );
 }
 

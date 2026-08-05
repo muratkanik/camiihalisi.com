@@ -9,7 +9,7 @@ import { SAFLI_AKRILIK_DESENLER } from "@/lib/safli-akrilik-desenler";
 
 const SITE_URL = "https://camiihalisi.com";
 
-const LOCALES = ["tr", "en", "ar", "fr", "de"] as const;
+const LOCALES = ["tr", "en", "ar", "fr", "de", "ru"] as const;
 
 /* Desen galerisi gösterilecek üst kategori slug'ları */
 const PARENT_SLUGS = ["safli-akrilik-cami-halisi", "akrilik-cami-halisi"];

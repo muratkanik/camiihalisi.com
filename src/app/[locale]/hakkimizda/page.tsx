@@ -23,7 +23,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/hakkimizda`,
       "fr": `${SITE_URL}/fr/hakkimizda`,
       "de": `${SITE_URL}/de/hakkimizda`,
-      "x-default": `${SITE_URL}/hakkimizda`,
+        "ru": `${SITE_URL}/ru/hakkimizda`,
+        "x-default": `${SITE_URL}/hakkimizda`,
     },
   },
 };

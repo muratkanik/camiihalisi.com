@@ -216,6 +216,7 @@ export async function generateMetadata({
         "ar": `${SITE_URL}/ar/karsilastirma/${slug}`,
         "fr": `${SITE_URL}/fr/karsilastirma/${slug}`,
         "de": `${SITE_URL}/de/karsilastirma/${slug}`,
+        "ru": `${SITE_URL}/ru/karsilastirma/${slug}`,
         "x-default": `${SITE_URL}/karsilastirma/${slug}`,
       },
     },
@@ -229,7 +230,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return Object.keys(COMPARISONS).flatMap((slug) =>
-    ["tr", "en", "ar", "fr", "de"].map((locale) => ({ locale, slug }))
+    ["tr", "en", "ar", "fr", "de", "ru"].map((locale) => ({ locale, slug }))
   );
 }
 

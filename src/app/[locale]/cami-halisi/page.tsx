@@ -17,7 +17,8 @@ export const metadata: Metadata = {
     languages: {
       "tr": `${SITE_URL}/cami-halisi`,
       "de": `${SITE_URL}/de/cami-halisi`,
-      "x-default": `${SITE_URL}/cami-halisi`,
+        "ru": `${SITE_URL}/ru/cami-halisi`,
+        "x-default": `${SITE_URL}/cami-halisi`,
     },
   },
 };

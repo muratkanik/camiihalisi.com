@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FileText, Download, ChevronDown } from "lucide-react";
 
-type Locale = "tr" | "en" | "ar" | "fr" | "de";
+type Locale = "tr" | "en" | "ar" | "fr" | "de" | "ru";
 type LocalizedText = Record<Locale, string>;
 
 type Product = {

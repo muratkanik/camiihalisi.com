@@ -46,6 +46,7 @@ export async function generateMetadata({
     ar: "سجادة مسجد | خبير سجاد المساجد الرائد في تركيا – أصيل هالي",
     fr: "Tapis de Mosquée | Expert en Tapis de Mosquée en Turquie – Asil Hali",
     de: "Moscheeteppich | Türkeis führender Moscheeteppich-Experte – Asil Hali",
+    ru: "Ковры для мечетей | Ведущий эксперт в Турции – Asil Hali",
   };
 
   const descriptions: Record<string, string> = {
@@ -54,6 +55,7 @@ export async function generateMetadata({
     ar: "أصيل هالي — الشركة الرائدة في تصنيع سجاد المساجد في تركيا. سجاد أكريليك وصوف وبولي بروبيلين وبولي أميد.",
     fr: "Asil Hali, fabricant leader de tapis de mosquée en Turquie. Tapis acrylique, laine, polypropylène et polyamide. 50+ ans d'expérience.",
     de: "Asil Hali — führender Moscheeteppich-Hersteller der Türkei. Acryl-, Woll-, Polypropylen- und Polyamid-Moscheeteppiche. 50+ Jahre Erfahrung.",
+    ru: "Asil Hali — ведущий производитель ковров для мечетей в Турции. Акриловые, шерстяные, полипропиленовые и полиамидные ковры. Опыт работы более 50 лет.",
   };
 
   const alternates: Record<string, string> = {
@@ -62,6 +64,7 @@ export async function generateMetadata({
     ar: `${SITE_URL}/ar`,
     fr: `${SITE_URL}/fr`,
     de: `${SITE_URL}/de`,
+    ru: `${SITE_URL}/ru`,
   };
 
   return {
@@ -100,9 +103,9 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "website",
-      locale: locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : "fr_FR",
-      alternateLocale: ["tr_TR", "en_US", "ar_SA", "fr_FR", "de_DE"].filter(
-        (l) => l !== (locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : "fr_FR")
+      locale: locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : locale === "ru" ? "ru_RU" : "fr_FR",
+      alternateLocale: ["tr_TR", "en_US", "ar_SA", "fr_FR", "de_DE", "ru_RU"].filter(
+        (l) => l !== (locale === "tr" ? "tr_TR" : locale === "en" ? "en_US" : locale === "ar" ? "ar_SA" : locale === "de" ? "de_DE" : locale === "ru" ? "ru_RU" : "fr_FR")
       ),
       url: alternates[locale] || SITE_URL,
       siteName: "Camii Halısı | Asil Halı",

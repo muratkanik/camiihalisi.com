@@ -271,52 +271,62 @@
     "carpetTitle": "Moscheeteppiche",
     "underlayTitle": "Teppichunterlagen",
     "viewAll": "Alle anzeigen",
+    "acrylic": "Akrilik Cami Halısı",
     "acrylic_solid": "Acryl – Reihen",
     "acrylic_medallion": "Acryl – Medaillon",
     "acrylic_prayer": "Acryl – Gebetsnische",
+    "wool": "Yün Cami Halısı",
     "wool_solid": "Wolle – Reihen",
     "wool_medallion": "Wolle – Medaillon",
     "wool_prayer": "Wolle – Gebetsnische",
+    "polypropylene": "Polipropilen Cami Halısı",
     "polypropylene_solid": "Polypropylen – Reihen",
     "polypropylene_medallion": "Polypropylen – Medaillon",
     "polypropylene_prayer": "Polypropylen – Gebetsnische",
+    "polyamide": "Polyamid Cami Halısı",
     "polyamide_solid": "Polyamid – Reihen",
     "polyamide_medallion": "Polyamid – Medaillon",
     "polyamide_prayer": "Polyamid – Gebetsnische",
     "axminster": "Axminster nach Maß",
     "underlay_rubber": "Gummi-Unterlage",
-    "underlay_felt": "Filz-Unterlage",
-    "acrylic": "Akrilik Cami Halısı",
-    "wool": "Yün Cami Halısı",
-    "polypropylene": "Polipropilen Cami Halısı",
-    "polyamide": "Polyamid Cami Halısı",
     "underlay_rubber_tredmor": "TredMOR™ Berber Supreme",
+    "underlay_felt": "Filz-Unterlage",
     "underlay_felt_600": "600 Cami Halısı Keçesi",
     "underlay_felt_1000": "1000 Cami Halısı Keçesi",
     "underlay_felt_1200": "1200 Cami Halısı Keçesi"
   },
   "quote": {
-    "openButton": "Angebot anfordern",
     "title": "Angebot anfordern",
-    "nameLabel": "Vollständiger Name",
+    "subtitle": "An Asil Halı expert will get back to you shortly.",
+    "typeQuote": "Price Quote",
+    "typeInfo": "Get Info",
+    "typeOther": "Other",
+    "name": "Full Name",
     "namePlaceholder": "Vor- und Nachname",
-    "phoneLabel": "Telefon",
-    "phonePlaceholder": "+90 5XX XXX XX XX",
-    "emailLabel": "E-Mail (optional)",
-    "emailPlaceholder": "ihre@email.de",
-    "messageLabel": "Ihre Nachricht",
-    "messagePlaceholder": "Abmessungen der Moschee, bevorzugtes Modell, Fragen...",
-    "submitButton": "Angebot senden",
-    "sending": "Wird gesendet…",
-    "successTitle": "Vielen Dank!",
-    "successMessage": "Wir werden uns so schnell wie möglich bei Ihnen melden.",
-    "successClose": "Schließen",
-    "required": "Pflichtfeld",
     "nameRequired": "Name ist erforderlich.",
+    "phone": "Phone",
+    "phonePlaceholder": "+90 5XX XXX XX XX",
     "phoneRequired": "Telefon ist erforderlich.",
     "phoneInvalid": "Bitte eine gültige Telefonnummer eingeben.",
+    "email": "Email",
+    "emailPlaceholder": "ihre@email.de",
+    "emailHint": "Optional — if entered, must be a valid format.",
     "emailInvalid": "Bitte eine gültige E-Mail-Adresse eingeben.",
-    "messageRequired": "Nachricht ist erforderlich."
+    "mosque": "Mosque / Project Name",
+    "mosquePlaceholder": "Which mosque or project? (optional)",
+    "message": "Message / Request",
+    "messagePlaceholder": "Abmessungen der Moschee, bevorzugtes Modell, Fragen...",
+    "messageRequired": "Nachricht ist erforderlich.",
+    "send": "Send Request",
+    "sending": "Wird gesendet…",
+    "required": "Pflichtfeld",
+    "connectionError": "Connection error. Please try again or contact us via WhatsApp.",
+    "successTitle": "Vielen Dank!",
+    "successText": "The Asil Halı team will contact you shortly. You can also reach us via WhatsApp.",
+    "newRequest": "New Request",
+    "close": "Close",
+    "privacy": "Your information is used solely to respond to your request. It will not be shared with third parties.",
+    "openButton": "Angebot anfordern"
   },
   "categoryData": {
     "akrilik-cami-halisi": {
@@ -468,10 +478,6 @@
         {
           "question": "Ist Wolle für stark frequentierte Moscheen geeignet?",
           "answer": "Ja. Woll-Teppiche sind für intensive Nutzung geeignet. Ihre natürliche Elastizität ermöglicht eine schnelle Erholung."
-        },
-        {
-          "question": "Wie reinige ich einen Woll-Teppich?",
-          "answer": "Regelmäßiges Staubsaugen, jährliche Tiefenreinigung durch Fachleute und sofortiges Behandeln von Flecken sind ausreichend. Es gibt keine besonderen Anforderungen."
         }
       ]
     },
@@ -542,14 +548,6 @@
         {
           "question": "Ist PP-Teppich weniger komfortabel als Acryl?",
           "answer": "Polypropylen kann etwas weniger weich sein als Acryl, bietet aber dafür überlegene Haltbarkeit und Feuchtigkeitsbeständigkeit. Im praktischen Einsatz ist der Unterschied kaum spürbar."
-        },
-        {
-          "question": "Welcher Teppich ist besser geeignet – PP oder Polyamid?",
-          "answer": "Polypropylen ist wirtschaftlicher und feuchtigkeitsbeständiger; Polyamid ist verschleißfester. Für intensiv genutzte Moscheen wird Polyamid empfohlen."
-        },
-        {
-          "question": "Kann man PP-Teppich nass waschen?",
-          "answer": "Ja. Dank seiner feuchtigkeitsbeständigen Struktur kann PP-Teppich problemlos nass gereinigt werden und trocknet schnell."
         }
       ]
     },
@@ -620,14 +618,6 @@
         {
           "question": "Wird Polyamid in öffentlichen Ausschreibungen bevorzugt?",
           "answer": "Ja. Aufgrund seiner technischen Überlegenheit und langen Lebensdauer wird Polyamid häufig in staatlichen Moscheen-Ausschreibungen spezifiziert."
-        },
-        {
-          "question": "Wie unterscheidet sich Polyamid von Polypropylen?",
-          "answer": "Polyamid ist abriebfester und elastischer; Polypropylen ist feuchtigkeitsbeständiger. Beide haben Stärken in unterschiedlichen Bereichen."
-        },
-        {
-          "question": "Gibt es eine Garantie?",
-          "answer": "Asil Halı Polyamid-Produkte kommen mit 10 Jahren Garantie. Materialfehler und Produktionsmängel sind vollständig abgedeckt."
         }
       ]
     },
@@ -646,8 +636,7 @@
         "Wirtschaftlicher Preis",
         "Einfache Reinigung und Pflege",
         "Farb- und Mustervielfalt",
-        "Nutzungsdauer von 15–20 Jahren",
-        "Maßgeschneiderte Produktion"
+        "Nutzungsdauer von 15–20 Jahren"
       ],
       "specs": [
         {
@@ -677,18 +666,13 @@
         {
           "label": "Garantie",
           "value": "5 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Alle Moscheen-Typen und -größen",
         "Moscheen, die ordentliche Gebetsreihen priorisieren",
         "Renovierungsprojekte",
-        "Moscheen mit eingeschränktem Budget",
-        "Gebetsräume und Mescids"
+        "Moscheen mit eingeschränktem Budget"
       ],
       "faqs": [
         {
@@ -698,14 +682,6 @@
         {
           "question": "Welcher Reihenabstand soll ich wählen?",
           "answer": "Für Erwachsene sind 65–70 cm empfohlen, für Schule und Jugendräume können 60 cm ausreichend sein. Kontaktieren Sie uns für eine Beratung."
-        },
-        {
-          "question": "Kann das Muster individuell angepasst werden?",
-          "answer": "Ja. Farbe, Muster und Reihenabstand können nach Ihren Wünschen individuell gestaltet werden."
-        },
-        {
-          "question": "Ist Reihenmuster-Acryl eine günstigere Option?",
-          "answer": "Im Vergleich zu Medaillonmuster und Gebetsteppich-Mustern ist Reihenmuster-Acryl eine der wirtschaftlichsten Optionen."
         }
       ]
     },
@@ -723,9 +699,7 @@
         "Betont die Moscheearchitektur",
         "Komfortable Acrylstruktur",
         "Individuelle Design-Optionen",
-        "Wirtschaftlicher Preis",
-        "Passende Farbanpassung an das Moscheen-Interieur",
-        "Maßgeschneiderte Produktion für jeden Grundriss"
+        "Wirtschaftlicher Preis"
       ],
       "specs": [
         {
@@ -747,26 +721,13 @@
         {
           "label": "Gewicht",
           "value": "1.800–2.400 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "5 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Repräsentative Stadtmoscheen",
         "Freitagsmoscheen mit großem Gebetsraum",
         "Renovierte historische Moscheen",
-        "Moscheen, bei denen Ästhetik im Vordergrund steht",
-        "Große Veranstaltungsräume und Gebetssäle"
+        "Moscheen, bei denen Ästhetik im Vordergrund steht"
       ],
       "faqs": [
         {
@@ -776,14 +737,6 @@
         {
           "question": "Kann das Mittelornament individuell gestaltet werden?",
           "answer": "Ja. Das Mittelornament, die Bordüre und alle Details können entsprechend Ihren Wünschen und der Moscheearchitektur individuell gestaltet werden."
-        },
-        {
-          "question": "Ist Medaillonmuster teurer als Reihenmuster?",
-          "answer": "Aufgrund der aufwendigeren Muster-Komplexität kann es etwas teurer sein, aber die Preisdifferenz ist minimal. Kontaktieren Sie uns für ein genaues Angebot."
-        },
-        {
-          "question": "Kann ich ein Muster sehen, bevor ich bestelle?",
-          "answer": "Ja. Vor der Produktion erhalten Sie eine digitale Visualisierung und können nach Belieben Änderungen vornehmen."
         }
       ]
     },
@@ -800,10 +753,7 @@
         "Klare Ausrichtung und ordentliches Erscheinungsbild",
         "Hygienefreundliche Strukturierung",
         "Maximale Raumnutzung",
-        "Komfortable Acrylstruktur",
-        "Wirtschaftlicher Preis",
-        "Individuell wählbare Seccade-Größen",
-        "Einfache Reinigung"
+        "Komfortable Acrylstruktur"
       ],
       "specs": [
         {
@@ -825,43 +775,18 @@
         {
           "label": "Gewicht",
           "value": "1.800–2.400 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "5 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Neue Moscheen mit modernem Interieur",
         "Moscheen, die Hygiene priorisieren",
         "Gebetsräume in Schulen und öffentlichen Gebäuden",
-        "Moscheen, die maximale Raumnutzung anstreben",
-        "Mescids und kleine Gebetsräume"
+        "Moscheen, die maximale Raumnutzung anstreben"
       ],
       "faqs": [
         {
           "question": "Was ist der Unterschied zwischen Gebetsteppich-Muster und Reihenmuster?",
           "answer": "Beim Gebetsteppich-Muster ist jeder Platz individuell abgegrenzt; beim Reihenmuster werden die Plätze durch parallele Linien geteilt. Das Gebetsteppich-Muster ist hygienischer und ordentlicher."
-        },
-        {
-          "question": "Kann die Seccade-Größe individuell angepasst werden?",
-          "answer": "Ja. Die Seccade-Abmessungen können entsprechend dem Moscheen-Grundriss individuell angepasst werden."
-        },
-        {
-          "question": "Wie unterscheidet sich das Gebetsteppich-Muster von Einzelgebetsteppichen?",
-          "answer": "Das Muster-Teppich deckt den gesamten Moscheen-Boden einheitlich ab. Im Gegensatz zu Einzelgebetsteppichen gibt es keine Ausreißer oder unordentliches Erscheinungsbild."
-        },
-        {
-          "question": "Für welche Moscheen-Größen ist es geeignet?",
-          "answer": "Es ist für alle Größen geeignet, von kleinen Mescids bis zu großen Freitagsmoscheen. Eine Produktionsanpassung ist ohne Einschränkungen möglich."
         }
       ]
     },
@@ -879,9 +804,7 @@
         "Feuchtigkeitsregulierung und gesundes Raumklima",
         "Antistatisch",
         "Nutzungsdauer von 25–30 Jahren",
-        "Umweltfreundliches Naturmaterial",
-        "Tiefe und lebendige Farben",
-        "Brandschutz-zertifiziert"
+        "Umweltfreundliches Naturmaterial"
       ],
       "specs": [
         {
@@ -907,39 +830,18 @@
         {
           "label": "Brandklasse",
           "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Premium-Stadtmoscheen",
         "Historische Moscheen",
         "Staatliche und Stiftungsmoscheen",
-        "Moscheen mit hochwertigem Budget",
-        "Repräsentative Freitagsmoscheen"
+        "Moscheen mit hochwertigem Budget"
       ],
       "faqs": [
         {
           "question": "Was unterscheidet Reihen-Wolle von Reihen-Acryl?",
           "answer": "Beide haben Reihenmuster-Funktionalität. Der Unterschied liegt im Material: Wolle bietet natürlichen Komfort und längere Lebensdauer, Acryl ist wirtschaftlicher."
-        },
-        {
-          "question": "Ist Wolle für stark frequentierte Moscheen geeignet?",
-          "answer": "Ja. Woll-Teppiche sind sehr widerstandsfähig. Die natürliche Elastizität der Faser erholt sich nach Druckbelastung schnell."
-        },
-        {
-          "question": "Wie pflege ich einen Woll-Teppich?",
-          "answer": "Regelmäßiges Staubsaugen und jährliche professionelle Reinigung genügen. Flecken sofort behandeln."
-        },
-        {
-          "question": "Was ist der Preisunterschied zu Acryl?",
-          "answer": "Woll-Teppiche sind teurer in der Anschaffung, haben aber längere Lebensdauer. Langfristig ist die Kostendifferenz minimal."
         }
       ]
     },
@@ -956,10 +858,7 @@
         "Medaillon-Motive, die die Moscheearchitektur betonen",
         "Tiefe und lebendige natürliche Farben",
         "Feuchtigkeitsregulierung und natürlicher Komfort",
-        "Antistatisch und hypoallergen",
-        "Nutzungsdauer von 25–30 Jahren",
-        "100% natürliches Material",
-        "Umweltfreundlich und biologisch abbaubar"
+        "Antistatisch und hypoallergen"
       ],
       "specs": [
         {
@@ -981,43 +880,18 @@
         {
           "label": "Knotendichte",
           "value": "300.000–600.000 Knoten/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Repräsentative Stadtmoscheen mit hohem Budget",
         "Historische und denkmalgeschützte Moscheen",
         "Staatliche Flaggschiff-Moscheen",
-        "Pilgerstätten",
-        "Moscheen, bei denen höchste Ästhetik und Qualität gefordert werden"
+        "Pilgerstätten"
       ],
       "faqs": [
         {
           "question": "Ist Medaillon-Wolle das teuerste Produkt?",
           "answer": "Ja, es ist eines der Produkte mit dem höchsten Preis. Dafür bietet es die höchste Qualität, längste Lebensdauer und schönste Ästhetik."
-        },
-        {
-          "question": "Für welche Moscheengröße ist es geeignet?",
-          "answer": "Es ist für alle Größen geeignet. Das Medaillonmuster kann maßstabsgetreu an jeden Grundriss angepasst werden."
-        },
-        {
-          "question": "Kann das Muster individuell gestaltet werden?",
-          "answer": "Ja. Alle Details – zentrales Ornament, Bordüre, Farben – können individuell an die Architektur der Moschee angepasst werden."
-        },
-        {
-          "question": "Gibt es eine Garantie?",
-          "answer": "Asil Halı Woll-Produkte kommen mit 10 Jahren Garantie. Material- und Produktionsfehler sind vollständig abgedeckt."
         }
       ]
     },
@@ -1033,11 +907,7 @@
         "Natürlicher Wollkomfort für lange Gebete",
         "Individuell abgegrenzte Gebetsbereiche",
         "Natürliche Temperaturregulierung",
-        "Antistatisch und hypoallergen",
-        "Feuchtigkeitsregulierung",
-        "Langlebigkeit von 25–30 Jahren",
-        "Umweltfreundliches Naturmaterial",
-        "Prachtvolle Gebetsteppich-Motive"
+        "Antistatisch und hypoallergen"
       ],
       "specs": [
         {
@@ -1055,47 +925,17 @@
         {
           "label": "Floorhöhe",
           "value": "8–12 mm"
-        },
-        {
-          "label": "Gewicht",
-          "value": "2.200–3.000 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Premium-Moscheen mit Fokus auf Hygiene",
         "Repräsentative Stadtmoscheen",
-        "Staatliche Moscheen-Projekte",
-        "Moscheen mit moderner Innenarchitektur",
-        "Moscheen mit hohem Qualitätsanspruch"
+        "Staatliche Moscheen-Projekte"
       ],
       "faqs": [
         {
           "question": "Was ist der Vorteil von Gebetsteppich-Muster gegenüber Reihenmuster bei Wolle?",
           "answer": "Das Gebetsteppich-Muster bietet individuell abgegrenzte Plätze und ein hygienischeres Umfeld. Das Reihenmuster ist praktischer für dicht gedrängte Gruppen."
-        },
-        {
-          "question": "Kann die Seccade-Größe angepasst werden?",
-          "answer": "Ja, die Abmessungen können maßgeschneidert an den Moscheen-Grundriss angepasst werden."
-        },
-        {
-          "question": "Ist Woll-Gebetsteppich teurer als Acryl-Gebetsteppich?",
-          "answer": "Ja, Wolle ist teurer in der Anschaffung, bietet aber längere Lebensdauer und höheren Komfort."
-        },
-        {
-          "question": "Gibt es eine Garantie?",
-          "answer": "10 Jahre Garantie auf alle Woll-Produkte von Asil Halı."
         }
       ]
     },
@@ -1112,10 +952,7 @@
         "Geordnete Gebetsreihen",
         "Fleckenbeständig",
         "Jahrzehnte stabile Farbe",
-        "Antimikrobiell",
-        "Wirtschaftlicher Preis",
-        "Nutzungsdauer von 20–25 Jahren",
-        "Einfache Reinigung"
+        "Antimikrobiell"
       ],
       "specs": [
         {
@@ -1137,43 +974,18 @@
         {
           "label": "Gewicht",
           "value": "1.600–2.200 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "7 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Moscheen in feuchten Klimazonen",
         "Moscheen mit Wudu-Bereichen in der Nähe",
         "Außen- und überdachte Gebetsräume",
-        "Budget-orientierte Moscheen",
-        "Gebetsräume mit häufiger Nassreinigung"
+        "Budget-orientierte Moscheen"
       ],
       "faqs": [
         {
           "question": "Warum PP statt Acryl bei feuchtem Klima?",
           "answer": "Polypropylen absorbiert keine Feuchtigkeit und trocknet schnell. In feuchten Umgebungen oder bei Wudu-Nähe ist es die sicherere Wahl."
-        },
-        {
-          "question": "Ist PP weniger komfortabel?",
-          "answer": "Leicht weniger weich als Acryl, aber im praktischen Einsatz kaum spürbar. Dafür deutlich feuchtigkeitsresistenter."
-        },
-        {
-          "question": "Kann man PP nass reinigen?",
-          "answer": "Ja, PP kann problemlos nass gereinigt werden und trocknet schnell ohne Schäden."
-        },
-        {
-          "question": "Wie lange hält es?",
-          "answer": "20–25 Jahre bei normaler Nutzung und regelmäßiger Pflege."
         }
       ]
     },
@@ -1189,11 +1001,7 @@
         "Medaillon-Ästhetik mit PP-Funktionalität",
         "Feuchtigkeitsbeständig",
         "Stabile Farben",
-        "Fleckenbeständig",
-        "Wirtschaftlicher Preis",
-        "Individuell gestaltbar",
-        "Nutzungsdauer von 20–25 Jahren",
-        "Einfache Reinigung"
+        "Fleckenbeständig"
       ],
       "specs": [
         {
@@ -1207,47 +1015,17 @@
         {
           "label": "Floorhöhe",
           "value": "5–9 mm"
-        },
-        {
-          "label": "Gewicht",
-          "value": "1.600–2.200 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "7 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Stadtmoscheen mit mittlerem Budget",
         "Moscheen in feuchten Regionen",
-        "Neu gebaute Moscheen",
-        "Moscheen die Ästhetik und Funktion vereinen wollen",
-        "Renovierungsprojekte"
+        "Neu gebaute Moscheen"
       ],
       "faqs": [
         {
           "question": "Warum Medaillon PP statt Medaillon Acryl?",
           "answer": "Wenn Ihre Moschee in einer feuchten Region liegt oder Wudu-Bereiche in der Nähe hat, ist PP die bessere Wahl. Sonst ist Acryl etwas weicher und komfortabler."
-        },
-        {
-          "question": "Kann das Design individuell angepasst werden?",
-          "answer": "Ja, alle Details des Medaillonmusters können individuell gestaltet werden."
-        },
-        {
-          "question": "Wie lange hält ein Medaillon PP-Teppich?",
-          "answer": "Bei normaler Nutzung und regelmäßiger Pflege 20–25 Jahre."
-        },
-        {
-          "question": "Ist es in staatlichen Ausschreibungen verfügbar?",
-          "answer": "Ja, Asil Halı-Produkte entsprechen allen technischen Anforderungen staatlicher Ausschreibungen."
         }
       ]
     },
@@ -1263,11 +1041,7 @@
         "Individuelle Gebetsbereiche",
         "Sehr einfache Reinigung",
         "Feuchtigkeitsbeständig",
-        "Fleckenbeständig",
-        "Antimikrobiell",
-        "Wirtschaftlicher Preis",
-        "Nutzungsdauer von 20–25 Jahren",
-        "Individuell wählbare Größen"
+        "Fleckenbeständig"
       ],
       "specs": [
         {
@@ -1281,51 +1055,18 @@
         {
           "label": "Seccade-Größe",
           "value": "60×110 cm / 65×115 cm"
-        },
-        {
-          "label": "Floorhöhe",
-          "value": "5–9 mm"
-        },
-        {
-          "label": "Gewicht",
-          "value": "1.600–2.200 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "7 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Moscheen mit Reinigungshäufigkeit",
         "Gebetsräume in öffentlichen Einrichtungen",
         "Schulen und Kindergärten mit Gebetsraum",
-        "Moscheen in feuchtem Klima",
-        "Budget-orientierte Moscheen"
+        "Moscheen in feuchtem Klima"
       ],
       "faqs": [
         {
           "question": "Wie oft muss PP-Teppich gereinigt werden?",
           "answer": "Aufgrund der feuchtigkeitsresistenten Struktur ist PP einfach zu reinigen. Wöchentliches Staubsaugen und monatliche Nassreinigung genügen."
-        },
-        {
-          "question": "Ist PP hygienischer als Acryl?",
-          "answer": "Da PP keine Feuchtigkeit absorbiert, wachsen weniger Bakterien. In dieser Hinsicht ist PP hygienefreundlicher."
-        },
-        {
-          "question": "Kann die Seccade-Größe individuell angepasst werden?",
-          "answer": "Ja, maßgeschneiderte Produktion ist möglich."
-        },
-        {
-          "question": "Wie lange hält es?",
-          "answer": "20–25 Jahre bei normaler Nutzung."
         }
       ]
     },
@@ -1342,10 +1083,7 @@
         "Geordnete Gebetsreihen",
         "Elastische Erholung nach Druck",
         "25+ Jahre Nutzungsdauer",
-        "Hervorragendes Farbhaftvermögen",
-        "Leicht zu reinigen",
-        "Bevorzugt in Ausschreibungen",
-        "Internationale Qualitätsstandards"
+        "Hervorragendes Farbhaftvermögen"
       ],
       "specs": [
         {
@@ -1367,43 +1105,18 @@
         {
           "label": "Gewicht",
           "value": "2.000–2.800 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Freitagsmoscheen mit Tausenden von Gläubigen",
         "Staatliche und öffentliche Großprojekte",
         "Ausschreibungen",
-        "Repräsentative Moscheen",
-        "Pilgerstätten und religiöse Tourismusstandorte"
+        "Repräsentative Moscheen"
       ],
       "faqs": [
         {
           "question": "Warum Polyamid statt Acryl für Hochfrequenz-Moscheen?",
           "answer": "Polyamid hat überlegene Abriebfestigkeit. Bei intensiver täglicher Nutzung mit Tausenden von Gläubigen hält Polyamid deutlich länger als Acryl."
-        },
-        {
-          "question": "Wird es in staatlichen Ausschreibungen spezifiziert?",
-          "answer": "Ja, aufgrund seiner technischen Überlegenheit wird Polyamid häufig in staatlichen Ausschreibungen gefordert."
-        },
-        {
-          "question": "Wie lange hält es?",
-          "answer": "25+ Jahre bei intensiver Nutzung. Mit 10 Jahren Garantie ausgestattet."
-        },
-        {
-          "question": "Kann der Reihenabstand angepasst werden?",
-          "answer": "Ja, 60, 65 und 70 cm sowie andere Maße sind auf Anfrage möglich."
         }
       ]
     },
@@ -1419,11 +1132,7 @@
         "Prachtvolles Medaillon-Design",
         "Maximale Abriebfestigkeit",
         "25+ Jahre Nutzungsdauer",
-        "Bevorzugt in staatlichen Ausschreibungen",
-        "Elastische Erholung nach Druck",
-        "Hervorragendes Farbhaftvermögen",
-        "Individuelle Design-Optionen",
-        "Internationale Qualitätszertifikate"
+        "Bevorzugt in staatlichen Ausschreibungen"
       ],
       "specs": [
         {
@@ -1441,47 +1150,17 @@
         {
           "label": "Gewicht",
           "value": "2.000–2.800 g/m²"
-        },
-        {
-          "label": "Knotendichte",
-          "value": "200.000–400.000 Knoten/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Staatliche und kommunale Ausschreibungen",
         "Repräsentative Stadtmoscheen",
-        "Freitagsmoscheen",
-        "Pilgerstätten",
-        "Historische Moscheen-Renovierungen"
+        "Freitagsmoscheen"
       ],
       "faqs": [
         {
           "question": "Warum wird Medaillon-Polyamid in Ausschreibungen bevorzugt?",
           "answer": "Es bietet die Kombination aus ästhetischem Anspruch und technischer Haltbarkeit, die staatliche Ausschreibungen erfordern."
-        },
-        {
-          "question": "Kann das Design individuell angepasst werden?",
-          "answer": "Ja, alle Musterdetails können individuell gestaltet werden."
-        },
-        {
-          "question": "Wie lange hält es?",
-          "answer": "25+ Jahre bei intensiver Nutzung, mit 10 Jahren Garantie."
-        },
-        {
-          "question": "Entspricht es internationalen Normen?",
-          "answer": "Ja, alle Asil Halı Polyamid-Produkte entsprechen EN 13501-1 und anderen internationalen Standards."
         }
       ]
     },
@@ -1497,11 +1176,7 @@
         "Individuelle Gebetsbereiche",
         "Maximale Abriebfestigkeit",
         "Elastische Erholung nach Druck",
-        "25+ Jahre Nutzungsdauer",
-        "Hygienische Strukturierung",
-        "Hervorragendes Farbhaftvermögen",
-        "Leicht zu reinigen",
-        "10 Jahre Garantie"
+        "25+ Jahre Nutzungsdauer"
       ],
       "specs": [
         {
@@ -1515,51 +1190,17 @@
         {
           "label": "Seccade-Größe",
           "value": "60×110 cm / 65×115 cm"
-        },
-        {
-          "label": "Floorhöhe",
-          "value": "6–10 mm"
-        },
-        {
-          "label": "Gewicht",
-          "value": "2.000–2.800 g/m²"
-        },
-        {
-          "label": "Brandklasse",
-          "value": "Bfl-s1 (EN 13501-1)"
-        },
-        {
-          "label": "Garantie",
-          "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Hochfrequenz-Moscheen mit Fokus auf Hygiene",
         "Staatliche Projektmoscheen",
-        "Repräsentative Moscheen",
-        "Pilgerstätten",
-        "Moscheen mit höchsten Qualitätsansprüchen"
+        "Repräsentative Moscheen"
       ],
       "faqs": [
         {
           "question": "Was ist der Vorteil von Polyamid gegenüber Acryl beim Gebetsteppich-Muster?",
           "answer": "Polyamid ist abriebfester und elastischer. Bei intensiver Nutzung hält Polyamid deutlich länger als Acryl."
-        },
-        {
-          "question": "Kann die Seccade-Größe angepasst werden?",
-          "answer": "Ja, maßgeschneiderte Produktion ist möglich."
-        },
-        {
-          "question": "Wie lange hält es?",
-          "answer": "25+ Jahre, mit 10 Jahren Garantie."
-        },
-        {
-          "question": "Ist es in Ausschreibungen spezifiziert?",
-          "answer": "Ja, Polyamid wird in staatlichen Ausschreibungen aufgrund seiner technischen Überlegenheit bevorzugt."
         }
       ]
     },
@@ -1578,8 +1219,7 @@
         "Anpassung an Architektur und Kuppeldesign",
         "Luxuriöses und repräsentatives Erscheinungsbild",
         "Langlebige professionelle Qualität",
-        "Weltweiter Exportstandard",
-        "3D-Visualisierung vor Produktion"
+        "Weltweiter Exportstandard"
       ],
       "specs": [
         {
@@ -1609,18 +1249,13 @@
         {
           "label": "Garantie",
           "value": "10 Jahre"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Exklusive Repräsentationsmoscheen",
         "Moscheen mit architektonischen Spezialdesigns",
         "Staatliche Prestige-Projekte",
-        "Internationale Moscheen-Exporte",
-        "Historische Renovierungsprojekte mit Originaldesign"
+        "Internationale Moscheen-Exporte"
       ],
       "faqs": [
         {
@@ -1630,14 +1265,6 @@
         {
           "question": "Kann ich mein eigenes Design einreichen?",
           "answer": "Ja. Sie können Zeichnungen, Fotos oder Konzepte einreichen. Unser Designteam erstellt eine digitale Visualisierung und setzt es nach Ihrer Genehmigung um."
-        },
-        {
-          "question": "Wie lange dauert die Produktion?",
-          "answer": "Bei Axminster-Spezialbestellungen beträgt die Produktionszeit in der Regel 6–12 Wochen, abhängig von Größe und Komplexität."
-        },
-        {
-          "question": "Für welche Moscheen-Größen ist es geeignet?",
-          "answer": "Axminster-Teppiche können für jede Größe gefertigt werden – von kleinen Mescids bis zu Mega-Moscheen."
         }
       ]
     },
@@ -1654,10 +1281,7 @@
         "Schützt den Boden und verlängert Teppich-Lebensdauer",
         "Zusätzlicher Bodenkomfort beim Beten",
         "Feuchtigkeitsbeständig",
-        "Zuschneidbar in beliebige Formen",
-        "Langlebiges Material",
-        "Dämmt Bodengeräusche",
-        "Einfache Installation"
+        "Zuschneidbar in beliebige Formen"
       ],
       "specs": [
         {
@@ -1675,39 +1299,17 @@
         {
           "label": "Feuchtigkeitsbeständigkeit",
           "value": "Ja"
-        },
-        {
-          "label": "Rutschfestigkeit",
-          "value": "Klasse R9-R11"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Alle Moscheen-Teppiche als Unterlage",
         "Geglättete Steinböden",
-        "Parkett- und Fliesenböden",
-        "Bereiche mit erhöhtem Rutschrisiko",
-        "Treppenläufer in Moscheen"
+        "Parkett- und Fliesenböden"
       ],
       "faqs": [
         {
           "question": "Muss ich eine Unterlage kaufen?",
           "answer": "Eine Unterlage ist nicht zwingend erforderlich, wird aber dringend empfohlen. Sie verhindert Rutschen, schützt den Boden und verlängert die Teppich-Lebensdauer erheblich."
-        },
-        {
-          "question": "Kann die Unterlage in Sondermaße geschnitten werden?",
-          "answer": "Ja, sie kann in beliebige Maße und Formen zugeschnitten werden."
-        },
-        {
-          "question": "Ist sie für alle Teppich-Typen geeignet?",
-          "answer": "Ja, die Gummi-Unterlage ist mit allen Moscheeteppich-Typen kompatibel."
-        },
-        {
-          "question": "Wie installiere ich die Unterlage?",
-          "answer": "Einfach unter den Teppich legen. Keine Kleber oder spezielle Befestigung erforderlich."
         }
       ]
     },
@@ -1725,9 +1327,7 @@
         "Dämpft Schritt- und Kniegeräusche",
         "Feuchtigkeitsresistent – verhindert Schimmel",
         "International anerkannte Premium-Qualität",
-        "Langlebig und widerstandsfähig",
-        "Professionelle Verarbeitung",
-        "Kompatibel mit allen Teppich-Typen"
+        "Langlebig und widerstandsfähig"
       ],
       "specs": [
         {
@@ -1749,39 +1349,17 @@
         {
           "label": "Feuchtigkeitsbeständigkeit",
           "value": "Ja"
-        },
-        {
-          "label": "Rutschfestigkeit",
-          "value": "Premium R11"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei / International"
         }
       ],
       "useCases": [
         "Premium-Moscheen mit höchsten Qualitätsansprüchen",
         "Repräsentative Stadtmoscheen",
-        "Staatliche Prestige-Projekte",
-        "Pilgerstätten",
-        "Internationale Moscheen-Exporte"
+        "Staatliche Prestige-Projekte"
       ],
       "faqs": [
         {
           "question": "Was unterscheidet TredMOR™ von normalen Gummi-Unterlagen?",
           "answer": "TredMOR™ hat eine patentierte Berber-Faserstruktur, die mehr Komfort und überlegene Rutschfestigkeit bietet als Standard-Gummiunterlagen."
-        },
-        {
-          "question": "Ist TredMOR™ teurer?",
-          "answer": "Als Premium-Produkt ist TredMOR™ teurer als Standardunterlagen, bietet aber deutlich höheren Komfort und längere Haltbarkeit."
-        },
-        {
-          "question": "Ist TredMOR™ feuchtigkeitsresistent?",
-          "answer": "Ja, die mehrschichtige Struktur ist feuchtigkeitsresistent und verhindert Schimmelbildung."
-        },
-        {
-          "question": "Für welche Teppich-Typen ist es geeignet?",
-          "answer": "TredMOR™ Berber Supreme ist mit allen Moscheeteppich-Typen kompatibel."
         }
       ]
     },
@@ -1798,10 +1376,7 @@
         "Effektiver Schallschutz",
         "Verlängert Teppich-Lebensdauer erheblich",
         "Druckpunkte werden gedämpft",
-        "Umweltfreundlich",
-        "In verschiedenen Dichten erhältlich",
-        "Einfache Installation",
-        "Antistatisch"
+        "Umweltfreundlich"
       ],
       "specs": [
         {
@@ -1819,39 +1394,17 @@
         {
           "label": "Wärmedämmung",
           "value": "Ja"
-        },
-        {
-          "label": "Schallschutz",
-          "value": "Ja"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Moscheen in kalten Klimazonen",
         "Moscheen mit Schallschutz-Anforderungen",
-        "Ältere Moscheen mit kühlem Steinboden",
-        "Moscheen mit dünnen Teppichen",
-        "Neue Moscheen mit Fokus auf Komfort"
+        "Ältere Moscheen mit kühlem Steinboden"
       ],
       "faqs": [
         {
           "question": "Wann soll ich Filz statt Gummi wählen?",
           "answer": "Wenn Wärmedämmung und Schallschutz Priorität haben, ist Filz die bessere Wahl. Wenn Rutschfestigkeit im Vordergrund steht, ist Gummi besser."
-        },
-        {
-          "question": "Welche Dichte soll ich wählen?",
-          "answer": "600 g/m² für einfachen Komfort, 1000 g/m² für Standard, 1200 g/m² für maximale Dämmung und Komfort."
-        },
-        {
-          "question": "Kann Filz nass werden?",
-          "answer": "Filz sollte nicht dauerhaft nass werden. Für feuchte Bereiche ist Gummi-Unterlage besser geeignet."
-        },
-        {
-          "question": "Wie lang ist die Lebensdauer?",
-          "answer": "Filz-Unterlagen haben eine Nutzungsdauer von 10–15 Jahren bei normaler Nutzung."
         }
       ]
     },
@@ -1867,11 +1420,7 @@
         "Wirtschaftlicher Einstiegspreis",
         "Grundlegende Wärmedämmung",
         "Leichte Schalldämpfung",
-        "Verlängert Teppich-Lebensdauer",
-        "Einfache Installation",
-        "Leicht und handlich",
-        "In beliebige Maße zuschneidbar",
-        "Umweltfreundlich"
+        "Verlängert Teppich-Lebensdauer"
       ],
       "specs": [
         {
@@ -1881,47 +1430,16 @@
         {
           "label": "Dichte",
           "value": "600 g/m²"
-        },
-        {
-          "label": "Stärke",
-          "value": "ca. 3–4 mm"
-        },
-        {
-          "label": "Wärmedämmung",
-          "value": "Grundlegend"
-        },
-        {
-          "label": "Schallschutz",
-          "value": "Leicht"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Moscheen mit eingeschränktem Budget",
-        "Mescids und kleine Gebetsräume",
-        "Temporäre Gebetsflächen",
-        "Ergänzungsunterlage",
-        "Wirtschaftliche Renovierungen"
+        "Mescids und kleine Gebetsräume"
       ],
       "faqs": [
         {
           "question": "Was ist der Unterschied zu 1000 g/m² Filz?",
           "answer": "600 g/m² ist dünner und weniger dicht. Es bietet weniger Dämmung und Komfort, ist aber günstiger."
-        },
-        {
-          "question": "Für welche Teppich-Typen ist es geeignet?",
-          "answer": "Es ist mit allen Teppich-Typen kompatibel."
-        },
-        {
-          "question": "Wie installiere ich es?",
-          "answer": "Einfach unter den Teppich legen. Keine spezielle Befestigung erforderlich."
-        },
-        {
-          "question": "Wie lange hält es?",
-          "answer": "Ca. 8–10 Jahre bei normaler Nutzung."
         }
       ]
     },
@@ -1937,11 +1455,7 @@
         "Optimale Balance aus Komfort und Preis",
         "Effektive Wärmedämmung",
         "Guter Schallschutz",
-        "Verlängert Teppich-Lebensdauer deutlich",
-        "Druckpunkte werden effektiv gedämpft",
-        "Für die meisten Moscheen geeignet",
-        "Einfache Installation",
-        "Umweltfreundlich"
+        "Verlängert Teppich-Lebensdauer deutlich"
       ],
       "specs": [
         {
@@ -1951,47 +1465,16 @@
         {
           "label": "Dichte",
           "value": "1000 g/m²"
-        },
-        {
-          "label": "Stärke",
-          "value": "ca. 5–6 mm"
-        },
-        {
-          "label": "Wärmedämmung",
-          "value": "Gut"
-        },
-        {
-          "label": "Schallschutz",
-          "value": "Gut"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Stadtteilmoscheen",
-        "Mittelgroße Freitagsmoscheen",
-        "Staatliche Moscheen",
-        "Renovierungsprojekte",
-        "Moscheen mit mittlerem Budget"
+        "Mittelgroße Freitagsmoscheen"
       ],
       "faqs": [
         {
           "question": "Ist 1000 g/m² besser als 600 g/m²?",
           "answer": "Ja, 1000 g/m² bietet deutlich mehr Komfort, Dämmung und Haltbarkeit. Für die meisten Moscheen ist 1000 g/m² die empfohlene Standardwahl."
-        },
-        {
-          "question": "Wann soll ich 1200 g/m² statt 1000 g/m² wählen?",
-          "answer": "Wenn Ihre Moschee in einer kalten Region liegt oder maximaler Schallschutz gewünscht ist, ist 1200 g/m² vorzuziehen."
-        },
-        {
-          "question": "Wie lange hält 1000 g/m² Filz?",
-          "answer": "Ca. 12–15 Jahre bei normaler Nutzung."
-        },
-        {
-          "question": "Kann es in Sondermaße geschnitten werden?",
-          "answer": "Ja, es kann in beliebige Maße zugeschnitten werden."
         }
       ]
     },
@@ -2007,11 +1490,7 @@
         "Maximale Wärmedämmung",
         "Bester Schallschutz",
         "Höchster Komfort beim Beten",
-        "Maximaler Teppich-Schutz und Lebensdauer",
-        "Ideal für kalte Klimazonen",
-        "Premium-Qualitätsgefühl",
-        "Langlebige Struktur",
-        "Umweltfreundlich"
+        "Maximaler Teppich-Schutz und Lebensdauer"
       ],
       "specs": [
         {
@@ -2025,43 +1504,17 @@
         {
           "label": "Stärke",
           "value": "ca. 7–10 mm"
-        },
-        {
-          "label": "Wärmedämmung",
-          "value": "Maximum"
-        },
-        {
-          "label": "Schallschutz",
-          "value": "Maximum"
-        },
-        {
-          "label": "Herstellungsort",
-          "value": "Türkei"
         }
       ],
       "useCases": [
         "Moscheen in kalten Klimazonen",
         "Repräsentative Premium-Moscheen",
-        "Historische Moscheen mit Steinboden",
-        "Moscheen mit maximalen Qualitätsansprüchen",
-        "Staatliche Prestige-Projekte"
+        "Historische Moscheen mit Steinboden"
       ],
       "faqs": [
         {
           "question": "Für wen ist 1200 g/m² Filz am besten geeignet?",
           "answer": "Für Moscheen in kalten Regionen, repräsentative Moscheen mit höchsten Qualitätsansprüchen und Moscheen, bei denen maximaler Schallschutz gewünscht ist."
-        },
-        {
-          "question": "Ist 1200 g/m² deutlich teurer als 1000 g/m²?",
-          "answer": "Der Preisunterschied ist moderat. Für Premium-Anforderungen ist die Mehrinvestition lohnenswert."
-        },
-        {
-          "question": "Wie lange hält 1200 g/m² Filz?",
-          "answer": "15–20 Jahre bei normaler Nutzung dank der hohen Dichte."
-        },
-        {
-          "question": "Kann es in Sondermaße geschnitten werden?",
-          "answer": "Ja, maßgeschneiderte Zuschnitte sind möglich."
         }
       ]
     },

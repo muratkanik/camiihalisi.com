@@ -33,6 +33,7 @@ const COMMON = {
     de: "Wilton-Doppelgesicht-Webtechnologie",
     fr: "Technologie de tissage Wilton face à face",
     ar: "تقنية نسج ويلتون وجهًا لوجه",
+    ru: "Технология двустороннего ткачества Wilton",
   },
   manufacturingTechnology: {
     tr: "Van de Wiele Elektronik Jakarlı Dokuma Sistemi",
@@ -40,6 +41,7 @@ const COMMON = {
     de: "Van de Wiele Elektronisches Jacquard-Websystem",
     fr: "Système de tissage Jacquard électronique Van de Wiele",
     ar: "نظام نسج جاكار إلكتروني من فان دي ويله",
+    ru: "Электронная жаккардовая ткацкая система Van de Wiele",
   },
   pileYarn: {
     tr: "%100 Birinci Kalite Akrilik",
@@ -47,6 +49,7 @@ const COMMON = {
     de: "100% Acryl erster Qualität",
     fr: "100% acrylique de première qualité",
     ar: "100% أكريليك من الدرجة الأولى",
+    ru: "100% акрил высшего качества",
   },
   weavingSystem: {
     tr: "1/1 Yüksek Yoğunluklu Dokuma Sistemi",
@@ -54,6 +57,7 @@ const COMMON = {
     de: "1/1 Hochdichtes Websystem",
     fr: "Système de tissage haute densité 1/1",
     ar: "نظام نسج عالي الكثافة 1/1",
+    ru: "Система ткачества высокой плотности 1/1",
   },
   weavingWidth: "400 cm",
   row: "420 / m",
@@ -63,6 +67,7 @@ const COMMON = {
     de: "100% Jute in Premiumqualität",
     fr: "100% jute de qualité premium",
     ar: "100% خيش فاخر",
+    ru: "100% джут премиум-класса",
   },
   yarnCount: "15/3",
   warpYarn: {
@@ -71,6 +76,7 @@ const COMMON = {
     de: "Baumwolle",
     fr: "Coton",
     ar: "قطن",
+    ru: "Хлопок",
   },
   tolerance: {
     tr: "Tüm ölçüm değerlerinde ±%5 üretim toleransı uygulanır.",
@@ -78,6 +84,7 @@ const COMMON = {
     de: "Für alle Messwerte gilt eine Fertigungstoleranz von ±5%.",
     fr: "Une tolérance de fabrication de ±5% s'applique à toutes les valeurs mesurées.",
     ar: "يتم تطبيق هامش تصنيع ±5% على جميع القيم القياسية.",
+    ru: "Ко всем значениям измерений применяется производственный допуск ±5%.",
   },
   description: {
     tr: "Premium kalite %100 akrilik hav ipliği kullanılarak üretilen bu Wilton dokuma cami halısı, gelişmiş dokuma teknolojisini üstün işçilik ile birleştirerek yüksek dayanıklılık, konfor ve boyutsal stabilite sunmaktadır.\n\nYoğun ziyaretçi trafiğine sahip ibadet alanları için geliştirilen ürün, kullanım ömrü boyunca estetik görünümünü koruyacak şekilde tasarlanmıştır. Camiler, mescitler, namaz salonları ve diğer dini yapılarda kalite, dayanıklılık ve görsel bütünlüğün ön planda olduğu projeler için ideal bir zemin kaplama çözümüdür.",
@@ -85,6 +92,7 @@ const COMMON = {
     de: "Dieser Wilton-gewebte Moscheeteppich wird aus erstklassigem 100% Acryl-Polgarn gefertigt und vereint fortschrittliche Webtechnologie mit hervorragender Verarbeitung für außergewöhnliche Haltbarkeit, Komfort und Formstabilität.\n\nEntwickelt für stark frequentierte Gebetsräume, bewahrt der Teppich sein ästhetisches Erscheinungsbild über die gesamte Nutzungsdauer. Er ist ideal für Moscheen, Gebetsräume und andere religiöse Gebäude, in denen Qualität, Haltbarkeit und visuelle Eleganz im Vordergrund stehen.",
     fr: "Fabriqué avec un fil de velours 100% acrylique de qualité premium, ce tapis de mosquée tissé Wilton allie une technologie de tissage avancée à un savoir-faire exceptionnel pour offrir une durabilité, un confort et une stabilité dimensionnelle remarquables.\n\nConçu pour les lieux de culte à fort trafic, il conserve son aspect esthétique tout au long de sa durée de vie. Il convient parfaitement aux mosquées, masjids, salles de prière et autres édifices religieux où qualité, durabilité et élégance visuelle sont essentielles.",
     ar: "صُنعت هذه السجادة المنسوجة بتقنية ويلتون من خيوط الوبر الأكريليكية الفاخرة بنسبة 100%، وتجمع بين تقنية النسج المتطورة والحرفية الاستثنائية لتوفر متانة فائقة وراحة واستقرارًا في الأبعاد.\n\nصُممت خصيصًا لأماكن العبادة ذات الحركة الكثيفة، وتحافظ على مظهرها الجمالي طوال عمرها الافتراضي. وهي مثالية للمساجد والمصليات وقاعات الصلاة وغيرها من المباني الدينية التي تُعطى فيها الأولوية للجودة والمتانة والأناقة البصرية.",
+    ru: "Этот ковер для мечетей, сотканный по технологии Wilton из 100% акриловой ворсовой пряжи премиум-класса, сочетает в себе передовые технологии ткачества и исключительное мастерство для обеспечения выдающейся долговечности, комфорта и стабильности размеров.\n\nРазработанный для мест отправления культа с высокой посещаемостью, ковер сохраняет свой эстетичный внешний вид, отличный комфорт при ходьбе и надежные эксплуатационные характеристики на протяжении всего срока службы. Он подходит для мечетей, молельных комнат и других религиозных зданий, где качество, долговечность и визуальная элегантность имеют первостепенное значение.",
   },
   performanceFeatures: [
     {
@@ -93,6 +101,7 @@ const COMMON = {
       de: "Lichtbeständig",
       fr: "Résistant à la lumière",
       ar: "مقاوم للضوء والبهتان",
+      ru: "Светостойкий",
     },
     {
       tr: "Bakteri Gelişimine Karşı Dayanıklı",
@@ -100,6 +109,7 @@ const COMMON = {
       de: "Antibakteriell",
       fr: "Antibactérien",
       ar: "مقاوم لنمو البكتيريا",
+      ru: "Антибактериальный",
     },
     {
       tr: "Koku Oluşumuna Karşı Dayanıklı",
@@ -107,6 +117,7 @@ const COMMON = {
       de: "Geruchsresistent",
       fr: "Résistant aux odeurs",
       ar: "مقاوم لتكون الروائح",
+      ru: "Устойчивый к запахам",
     },
     {
       tr: "Antistatik Özellikli",
@@ -114,6 +125,7 @@ const COMMON = {
       de: "Antistatisch",
       fr: "Antistatique",
       ar: "خاصية مضادة للكهرباء الساكنة",
+      ru: "Антистатический",
     },
   ],
   usage: {
@@ -123,6 +135,7 @@ const COMMON = {
       de: "Geeignet für die Verwendung mit Unterlage",
       fr: "Adapté à l'utilisation avec sous-couche",
       ar: "مناسب للاستخدام مع الطبقة السفلية",
+      ru: "Подходит для использования с подложкой",
     },
     vacuum: {
       tr: "Düzenli Vakumlu Temizliğe Uygundur",
@@ -130,6 +143,7 @@ const COMMON = {
       de: "Geeignet für häufiges Staubsaugen",
       fr: "Adapté à un aspirateur fréquent",
       ar: "مناسب للتنظيف المتكرر بالمكنسة الكهربائية",
+      ru: "Подходит для частой чистки пылесосом",
     },
     serviceLife: {
       tr: "Kullanım Ömrü: 30 Yıl",
@@ -137,6 +151,7 @@ const COMMON = {
       de: "Nutzungsdauer: 30 Jahre",
       fr: "Durée de vie : 30 ans",
       ar: "العمر الافتراضي: 30 عامًا",
+      ru: "Срок службы: 30 лет",
     },
     warranty: {
       tr: "Ürün Garantisi: Türkiye Mevzuatına Uygun Olarak 2 Yıl",

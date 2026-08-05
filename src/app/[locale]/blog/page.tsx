@@ -45,6 +45,7 @@ export async function generateMetadata({
         "ar": `${SITE_URL}/ar/blog`,
         "fr": `${SITE_URL}/fr/blog`,
         "de": `${SITE_URL}/de/blog`,
+        "ru": `${SITE_URL}/ru/blog`,
         "x-default": `${SITE_URL}/blog`,
       },
     },

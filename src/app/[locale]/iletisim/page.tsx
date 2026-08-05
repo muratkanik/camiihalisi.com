@@ -22,7 +22,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/iletisim`,
       "fr": `${SITE_URL}/fr/iletisim`,
       "de": `${SITE_URL}/de/iletisim`,
-      "x-default": `${SITE_URL}/iletisim`,
+        "ru": `${SITE_URL}/ru/iletisim`,
+        "x-default": `${SITE_URL}/iletisim`,
     },
   },
 };

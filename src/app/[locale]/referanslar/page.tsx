@@ -22,7 +22,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/referanslar`,
       "fr": `${SITE_URL}/fr/referanslar`,
       "de": `${SITE_URL}/de/referanslar`,
-      "x-default": `${SITE_URL}/referanslar`,
+        "ru": `${SITE_URL}/ru/referanslar`,
+        "x-default": `${SITE_URL}/referanslar`,
     },
   },
 };

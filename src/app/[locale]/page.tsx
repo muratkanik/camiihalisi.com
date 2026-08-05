@@ -42,6 +42,7 @@ export async function generateMetadata({
         "ar": `${SITE_URL}/ar`,
         "fr": `${SITE_URL}/fr`,
         "de": `${SITE_URL}/de`,
+        "ru": `${SITE_URL}/ru`,
         "x-default": SITE_URL,
       },
     },
@@ -206,7 +207,7 @@ export default async function HomePage({
     name: "camiihalisi.com",
     description: "Türkiye'nin cami halısı portal sitesi",
     publisher: { "@id": `${SITE_URL}/#organization` },
-    inLanguage: ["tr", "en", "ar", "fr", "de"],
+    inLanguage: ["tr", "en", "ar", "fr", "de", "ru"],
     potentialAction: {
       "@type": "SearchAction",
       target: { "@type": "EntryPoint", urlTemplate: `${SITE_URL}/sss?q={search_term_string}` },

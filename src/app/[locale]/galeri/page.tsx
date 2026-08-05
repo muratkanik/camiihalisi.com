@@ -20,7 +20,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/galeri`,
       "fr": `${SITE_URL}/fr/galeri`,
       "de": `${SITE_URL}/de/galeri`,
-      "x-default": `${SITE_URL}/galeri`,
+        "ru": `${SITE_URL}/ru/galeri`,
+        "x-default": `${SITE_URL}/galeri`,
     },
   },
   openGraph: {

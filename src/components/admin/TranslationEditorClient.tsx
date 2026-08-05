@@ -6,7 +6,7 @@ import { useState, useCallback, useMemo, useRef, useEffect } from "react";
 
 type MessageTree = Record<string, unknown>;
 type FlatMap = Record<string, string>;
-type LocaleKey = "tr" | "en" | "de" | "ar" | "fr";
+type LocaleKey = "tr" | "en" | "de" | "ar" | "fr" | "ru";
 type NsOverrides = Record<LocaleKey, FlatMap>;
 type AllOverrides = Record<string, NsOverrides>;
 
@@ -16,6 +16,7 @@ interface Props {
   deMessages: MessageTree;
   arMessages: MessageTree;
   frMessages: MessageTree;
+  ruMessages: MessageTree;
   dbOverrides: Record<string, Record<string, Record<string, string>>>;
 }
 
@@ -27,6 +28,7 @@ const LOCALES: { key: LocaleKey; label: string; flag: string; dir: "ltr" | "rtl"
   { key: "de", label: "Deutsch",  flag: "🇩🇪", dir: "ltr" },
   { key: "ar", label: "العربية",  flag: "🇸🇦", dir: "rtl" },
   { key: "fr", label: "Français", flag: "🇫🇷", dir: "ltr" },
+  { key: "ru", label: "Русский", flag: "🇷🇺", dir: "ltr" },
 ];
 
 const NS_CONFIG: Record<string, { label: string; icon: string }> = {
@@ -63,7 +65,7 @@ function flattenTree(obj: unknown, prefix = ""): FlatMap {
 }
 
 function buildEdits(
-  tr: MessageTree, en: MessageTree, de: MessageTree, ar: MessageTree, fr: MessageTree,
+  tr: MessageTree, en: MessageTree, de: MessageTree, ar: MessageTree, fr: MessageTree, ru: MessageTree,
   db: Record<string, Record<string, Record<string, string>>>
 ): AllOverrides {
   const nsList = Array.from(new Set([...Object.keys(tr), ...Object.keys(en)]));
@@ -75,8 +77,9 @@ function buildEdits(
       de: flattenTree(de[ns]),
       ar: flattenTree(ar[ns]),
       fr: flattenTree(fr[ns]),
+      ru: flattenTree(ru[ns]),
     };
-    for (const loc of ["tr","en","de","ar","fr"] as LocaleKey[])
+    for (const loc of ["tr","en","de","ar","fr","ru"] as LocaleKey[])
       Object.assign(base[loc], db[ns]?.[loc] ?? {});
     result[ns] = base;
   }
@@ -133,7 +136,7 @@ function Spinner() {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function TranslationEditorClient({
-  trMessages, enMessages, deMessages, arMessages, frMessages, dbOverrides,
+  trMessages, enMessages, deMessages, arMessages, frMessages, ruMessages, dbOverrides,
 }: Props) {
 
   // ── Derived file values (original JSON) ──
@@ -147,14 +150,15 @@ export default function TranslationEditorClient({
         de: flattenTree(deMessages[ns]),
         ar: flattenTree(arMessages[ns]),
         fr: flattenTree(frMessages[ns]),
+        ru: flattenTree(ruMessages[ns]),
       };
     }
     return r;
-  }, [trMessages, enMessages, deMessages, arMessages, frMessages]);
+  }, [trMessages, enMessages, deMessages, arMessages, frMessages, ruMessages]);
 
   // ── All editable values (file + DB overrides merged) ──
   const [edits, setEdits] = useState<AllOverrides>(() =>
-    buildEdits(trMessages, enMessages, deMessages, arMessages, frMessages, dbOverrides)
+    buildEdits(trMessages, enMessages, deMessages, arMessages, frMessages, ruMessages, dbOverrides)
   );
 
   // ── Namespace list (only those that have keys) ──
@@ -288,14 +292,14 @@ export default function TranslationEditorClient({
       const res = await fetch("/api/admin/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ namespace: selectedNs, content, targetLocales: ["en","ar","fr"] }),
+        body: JSON.stringify({ namespace: selectedNs, content, targetLocales: ["en","ar","fr","ru"] }),
       });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const translated: Partial<Record<LocaleKey, FlatMap>> = await res.json();
 
       setEdits(prev => {
         const updated = { ...prev[selectedNs] };
-        for (const loc of ["en","ar","fr"] as LocaleKey[]) {
+        for (const loc of ["en","ar","fr","ru"] as LocaleKey[]) {
           if (translated[loc] && !("_error" in (translated[loc] as object)))
             updated[loc] = { ...updated[loc], ...translated[loc] };
         }

@@ -342,7 +342,7 @@ export async function generateMetadata({
 
 export function generateStaticParams() {
   return Object.keys(CATEGORIES).flatMap((slug) =>
-    ["tr", "en", "ar", "fr", "de"].map((locale) => ({ locale, slug }))
+    ["tr", "en", "ar", "fr", "de", "ru"].map((locale) => ({ locale, slug }))
   );
 }
 

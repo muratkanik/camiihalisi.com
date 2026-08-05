@@ -11,6 +11,7 @@ const LOCALES = [
   { code: "de", label: "Deutsch", flag: "🇩🇪", short: "DE" },
   { code: "ar", label: "العربية", flag: "🇸🇦", short: "AR" },
   { code: "fr", label: "Français", flag: "🇫🇷", short: "FR" },
+  { code: "ru", label: "Русский", flag: "🇷🇺", short: "RU" },
 ];
 
 interface Props {
@@ -40,7 +41,7 @@ export default function LocaleSwitcher({ currentLocale }: Props) {
     setOpen(false);
     // next-intl's router takes care of the prefix, the cookie, and preserving query params
     const query = searchParams.toString() ? `?${searchParams.toString()}` : "";
-    const locale = newLocale as 'tr' | 'en' | 'de' | 'ar' | 'fr';
+    const locale = newLocale as 'tr' | 'en' | 'de' | 'ar' | 'fr' | 'ru';
     router.replace(`${pathname}${query}`, { locale });
   }
 

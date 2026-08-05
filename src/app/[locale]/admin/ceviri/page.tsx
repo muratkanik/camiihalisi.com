@@ -8,6 +8,7 @@ async function getTranslationData() {
   const deMessages = (await import("../../../../../messages/de.json")).default;
   const arMessages = (await import("../../../../../messages/ar.json")).default;
   const frMessages = (await import("../../../../../messages/fr.json")).default;
+  const ruMessages = (await import("../../../../../messages/ru.json")).default;
 
   // DB overrides
   let dbOverrides: Record<string, Record<string, Record<string, string>>> = {};
@@ -19,7 +20,7 @@ async function getTranslationData() {
     await prisma.$disconnect();
   } catch { /* ignore */ }
 
-  return { trMessages, enMessages, deMessages, arMessages, frMessages, dbOverrides };
+  return { trMessages, enMessages, deMessages, arMessages, frMessages, ruMessages, dbOverrides };
 }
 
 export default async function CeviriPage({ params }: { params: Promise<{ locale: string }> }) {

@@ -21,7 +21,8 @@ export const metadata: Metadata = {
       "ar": `${SITE_URL}/ar/teknik-ozellikler`,
       "fr": `${SITE_URL}/fr/teknik-ozellikler`,
       "de": `${SITE_URL}/de/teknik-ozellikler`,
-      "x-default": `${SITE_URL}/teknik-ozellikler`,
+        "ru": `${SITE_URL}/ru/teknik-ozellikler`,
+        "x-default": `${SITE_URL}/teknik-ozellikler`,
     },
   },
 };
