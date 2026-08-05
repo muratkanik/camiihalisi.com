@@ -37,15 +37,11 @@ type CommonData = {
 // DB satırı (Setting.key = "akrilik_datasheets_data") boşsa kullanılacak yedek veri.
 // bkz. prisma/seed-akrilik-datasheets.ts
 const FALLBACK_PRODUCTS: Product[] = [
-  { code: "3000", pileHeight: "13 mm", pitch: "400 / m", points: "505.000 / m²", weight: "3.000 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3000-teknik-veri-foyu.pdf" },
-  { code: "3300", pileHeight: "14 mm", pitch: "676 / m", points: "567.800 / m²", weight: "3.300 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3300-teknik-veri-foyu.pdf" },
   { code: "3465", pileHeight: "13 mm", pitch: "400 / m", points: "582.000 / m²", weight: "3.465 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3465-teknik-veri-foyu.pdf" },
   { code: "3588", pileHeight: "14 mm", pitch: "400 / m", points: "637.140 / m²", weight: "3.588 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3588-teknik-veri-foyu.pdf" },
-  { code: "3600", pileHeight: "14 mm", pitch: "400 / m", points: "637.140 / m²", weight: "3.600 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3600-teknik-veri-foyu.pdf" },
   { code: "3844", pileHeight: "14 mm", pitch: "400 / m", points: "688.800 / m²", weight: "3.844 g / m²", pdf: "asil-hali-akrilik-cami-halisi-3844-teknik-veri-foyu.pdf" },
   { code: "4100", pileHeight: "14 mm", pitch: "458 / m", points: "787.200 / m²", weight: "4.100 g / m²", pdf: "asil-hali-akrilik-cami-halisi-4100-teknik-veri-foyu.pdf" },
   { code: "4356", pileHeight: "15 mm", pitch: "503 / m", points: "865.100 / m²", weight: "4.356 g / m²", pdf: "asil-hali-akrilik-cami-halisi-4356-teknik-veri-foyu.pdf" },
-  { code: "4600", pileHeight: "14 mm", pitch: "600 / m", points: "1.008.000 / m²", weight: "4.600 g / m²", pdf: "asil-hali-akrilik-cami-halisi-4600-teknik-veri-foyu.pdf" },
   { code: "4715", pileHeight: "15 mm", pitch: "600 / m", points: "1.033.200 / m²", weight: "4.715 g / m²", pdf: "asil-hali-akrilik-cami-halisi-4715-teknik-veri-foyu.pdf" },
   { code: "4950", pileHeight: "16 mm", pitch: "600 / m", points: "1.076.000 / m²", weight: "4.950 g / m²", pdf: "asil-hali-akrilik-cami-halisi-4950-teknik-veri-foyu.pdf" },
   { code: "5125", pileHeight: "16 mm", pitch: "650 / m", points: "1.101.875 / m²", weight: "5.125 g / m²", pdf: "asil-hali-akrilik-cami-halisi-5125-teknik-veri-foyu.pdf" },
