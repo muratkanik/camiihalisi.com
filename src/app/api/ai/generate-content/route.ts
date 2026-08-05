@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { handleAIGenerateTranslations } from '@/lib/ai/translator';
+import { aiComplete } from '@/lib/ai/complete';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
@@ -39,23 +40,13 @@ export async function POST(req: Request) {
       }
     `;
 
-    const response = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.XAI_API_KEY}`
-      },
-      body: JSON.stringify({
-        messages: [{ role: "user", content: promptTR }],
-        model: "grok-3",
-        response_format: { type: "json_object" }
-      })
-    });
-
     let trContent;
     try {
-      const data = await response.json();
-      trContent = JSON.parse(data.choices[0].message.content);
+      const { content: raw } = await aiComplete({
+        messages: [{ role: "user", content: promptTR }],
+        json: true,
+      });
+      trContent = JSON.parse(raw);
     } catch {
       trContent = { title: keyword, subtitle: "Otonom süreç geçici metni.", seo_score_estimated: 70 };
     }

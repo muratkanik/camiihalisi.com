@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete } from "@/lib/ai/complete";
 
 export async function POST(req: Request) {
   // Auth check — cron secret veya admin cookie
@@ -9,9 +10,8 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) {
-    return NextResponse.json({ error: "XAI_API_KEY ortam değişkeni tanımlı değil." }, { status: 500 });
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" }, { status: 500 });
   }
 
   const { keyword } = await req.json();
@@ -47,33 +47,17 @@ Asil Halı'nın tecrübesini (10.000+ cami) ve kalite belgelerini bu spesifik ko
 Yanıtı markdown formatında, son derece teknik, sektöre özel ve doğrudan yazara talimat verecek şekilde ver.`;
 
   try {
-    const response = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${xaiKey}`,
-      },
-      body: JSON.stringify({
-        model: "grok-3",
-        messages: [
-          {
-            role: "system",
-            content: "Sen camiihalisi.com sitesi için çalışan uzman bir SEO danışmanısın. Türkçe olarak pratik, uygulanabilir ve veri odaklı tavsiyeler veriyorsun.",
-          },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.6,
-        max_tokens: 2000,
-      }),
+    const { content: analysis } = await aiComplete({
+      messages: [
+        {
+          role: "system",
+          content: "Sen camiihalisi.com sitesi için çalışan uzman bir SEO danışmanısın. Türkçe olarak pratik, uygulanabilir ve veri odaklı tavsiyeler veriyorsun.",
+        },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.6,
+      maxTokens: 2000,
     });
-
-    if (!response.ok) {
-      const err = await response.text();
-      return NextResponse.json({ error: `AI API hatası: ${response.status} — ${err}` }, { status: 500 });
-    }
-
-    const data = await response.json();
-    const analysis = data.choices?.[0]?.message?.content ?? "";
     return NextResponse.json({ analysis });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Bilinmeyen hata";

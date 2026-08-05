@@ -5,6 +5,7 @@ import { BLOG_POSTS } from "@/lib/blog-data";
 import { CONTENT_CALENDAR, getNextTarget, getLowScoreTarget, SEO_IMPROVE_THRESHOLD } from "@/lib/content-calendar";
 import { scorePage, saveSeoScore } from "@/lib/seo-scorer";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete } from "@/lib/ai/complete";
 
 const SITE_ORIGIN = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -66,9 +67,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) {
-    return NextResponse.json({ error: "XAI_API_KEY tanımlı değil" }, { status: 500 });
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" }, { status: 500 });
   }
 
   const enc = new TextEncoder();
@@ -152,25 +152,17 @@ SADECE bu JSON formatında yanıt ver:
   "seoKeyword": "${keyword}"
 }`;
 
-        send({ type: "progress", message: "▶ Grok-3 makaleyi yazıyor... (Bu işlem ~45sn sürebilir)", progress: 20 });
-        const grokRes = await fetch("https://api.x.ai/v1/chat/completions", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Authorization: `Bearer ${xaiKey}` },
-          body: JSON.stringify({
-            model: "grok-3",
-            messages: [
-              { role: "system", content: "Sen camiihalisi.com için blog içerikleri üreten uzman SEO içerik yazarısın. SADECE geçerli JSON döndürürsün." },
-              { role: "user", content: blogPrompt },
-            ],
-            temperature: 0.65,
-            max_tokens: 4500,
-          }),
+        send({ type: "progress", message: "▶ AI makaleyi yazıyor... (Bu işlem ~45sn sürebilir)", progress: 20 });
+        const { content: rawContent } = await aiComplete({
+          messages: [
+            { role: "system", content: "Sen camiihalisi.com için blog içerikleri üreten uzman SEO içerik yazarısın. SADECE geçerli JSON döndürürsün." },
+            { role: "user", content: blogPrompt },
+          ],
+          temperature: 0.65,
+          maxTokens: 4500,
         });
 
-        if (!grokRes.ok) throw new Error(`AI hatası: ${grokRes.status}`);
-        
-        const grokData = await grokRes.json();
-        let raw = grokData.choices?.[0]?.message?.content ?? "";
+        let raw = rawContent;
         const jsonMatch = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
         if (jsonMatch) raw = jsonMatch[1];
         const firstBrace = raw.indexOf("{");
@@ -276,7 +268,8 @@ SADECE bu JSON formatında yanıt ver:
           { code: "en", name: "English" },
           { code: "de", name: "German" },
           { code: "ar", name: "Arabic (MSA)" },
-          { code: "fr", name: "French" }
+          { code: "fr", name: "French" },
+          { code: "ru", name: "Russian" }
         ];
 
         for (let i = 0; i < locales.length; i++) {
@@ -300,38 +293,27 @@ SADECE bu JSON formatında yanıt ver:
               JSON.stringify(fieldsToTranslate, null, 2),
             ].join("\n");
 
-            const tRes = await fetch("https://api.x.ai/v1/chat/completions", {
-              method: "POST",
-              headers: { "Content-Type": "application/json", Authorization: `Bearer ${xaiKey}` },
-              body: JSON.stringify({
-                model: "grok-3",
-                messages: [{ role: "user", content: prompt }],
-                temperature: 0.2,
-                response_format: { type: "json_object" },
-              }),
+            const { content: tRaw0 } = await aiComplete({
+              messages: [{ role: "user", content: prompt }],
+              temperature: 0.2,
+              json: true,
             });
+            let tRaw = tRaw0;
+            const tMatch = tRaw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+            if (tMatch) tRaw = tMatch[1];
+            const translation = JSON.parse(tRaw);
 
-            if (tRes.ok) {
-              const tData = await tRes.json();
-              let tRaw = tData.choices?.[0]?.message?.content ?? "{}";
-              const tMatch = tRaw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-              if (tMatch) tRaw = tMatch[1];
-              const translation = JSON.parse(tRaw);
-
-              // Save to DB
-              const row = await prisma.setting.findUnique({ where: { key: "blog_translations" } });
-              const existing = row ? JSON.parse(row.value) : {};
-              if (!existing[savedSlug]) existing[savedSlug] = {};
-              existing[savedSlug][loc.code] = { ...(existing[savedSlug][loc.code] ?? {}), ...translation };
-              await prisma.setting.upsert({
-                where: { key: "blog_translations" },
-                create: { key: "blog_translations", value: JSON.stringify(existing) },
-                update: { value: JSON.stringify(existing) },
-              });
-              send({ type: "progress", message: `  ✓ ${loc.name} çevirisi tamamlandı.`, progress: 75 + (i * 5) + 4 });
-            } else {
-              send({ type: "progress", message: `  ✗ ${loc.name} çevirisi başarısız.`, progress: 75 + (i * 5) + 4 });
-            }
+            // Save to DB
+            const row = await prisma.setting.findUnique({ where: { key: "blog_translations" } });
+            const existing = row ? JSON.parse(row.value) : {};
+            if (!existing[savedSlug]) existing[savedSlug] = {};
+            existing[savedSlug][loc.code] = { ...(existing[savedSlug][loc.code] ?? {}), ...translation };
+            await prisma.setting.upsert({
+              where: { key: "blog_translations" },
+              create: { key: "blog_translations", value: JSON.stringify(existing) },
+              update: { value: JSON.stringify(existing) },
+            });
+            send({ type: "progress", message: `  ✓ ${loc.name} çevirisi tamamlandı.`, progress: 75 + (i * 5) + 4 });
           } catch (e) {
             send({ type: "progress", message: `  ✗ ${loc.name} çevirisi sırasında hata.`, progress: 75 + (i * 5) + 4 });
           }

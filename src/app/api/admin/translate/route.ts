@@ -7,6 +7,7 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete } from "@/lib/ai/complete";
 
 function isAuthorized(req: NextRequest): boolean {
   const authHeader = req.headers.get("authorization");
@@ -25,6 +26,7 @@ const LOCALE_NAMES: Record<string, string> = {
   ar: "Arabic",
   fr: "French",
   tr: "Turkish",
+  ru: "Russian",
 };
 
 export async function POST(req: NextRequest) {
@@ -32,9 +34,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Yetkisiz" }, { status: 401 });
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) {
-    return NextResponse.json({ error: "XAI_API_KEY tanımlı değil" }, { status: 500 });
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" }, { status: 500 });
   }
 
   let body: { namespace?: string; content?: Record<string, string>; targetLocales?: string[] };
@@ -70,28 +71,11 @@ export async function POST(req: NextRequest) {
     ].join("\n");
 
     try {
-      const response = await fetch("https://api.x.ai/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${xaiKey}`,
-        },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: prompt }],
-          model: "grok-3",
-          response_format: { type: "json_object" },
-          temperature: 0.2,
-        }),
+      const { content: raw } = await aiComplete({
+        messages: [{ role: "user", content: prompt }],
+        json: true,
+        temperature: 0.2,
       });
-
-      if (!response.ok) {
-        const errText = await response.text();
-        results[locale] = { _error: `Grok API hatası: ${response.status} — ${errText.slice(0, 200)}` };
-        continue;
-      }
-
-      const data = await response.json();
-      const raw = data.choices?.[0]?.message?.content ?? "{}";
       try {
         results[locale] = JSON.parse(raw);
       } catch {

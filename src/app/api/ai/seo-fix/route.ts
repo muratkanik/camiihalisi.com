@@ -6,14 +6,16 @@
  */
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete } from "@/lib/ai/complete";
 
 export async function POST(req: Request) {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) return NextResponse.json({ error: "XAI_API_KEY tanımlı değil" }, { status: 500 });
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" }, { status: 500 });
+  }
 
   const { keyword, title, metaTitle, metaDescription, content, issues } = await req.json();
   if (!issues?.length) return NextResponse.json({ fix: {} });
@@ -60,21 +62,12 @@ Kurallar:
 - Doğal, bilgilendirici, ikna edici ton`;
 
   try {
-    const res = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${xaiKey}` },
-      body: JSON.stringify({
-        model: "grok-3",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.3,
-        response_format: { type: "json_object" },
-      }),
+    const { content: raw0 } = await aiComplete({
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.3,
+      json: true,
     });
-
-    if (!res.ok) return NextResponse.json({ error: `AI hatası: ${res.status}` }, { status: 500 });
-
-    const data = await res.json();
-    let raw = data.choices?.[0]?.message?.content ?? "{}";
+    let raw = raw0;
     const match = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
     if (match) raw = match[1];
 

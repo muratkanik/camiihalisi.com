@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete } from "@/lib/ai/complete";
 
 export async function POST(req: Request) {
   if (!(await isAdminAuthenticated())) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) return NextResponse.json({ error: "XAI_API_KEY tanımlı değil" }, { status: 500 });
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" }, { status: 500 });
+  }
 
   const { keyword, analysis } = await req.json();
   if (!keyword?.trim()) return NextResponse.json({ error: "Anahtar kelime gerekli" }, { status: 400 });
@@ -42,33 +44,18 @@ SADECE aşağıdaki JSON formatında yanıt ver, başka metin ekleme:
 }`;
 
   try {
-    const response = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${xaiKey}`,
-      },
-      body: JSON.stringify({
-        model: "grok-3",
-        messages: [
-          {
-            role: "system",
-            content: "Sen camiihalisi.com için blog içerikleri üreten uzman bir SEO içerik yazarısın. Her zaman SADECE geçerli JSON formatında yanıt verirsin, başka metin eklemezsin.",
-          },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.7,
-        max_tokens: 4000,
-      }),
+    const { content: rawResult } = await aiComplete({
+      messages: [
+        {
+          role: "system",
+          content: "Sen camiihalisi.com için blog içerikleri üreten uzman bir SEO içerik yazarısın. Her zaman SADECE geçerli JSON formatında yanıt verirsin, başka metin eklemezsin.",
+        },
+        { role: "user", content: prompt },
+      ],
+      temperature: 0.7,
+      maxTokens: 4000,
     });
-
-    if (!response.ok) {
-      const err = await response.text();
-      return NextResponse.json({ error: `AI hatası: ${response.status} — ${err}` }, { status: 500 });
-    }
-
-    const data = await response.json();
-    let raw = data.choices?.[0]?.message?.content ?? "";
+    let raw = rawResult;
 
     // Extract JSON from response (AI sometimes wraps in ```json```)
     const jsonMatch = raw.match(/```json\s*([\s\S]*?)\s*```/) || raw.match(/```\s*([\s\S]*?)\s*```/);

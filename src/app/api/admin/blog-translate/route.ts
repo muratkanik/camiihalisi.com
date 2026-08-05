@@ -7,12 +7,14 @@
  */
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete } from "@/lib/ai/complete";
 
 const LOCALE_NAMES: Record<string, string> = {
   en: "English",
   de: "German",
   ar: "Arabic (Modern Standard Arabic, MSA)",
   fr: "French",
+  ru: "Russian",
 };
 
 async function isAdmin(): Promise<boolean> {
@@ -29,9 +31,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Yetkisiz" }, { status: 401 });
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) {
-    return NextResponse.json({ error: "XAI_API_KEY tanımlı değil" }, { status: 500 });
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
+    return NextResponse.json({ error: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" }, { status: 500 });
   }
 
   let body: {
@@ -74,30 +75,18 @@ export async function POST(req: NextRequest) {
   ].join("\n");
 
   try {
-    const grokRes = await fetch("https://api.x.ai/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${xaiKey}`,
-      },
-      body: JSON.stringify({
-        model: "grok-3",
+    let raw: string;
+    try {
+      const result = await aiComplete({
         messages: [{ role: "user", content: prompt }],
         temperature: 0.2,
-        response_format: { type: "json_object" },
-      }),
-    });
-
-    if (!grokRes.ok) {
-      const errText = await grokRes.text();
-      return NextResponse.json(
-        { error: `Grok API hatası: ${grokRes.status} — ${errText.slice(0, 200)}` },
-        { status: 500 }
-      );
+        json: true,
+      });
+      raw = result.content;
+    } catch (aiErr: unknown) {
+      const msg = aiErr instanceof Error ? aiErr.message : String(aiErr);
+      return NextResponse.json({ error: msg }, { status: 500 });
     }
-
-    const data = await grokRes.json();
-    let raw = data.choices?.[0]?.message?.content ?? "{}";
 
     // Strip code fence if present
     const match = raw.match(/```(?:json)?\s*([\s\S]*?)\s*```/);

@@ -12,6 +12,7 @@
  */
 import { NextRequest } from "next/server";
 import { isAdminAuthenticated } from "@/lib/auth";
+import { aiComplete, aiCompleteStream } from "@/lib/ai/complete";
 
 export const maxDuration = 300; // 5 minutes to allow for 3 AI calls (Generate -> Humanize -> Checker)
 
@@ -39,10 +40,9 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const xaiKey = process.env.XAI_API_KEY;
-  if (!xaiKey) {
+  if (!process.env.XAI_API_KEY && !process.env.OPENROUTER_API_KEY) {
     return new Response(
-      `data: ${JSON.stringify({ type: "error", message: "XAI_API_KEY tanımlı değil" })}\n\n`,
+      `data: ${JSON.stringify({ type: "error", message: "XAI_API_KEY veya OPENROUTER_API_KEY tanımlı değil" })}\n\n`,
       { status: 500, headers: { "Content-Type": "text/event-stream" } }
     );
   }
@@ -83,17 +83,12 @@ export async function POST(req: NextRequest) {
         const kw = keyword.trim() || title.trim();
         const prompt = buildPrompt(title.trim(), kw);
 
-        send({ type: "progress", message: "🤖 Grok-3 yazıyor... (bu 30-60 saniye sürebilir)", progress: 15 });
+        send({ type: "progress", message: "🤖 AI yazıyor... (bu 30-60 saniye sürebilir)", progress: 15 });
 
-        // ── Grok-3 Streaming ────────────────────────────────────────────────
-        const grokRes = await fetch("https://api.x.ai/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${xaiKey}`,
-          },
-          body: JSON.stringify({
-            model: "grok-3",
+        // ── Streaming (XAI → OpenRouter yedekli) ────────────────────────────
+        let streamBody: ReadableStream<Uint8Array>;
+        try {
+          const streamResult = await aiCompleteStream({
             messages: [
               {
                 role: "system",
@@ -103,14 +98,15 @@ export async function POST(req: NextRequest) {
               { role: "user", content: prompt },
             ],
             temperature: 0.7,
-            max_tokens: 5000,
-            stream: true,
-          }),
-        });
-
-        if (!grokRes.ok) {
-          const errText = await grokRes.text();
-          send({ type: "error", message: `Grok API hatası: ${grokRes.status} — ${errText.slice(0, 200)}` });
+            maxTokens: 5000,
+          });
+          streamBody = streamResult.body;
+          if (streamResult.provider !== "xai") {
+            send({ type: "progress", message: `ℹ️ XAI kullanılamadı, ${streamResult.provider} üzerinden devam ediliyor...`, progress: 16 });
+          }
+        } catch (streamErr: unknown) {
+          const msg = streamErr instanceof Error ? streamErr.message : String(streamErr);
+          send({ type: "error", message: `AI API hatası: ${msg}` });
           controller.close();
           return;
         }
@@ -118,7 +114,7 @@ export async function POST(req: NextRequest) {
         // Read streaming response
         let rawContent = "";
         let tokenCount = 0;
-        const reader = grokRes.body!.getReader();
+        const reader = streamBody.getReader();
         const decoder = new TextDecoder();
         let buffer = "";
 
@@ -180,31 +176,19 @@ export async function POST(req: NextRequest) {
 
         // ── Stage 2: Humanize ────────────────────────────────────────────────
         try {
-          const humanizeRes = await fetch("https://api.x.ai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${xaiKey}`,
-            },
-            body: JSON.stringify({
-              model: "grok-3",
-              messages: [
-                {
-                  role: "system",
-                  content: "Sen uzman bir metin editörü ve içerik stratejistisin. Görevin, SEO uyumlu olarak üretilmiş, ancak biraz 'robotik' veya 'suni' durabilecek blog içeriğini %100 doğal, akıcı, samimi ve insansı (human-like) bir dile çevirmektir. Marka (Asil Halı) ciddiyetini korurken, okuyucuyla doğrudan konuşuyormuş gibi bir his yarat. HTML/Markdown başlık (##) yapısını ve SEO kelimelerini KESİNLİKLE BOZMA. Asla başına veya sonuna 'Tamamdır', 'İşte metin' gibi açıklamalar ekleme, SADECE düzeltilmiş metni döndür.",
-                },
-                { role: "user", content: `Lütfen bu içeriği insanileştir:\n\n${blogData.content}` },
-              ],
-              temperature: 0.8,
-            }),
+          const { content: hContent0 } = await aiComplete({
+            messages: [
+              {
+                role: "system",
+                content: "Sen uzman bir metin editörü ve içerik stratejistisin. Görevin, SEO uyumlu olarak üretilmiş, ancak biraz 'robotik' veya 'suni' durabilecek blog içeriğini %100 doğal, akıcı, samimi ve insansı (human-like) bir dile çevirmektir. Marka (Asil Halı) ciddiyetini korurken, okuyucuyla doğrudan konuşuyormuş gibi bir his yarat. HTML/Markdown başlık (##) yapısını ve SEO kelimelerini KESİNLİKLE BOZMA. Asla başına veya sonuna 'Tamamdır', 'İşte metin' gibi açıklamalar ekleme, SADECE düzeltilmiş metni döndür.",
+              },
+              { role: "user", content: `Lütfen bu içeriği insanileştir:\n\n${blogData.content}` },
+            ],
+            temperature: 0.8,
           });
-          
-          if (humanizeRes.ok) {
-            const humanizeData = await humanizeRes.json();
-            const hContent = humanizeData.choices?.[0]?.message?.content?.trim();
-            if (hContent && hContent.length > 50) {
-              blogData.content = hContent;
-            }
+          const hContent = hContent0.trim();
+          if (hContent && hContent.length > 50) {
+            blogData.content = hContent;
           }
         } catch (hErr) {
           console.error("Humanize error:", hErr);
@@ -215,31 +199,19 @@ export async function POST(req: NextRequest) {
 
         // ── Stage 3: AI Checker ──────────────────────────────────────────────
         try {
-          const checkerRes = await fetch("https://api.x.ai/v1/chat/completions", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${xaiKey}`,
-            },
-            body: JSON.stringify({
-              model: "grok-3",
-              messages: [
-                {
-                  role: "system",
-                  content: "Sen üst düzey bir Kalite Kontrol ve Yazı İşleri (AI Checker) yöneticisisin. Sana gönderilen metni son bir kez inceleyeceksin. \n1. Varsa yarım kalmış cümleleri tamamla.\n2. Kapanmamış Markdown (**) veya başlık (##) etiketleri varsa düzelt.\n3. Yazımda çok göze batan mantık hatası veya tekrarlar varsa törpüle.\nEğer her şey mükemmelse metni AYNEN geri döndür. Asla başına veya sonuna kendi yorumunu ekleme, SADECE nihai metni ver.",
-                },
-                { role: "user", content: `Kontrol edilecek metin:\n\n${blogData.content}` },
-              ],
-              temperature: 0.3,
-            }),
+          const { content: cContent0 } = await aiComplete({
+            messages: [
+              {
+                role: "system",
+                content: "Sen üst düzey bir Kalite Kontrol ve Yazı İşleri (AI Checker) yöneticisisin. Sana gönderilen metni son bir kez inceleyeceksin. \n1. Varsa yarım kalmış cümleleri tamamla.\n2. Kapanmamış Markdown (**) veya başlık (##) etiketleri varsa düzelt.\n3. Yazımda çok göze batan mantık hatası veya tekrarlar varsa törpüle.\nEğer her şey mükemmelse metni AYNEN geri döndür. Asla başına veya sonuna kendi yorumunu ekleme, SADECE nihai metni ver.",
+              },
+              { role: "user", content: `Kontrol edilecek metin:\n\n${blogData.content}` },
+            ],
+            temperature: 0.3,
           });
-          
-          if (checkerRes.ok) {
-            const checkerData = await checkerRes.json();
-            const cContent = checkerData.choices?.[0]?.message?.content?.trim();
-            if (cContent && cContent.length > 50) {
-              blogData.content = cContent;
-            }
+          const cContent = cContent0.trim();
+          if (cContent && cContent.length > 50) {
+            blogData.content = cContent;
           }
         } catch (cErr) {
           console.error("Checker error:", cErr);
