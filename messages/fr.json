@@ -1650,5 +1650,34 @@
       "profesyonel": "Professionnel",
       "ozelSiparis": "Commande Spéciale"
     }
+  },
+  "desenGalerisi": {
+    "labels": {
+      "all": "Tous",
+      "enlarge": "Agrandir",
+      "detail": "Détail",
+      "productDetail": "Détail Produit",
+      "changeColor": "Changer la Couleur",
+      "loadMore": "Voir Plus",
+      "remaining": "motifs restants",
+      "patterns": "motifs"
+    },
+    "categories": {
+      "acrylic-mosque-carpet": "Acrylique",
+      "akrilik-cami-halilari": "Tapis Acryliques",
+      "akrilik-cami-halisi": "Motif Acrylique",
+      "border-mosque-carpet": "Bordé",
+      "cami-halilari-deseni": "Motif de Tapis",
+      "cami-halisi-desenleri": "Motifs de Tapis",
+      "cami-halisi-modeli": "Modèle de Tapis",
+      "modern-cami-halisi-modelleri": "Moderne",
+      "modern-mosque-carpet-designs": "Design Moderne",
+      "mosque-carpet-model": "Modèle Tapis",
+      "mosque-carpet-patterns": "Motif Tapis",
+      "mosque-carpets-lined": "Motif en Lignes",
+      "rowed-mosque-carpet": "En Rangée",
+      "safli-cami-halilari": "Tapis à Lignes",
+      "safli-cami-halisi": "Tapis à Lignes"
+    }
   }
 }

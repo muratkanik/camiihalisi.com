@@ -1650,5 +1650,34 @@
       "profesyonel": "Professional",
       "ozelSiparis": "Custom Order"
     }
+  },
+  "desenGalerisi": {
+    "labels": {
+      "all": "All",
+      "enlarge": "Enlarge",
+      "detail": "Detail",
+      "productDetail": "Product Detail",
+      "changeColor": "Change Colour",
+      "loadMore": "Load More",
+      "remaining": "patterns left",
+      "patterns": "patterns"
+    },
+    "categories": {
+      "acrylic-mosque-carpet": "Acrylic",
+      "akrilik-cami-halilari": "Acrylic Carpets",
+      "akrilik-cami-halisi": "Acrylic Pattern",
+      "border-mosque-carpet": "Bordered",
+      "cami-halilari-deseni": "Carpet Pattern",
+      "cami-halisi-desenleri": "Carpet Patterns",
+      "cami-halisi-modeli": "Carpet Model",
+      "modern-cami-halisi-modelleri": "Modern",
+      "modern-mosque-carpet-designs": "Modern Design",
+      "mosque-carpet-model": "Carpet Model",
+      "mosque-carpet-patterns": "Carpet Pattern",
+      "mosque-carpets-lined": "Row-Pattern",
+      "rowed-mosque-carpet": "Rowed",
+      "safli-cami-halilari": "Row-Pattern Carpets",
+      "safli-cami-halisi": "Row-Pattern Carpet"
+    }
   }
 }

@@ -1650,5 +1650,34 @@
       "profesyonel": "Профессиональный",
       "ozelSiparis": "Спецзаказ"
     }
+  },
+  "desenGalerisi": {
+    "labels": {
+      "all": "Все",
+      "enlarge": "Увеличить",
+      "detail": "Детали",
+      "productDetail": "Детали товара",
+      "changeColor": "Изменить цвет",
+      "loadMore": "Показать ещё",
+      "remaining": "узоров осталось",
+      "patterns": "узоров"
+    },
+    "categories": {
+      "acrylic-mosque-carpet": "Акриловый",
+      "akrilik-cami-halilari": "Акриловые ковры",
+      "akrilik-cami-halisi": "Акриловый узор",
+      "border-mosque-carpet": "С бордюром",
+      "cami-halilari-deseni": "Узор ковра",
+      "cami-halisi-desenleri": "Узоры ковров",
+      "cami-halisi-modeli": "Модель ковра",
+      "modern-cami-halisi-modelleri": "Модерн",
+      "modern-mosque-carpet-designs": "Современный дизайн",
+      "mosque-carpet-model": "Модель ковра",
+      "mosque-carpet-patterns": "Узор ковра",
+      "mosque-carpets-lined": "Рядный",
+      "rowed-mosque-carpet": "Рядной",
+      "safli-cami-halilari": "Рядные ковры",
+      "safli-cami-halisi": "Рядный ковер"
+    }
   }
 }

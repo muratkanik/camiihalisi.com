@@ -1650,5 +1650,34 @@
       "profesyonel": "احترافي",
       "ozelSiparis": "طلب خاص"
     }
+  },
+  "desenGalerisi": {
+    "labels": {
+      "all": "الكل",
+      "enlarge": "تكبير",
+      "detail": "تفاصيل",
+      "productDetail": "تفاصيل المنتج",
+      "changeColor": "تغيير اللون",
+      "loadMore": "عرض المزيد",
+      "remaining": "نمط متبقي",
+      "patterns": "نمط"
+    },
+    "categories": {
+      "acrylic-mosque-carpet": "أكريليك",
+      "akrilik-cami-halilari": "سجاد أكريليك",
+      "akrilik-cami-halisi": "نقش أكريليك",
+      "border-mosque-carpet": "بحواف",
+      "cami-halilari-deseni": "نقش السجاد",
+      "cami-halisi-desenleri": "أنماط السجاد",
+      "cami-halisi-modeli": "طراز السجاد",
+      "modern-cami-halisi-modelleri": "عصري",
+      "modern-mosque-carpet-designs": "تصميم عصري",
+      "mosque-carpet-model": "موديل السجاد",
+      "mosque-carpet-patterns": "نمط السجاد",
+      "mosque-carpets-lined": "نقش الصفوف",
+      "rowed-mosque-carpet": "بصفوف",
+      "safli-cami-halilari": "سجاد بنقش الصفوف",
+      "safli-cami-halisi": "سجادة بنقش الصفوف"
+    }
   }
 }

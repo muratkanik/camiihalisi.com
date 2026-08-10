@@ -1650,5 +1650,34 @@
       "profesyonel": "Profesyonel",
       "ozelSiparis": "Özel Sipariş"
     }
+  },
+  "desenGalerisi": {
+    "labels": {
+      "all": "Tümü",
+      "enlarge": "Büyüt",
+      "detail": "Detay",
+      "productDetail": "Ürün Detayı",
+      "changeColor": "Rengini Değiştir",
+      "loadMore": "Daha Fazla Göster",
+      "remaining": "desen kaldı",
+      "patterns": "desen"
+    },
+    "categories": {
+      "acrylic-mosque-carpet": "Akrilik",
+      "akrilik-cami-halilari": "Akrilik Halılar",
+      "akrilik-cami-halisi": "Akrilik Desen",
+      "border-mosque-carpet": "Bordürlü",
+      "cami-halilari-deseni": "Halı Deseni",
+      "cami-halisi-desenleri": "Halı Desenleri",
+      "cami-halisi-modeli": "Halı Modeli",
+      "modern-cami-halisi-modelleri": "Modern",
+      "modern-mosque-carpet-designs": "Modern Desen",
+      "mosque-carpet-model": "Halı Model",
+      "mosque-carpet-patterns": "Halı Desen",
+      "mosque-carpets-lined": "Saflı",
+      "rowed-mosque-carpet": "Sıralı",
+      "safli-cami-halilari": "Saflı Halılar",
+      "safli-cami-halisi": "Saflı Halı"
+    }
   }
 }

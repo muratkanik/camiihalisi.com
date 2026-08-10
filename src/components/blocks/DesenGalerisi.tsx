@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { X, ChevronLeft, ChevronRight, Palette, ExternalLink, Filter, Eye } from "lucide-react";
 
 interface DesenItem {
@@ -12,39 +13,6 @@ interface DesenItem {
   altText: string;
   category?: string;
 }
-
-/* ── Çeviri Sözlüğü ── */
-const GT: Record<string, Record<string, string>> = {
-  tr: { all: "Tümü", enlarge: "Büyüt", detail: "Detay", productDetail: "Ürün Detayı", changeColor: "Rengini Değiştir", loadMore: "Daha Fazla Göster", remaining: "desen kaldı", patterns: "desen" },
-  en: { all: "All", enlarge: "Enlarge", detail: "Detail", productDetail: "Product Detail", changeColor: "Change Colour", loadMore: "Load More", remaining: "patterns left", patterns: "patterns" },
-  ar: { all: "الكل", enlarge: "تكبير", detail: "تفاصيل", productDetail: "تفاصيل المنتج", changeColor: "تغيير اللون", loadMore: "عرض المزيد", remaining: "نمط متبقي", patterns: "نمط" },
-  fr: { all: "Tous", enlarge: "Agrandir", detail: "Détail", productDetail: "Détail Produit", changeColor: "Changer la Couleur", loadMore: "Voir Plus", remaining: "motifs restants", patterns: "motifs" },
-  de: { all: "Alle", enlarge: "Vergrößern", detail: "Detail", productDetail: "Produktdetail", changeColor: "Farbe Ändern", loadMore: "Mehr Anzeigen", remaining: "Muster übrig", patterns: "Muster" },
-};
-
-function gt(locale: string, key: string): string {
-  const dict = GT[locale] || GT.tr;
-  return dict[key] || GT.tr[key] || key;
-}
-
-// Kategori etiketleri
-const CATEGORY_LABELS: Record<string, string> = {
-  "acrylic-mosque-carpet": "Akrilik",
-  "akrilik-cami-halilari": "Akrilik Halılar",
-  "akrilik-cami-halisi": "Akrilik Desen",
-  "border-mosque-carpet": "Bordürlü",
-  "cami-halilari-deseni": "Halı Deseni",
-  "cami-halisi-desenleri": "Halı Desenleri",
-  "cami-halisi-modeli": "Halı Modeli",
-  "modern-cami-halisi-modelleri": "Modern",
-  "modern-mosque-carpet-designs": "Modern Desen",
-  "mosque-carpet-model": "Halı Model",
-  "mosque-carpet-patterns": "Halı Desen",
-  "mosque-carpets-lined": "Saflı",
-  "rowed-mosque-carpet": "Sıralı",
-  "safli-cami-halilari": "Saflı Halılar",
-  "safli-cami-halisi": "Saflı Halı",
-};
 
 interface DesenGalerisiProps {
   items: DesenItem[];
@@ -56,7 +24,9 @@ interface DesenGalerisiProps {
   locale?: string;
 }
 
-export default function DesenGalerisi({ items, prefix, title, subtitle, showCategoryFilter = true, categorySlug = "safli-akrilik-cami-halisi", locale = "tr" }: DesenGalerisiProps) {
+export default function DesenGalerisi({ items, prefix, title, subtitle, showCategoryFilter = true, categorySlug = "safli-akrilik-cami-halisi" }: DesenGalerisiProps) {
+  const t = useTranslations("desenGalerisi.labels");
+  const tCat = useTranslations("desenGalerisi.categories");
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [visibleCount, setVisibleCount] = useState(24);
@@ -115,7 +85,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
           <div className="gold-line mb-3" />
           {subtitle && <p className="text-sm text-[#6B6355]">{subtitle}</p>}
           <p className="text-xs text-[#0097A7] font-semibold mt-2">
-            {filteredItems.length} {gt(locale, "patterns")}
+            {filteredItems.length} {t("patterns")}
           </p>
         </div>
       )}
@@ -132,7 +102,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
                 : "bg-[#E0F7FA] text-[#0097A7] hover:bg-[#B2EBF2]"
             }`}
           >
-            {gt(locale, "all")} ({items.length})
+            {t("all")} ({items.length})
           </button>
           {categories.map(cat => {
             const count = items.filter(i => i.category === cat).length;
@@ -146,7 +116,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
                     : "bg-[#E0F7FA] text-[#0097A7] hover:bg-[#B2EBF2]"
                 }`}
               >
-                {CATEGORY_LABELS[cat] || cat} ({count})
+                {tCat.has(cat) ? tCat(cat) : cat} ({count})
               </button>
             );
           })}
@@ -174,7 +144,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
                   onClick={() => openLightbox(idx)}
                   className="px-2.5 py-1 bg-white/20 hover:bg-white/30 text-white rounded-lg text-[10px] font-semibold backdrop-blur-sm transition-colors flex items-center gap-1"
                 >
-                  <Eye className="w-3 h-3" /> {gt(locale, "enlarge")}
+                  <Eye className="w-3 h-3" /> {t("enlarge")}
                 </button>
               </div>
             </div>
@@ -189,7 +159,7 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
             onClick={loadMore}
             className="px-6 py-3 bg-[#0097A7] hover:bg-[#007A88] text-white rounded-xl font-semibold text-sm transition-colors shadow-md"
           >
-            {gt(locale, "loadMore")} ({filteredItems.length - displayedItems.length} {gt(locale, "remaining")})
+            {t("loadMore")} ({filteredItems.length - displayedItems.length} {t("remaining")})
           </button>
         </div>
       )}
@@ -226,14 +196,14 @@ export default function DesenGalerisi({ items, prefix, title, subtitle, showCate
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#0097A7] hover:bg-[#007A88] text-white rounded-xl text-sm font-semibold transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  {gt(locale, "productDetail")}
+                  {t("productDetail")}
                 </Link>
                 <Link
                   href={`${prefix}/renk-demo?imageUrl=${encodeURIComponent(activeItem.image)}&motifName=${encodeURIComponent(activeItem.name)}`}
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#C9972B] hover:bg-[#B8860B] text-white rounded-xl text-sm font-semibold transition-colors"
                 >
                   <Palette className="w-4 h-4" />
-                  {gt(locale, "changeColor")}
+                  {t("changeColor")}
                 </Link>
               </div>
               <p className="text-white/40 text-xs">

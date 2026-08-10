@@ -1650,5 +1650,34 @@
       "profesyonel": "Professionell",
       "ozelSiparis": "Sonderanfertigung"
     }
+  },
+  "desenGalerisi": {
+    "labels": {
+      "all": "Alle",
+      "enlarge": "Vergrößern",
+      "detail": "Detail",
+      "productDetail": "Produktdetail",
+      "changeColor": "Farbe Ändern",
+      "loadMore": "Mehr Anzeigen",
+      "remaining": "Muster übrig",
+      "patterns": "Muster"
+    },
+    "categories": {
+      "acrylic-mosque-carpet": "Acryl",
+      "akrilik-cami-halilari": "Acrylteppiche",
+      "akrilik-cami-halisi": "Acryl-Muster",
+      "border-mosque-carpet": "Umrandet",
+      "cami-halilari-deseni": "Teppichmuster",
+      "cami-halisi-desenleri": "Teppichmuster",
+      "cami-halisi-modeli": "Teppichmodell",
+      "modern-cami-halisi-modelleri": "Modern",
+      "modern-mosque-carpet-designs": "Modernes Design",
+      "mosque-carpet-model": "Teppichmodell",
+      "mosque-carpet-patterns": "Teppichmuster",
+      "mosque-carpets-lined": "Reihen-Muster",
+      "rowed-mosque-carpet": "Gereiht",
+      "safli-cami-halilari": "Reihen-Teppiche",
+      "safli-cami-halisi": "Reihen-Teppich"
+    }
   }
 }
