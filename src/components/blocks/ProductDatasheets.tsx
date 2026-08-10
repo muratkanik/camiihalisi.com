@@ -85,6 +85,7 @@ const FALLBACK_COMMON: CommonData = {
 const COPY: Record<Locale, {
   eyebrow: string;
   title: string;
+  materialName: string;
   description: string;
   code: string;
   height: string;
@@ -109,6 +110,7 @@ const COPY: Record<Locale, {
   tr: {
     eyebrow: "Teknik dokümanlar",
     title: "Teknik Veri Föyleri",
+    materialName: "Akrilik",
     description: "Akrilik cami halısı kalite ve model kodlarına göre teknik özellikleri karşılaştırın. Her kartta üretim yöntemi, dokuma değerleri, ürün açıklaması, performans özellikleri ve kullanım bilgileri yer alır.",
     code: "Kalite / model kodu",
     height: "Hav yüksekliği",
@@ -133,6 +135,7 @@ const COPY: Record<Locale, {
   en: {
     eyebrow: "Technical documents",
     title: "Technical Data Sheets",
+    materialName: "Acrylic",
     description: "Compare acrylic mosque carpet specifications by quality and model code. Each card includes manufacturing method, weaving values, product description, performance features, and usage information.",
     code: "Quality / model code",
     height: "Pile height",
@@ -157,6 +160,7 @@ const COPY: Record<Locale, {
   de: {
     eyebrow: "Technische Dokumente",
     title: "Technische Datenblätter",
+    materialName: "Acryl",
     description: "Vergleichen Sie die technischen Eigenschaften nach Qualitäts- und Modellcode.",
     code: "Qualitäts- / Modellcode",
     height: "Polhöhe",
@@ -181,6 +185,7 @@ const COPY: Record<Locale, {
   fr: {
     eyebrow: "Documents techniques",
     title: "Fiches Techniques",
+    materialName: "Acrylique",
     description: "Comparez les caractéristiques techniques par code qualité et modèle.",
     code: "Code qualité / modèle",
     height: "Hauteur de velours",
@@ -205,6 +210,7 @@ const COPY: Record<Locale, {
   ar: {
     eyebrow: "الوثائق الفنية",
     title: "النشرات الفنية",
+    materialName: "أكريليك",
     description: "قارن المواصفات الفنية حسب رمز الجودة والطراز.",
     code: "رمز الجودة / الطراز",
     height: "ارتفاع الوبر",
@@ -229,6 +235,7 @@ const COPY: Record<Locale, {
   ru: {
     eyebrow: "Технические документы",
     title: "Технические паспорта",
+    materialName: "Акрил",
     description: "Сравните характеристики акриловых ковров для мечетей по качеству и коду модели. Каждая карточка включает метод производства, параметры ткачества, описание продукта, эксплуатационные характеристики и информацию об использовании.",
     code: "Качество / код модели",
     height: "Высота ворса",
@@ -260,9 +267,9 @@ function buildProductsJsonLd(products: Product[], common: CommonData, locale: Lo
     "@graph": products.map((p) => ({
       "@type": "Product",
       "@id": `${SITE_URL}/kategori/akrilik-cami-halisi#akrilik-${p.code}`,
-      name: `Akrilik Cami Halısı ${p.code}`,
+      name: `${copy.materialName} ${p.code}`,
       sku: p.code,
-      category: "Cami Halısı > Akrilik Cami Halısı",
+      category: `Cami Halısı > ${copy.materialName}`,
       material: common.pileYarn[locale],
       brand: { "@type": "Brand", name: "Asil Halı" },
       manufacturer: { "@type": "Organization", name: "Asil Halı A.Ş.", url: "https://www.asilhali.com.tr" },
@@ -325,6 +332,7 @@ export default async function ProductDatasheets({ locale }: { locale: string }) 
               common={common}
               locale={activeLocale}
               labels={{
+                materialName: copy.materialName,
                 code: copy.code,
                 height: copy.height,
                 pitch: copy.pitch,

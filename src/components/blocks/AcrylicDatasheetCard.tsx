@@ -43,6 +43,7 @@ type TabCopy = {
 };
 
 type FieldLabels = {
+  materialName: string;
   code: string;
   height: string;
   pitch: string;
@@ -86,7 +87,7 @@ export default function AcrylicDatasheetCard({
       >
         <span>
           <span className="block text-xs uppercase tracking-wider text-[#0097A7] font-semibold">{labels.code}</span>
-          <span className="block text-2xl font-bold text-[#003B40] mt-1">Akrilik {product.code}</span>
+          <span className="block text-2xl font-bold text-[#003B40] mt-1">{labels.materialName} {product.code}</span>
         </span>
         <span className="flex items-center gap-2 flex-shrink-0">
           <FileText className="w-6 h-6 text-[#C9972B]" aria-hidden="true" />
