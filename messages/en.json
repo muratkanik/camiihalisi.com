@@ -265,7 +265,9 @@
     "save": "Save",
     "cancel": "Cancel",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "whatsappCta": "Message on WhatsApp",
+    "whatsappAriaLabel": "Contact via WhatsApp"
   },
   "menu": {
     "carpetTitle": "Mosque Carpet",

@@ -265,7 +265,9 @@
     "save": "Сохранить",
     "cancel": "Отмена",
     "yes": "Да",
-    "no": "Нет"
+    "no": "Нет",
+    "whatsappCta": "Написать в WhatsApp",
+    "whatsappAriaLabel": "Связаться через WhatsApp"
   },
   "menu": {
     "carpetTitle": "Ковры для мечетей",

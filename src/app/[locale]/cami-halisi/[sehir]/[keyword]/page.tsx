@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { ChevronRight, ExternalLink, MessageCircle, Check } from "lucide-react";
 
@@ -78,6 +78,7 @@ export default async function CityKeywordPage({
 }) {
   const { locale, sehir, keyword } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("common");
 
   const city = getCityBySlug(sehir);
   const kw = await getKeyword(sehir, keyword);
@@ -127,7 +128,7 @@ export default async function CityKeywordPage({
               <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-3 px-6 rounded-xl transition-colors">
                 <MessageCircle className="w-4 h-4" />
-                WhatsApp ile Yazın
+                {t("whatsappCta")}
               </a>
               <Link href={`${prefix}/cami-halisi/${sehir}`}
                 className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white font-semibold py-3 px-6 rounded-xl transition-colors">
@@ -191,7 +192,7 @@ export default async function CityKeywordPage({
                   <a href={WA_URL} target="_blank" rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebe5d] text-white font-bold py-3.5 px-6 rounded-xl transition-colors w-full">
                     <MessageCircle className="w-4 h-4" />
-                    WhatsApp ile Yazın
+                    {t("whatsappCta")}
                   </a>
                   <a href="/api/r?to=https%3A%2F%2Fwww.asilhali.com.tr%3Futm_source%3Dcamiihalisi%26utm_medium%3Dcity-keyword&from=city-keyword&label=main-site&cat=outbound"
                     target="_blank" rel="noopener noreferrer"

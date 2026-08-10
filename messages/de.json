@@ -265,7 +265,9 @@
     "save": "Kaydet",
     "cancel": "İptal",
     "yes": "Evet",
-    "no": "Hayır"
+    "no": "Hayır",
+    "whatsappCta": "Über WhatsApp schreiben",
+    "whatsappAriaLabel": "Kontakt über WhatsApp"
   },
   "menu": {
     "carpetTitle": "Moscheeteppiche",

@@ -265,7 +265,9 @@
     "save": "حفظ",
     "cancel": "إلغاء",
     "yes": "نعم",
-    "no": "لا"
+    "no": "لا",
+    "whatsappCta": "راسلنا عبر واتساب",
+    "whatsappAriaLabel": "تواصل عبر واتساب"
   },
   "menu": {
     "carpetTitle": "سجادة المسجد",

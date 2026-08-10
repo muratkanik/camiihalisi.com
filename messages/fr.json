@@ -265,7 +265,9 @@
     "save": "Enregistrer",
     "cancel": "Annuler",
     "yes": "Oui",
-    "no": "Non"
+    "no": "Non",
+    "whatsappCta": "Écrire sur WhatsApp",
+    "whatsappAriaLabel": "Contact via WhatsApp"
   },
   "menu": {
     "carpetTitle": "Tapis de Mosquée",

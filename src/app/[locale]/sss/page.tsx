@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { ChevronRight, MessageCircleQuestion, Search } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
@@ -251,6 +251,7 @@ export default async function SSSPage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("common");
   const prefix = locale === "tr" ? "" : `/${locale}`;
 
   const totalSorular = SSS_KATEGORILER.reduce((acc, k) => acc + k.sorular.length, 0);
@@ -399,7 +400,7 @@ export default async function SSSPage({
                   rel="noopener"
                   className="btn btn-outline"
                 >
-                  WhatsApp ile Yazın
+                  {t("whatsappCta")}
                 </a>
               </div>
             </div>
