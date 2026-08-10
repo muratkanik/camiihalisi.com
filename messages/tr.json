@@ -1627,5 +1627,28 @@
     "600-cami-halisi-kecesi": "600 gr/m² Keçe Altlık",
     "1000-cami-halisi-kecesi": "1000 gr/m² Keçe Altlık",
     "1200-cami-halisi-kecesi": "1200 gr/m² Keçe Altlık"
+  },
+  "categoryFilters": {
+    "patternType": "Desen / Tip",
+    "all": "Tümü",
+    "resultsCount": "<b>{count}</b> ürün çeşidi gösteriliyor",
+    "noResults": "Bu filtrelerle ürün bulunamadı.",
+    "clearFilters": "Filtreleri Temizle",
+    "colorOptions": "{count} Renk Seçeneği",
+    "changeColor": "Rengini Değiştir",
+    "desen": {
+      "Standart": "Standart",
+      "Saflı": "Saflı",
+      "Göbekli": "Göbekli",
+      "Seccadeli": "Seccadeli",
+      "Özel": "Özel"
+    },
+    "badge": {
+      "enCokSatan": "En Çok Satan",
+      "premium": "Premium",
+      "dayanikli": "Dayanıklı",
+      "profesyonel": "Profesyonel",
+      "ozelSiparis": "Özel Sipariş"
+    }
   }
 }

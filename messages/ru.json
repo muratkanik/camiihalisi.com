@@ -1627,5 +1627,28 @@
     "600-cami-halisi-kecesi": "Войлочная подложка 600 г/м²",
     "1000-cami-halisi-kecesi": "Войлочная подложка 1000 г/м²",
     "1200-cami-halisi-kecesi": "Войлочная подложка 1200 г/м²"
+  },
+  "categoryFilters": {
+    "patternType": "Узор / Тип",
+    "all": "Все",
+    "resultsCount": "Показано <b>{count}</b> видов",
+    "noResults": "Нет товаров, соответствующих этим фильтрам.",
+    "clearFilters": "Сбросить Фильтры",
+    "colorOptions": "{count} Вариантов Цвета",
+    "changeColor": "Изменить Цвет",
+    "desen": {
+      "Standart": "Стандартный",
+      "Saflı": "Рядный",
+      "Göbekli": "Медальон",
+      "Seccadeli": "Молитвенный",
+      "Özel": "Индивидуальный"
+    },
+    "badge": {
+      "enCokSatan": "Хит Продаж",
+      "premium": "Премиум",
+      "dayanikli": "Прочный",
+      "profesyonel": "Профессиональный",
+      "ozelSiparis": "Спецзаказ"
+    }
   }
 }

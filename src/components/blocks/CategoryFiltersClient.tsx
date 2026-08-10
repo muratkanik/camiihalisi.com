@@ -3,22 +3,28 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Lightbox from "@/components/ui/Lightbox";
 
 export interface CatalogColor {
-  id: string; 
-  image: string; 
-  hex: string;   
-  name: string;  
+  id: string;
+  image: string;
+  hex: string;
+  name: string;
 }
+
+export type CatalogDesen = "Standart" | "Saflı" | "Göbekli" | "Seccadeli" | "Özel";
+export type CatalogBadgeKey = "enCokSatan" | "premium" | "dayanikli" | "profesyonel" | "ozelSiparis";
 
 export interface DBCatalogItem {
   id: string;
   categorySlug: string;
+  slug?: string;
   code: string;
   title: string;
-  badge: string;
+  badgeKey?: CatalogBadgeKey;
+  badge?: string;
+  desen?: CatalogDesen;
   image?: string;
   colors: CatalogColor[];
 }
@@ -42,10 +48,8 @@ function normalizeItems(items: DBCatalogItem[]): DBCatalogItem[] {
   });
 }
 
-const DESEN_LABELS = ["Tümü", "Saflı", "Göbekli", "Seccadeli", "Standart", "Özel"];
-
-// Sınıflandırma yardımcısı
-function getDesen(title: string, code: string): string {
+// Title/desen bilgisinde açık alan yoksa (eski veri) Türkçe başlıktan tahmin eder.
+function inferDesen(title: string): CatalogDesen {
   const t = title.toLowerCase();
   if (t.includes("saflı")) return "Saflı";
   if (t.includes("göbekli") || t.includes("gobekli")) return "Göbekli";
@@ -54,8 +58,13 @@ function getDesen(title: string, code: string): string {
   return "Standart";
 }
 
+const DESEN_ORDER: CatalogDesen[] = ["Saflı", "Göbekli", "Seccadeli", "Standart", "Özel"];
+
 export default function CategoryFiltersClient({ prefix, items: rawItems }: Props) {
   const items = normalizeItems(rawItems);
+  const t = useTranslations("categoryFilters");
+  const tNames = useTranslations("categoryNames");
+
   const [activeDesen, setActiveDesen] = useState<string>("Tümü");
   const [activeRenk, setActiveRenk] = useState<string | null>(null);
 
@@ -65,13 +74,25 @@ export default function CategoryFiltersClient({ prefix, items: rawItems }: Props
   // Lightbox State
   const [lightboxIndex, setLightboxIndex] = useState<number>(-1);
 
-  const desenValues = DESEN_LABELS.filter(
-    (d) => d === "Tümü" || items.some((item) => getDesen(item.title, item.code) === d)
-  );
+  function desenOf(item: DBCatalogItem): CatalogDesen {
+    return item.desen ?? inferDesen(item.title);
+  }
+
+  function titleOf(item: DBCatalogItem): string {
+    const slug = item.slug ?? item.categorySlug;
+    return tNames.has(slug) ? tNames(slug) : item.title;
+  }
+
+  function badgeOf(item: DBCatalogItem): string | null {
+    if (item.badgeKey) return t(`badge.${item.badgeKey}`);
+    return item.badge || null;
+  }
+
+  const desenValues = DESEN_ORDER.filter((d) => items.some((item) => desenOf(item) === d));
 
   const filtered = items.filter((item) => {
-    const dMatch = activeDesen === "Tümü" || getDesen(item.title, item.code) === activeDesen;
-    const rMatch = !activeRenk || item.colors.some(c => c.hex.toLowerCase() === activeRenk.toLowerCase());
+    const dMatch = activeDesen === "Tümü" || desenOf(item) === activeDesen;
+    const rMatch = !activeRenk || item.colors.some((c) => c.hex.toLowerCase() === activeRenk.toLowerCase());
     return dMatch && rMatch;
   });
 
@@ -81,18 +102,28 @@ export default function CategoryFiltersClient({ prefix, items: rawItems }: Props
   };
 
   // Build Lightbox images array from filtered items
-  const lightboxImages = filtered.map(item => ({
+  const lightboxImages = filtered.map((item) => ({
     src: hoveredImage[item.id] || (item.colors.length > 0 ? item.colors[0].image : "/images/cami-1.png"),
-    alt: item.title,
-    title: item.title
+    alt: titleOf(item),
+    title: titleOf(item),
   }));
 
   return (
     <div className="space-y-6">
       {/* Desen Filtreleri */}
       <div>
-        <p className="text-xs font-bold text-[#6B6355] uppercase tracking-widest mb-3">Desen / Tip</p>
+        <p className="text-xs font-bold text-[#6B6355] uppercase tracking-widest mb-3">{t("patternType")}</p>
         <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setActiveDesen("Tümü")}
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-all border ${
+              activeDesen === "Tümü"
+                ? "bg-[#0097A7] text-white border-[#0097A7] shadow-sm"
+                : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#0097A7]/40 hover:text-[#0097A7]"
+            }`}
+          >
+            {t("all")}
+          </button>
           {desenValues.map((d) => (
             <button
               key={d}
@@ -103,12 +134,10 @@ export default function CategoryFiltersClient({ prefix, items: rawItems }: Props
                   : "bg-white text-[#6B6355] border-[#B2EBF2] hover:border-[#0097A7]/40 hover:text-[#0097A7]"
               }`}
             >
-              {d}
-              {d !== "Tümü" && (
-                <span className="ml-1.5 text-xs opacity-60">
-                  ({items.filter((i) => getDesen(i.title, i.code) === d).length})
-                </span>
-              )}
+              {t(`desen.${d}`)}
+              <span className="ml-1.5 text-xs opacity-60">
+                ({items.filter((i) => desenOf(i) === d).length})
+              </span>
             </button>
           ))}
         </div>
@@ -116,81 +145,101 @@ export default function CategoryFiltersClient({ prefix, items: rawItems }: Props
 
       {/* Sonuç Sayısı */}
       <p className="text-sm text-[#6B6355]">
-        <span className="font-bold text-[#0097A7]">{filtered.length}</span> ürün çeşidi gösteriliyor
-        {activeDesen !== "Tümü" && <span> · Desen: <strong>{activeDesen}</strong></span>}
+        {t.rich("resultsCount", {
+          count: filtered.length,
+          b: (chunks) => <span className="font-bold text-[#0097A7]">{chunks}</span>,
+        })}
+        {activeDesen !== "Tümü" && (
+          <span>
+            {" "}
+            · {t("patternType")}: <strong>{t(`desen.${activeDesen as CatalogDesen}`)}</strong>
+          </span>
+        )}
       </p>
 
       {/* Ürün Grid */}
       {filtered.length === 0 ? (
         <div className="py-12 text-center text-[#6B6355] border border-dashed border-[#B2EBF2] rounded-2xl">
-          <p className="font-semibold">Bu filtrelerle ürün bulunamadı.</p>
+          <p className="font-semibold">{t("noResults")}</p>
           <button
-            onClick={() => { setActiveDesen("Tümü"); setActiveRenk(null); }}
+            onClick={() => {
+              setActiveDesen("Tümü");
+              setActiveRenk(null);
+            }}
             className="mt-3 text-sm text-[#C9972B] hover:underline"
           >
-            Filtreleri Temizle
+            {t("clearFilters")}
           </button>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
           {filtered.map((item, index) => {
             const currentImg = hoveredImage[item.id] || (item.colors.length > 0 ? item.colors[0].image : "/images/cami-1.png");
+            const title = titleOf(item);
+            const badge = badgeOf(item);
+            const targetSlug = item.slug ?? item.categorySlug;
             return (
               <div
                 key={item.id}
                 className="group bg-white rounded-2xl border border-[#B2EBF2] overflow-hidden hover:border-[#C9972B]/40 hover:shadow-xl transition-all flex flex-col"
               >
                 {/* Image */}
-                <div 
-                  onClick={(e) => handleOpenLightbox(index, e)} 
+                <div
+                  onClick={(e) => handleOpenLightbox(index, e)}
                   className="relative aspect-[4/3] bg-[#F0FDFE] overflow-hidden cursor-pointer block"
                 >
                   <Image
                     src={currentImg || "/images/cami-1.png"}
-                    alt={item.title}
+                    alt={title}
                     fill
                     sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  {item.badge && (
+                  {badge && (
                     <div className="absolute top-3 left-3 bg-[#C9972B] text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm tracking-wider uppercase z-10">
-                      {item.badge}
+                      {badge}
                     </div>
                   )}
-                  
+
                   {/* Hover Overlay Icon for Lightbox */}
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                     <span className="bg-white/90 text-[#0097A7] rounded-full p-2 shadow-lg backdrop-blur-sm">
-                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                     </span>
+                    <span className="bg-white/90 text-[#0097A7] rounded-full p-2 shadow-lg backdrop-blur-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    </span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="p-4 flex-1 flex flex-col">
                   <div className="text-xs font-bold text-[#C9972B] uppercase tracking-widest mb-1">{item.code}</div>
-                  <Link href={`${prefix}/kategori/${item.categorySlug}`}>
-                    <h3 className="font-bold text-[#0097A7] text-base mb-3 leading-tight cursor-pointer hover:text-[#C9972B] transition-colors">{item.title}</h3>
+                  <Link href={`${prefix}/kategori/${targetSlug}`}>
+                    <h3 className="font-bold text-[#0097A7] text-base mb-3 leading-tight cursor-pointer hover:text-[#C9972B] transition-colors">{title}</h3>
                   </Link>
-                  
+
                   {/* Renk Varyantları Seçimi */}
                   {item.colors.length > 0 && (
                     <div className="mt-auto pt-3 border-t border-[#B2EBF2]/50">
                       <div className="flex justify-between items-center mb-2">
-                        <p className="text-[10px] text-[#6B6355]">{item.colors.length} Renk Seçeneği</p>
-                        <Link 
-                          href={`${prefix}/renk-demo?imageUrl=${encodeURIComponent(currentImg || item.colors[0].image)}&motifName=${encodeURIComponent(item.title)}`}
+                        <p className="text-[10px] text-[#6B6355]">{t("colorOptions", { count: item.colors.length })}</p>
+                        <Link
+                          href={`${prefix}/renk-demo?imageUrl=${encodeURIComponent(currentImg || item.colors[0].image)}&motifName=${encodeURIComponent(title)}`}
                           className="text-[10px] font-bold text-[#0097A7] bg-[#E0F7FA] px-2 py-0.5 rounded hover:bg-[#0097A7] hover:text-white transition-colors flex items-center gap-1"
                         >
-                          <span role="img" aria-label="palette">🎨</span> Rengini Değiştir
+                          <span role="img" aria-label="palette">🎨</span> {t("changeColor")}
                         </Link>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
-                        {item.colors.slice(0, 6).map(color => (
-                          <div 
+                        {item.colors.slice(0, 6).map((color) => (
+                          <div
                             key={color.id}
-                            onMouseEnter={() => setHoveredImage(prev => ({...prev, [item.id]: color.image}))}
-                            onMouseLeave={() => setHoveredImage(prev => { const p = {...prev}; delete p[item.id]; return p; })}
+                            onMouseEnter={() => setHoveredImage((prev) => ({ ...prev, [item.id]: color.image }))}
+                            onMouseLeave={() =>
+                              setHoveredImage((prev) => {
+                                const p = { ...prev };
+                                delete p[item.id];
+                                return p;
+                              })
+                            }
                             className="w-5 h-5 rounded-full border border-slate-200 cursor-pointer shadow-sm hover:scale-110 transition-transform"
                             style={{ backgroundColor: color.hex }}
                             title={color.name}
@@ -210,12 +259,12 @@ export default function CategoryFiltersClient({ prefix, items: rawItems }: Props
           })}
         </div>
       )}
-      
-      <Lightbox 
-        isOpen={lightboxIndex >= 0} 
-        images={lightboxImages} 
-        initialIndex={Math.max(0, lightboxIndex)} 
-        onClose={() => setLightboxIndex(-1)} 
+
+      <Lightbox
+        isOpen={lightboxIndex >= 0}
+        images={lightboxImages}
+        initialIndex={Math.max(0, lightboxIndex)}
+        onClose={() => setLightboxIndex(-1)}
         prefix={prefix}
       />
     </div>

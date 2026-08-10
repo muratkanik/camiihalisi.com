@@ -64,42 +64,44 @@ const DESEN_GALERISI_SLUGS = new Set([
 
 type CatalogDesen = "Saflı" | "Göbekli" | "Seccadeli" | "Standart" | "Özel";
 
+type CatalogBadgeKey = "enCokSatan" | "premium" | "dayanikli" | "profesyonel" | "ozelSiparis";
+
 interface CatalogItem {
   slug: string;
   title: string;
   image: string;
   desen: CatalogDesen;
   colors: string[];
-  badge?: string;
+  badgeKey?: CatalogBadgeKey;
 }
 
 const CATALOG_DATA: Record<string, CatalogItem[]> = {
   "akrilik-cami-halisi": [
-    { slug: "akrilik-cami-halisi", title: "Akrilik Cami Halısı", image: "/images/cami-katalog-01.png", desen: "Standart", colors: COMMON_COLORS, badge: "En Çok Satan" },
+    { slug: "akrilik-cami-halisi", title: "Akrilik Cami Halısı", image: "/images/cami-katalog-01.png", desen: "Standart", colors: COMMON_COLORS, badgeKey: "enCokSatan" },
     { slug: "safli-akrilik-cami-halisi", title: "Saflı Akrilik Cami Halısı", image: "/images/cami-katalog-02.png", desen: "Saflı", colors: COMMON_COLORS },
     { slug: "gobekli-akrilik-cami-halisi", title: "Göbekli Akrilik Cami Halısı", image: "/images/gobekli-cami-halisi.png", desen: "Göbekli", colors: COMMON_COLORS },
     { slug: "seccadeli-akrilik-cami-halisi", title: "Seccadeli Akrilik Cami Halısı", image: "/images/cami-katalog-04.png", desen: "Seccadeli", colors: COMMON_COLORS },
   ],
   "yun-cami-halisi": [
-    { slug: "yun-cami-halisi", title: "Yün Cami Halısı", image: "/images/cami-katalog-05.png", desen: "Standart", colors: NATURAL_COLORS, badge: "Premium" },
+    { slug: "yun-cami-halisi", title: "Yün Cami Halısı", image: "/images/cami-katalog-05.png", desen: "Standart", colors: NATURAL_COLORS, badgeKey: "premium" },
     { slug: "safli-yun-cami-halisi", title: "Saflı Yün Cami Halısı", image: "/images/cami-katalog-06.png", desen: "Saflı", colors: NATURAL_COLORS },
     { slug: "gobekli-yun-cami-halisi", title: "Göbekli Yün Cami Halısı", image: "/images/cami-katalog-07.png", desen: "Göbekli", colors: NATURAL_COLORS },
     { slug: "seccadeli-yun-cami-halisi", title: "Seccadeli Yün Cami Halısı", image: "/images/cami-katalog-08.png", desen: "Seccadeli", colors: NATURAL_COLORS },
   ],
   "polipropilen-cami-halisi": [
-    { slug: "polipropilen-cami-halisi", title: "Polipropilen Cami Halısı", image: "/images/cami-katalog-09.png", desen: "Standart", colors: COMMON_COLORS, badge: "Dayanıklı" },
+    { slug: "polipropilen-cami-halisi", title: "Polipropilen Cami Halısı", image: "/images/cami-katalog-09.png", desen: "Standart", colors: COMMON_COLORS, badgeKey: "dayanikli" },
     { slug: "safli-polipropilen-cami-halisi", title: "Saflı Polipropilen Cami Halısı", image: "/images/cami-katalog-10.png", desen: "Saflı", colors: COMMON_COLORS },
     { slug: "gobekli-polipropilen-cami-halisi", title: "Göbekli Polipropilen Cami Halısı", image: "/images/cami-katalog-11.png", desen: "Göbekli", colors: COMMON_COLORS },
     { slug: "seccadeli-polipropilen-cami-halisi", title: "Seccadeli Polipropilen Cami Halısı", image: "/images/cami-katalog-12.png", desen: "Seccadeli", colors: COMMON_COLORS },
   ],
   "polyamid-cami-halisi": [
-    { slug: "polyamid-cami-halisi", title: "Polyamid Cami Halısı", image: "/images/cami-katalog-13.png", desen: "Standart", colors: COMMON_COLORS, badge: "Profesyonel" },
+    { slug: "polyamid-cami-halisi", title: "Polyamid Cami Halısı", image: "/images/cami-katalog-13.png", desen: "Standart", colors: COMMON_COLORS, badgeKey: "profesyonel" },
     { slug: "safli-polyamid-cami-halisi", title: "Saflı Polyamid Cami Halısı", image: "/images/cami-katalog-14.png", desen: "Saflı", colors: COMMON_COLORS },
     { slug: "gobekli-polyamid-cami-halisi", title: "Göbekli Polyamid Cami Halısı", image: "/images/cami-katalog-15.png", desen: "Göbekli", colors: COMMON_COLORS },
     { slug: "seccadeli-polyamid-cami-halisi", title: "Seccadeli Polyamid Cami Halısı", image: "/images/cami-katalog-16.png", desen: "Seccadeli", colors: COMMON_COLORS },
   ],
   "ozel-desen-axminster-cami-halisi": [
-    { slug: "ozel-desen-axminster-cami-halisi", title: "Özel Desen Axminster Cami Halısı", image: "/images/cami-katalog-17.png", desen: "Özel", colors: [...COMMON_COLORS, ...NATURAL_COLORS], badge: "Özel Sipariş" },
+    { slug: "ozel-desen-axminster-cami-halisi", title: "Özel Desen Axminster Cami Halısı", image: "/images/cami-katalog-17.png", desen: "Özel", colors: [...COMMON_COLORS, ...NATURAL_COLORS], badgeKey: "ozelSiparis" },
   ],
 };
 

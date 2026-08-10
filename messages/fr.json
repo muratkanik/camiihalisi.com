@@ -1627,5 +1627,28 @@
     "600-cami-halisi-kecesi": "Feutre 600 g/m²",
     "1000-cami-halisi-kecesi": "Feutre 1000 g/m²",
     "1200-cami-halisi-kecesi": "Feutre 1200 g/m²"
+  },
+  "categoryFilters": {
+    "patternType": "Motif / Type",
+    "all": "Tous",
+    "resultsCount": "<b>{count}</b> variétés affichées",
+    "noResults": "Aucun produit ne correspond à ces filtres.",
+    "clearFilters": "Effacer les Filtres",
+    "colorOptions": "{count} Options de Couleur",
+    "changeColor": "Changer la Couleur",
+    "desen": {
+      "Standart": "Standard",
+      "Saflı": "Motif en Lignes",
+      "Göbekli": "Médaillon",
+      "Seccadeli": "Niche de Prière",
+      "Özel": "Sur Mesure"
+    },
+    "badge": {
+      "enCokSatan": "Meilleure Vente",
+      "premium": "Premium",
+      "dayanikli": "Résistant",
+      "profesyonel": "Professionnel",
+      "ozelSiparis": "Commande Spéciale"
+    }
   }
 }

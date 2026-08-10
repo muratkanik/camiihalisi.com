@@ -481,7 +481,6 @@
         }
       ]
     },
-
     "polipropilen-cami-halisi": {
       "title": "Polypropylene Mosque Carpet",
       "shortTitle": "Polypropylene Carpet",
@@ -1628,5 +1627,28 @@
     "600-cami-halisi-kecesi": "600 g/m² Felt Underlay",
     "1000-cami-halisi-kecesi": "1000 g/m² Felt Underlay",
     "1200-cami-halisi-kecesi": "1200 g/m² Felt Underlay"
+  },
+  "categoryFilters": {
+    "patternType": "Pattern / Type",
+    "all": "All",
+    "resultsCount": "<b>{count}</b> varieties shown",
+    "noResults": "No products match these filters.",
+    "clearFilters": "Clear Filters",
+    "colorOptions": "{count} Color Options",
+    "changeColor": "Change Color",
+    "desen": {
+      "Standart": "Standard",
+      "Saflı": "Row-Pattern",
+      "Göbekli": "Medallion",
+      "Seccadeli": "Prayer-Niche",
+      "Özel": "Custom"
+    },
+    "badge": {
+      "enCokSatan": "Best Seller",
+      "premium": "Premium",
+      "dayanikli": "Durable",
+      "profesyonel": "Professional",
+      "ozelSiparis": "Custom Order"
+    }
   }
 }

@@ -1627,5 +1627,28 @@
     "600-cami-halisi-kecesi": "Filz 600 g/m²",
     "1000-cami-halisi-kecesi": "Filz 1000 g/m²",
     "1200-cami-halisi-kecesi": "Filz 1200 g/m²"
+  },
+  "categoryFilters": {
+    "patternType": "Muster / Typ",
+    "all": "Alle",
+    "resultsCount": "<b>{count}</b> Varianten angezeigt",
+    "noResults": "Keine Produkte entsprechen diesen Filtern.",
+    "clearFilters": "Filter Zurücksetzen",
+    "colorOptions": "{count} Farboptionen",
+    "changeColor": "Farbe Ändern",
+    "desen": {
+      "Standart": "Standard",
+      "Saflı": "Reihen-Muster",
+      "Göbekli": "Medaillon",
+      "Seccadeli": "Gebetsnische",
+      "Özel": "Individuell"
+    },
+    "badge": {
+      "enCokSatan": "Bestseller",
+      "premium": "Premium",
+      "dayanikli": "Strapazierfähig",
+      "profesyonel": "Professionell",
+      "ozelSiparis": "Sonderanfertigung"
+    }
   }
 }

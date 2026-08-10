@@ -1627,5 +1627,28 @@
     "600-cami-halisi-kecesi": "لباد 600 غ/م²",
     "1000-cami-halisi-kecesi": "لباد 1000 غ/م²",
     "1200-cami-halisi-kecesi": "لباد 1200 غ/م²"
+  },
+  "categoryFilters": {
+    "patternType": "النقش / النوع",
+    "all": "الكل",
+    "resultsCount": "يتم عرض <b>{count}</b> أنواع",
+    "noResults": "لا توجد منتجات مطابقة لهذه الفلاتر.",
+    "clearFilters": "مسح الفلاتر",
+    "colorOptions": "{count} خيارات لونية",
+    "changeColor": "تغيير اللون",
+    "desen": {
+      "Standart": "قياسي",
+      "Saflı": "نقش الصفوف",
+      "Göbekli": "نقش الميدالية",
+      "Seccadeli": "نقش المحراب",
+      "Özel": "خاص"
+    },
+    "badge": {
+      "enCokSatan": "الأكثر مبيعًا",
+      "premium": "بريميوم",
+      "dayanikli": "متين",
+      "profesyonel": "احترافي",
+      "ozelSiparis": "طلب خاص"
+    }
   }
 }
