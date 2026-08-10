@@ -38,25 +38,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/fr`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
     { url: `${SITE_URL}/de`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
     { url: `${SITE_URL}/ru`,                        lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
-    { url: `${SITE_URL}/cami-halisi`,               lastModified: now, changeFrequency: "monthly", priority: 0.9 },
-    { url: `${SITE_URL}/blog`,                      lastModified: now, changeFrequency: "weekly",  priority: 0.8 },
-    { url: `${SITE_URL}/en/blog`,                   lastModified: now, changeFrequency: "weekly",  priority: 0.7 },
-    { url: `${SITE_URL}/sss`,                       lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/en/sss`,                    lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/ru/sss`,                    lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/karsilastirma`,             lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: `${SITE_URL}/en/karsilastirma`,          lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/ru/karsilastirma`,          lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/teknik-ozellikler`,         lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/en/teknik-ozellikler`,      lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/ru/teknik-ozellikler`,      lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/referanslar`,               lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/iletisim`,                  lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE_URL}/galeri`,                    lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/hakkimizda`,                lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/en/hakkimizda`,             lastModified: now, changeFrequency: "monthly", priority: 0.5 },
-    { url: `${SITE_URL}/ru/hakkimizda`,             lastModified: now, changeFrequency: "monthly", priority: 0.5 },
   ];
+
+  // Diller arasında tekrar eden statik sayfalar — tek yerden LOCALES üzerinden üretilir
+  const repeatedStaticPaths: Array<{ path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }> = [
+    { path: "/cami-halisi",        changeFrequency: "monthly", priority: 0.9 },
+    { path: "/blog",                changeFrequency: "weekly",  priority: 0.8 },
+    { path: "/sss",                 changeFrequency: "monthly", priority: 0.8 },
+    { path: "/karsilastirma",       changeFrequency: "monthly", priority: 0.8 },
+    { path: "/teknik-ozellikler",   changeFrequency: "monthly", priority: 0.7 },
+    { path: "/referanslar",         changeFrequency: "monthly", priority: 0.7 },
+    { path: "/iletisim",            changeFrequency: "monthly", priority: 0.7 },
+    { path: "/galeri",              changeFrequency: "monthly", priority: 0.6 },
+    { path: "/hakkimizda",          changeFrequency: "monthly", priority: 0.6 },
+  ];
+  const repeatedStaticPages: MetadataRoute.Sitemap = LOCALES.flatMap((locale) =>
+    repeatedStaticPaths.map(({ path, changeFrequency, priority }) => ({
+      url: localizedUrl(locale, path),
+      lastModified: now,
+      changeFrequency,
+      priority,
+    }))
+  );
 
   // Karşılaştırma sayfaları
   const comparisonSlugs = [
@@ -122,5 +125,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
-  return [...staticPages, ...comparisonPages, ...categoryPages, ...cityPages, ...keywordPages, ...intlPages, ...blogPages];
+  return [...staticPages, ...repeatedStaticPages, ...comparisonPages, ...categoryPages, ...cityPages, ...keywordPages, ...intlPages, ...blogPages];
 }
