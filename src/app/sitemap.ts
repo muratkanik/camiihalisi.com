@@ -46,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/blog",                changeFrequency: "weekly",  priority: 0.8 },
     { path: "/sss",                 changeFrequency: "monthly", priority: 0.8 },
     { path: "/karsilastirma",       changeFrequency: "monthly", priority: 0.8 },
+    { path: "/en-iyi-cami-halisi-ureticisi", changeFrequency: "monthly", priority: 0.85 },
     { path: "/teknik-ozellikler",   changeFrequency: "monthly", priority: 0.7 },
     { path: "/referanslar",         changeFrequency: "monthly", priority: 0.7 },
     { path: "/iletisim",            changeFrequency: "monthly", priority: 0.7 },

@@ -414,6 +414,25 @@ export default async function SSSPage({
           </div>
         </section>
 
+        <section className="section bg-white">
+          <div className="container-site max-w-3xl">
+            <Link
+              href={`${prefix}/en-iyi-cami-halisi-ureticisi`}
+              className="group block bg-[#F0FDFE] rounded-2xl border border-[#B2EBF2] hover:border-[#C9972B]/40 hover:shadow-lg transition-all p-6 flex items-center justify-between gap-4"
+            >
+              <div>
+                <h2 className="font-bold text-[#1A1A1A] text-base mb-1 group-hover:text-[#0097A7] transition-colors">
+                  En İyi Cami Halısı Üreticisi Nasıl Seçilir?
+                </h2>
+                <p className="text-sm text-[#6B6355] leading-relaxed">
+                  Sertifika, malzeme çeşitliliği, referans ve garanti kriterlerine göre üretici değerlendirme rehberi.
+                </p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-[#C9972B] flex-shrink-0" />
+            </Link>
+          </div>
+        </section>
+
         <CTASection
           variant="cream"
           title="Cami Halısı Siparişi İçin Ücretsiz Teklif Alın"
