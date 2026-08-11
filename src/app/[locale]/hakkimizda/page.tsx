@@ -7,27 +7,32 @@ import { ChevronRight, ExternalLink, Award, Users, Globe, Factory } from "lucide
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
+import { localizedMetadata } from "@/lib/seo";
 
-const SITE_URL = "https://camiihalisi.com";
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=hakkimizda";
 
-export const metadata: Metadata = {
-  title: "Hakkımızda | Asil Halı A.Ş. – 1940'tan Bu Yana Cami Halısı Ustası",
-  description:
-    "Asil Halı A.Ş., 1940'tan bu yana Kayseri'de cami halısı üretmektedir. 80+ yıl tecrübe, 10.000+ cami referansı. Tarihimiz, değerlerimiz ve misyonumuz hakkında bilgi alın.",
-  alternates: {
-    canonical: `${SITE_URL}/hakkimizda`,
-    languages: {
-      "tr": `${SITE_URL}/hakkimizda`,
-      "en": `${SITE_URL}/en/hakkimizda`,
-      "ar": `${SITE_URL}/ar/hakkimizda`,
-      "fr": `${SITE_URL}/fr/hakkimizda`,
-      "de": `${SITE_URL}/de/hakkimizda`,
-        "ru": `${SITE_URL}/ru/hakkimizda`,
-        "x-default": `${SITE_URL}/hakkimizda`,
-    },
-  },
+const TITLES = {
+  tr: "Hakkımızda | Asil Halı A.Ş. – 1940'tan Bu Yana Cami Halısı Ustası",
+  en: "About Us | Asil Halı A.Ş. – Mosque Carpet Craftsmanship Since 1940",
+  de: "Über Uns | Asil Halı A.Ş. – Moscheeteppich-Handwerk Seit 1940",
+  fr: "À Propos | Asil Halı A.Ş. – Maître du Tapis de Mosquée Depuis 1940",
+  ar: "من نحن | أصيل هالي – حرفية سجاد المساجد منذ عام 1940",
+  ru: "О Нас | Asil Halı A.Ş. – Мастерство Изготовления Ковров для Мечетей с 1940 Года",
 };
+
+const DESCRIPTIONS = {
+  tr: "Asil Halı A.Ş., 1940'tan bu yana Kayseri'de cami halısı üretmektedir. 80+ yıl tecrübe, 10.000+ cami referansı. Tarihimiz, değerlerimiz ve misyonumuz hakkında bilgi alın.",
+  en: "Asil Halı A.Ş. has been manufacturing mosque carpets in Kayseri since 1940. 80+ years of experience, 10,000+ mosque references. Learn about our history, values and mission.",
+  de: "Asil Halı A.Ş. fertigt seit 1940 in Kayseri Moscheeteppiche. Über 80 Jahre Erfahrung, mehr als 10.000 Moschee-Referenzen. Erfahren Sie mehr über unsere Geschichte und Werte.",
+  fr: "Asil Halı A.Ş. fabrique des tapis de mosquée à Kayseri depuis 1940. Plus de 80 ans d'expérience, plus de 10 000 références de mosquées. Découvrez notre histoire et nos valeurs.",
+  ar: "تصنع أصيل هالي سجاد المساجد في قيصري منذ عام 1940. أكثر من 80 عامًا من الخبرة وأكثر من 10,000 مرجع للمساجد. تعرف على تاريخنا وقيمنا ورسالتنا.",
+  ru: "Asil Halı A.Ş. производит ковры для мечетей в Кайсери с 1940 года. Более 80 лет опыта, более 10 000 референций мечетей. Узнайте о нашей истории, ценностях и миссии.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({ path: "/hakkimizda", locale, titles: TITLES, descriptions: DESCRIPTIONS });
+}
 
 const MILESTONES = [
   { year: "1940", text: "Asil Halı, Kayseri'de kuruluş. El tezgahlarıyla başlayan ustalık yolculuğu." },

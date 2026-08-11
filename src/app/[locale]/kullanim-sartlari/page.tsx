@@ -36,7 +36,7 @@ export async function generateMetadata({
   const canonical = locale === "tr" ? `${SITE_URL}/kullanim-sartlari` : `${SITE_URL}/${locale}/kullanim-sartlari`;
 
   return {
-    title: `${title} | Asil Halı`,
+    title,
     alternates: {
       canonical,
       languages: {

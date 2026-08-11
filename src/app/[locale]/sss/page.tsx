@@ -5,31 +5,38 @@ import { ChevronRight, MessageCircleQuestion, Search } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
+import { localizedMetadata } from "@/lib/seo";
 
 const SITE_URL = "https://camiihalisi.com";
 
-export const metadata: Metadata = {
-  title: "Cami Halısı Hakkında Sık Sorulan Sorular | Asil Halı Uzman Rehberi",
-  description:
-    "Cami halısı seçimi, fiyatları, bakımı ve özellikleri hakkında 50+ soru ve uzman cevabı. Akrilik mi yün mü? Kaç yıl dayanır? Nasıl temizlenir? Asil Halı A.Ş.",
-  alternates: {
-    canonical: `${SITE_URL}/sss`,
-    languages: {
-      "tr": `${SITE_URL}/sss`,
-      "en": `${SITE_URL}/en/sss`,
-      "ar": `${SITE_URL}/ar/sss`,
-      "fr": `${SITE_URL}/fr/sss`,
-      "de": `${SITE_URL}/de/sss`,
-        "ru": `${SITE_URL}/ru/sss`,
-        "x-default": `${SITE_URL}/sss`,
-    },
-  },
-  openGraph: {
-    title: "Cami Halısı SSS | Asil Halı Uzman Rehberi",
-    description: "Cami halısı hakkında merak ettiğiniz her şey — 50+ soru, uzman cevapları.",
-    images: [{ url: `${SITE_URL}/images/cami-hero.png` }],
-  },
+const TITLES = {
+  tr: "Cami Halısı Hakkında Sık Sorulan Sorular | Asil Halı Uzman Rehberi",
+  en: "Frequently Asked Questions About Mosque Carpets | Asil Halı Expert Guide",
+  de: "Häufig Gestellte Fragen zu Moscheeteppichen | Asil Halı Expertenratgeber",
+  fr: "Questions Fréquentes sur les Tapis de Mosquée | Guide Expert Asil Halı",
+  ar: "الأسئلة الشائعة حول سجاد المساجد | دليل خبراء أصيل هالي",
+  ru: "Часто Задаваемые Вопросы о Коврах для Мечетей | Экспертный Гид Asil Halı",
 };
+
+const DESCRIPTIONS = {
+  tr: "Cami halısı seçimi, fiyatları, bakımı ve özellikleri hakkında 50+ soru ve uzman cevabı. Akrilik mi yün mü? Kaç yıl dayanır? Nasıl temizlenir?",
+  en: "50+ expert-answered questions about mosque carpet selection, pricing, maintenance and features. Acrylic or wool? How long does it last? How is it cleaned?",
+  de: "Über 50 von Experten beantwortete Fragen zu Auswahl, Preisen, Pflege und Eigenschaften von Moscheeteppichen. Acryl oder Wolle? Wie lange hält er?",
+  fr: "Plus de 50 questions-réponses d'experts sur le choix, le prix, l'entretien et les caractéristiques des tapis de mosquée. Acrylique ou laine ?",
+  ar: "أكثر من 50 سؤالاً وجوابًا احترافيًا حول اختيار سجاد المساجد وأسعاره وصيانته ومواصفاته. أكريليك أم صوف؟ كم سنة يدوم؟",
+  ru: "Более 50 экспертных вопросов и ответов о выборе, ценах, уходе и характеристиках ковров для мечетей. Акрил или шерсть? Сколько лет он служит?",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({
+    path: "/sss",
+    locale,
+    titles: TITLES,
+    descriptions: DESCRIPTIONS,
+    ogImage: `${SITE_URL}/images/cami-hero.png`,
+  });
+}
 
 interface Soru {
   soru: string;

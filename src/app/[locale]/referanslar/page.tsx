@@ -6,27 +6,33 @@ import { setRequestLocale } from "next-intl/server";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
+import { localizedMetadata } from "@/lib/seo";
 
 const SITE_URL = "https://camiihalisi.com";
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=referanslar";
 
-export const metadata: Metadata = {
-  title: "Referanslar | 10.000+ Cami Halısı Projemiz – Asil Halı",
-  description:
-    "Asil Halı'nın Türkiye genelinde tamamladığı 10.000+ cami halısı referans projeleri. İl il tamamlanan camiler, büyük belediye ve vakıf projeleri.",
-  alternates: {
-    canonical: `${SITE_URL}/referanslar`,
-    languages: {
-      "tr": `${SITE_URL}/referanslar`,
-      "en": `${SITE_URL}/en/referanslar`,
-      "ar": `${SITE_URL}/ar/referanslar`,
-      "fr": `${SITE_URL}/fr/referanslar`,
-      "de": `${SITE_URL}/de/referanslar`,
-        "ru": `${SITE_URL}/ru/referanslar`,
-        "x-default": `${SITE_URL}/referanslar`,
-    },
-  },
+const TITLES = {
+  tr: "Referanslar | 10.000+ Cami Halısı Projemiz",
+  en: "References | 10,000+ Mosque Carpet Projects",
+  de: "Referenzen | 10.000+ Moscheeteppich-Projekte",
+  fr: "Références | Plus de 10 000 Projets de Tapis de Mosquée",
+  ar: "المراجع | أكثر من 10,000 مشروع سجاد مسجد",
+  ru: "Референции | Более 10 000 Проектов Ковров для Мечетей",
 };
+
+const DESCRIPTIONS = {
+  tr: "Asil Halı'nın Türkiye genelinde tamamladığı 10.000+ cami halısı referans projeleri. İl il tamamlanan camiler, büyük belediye ve vakıf projeleri.",
+  en: "10,000+ mosque carpet reference projects completed by Asil Halı across Turkey — mosques, municipalities and foundation projects by province.",
+  de: "Über 10.000 von Asil Halı in ganz der Türkei realisierte Moscheeteppich-Referenzprojekte — Moscheen, Gemeinden und Stiftungsprojekte nach Provinz.",
+  fr: "Plus de 10 000 projets de référence de tapis de mosquée réalisés par Asil Halı dans toute la Turquie — mosquées, municipalités et projets de fondations par province.",
+  ar: "أكثر من 10,000 مشروع مرجعي لسجاد المساجد أنجزتها أصيل هالي في جميع أنحاء تركيا — مساجد وبلديات ومشاريع أوقاف حسب المحافظة.",
+  ru: "Более 10 000 реализованных Asil Halı референс-проектов ковров для мечетей по всей Турции — мечети, муниципалитеты и проекты фондов по провинциям.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({ path: "/referanslar", locale, titles: TITLES, descriptions: DESCRIPTIONS });
+}
 
 const REFERENCES = [
   { il: "İstanbul", adet: 1200, tip: "Büyük Şehir", camiler: ["Süleymaniye Camii Çevresi", "Fatih Camii Kompleksi", "Eyüpsultan Türbesi Çevresi"] },

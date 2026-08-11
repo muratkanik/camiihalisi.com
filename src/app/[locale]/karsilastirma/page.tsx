@@ -6,26 +6,30 @@ import { ChevronRight, ArrowRight, Scale } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
+import { localizedMetadata } from "@/lib/seo";
 
-const SITE_URL = "https://camiihalisi.com";
-
-export const metadata: Metadata = {
-  title: "Cami Halısı Karşılaştırma Rehberi | Hangi Tür Sizin İçin? – Asil Halı",
-  description:
-    "Akrilik vs Yün, Polipropilen vs Polyamid — cami halısı türlerini detaylı karşılaştırın. 40 yıllık uzman deneyimiyle doğru seçim rehberi. Asil Halı A.Ş.",
-  alternates: {
-    canonical: `${SITE_URL}/karsilastirma`,
-    languages: {
-      "tr": `${SITE_URL}/karsilastirma`,
-      "en": `${SITE_URL}/en/karsilastirma`,
-      "ar": `${SITE_URL}/ar/karsilastirma`,
-      "fr": `${SITE_URL}/fr/karsilastirma`,
-      "de": `${SITE_URL}/de/karsilastirma`,
-        "ru": `${SITE_URL}/ru/karsilastirma`,
-        "x-default": `${SITE_URL}/karsilastirma`,
-    },
-  },
+const TITLES = {
+  tr: "Cami Halısı Karşılaştırma Rehberi | Hangi Tür Sizin İçin?",
+  en: "Mosque Carpet Comparison Guide | Which Type Is Right for You?",
+  de: "Moscheeteppich-Vergleichsleitfaden | Welcher Typ Passt Zu Ihnen?",
+  fr: "Guide de Comparaison des Tapis de Mosquée | Quel Type Vous Convient ?",
+  ar: "دليل مقارنة سجاد المساجد | أي نوع يناسبك؟",
+  ru: "Руководство по Сравнению Ковров для Мечетей | Какой Тип Вам Подходит?",
 };
+
+const DESCRIPTIONS = {
+  tr: "Akrilik vs Yün, Polipropilen vs Polyamid — cami halısı türlerini detaylı karşılaştırın. 40 yıllık uzman deneyimiyle doğru seçim rehberi.",
+  en: "Acrylic vs Wool, Polypropylene vs Polyamide — compare mosque carpet types in detail. An expert selection guide backed by 40+ years of experience.",
+  de: "Acryl vs. Wolle, Polypropylen vs. Polyamid — vergleichen Sie Moscheeteppich-Typen im Detail. Ein Expertenleitfaden mit über 40 Jahren Erfahrung.",
+  fr: "Acrylique vs Laine, Polypropylène vs Polyamide — comparez en détail les types de tapis de mosquée. Un guide d'expert fort de 40 ans d'expérience.",
+  ar: "أكريليك مقابل صوف، بولي بروبيلين مقابل بولي أميد — قارن أنواع سجاد المساجد بالتفصيل. دليل اختيار احترافي بخبرة تفوق 40 عامًا.",
+  ru: "Акрил против шерсти, полипропилен против полиамида — подробное сравнение типов ковров для мечетей. Экспертное руководство с более чем 40-летним опытом.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({ path: "/karsilastirma", locale, titles: TITLES, descriptions: DESCRIPTIONS });
+}
 
 const COMPARISONS = [
   {

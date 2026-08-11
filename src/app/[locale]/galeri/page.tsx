@@ -5,32 +5,38 @@ import { ChevronRight } from "lucide-react";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import GalleryGrid from "./GalleryGrid";
+import { localizedMetadata } from "@/lib/seo";
 
 const SITE_URL = "https://camiihalisi.com";
 
-export const metadata: Metadata = {
-  title: "Cami Halısı Galerisi | Asil Halı Fotoğraflar ve Desen Kataloğu",
-  description:
-    "Asil Halı A.Ş. cami halısı galeri sayfası. Akrilik, yün, polipropilen ve polyamid cami halısı fotoğrafları, desen kataloğu ve tamamlanan referans projeler. Teklif almak için iletişime geçin.",
-  alternates: {
-    canonical: `${SITE_URL}/galeri`,
-    languages: {
-      "tr": `${SITE_URL}/galeri`,
-      "en": `${SITE_URL}/en/galeri`,
-      "ar": `${SITE_URL}/ar/galeri`,
-      "fr": `${SITE_URL}/fr/galeri`,
-      "de": `${SITE_URL}/de/galeri`,
-        "ru": `${SITE_URL}/ru/galeri`,
-        "x-default": `${SITE_URL}/galeri`,
-    },
-  },
-  openGraph: {
-    title: "Cami Halısı Galerisi — Asil Halı A.Ş.",
-    description: "Türkiye genelinde tamamlanan cami halısı projeleri ve koleksiyon desenleri. Asil Halı A.Ş. 50+ yıllık üretim kalitesi.",
-    url: `${SITE_URL}/galeri`,
-    images: [{ url: `${SITE_URL}/images/cami-hero.png`, width: 1200, height: 630, alt: "Asil Halı cami halısı galeri" }],
-  },
+const TITLES = {
+  tr: "Cami Halısı Galerisi | Asil Halı Fotoğraflar ve Desen Kataloğu",
+  en: "Mosque Carpet Gallery | Asil Halı Photos and Pattern Catalogue",
+  de: "Moscheeteppich-Galerie | Asil Halı Fotos und Musterkatalog",
+  fr: "Galerie de Tapis de Mosquée | Photos et Catalogue de Motifs Asil Halı",
+  ar: "معرض سجاد المساجد | صور وكتالوج أنماط أصيل هالي",
+  ru: "Галерея Ковров для Мечетей | Фото и Каталог Узоров Asil Halı",
 };
+
+const DESCRIPTIONS = {
+  tr: "Asil Halı A.Ş. cami halısı galeri sayfası. Akrilik, yün, polipropilen ve polyamid cami halısı fotoğrafları, desen kataloğu ve tamamlanan referans projeler.",
+  en: "Asil Halı A.Ş. mosque carpet gallery. Acrylic, wool, polypropylene and polyamide mosque carpet photos, pattern catalogue and completed reference projects.",
+  de: "Moscheeteppich-Galerie von Asil Halı A.Ş. Fotos, Musterkatalog und abgeschlossene Referenzprojekte für Acryl-, Woll-, Polypropylen- und Polyamid-Moscheeteppiche.",
+  fr: "Galerie de tapis de mosquée d'Asil Halı A.Ş. Photos, catalogue de motifs et projets de référence achevés pour tapis acrylique, laine, polypropylène et polyamide.",
+  ar: "معرض سجاد المساجد لشركة أصيل هالي. صور سجاد المساجد الأكريليك والصوف والبولي بروبيلين والبولي أميد وكتالوج الأنماط والمشاريع المرجعية المكتملة.",
+  ru: "Галерея ковров для мечетей Asil Halı A.Ş. Фотографии акриловых, шерстяных, полипропиленовых и полиамидных ковров, каталог узоров и завершённые референс-проекты.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({
+    path: "/galeri",
+    locale,
+    titles: TITLES,
+    descriptions: DESCRIPTIONS,
+    ogImage: `${SITE_URL}/images/cami-hero.png`,
+  });
+}
 
 // Server component wrapper
 export default async function GaleriPage({

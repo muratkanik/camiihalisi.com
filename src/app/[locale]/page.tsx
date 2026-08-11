@@ -16,8 +16,27 @@ import CTASection from "@/components/blocks/CTASection";
 import FAQSection, { type FAQItem } from "@/components/blocks/FAQSection";
 import { getBlogPosts as getBlogPostsFromAdmin } from "@/app/[locale]/admin/blog/actions";
 import { getTestimonials } from "@/app/[locale]/admin/yorumlar/actions";
+import { localizedMetadata } from "@/lib/seo";
 
 const SITE_URL = "https://camiihalisi.com";
+
+const TITLES = {
+  tr: "Cami Halısı | Türkiye'nin Önde Gelen Cami Halısı Uzmanı",
+  en: "Mosque Carpet | Turkey's Leading Mosque Carpet Expert",
+  de: "Moscheeteppich | Türkeis Führender Moscheeteppich-Experte",
+  fr: "Tapis de Mosquée | Expert en Tapis de Mosquée en Turquie",
+  ar: "سجادة مسجد | خبير سجاد المساجد الرائد في تركيا",
+  ru: "Ковры для Мечетей | Ведущий Эксперт в Турции",
+};
+
+const DESCRIPTIONS = {
+  tr: "Türkiye'nin köklü cami halısı üreticisi Asil Halı. Akrilik, yün, polipropilen ve polyamid cami halıları. 50+ yıl tecrübe, 10.000+ cami referansı, Türkiye geneli teslimat.",
+  en: "Turkey's leading mosque carpet manufacturer Asil Hali. Acrylic, wool, polypropylene and polyamide mosque carpets. 50+ years experience, 10,000+ mosque references.",
+  de: "Asil Hali — führender Moscheeteppich-Hersteller der Türkei. Acryl-, Woll-, Polypropylen- und Polyamid-Moscheeteppiche. 50+ Jahre Erfahrung.",
+  fr: "Asil Hali, fabricant leader de tapis de mosquée en Turquie. Tapis acrylique, laine, polypropylène et polyamide. 50+ ans d'expérience.",
+  ar: "أصيل هالي — الشركة الرائدة في تصنيع سجاد المساجد في تركيا. سجاد أكريليك وصوف وبولي بروبيلين وبولي أميد.",
+  ru: "Asil Hali — ведущий производитель ковров для мечетей в Турции. Акриловые, шерстяные, полипропиленовые и полиамидные ковры. Опыт работы более 50 лет.",
+};
 
 export async function generateMetadata({
   params,
@@ -25,28 +44,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-
-  return {
-    title: locale === "tr"
-      ? "Cami Halısı | Türkiye'nin Önde Gelen Uzmanı – Asil Halı A.Ş."
-      : "Mosque Carpet Turkey | Asil Hali",
-    description:
-      locale === "tr"
-        ? "Türkiye'nin köklü cami halısı üreticisi Asil Halı. Akrilik, yün, polipropilen cami halıları. 50+ yıl tecrübe, 10.000+ cami. Özel ölçü üretim, Türkiye geneli teslimat."
-        : "Turkey's leading mosque carpet manufacturer. Custom size, acrylic, wool, polypropylene mosque carpets. Nationwide delivery.",
-    alternates: {
-      canonical: locale === "tr" ? SITE_URL : `${SITE_URL}/${locale}`,
-      languages: {
-        "tr": SITE_URL,
-        "en": `${SITE_URL}/en`,
-        "ar": `${SITE_URL}/ar`,
-        "fr": `${SITE_URL}/fr`,
-        "de": `${SITE_URL}/de`,
-        "ru": `${SITE_URL}/ru`,
-        "x-default": SITE_URL,
-      },
-    },
-  };
+  return localizedMetadata({ path: "/", locale, titles: TITLES, descriptions: DESCRIPTIONS });
 }
 
 export function generateStaticParams() {

@@ -6,27 +6,32 @@ import Footer from "@/components/Footer";
 import IletisimClient from "@/components/IletisimClient";
 import { DEFAULT_OFFICES } from "../admin/iletisim/types";
 import { DEFAULTS as SETTINGS_DEFAULTS } from "@/lib/settings";
+import { localizedMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-const SITE_URL = "https://camiihalisi.com";
-
-export const metadata: Metadata = {
-  title: "İletişim | Asil Halı Cami Halısı",
-  description: "Asil Halı ile iletişime geçin. Kayseri merkez, İstanbul ofis ve Türkiye genelinde temsilciliklerimizle hizmetinizdeyiz.",
-  alternates: {
-    canonical: `${SITE_URL}/iletisim`,
-    languages: {
-      "tr": `${SITE_URL}/iletisim`,
-      "en": `${SITE_URL}/en/iletisim`,
-      "ar": `${SITE_URL}/ar/iletisim`,
-      "fr": `${SITE_URL}/fr/iletisim`,
-      "de": `${SITE_URL}/de/iletisim`,
-        "ru": `${SITE_URL}/ru/iletisim`,
-        "x-default": `${SITE_URL}/iletisim`,
-    },
-  },
+const TITLES = {
+  tr: "İletişim | Asil Halı Cami Halısı",
+  en: "Contact | Asil Halı Mosque Carpets",
+  de: "Kontakt | Asil Halı Moscheeteppiche",
+  fr: "Contact | Tapis de Mosquée Asil Halı",
+  ar: "اتصل بنا | سجاد المساجد أصيل هالي",
+  ru: "Контакты | Ковры для Мечетей Asil Halı",
 };
+
+const DESCRIPTIONS = {
+  tr: "Asil Halı ile iletişime geçin. Kayseri merkez, İstanbul ofis ve Türkiye genelinde temsilciliklerimizle hizmetinizdeyiz.",
+  en: "Get in touch with Asil Halı. We serve you from our Kayseri headquarters, Istanbul office and representatives across Turkey.",
+  de: "Kontaktieren Sie Asil Halı. Wir sind für Sie da — von unserer Zentrale in Kayseri, unserem Büro in Istanbul und Vertretungen in ganz der Türkei.",
+  fr: "Contactez Asil Halı. Nous vous servons depuis notre siège à Kayseri, notre bureau d'Istanbul et nos représentants dans toute la Turquie.",
+  ar: "تواصل مع أصيل هالي. نخدمكم من مقرنا الرئيسي في قيصري ومكتبنا في إسطنبول وممثلينا في جميع أنحاء تركيا.",
+  ru: "Свяжитесь с Asil Halı. Мы обслуживаем вас из головного офиса в Кайсери, офиса в Стамбуле и представительств по всей Турции.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({ path: "/iletisim", locale, titles: TITLES, descriptions: DESCRIPTIONS });
+}
 
 async function getContactData() {
   try {

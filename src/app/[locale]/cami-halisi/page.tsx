@@ -5,23 +5,30 @@ import { setRequestLocale } from "next-intl/server";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import { ALL_CITIES } from "@/lib/cities";
+import { localizedMetadata } from "@/lib/seo";
 
-const SITE_URL = "https://camiihalisi.com";
-
-export const metadata: Metadata = {
-  title: "Türkiye Geneli Cami Halısı | İl ve İlçe Bazında Hizmet – Asil Halı",
-  description:
-    "Türkiye'nin 81 ilinde ve tüm ilçelerinde cami halısı tedariki, üretim ve teslimat. Şehrinize en yakın Asil Halı hizmetleri.",
-  alternates: {
-    canonical: `${SITE_URL}/cami-halisi`,
-    languages: {
-      "tr": `${SITE_URL}/cami-halisi`,
-      "de": `${SITE_URL}/de/cami-halisi`,
-        "ru": `${SITE_URL}/ru/cami-halisi`,
-        "x-default": `${SITE_URL}/cami-halisi`,
-    },
-  },
+const TITLES = {
+  tr: "Türkiye Geneli Cami Halısı | İl ve İlçe Bazında Hizmet",
+  en: "Mosque Carpet Across Turkey | Service by Province and District",
+  de: "Moscheeteppich in Ganz der Türkei | Service nach Provinz und Bezirk",
+  fr: "Tapis de Mosquée dans Toute la Turquie | Service par Province et District",
+  ar: "سجاد المساجد في جميع أنحاء تركيا | خدمة حسب المحافظة والمنطقة",
+  ru: "Ковры для Мечетей по Всей Турции | Услуги по Провинциям и Районам",
 };
+
+const DESCRIPTIONS = {
+  tr: "Türkiye'nin 81 ilinde ve tüm ilçelerinde cami halısı tedariki, üretim ve teslimat. Şehrinize en yakın Asil Halı hizmetleri.",
+  en: "Mosque carpet supply, manufacturing and delivery in all 81 provinces and districts of Turkey. Find Asil Halı service near your city.",
+  de: "Moscheeteppich-Lieferung, Herstellung und Zustellung in allen 81 Provinzen und Bezirken der Türkei. Asil Halı-Service in Ihrer Nähe.",
+  fr: "Fourniture, fabrication et livraison de tapis de mosquée dans les 81 provinces et districts de Turquie. Service Asil Halı près de chez vous.",
+  ar: "توريد وتصنيع وتوصيل سجاد المساجد في جميع محافظات ومناطق تركيا الـ 81. خدمات أصيل هالي بالقرب من مدينتك.",
+  ru: "Поставка, производство и доставка ковров для мечетей во всех 81 провинциях и районах Турции. Услуги Asil Halı рядом с вашим городом.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({ path: "/cami-halisi", locale, titles: TITLES, descriptions: DESCRIPTIONS });
+}
 
 const PROVINCES = ALL_CITIES.filter((c) => c.type === "il");
 const DISTRICTS_BY_PARENT: Record<string, typeof ALL_CITIES> = {};

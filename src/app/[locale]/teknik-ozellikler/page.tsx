@@ -5,27 +5,33 @@ import { setRequestLocale } from "next-intl/server";
 import Navigation from "@/components/NavigationWrapper";
 import Footer from "@/components/Footer";
 import CTASection from "@/components/blocks/CTASection";
+import { localizedMetadata } from "@/lib/seo";
 
 const SITE_URL = "https://camiihalisi.com";
 const MAIN_SITE_URL = "https://www.asilhali.com.tr?utm_source=camiihalisi&utm_medium=teknik";
 
-export const metadata: Metadata = {
-  title: "Teknik Özellikler | Cami Halısı Standartları ve Sertifikalar – Asil Halı",
-  description:
-    "Cami halısı teknik özellikleri, yangın sınıfı standartları, renk haslığı testleri, Bfl-s1 belgesi ve EN 13501-1 normu. Asil Halı teknik dökümanları.",
-  alternates: {
-    canonical: `${SITE_URL}/teknik-ozellikler`,
-    languages: {
-      "tr": `${SITE_URL}/teknik-ozellikler`,
-      "en": `${SITE_URL}/en/teknik-ozellikler`,
-      "ar": `${SITE_URL}/ar/teknik-ozellikler`,
-      "fr": `${SITE_URL}/fr/teknik-ozellikler`,
-      "de": `${SITE_URL}/de/teknik-ozellikler`,
-        "ru": `${SITE_URL}/ru/teknik-ozellikler`,
-        "x-default": `${SITE_URL}/teknik-ozellikler`,
-    },
-  },
+const TITLES = {
+  tr: "Teknik Özellikler | Cami Halısı Standartları ve Sertifikalar",
+  en: "Technical Specifications | Mosque Carpet Standards and Certificates",
+  de: "Technische Daten | Moscheeteppich-Normen und Zertifikate",
+  fr: "Caractéristiques Techniques | Normes et Certificats des Tapis de Mosquée",
+  ar: "المواصفات الفنية | معايير وشهادات سجاد المساجد",
+  ru: "Технические Характеристики | Стандарты и Сертификаты Ковров для Мечетей",
 };
+
+const DESCRIPTIONS = {
+  tr: "Cami halısı teknik özellikleri, yangın sınıfı standartları, renk haslığı testleri, Bfl-s1 belgesi ve EN 13501-1 normu. Asil Halı teknik dökümanları.",
+  en: "Mosque carpet technical specifications, fire class standards, colour fastness tests, Bfl-s1 certificate and EN 13501-1 norm. Asil Halı technical documents.",
+  de: "Technische Spezifikationen für Moscheeteppiche, Brandschutzklassen, Farbechtheitstests, Bfl-s1-Zertifikat und EN-13501-1-Norm. Technische Dokumente von Asil Halı.",
+  fr: "Spécifications techniques des tapis de mosquée, classes de réaction au feu, tests de solidité des couleurs, certificat Bfl-s1 et norme EN 13501-1. Documents techniques Asil Halı.",
+  ar: "المواصفات الفنية لسجاد المساجد ومعايير درجة الحريق واختبارات ثبات اللون وشهادة Bfl-s1 ومعيار EN 13501-1. الوثائق الفنية لأصيل هالي.",
+  ru: "Технические характеристики ковров для мечетей, классы пожарной безопасности, тесты на стойкость цвета, сертификат Bfl-s1 и норма EN 13501-1. Технические документы Asil Halı.",
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return localizedMetadata({ path: "/teknik-ozellikler", locale, titles: TITLES, descriptions: DESCRIPTIONS });
+}
 
 const SPECS_TABLE = [
   { ozellik: "Yangın Sınıfı", deger: "Bfl-s1 (EN 13501-1)", aciklama: "AB yangın yönetmeliği ibadet yerleri standardı" },

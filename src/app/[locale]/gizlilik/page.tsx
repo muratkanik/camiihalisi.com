@@ -36,7 +36,7 @@ export async function generateMetadata({
   const canonical = locale === "tr" ? `${SITE_URL}/gizlilik` : `${SITE_URL}/${locale}/gizlilik`;
 
   return {
-    title: `${title} | Asil Halı`,
+    title,
     alternates: {
       canonical,
       languages: {

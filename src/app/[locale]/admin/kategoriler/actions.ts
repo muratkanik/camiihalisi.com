@@ -126,9 +126,17 @@ export async function getCategories(): Promise<CategoryWithOverride[]> {
     const defaults: Partial<CategoryOverride> = CATEGORY_DETAILS[cat.slug] ?? {};
     const override: Partial<CategoryOverride> = overrides.find((o) => o.slug === cat.slug) ?? {};
 
-    const nsKey = "categoryData." + cat.slug;
-    const catTrMessages = trMessagesCache[nsKey] || {};
-    const catUiOverrides = uiOverrides[nsKey]?.tr || {};
+    // messages/tr.json içinde categoryData nested olarak durur ({ categoryData: { [slug]: {...} } }),
+    // ui_translation_overrides ise next-intl'in flat-key nesting kuralına uyarak
+    // categoryData namespace'i altında "${slug}.${field}" şeklinde saklanır — bkz.
+    // src/i18n/request.ts#applyOverrides. İkisi de AYNI okuma biçimini kullanmalı.
+    const catTrMessages = trMessagesCache.categoryData?.[cat.slug] || {};
+    const catUiOverridesFlat = uiOverrides.categoryData?.tr || {};
+    const prefix = `${cat.slug}.`;
+    const catUiOverrides: Record<string, string> = {};
+    for (const [flatKey, value] of Object.entries(catUiOverridesFlat)) {
+      if (flatKey.startsWith(prefix)) catUiOverrides[flatKey.slice(prefix.length)] = value as string;
+    }
 
     const resolveNs = (key: string) => catUiOverrides[key] ?? catTrMessages[key] ?? "";
 
@@ -220,14 +228,19 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
     const uiSetting = await prisma.setting.findUnique({ where: { key: "ui_translation_overrides" } });
     const uiOverrides = uiSetting ? JSON.parse(uiSetting.value) : {};
     
-    const nsKey = "categoryData." + slug;
-    if (!uiOverrides[nsKey]) uiOverrides[nsKey] = {};
-    if (!uiOverrides[nsKey]["tr"]) uiOverrides[nsKey]["tr"] = {};
-    
-    if (title) uiOverrides[nsKey]["tr"]["title"] = title;
-    if (description) uiOverrides[nsKey]["tr"]["description"] = description;
-    if (longDescription) uiOverrides[nsKey]["tr"]["longDescription"] = longDescription;
-    if (metaDescription) uiOverrides[nsKey]["tr"]["metaDescription"] = metaDescription;
+    // next-intl flat-key nesting kuralı: namespace her zaman "categoryData", her
+    // kategori "${slug}.${field}" flat key'i altında saklanır (bkz. applyOverrides
+    // in src/i18n/request.ts). Namespace adının kendisine "." koymak next-intl'de
+    // INVALID_KEY hatasına yol açar — bu yüzden burada "categoryData." + slug
+    // kullanılmamalı.
+    if (!uiOverrides.categoryData) uiOverrides.categoryData = {};
+    if (!uiOverrides.categoryData["tr"]) uiOverrides.categoryData["tr"] = {};
+    const trBucket = uiOverrides.categoryData["tr"];
+
+    if (title) trBucket[`${slug}.title`] = title;
+    if (description) trBucket[`${slug}.description`] = description;
+    if (longDescription) trBucket[`${slug}.longDescription`] = longDescription;
+    if (metaDescription) trBucket[`${slug}.metaDescription`] = metaDescription;
 
     await prisma.setting.upsert({
       where: { key: "ui_translation_overrides" },
@@ -239,9 +252,9 @@ export async function saveCategoryAction(formData: FormData): Promise<void> {
     const defaults = CATEGORY_DETAILS[slug] ?? {};
     const mergedOverride = overrides.find((o) => o.slug === slug) ?? {};
     const kw = seoKeyword || (mergedOverride as CategoryOverride).seoKeyword || defaults.seoKeyword || slug.replace(/-/g, " ");
-    const seoTitle = title || uiOverrides[nsKey]["tr"]["title"] || "";
-    const seoDesc = longDescription || description || uiOverrides[nsKey]["tr"]["description"] || defaults.description || "";
-    const seoMeta = metaDescription || uiOverrides[nsKey]["tr"]["metaDescription"] || defaults.metaDescription || "";
+    const seoTitle = title || trBucket[`${slug}.title`] || "";
+    const seoDesc = longDescription || description || trBucket[`${slug}.description`] || defaults.description || "";
+    const seoMeta = metaDescription || trBucket[`${slug}.metaDescription`] || defaults.metaDescription || "";
     const seoScore = scorePage({
       keyword: kw,
       title: seoTitle,
